@@ -25,21 +25,19 @@ function App() {
 //Fetch Tasks
 
 const fetchTasks = async () => {
-  const res = await fetch('http://localhost:5000/tasks')
+  // const res = await fetch('http://localhost:5000/tasks')
   
-
-
+  const res = await fetch('https://task-tracker-api-v1eh.onrender.com/api')
   const data = await res.json()
-
   return data
 }
 
 
 //Fetch singular Task
 const fetchTask = async (id) => {
-  const res = await fetch(`http://localhost:5000/tasks/${id}`)
+  // const res = await fetch(`http://localhost:5000/tasks/${id}`)
+  const res = await fetch(`https://task-tracker-api-v1eh.onrender.com/api/${id}`)
   const data = await res.json()
-
   return data
 }
 
@@ -57,7 +55,8 @@ const addTask = async (task) => {
 
   
   
-  const res = await fetch(`http://localhost:5000/tasks`, {
+  // const res = await fetch(`http://localhost:5000/tasks`, {
+    const res = await fetch(`https://task-tracker-api-v1eh.onrender.com/createTask`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'      
@@ -78,7 +77,8 @@ const addTask = async (task) => {
 //Delete Task
 const deleteTask = async (id) => {
 
-  await fetch(`http://localhost:5000/tasks/${id}`, {
+  // await fetch(`http://localhost:5000/tasks/${id}`, {
+    await fetch(`https://task-tracker-api-v1eh.onrender.com/api/${id}`, {
     method: 'DELETE'
   })
 
@@ -90,7 +90,8 @@ const toggleReminder = async (id) => {
   const taskToToggle = await fetchTask(id)
   const updTask = {...taskToToggle, reminder: !taskToToggle.reminder}
 
-  const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+  // const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+    const res = await fetch(`https://task-tracker-api-v1eh.onrender.com/api/${id}`, {
     method: 'PUT',
     headers: {
       'Content-type': 'application/json'
