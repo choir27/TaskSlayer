@@ -56,7 +56,7 @@ const addTask = async (task) => {
   
   
   // const res = await fetch(`http://localhost:5000/tasks`, {
-    const res = await fetch(`https://task-tracker-api-v1eh.onrender.com/createTask`, {
+    const res = await fetch(`https://task-tracker-api-v1eh.onrender.com/api`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'      
