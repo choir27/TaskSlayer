@@ -53,10 +53,10 @@ const fetchTask = async (id) => {
 //Add Task
 const addTask = async (task) => {
 
-  
+    console.log(task)
   
   // const res = await fetch(`http://localhost:5000/tasks`, {
-    const res = await fetch(`https://task-tracker-api-v1eh.onrender.com/api`, {
+    const res = await fetch(`https://task-tracker-api-v1eh.onrender.com/createTask`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'      
@@ -82,7 +82,7 @@ const deleteTask = async (id) => {
     method: 'DELETE'
   })
 
-  setTasks(tasks.filter((task)=> task.id !== id))
+  setTasks(tasks.filter((task)=> task._id !== id))
 }
 
 // toggle reminder
@@ -101,7 +101,7 @@ const toggleReminder = async (id) => {
 
   const data = await res.json()
 
-  setTasks(tasks.map((task)=> task.id === id  ? 
+  setTasks(tasks.map((task)=> task._id === id  ? 
   {...task, reminder: data.reminder} : task))
 }
 
