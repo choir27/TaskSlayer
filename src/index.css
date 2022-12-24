@@ -1,292 +1,96 @@
-/* Reset
-   ========================================================================== */
+html{
+    font-size: 62.75%;
+}
 
+*, *:before, *:after{
+    box-sizing: inherit;
+}
 
-   html, body, div, span, applet, object, iframe,
-   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-   a, abbr, acronym, address, big, cite, code,
-   del, dfn, em, img, ins, kbd, q, s, samp,
-   small, strike, strong, sub, sup, tt, var,
-   b, u, i, center,
-   dl, dt, dd, ol, ul, li,
-   fieldset, form, label, legend,
-   table, caption, tbody, tfoot, thead, tr, th, td,
-   article, aside, canvas, details, embed,
-   figure, figcaption, footer, header, hgroup,
-   menu, nav, output, ruby, section, summary,
-   time, mark, audio, video {
-       margin: 0;
-       padding: 0;
-       border: 0;
-       font-size: 100%;
-       font: inherit;
-       vertical-align: baseline;
-   }
-   
-   article, aside, details, figcaption, figure,
-   footer, header, hgroup, menu, nav, section {
-       display: block;
-   }
-   body {
-       line-height: 1;
-   }
-   ol, ul {
-       list-style: none;
-   }
-   blockquote, q {
-       quotes: none;
-   }
-   blockquote:before, blockquote:after,
-   q:before, q:after {
-       content: '';
-       content: none;
-   }
-   table {
-       border-collapse: collapse;
-       border-spacing: 0;
-   }
-   
-/* Universal Code
-   ========================================================================== */
-   .group:before,
-   .group:after{
-       content: "";
-       display: table;
-   }
-   
-   :before{
-       clear:both;
-   }
-   
-   :after{
-       clear:both;
-       *zoom:1;
-   }
-   
-   *,
-   *:before,
-   *:after{
-    -webkit-box-sizing: border-box;
-           -moz-box-sizing: border-box;
-                    box-sizing: border-box;
-   }
-
-   html{
-    font-size: 62.5%;
-   }
-
-   .flex{
+body{
     display: flex;
-   }
-
-   .row{
-    flex-direction: row;
-   }
-
-   .column{
     flex-direction: column;
-   }
-
-   .justifyContent{
-    justify-content: center;
-   }
-
-   .alignItems{
     align-items: center;
-   }
-
-   .smallFont{
-    font-size: 1.5rem;
-   }
-
-   .regularFont{
-    font-size: 2rem;
-   }
-
-   .mediumFont{
-    font-size: 4rem;
-   }
-
-   .largeFont{
-    font-size: 6rem;
-   }
-
-
-   body{
-   font: 300 2rem/2rem "Open Sans" ,"Helvetica Neue," Helvetica, Arial;
-	font-family: 'Courgette', cursive, "Open Sans", "Helvetica" ;
-	color:#961d3a;
-	letter-spacing: 1px;
-	background: #f3c4d0;
-	background: radial-gradient(#f3c4d0,#f2bcc9,	#e26c88, #22060d);
-	background: -moz-radial-gradient(#f3c4d0,#f2bcc9,	#e26c88, #22060d);
-	background: -webkit-radial-gradient(#f3c4d0,#f2bcc9,	#e26c88, #22060d);
-	background-repeat: no-repeat;
-   }
-
-   .home{
-    background: url("assets/home/Heaven Background.png"), url('assets/home/Kalied Background.png'), radial-gradient(#f3c4d0,#f2bcc9,	#e26c88, #22060d);
-	background: url("assets/home/Heaven Background.png"), url('assets/home/Kalied Background.png'), -webkit-radial-gradient(#f3c4d0,#f2bcc9,	#e26c88, #22060d);
-	background: url("assets/home/Heaven Background.png"), url('assets/home/Kalied Background.png'), -moz-radial-gradient(#f3c4d0,#f2bcc9,	#e26c88, #22060d);
-	background-repeat: no-repeat, no-repeat;
-	background-position:  1% 18%, 97% 20%, 0px 0px;
-    background-size: 30%, 20%, 100%;
-   }
-
-   
-   a{
-    color: white;
-    text-decoration: none;
-    }
-
-    .button:hover{
-        color:#961d3a;
-        background-color: #b13d58;
-        background-color: rgba(202, 52, 87, 0.35);
-    }
-
-    .button:active{
-        box-shadow: 0px 0px 0px #22060d;
-    }
-
-    a:hover, i:hover{
-        color: black;
-    }
-
-/* Header
-   ========================================================================== */
-
-   #nav ul{
-    width: 100%;
-    padding: 2rem;
-    justify-content: space-around;
-   }
-
-   #nav{
-    margin-top: 3rem;
-   }
-
-   a.regularFont{
-    font-size: 4rem;
-   }
-
-   li{
-    list-style-type: none;
-    
-   }
-
-
-   header{
-    padding: 4rem 4rem 2rem 4rem;
-   }
-
-
-
-   footer, header{
-    background-color: #7b172f;
-    background-color: rgba(123, 23, 47,.35);
-   }
-
-
-   /* Section1
-   ========================================================================== */
-
-   #one{
-    padding: 4rem;
-   }
-
-   #one h2, #one p, #one.button{
-    margin-bottom: 4rem;
-   }
-
-   #one p{
-    width: 40%;
-   }
-
-   #one p, #two p{
+    font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+    background: url("assets/home/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-weight: 900;
+    letter-spacing: 0.075em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    vertical-align: baseline;
     text-align: center;
-    line-height: 3rem;
-   }
+    position: relative;
+}
 
-   #one img{
-    width: 100%;
-    margin-bottom: 5rem;
-   }
+#header{
+    min-height: 30vh;
+    padding: 8rem 4rem 0rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
-   .button{
-    border-radius: 5px;
-    padding: 2rem;
-    background-color: #7b172f;
-    background-color: rgba(123, 23, 47,.35);
-    box-shadow: 2px 2px 0px #22060d;
-   }
+#header a h1{
+    font-size: 5rem;
+    line-height: 1;
+    margin: 0 0 2rem 0;
+}
 
-   /* Section2
-   ========================================================================== */
 
-   #two{
-    background-color: #fdf4f6;
-    background-color: rgba(253, 244, 246, .35);
-    justify-content: space-around;
-    padding: 4rem;
-   }
-
-   #two h5{
-    margin-bottom: 3rem;
-    margin-top: 2rem;
-   }
-
-   #two section{
-    width: 30%;
-   }
-
-   #two div{
-    justify-content: space-around;
-   }
-
-   #two img{
-    width: 80%;
-   }
-
-  #two img, #two h3, #two p{
-    margin-bottom: 2rem;
-  } 
-
-  
-
-     /* Footer
-   ========================================================================== */
-
-  footer small{
-    letter-spacing: .2rem;
-    width: 20%;
-    color: white;
-  }
-
-   footer{
-    padding: 2rem;
-   }
-
-   #footer, #footer ul{
-    justify-content: space-around;
-   }
-
-   #footer li{
-    margin-right: 2rem;
-   }
-
-   #footer nav{
-    width: 30%;
-    justify-content: flex-end;
-   }
-
-   #footer small, #footer nav{
-    padding: .5rem;
-   }
-
-   
-footer i{
-    font-size: 3rem;
+a{
     color: white;
 }
 
+#one{
+    background-color: #ffffff;
+    z-index: 2;
+    color: black;
+    width: 92.3%;
+    margin: 0 auto;
+}
+
+#nav ul{
+    display: flex;
+}
+
+i{
+    color: white;
+}
+
+#nav{
+    display: flex;
+    justify-content: space-between;
+   line-height: 4rem;
+   height: 4rem;
+   overflow: hidden;
+    background: rgba(9, 1, 1, 0.75);
+    width: 100%;
+    margin: 0 auto;
+}
+
+a{
+    text-decoration: none;
+}
+
+
+
+.button{
+    -webkit-transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
+    border-radius: 0;
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;
+    color: #212931;
+    box-shadow: inset 0 0 0 2px #212931;
+    background-color: transparent;
+    padding: 0 2.75rem;
+    font-size: 1rem;
+    height: 3.75rem;
+    line-height: 3.75rem;
+}
+
+body *{
+    border: 1px solid black;
+}

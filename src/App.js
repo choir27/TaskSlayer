@@ -10,9 +10,9 @@ function App() {
     <>
     <Router>
     <div>
-      <Header />
+      <Header hori = {horizontalVertical} vert = {centerVertical}/>
       <Routes>
-        <Route path = '/' element = {<Home/>} />
+        <Route path = '/' element = {<Home vert = {centerVertical}/>} />
         <Route path = '/about' element = {<About/>} />
         <Route path = '/gameplay' element = {<Gameplay/>} />
         <Route path = '/contact' element = {<Contact/>} />
@@ -24,3 +24,11 @@ function App() {
 }
 
 export default App;
+
+const horizontalVertical ={
+  "display" : "flex", "alignItems": "center", "flexDirection": "row", "justifyContent": "center"
+}
+
+const centerVertical ={
+  "display" : "flex", "alignItems": "center", "flexDirection": "column", "justifyContent": "center"
+}

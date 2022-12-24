@@ -1,29 +1,28 @@
 import {Link} from 'react-router-dom'
-import Sitonai from "../assets/home/sitonai.jpg"
 import Gameplay from "../assets/home/Gameplay.PNG"
 import IllyaUBW from "../assets/home/Heaven Fanart.jpg"
 import IllyaPrismaMovie from "../assets/home/Drawing.jpg"
 import Button from "../components/Button"
 
-const Home = () => {
-
-   const regular = 'regularFont'
-   const medium = 'mediumFont'
-
+const Home = (centerVertical) => {
   return (
-<div className = 'home'>
-   <section id = 'one' className = 'flex column alignItems'>
+<div id = 'one'>
+   <section style = {centerVertical}>
 
-      <h2 className = {medium}>Who is Illya?</h2>
-      <p className = {regular}>A wholesome site dedicated to the cutest student and sister servant; with her cute design, cute voice, and cute outfits, this site introduces it all.</p>
-      <Link to = "/about" className = 'flex column alignItems'>
-<img src = {Sitonai} alt = 'sitonai fan art'/>
-<Button text = 'Click here to find out more!' cName = {"button " + regular} />
+      <h2>Who is Illya?</h2>
+      <p >A wholesome site dedicated to the cutest student and sister servant; with her cute design, cute voice, and cute outfits, this site introduces it all.</p>
+      <Link to = "/about">
+<Button text = 'Click here to find out more!' cName = {"button"} />
 </Link>
    </section>
+   </div>
 
+     )
+}
 
-   <section id = 'two' className = 'flex column alignItems'>
+export default Home
+
+{/* <section id = 'two' className = 'flex column alignItems'>
    <div className = 'flex row'>
 <section className = "flex column alignItems justifyContent">
 <h5 className = {medium}>Contact</h5>
@@ -55,12 +54,4 @@ const Home = () => {
 </section>
 
 </div>
-   </section>
-
-
-   </div>
-
-     )
-}
-
-export default Home
+   </section> */}
