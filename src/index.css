@@ -21,6 +21,7 @@ body{
     vertical-align: baseline;
     text-align: center;
     position: relative;
+    font-size: 2rem;
 }
 
 #header{
@@ -43,7 +44,13 @@ a{
 }
 
 #one{
-    background-color: #ffffff;
+    min-height: 100vh;
+    background: url("assets/home/Heaven Background.png"), url('assets/home/Kalied Background.png'), rgba(253, 253, 253, .50);
+    background: url("assets/home/Heaven Background.png"), url('assets/home/Kalied Background.png'), rgba(253, 253, 253, .50);
+    background: url("assets/home/Heaven Background.png"), url('assets/home/Kalied Background.png'), rgba(253, 253, 253, .50);
+    background-repeat: no-repeat, no-repeat;
+    background-position:  1% 18%, 97% 20%, 0px 0px;
+    background-size: 30%, 20%, 100%;
     z-index: 2;
     color: black;
     width: 92.3%;
@@ -65,15 +72,22 @@ i{
    height: 4rem;
    overflow: hidden;
     background: rgba(9, 1, 1, 0.75);
-    width: 100%;
+    width: 96.3%;
     margin: 0 auto;
+    padding: 1rem;
+}
+
+#links li{
+    margin: 0 2rem;
 }
 
 a{
     text-decoration: none;
 }
 
-
+h2{
+    font-size: 2.5rem;
+}
 
 .button{
     -webkit-transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
@@ -86,9 +100,13 @@ a{
     box-shadow: inset 0 0 0 2px #212931;
     background-color: transparent;
     padding: 0 2.75rem;
-    font-size: 1rem;
+    font-size: 1.5rem;
     height: 3.75rem;
     line-height: 3.75rem;
+}
+
+.button:hover{
+    color: white;
 }
 
 body *{

@@ -6,7 +6,7 @@ const Header = ({vert}) => {
     <header id = 'header'>
       <Link style = {vert} to = '/'><h1>Illya Fansite</h1></Link>
         <nav id = 'nav'>
-          <ul>
+          <ul id = 'links'>
             <li><Link style = {vert} to = '/'>Home</Link></li>
             <li><Link style = {vert} to = '/about'>About</Link></li>
             <li> <Link style = {vert} to = '/gameplay'>Gameplay</Link></li>
