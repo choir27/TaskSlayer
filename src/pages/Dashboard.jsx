@@ -1,13 +1,12 @@
 import Header from "../components/Header"
 
-
-const Gameplay = () => {
+const Dashboard = () => {
   return (
     <div>
-  <Header />
-Gameplay
+      <Header />
+Dashboard
 </div>
   )
 }
 
-export default Gameplay
+export default Dashboard
