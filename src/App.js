@@ -1,8 +1,7 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Home from "./pages/Home"
 import About from "./pages/About"
-import Media from "./pages/Media"
-import Gameplay from "./pages/Gameplay"
+import Account from "./pages/Account"
 import Dashboard from "./pages/Dashboard"
 
 function App() {
@@ -13,8 +12,7 @@ function App() {
       <Routes>
         <Route path = '/' element = {<Home vert = {centerVertical}/>} />
         <Route path = '/about' element = {<About/>} />
-        <Route path = '/gameplay' element = {<Gameplay/>} />
-        <Route path = '/media' element = {<Media/>} />
+        <Route path = '/account' element = {<Account/>} />
         <Route path = '/dashboard' element = {<Dashboard/>} />
 
       </Routes>

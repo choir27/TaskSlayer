@@ -29,11 +29,15 @@ const Footer = () => {
         <section>
             <h3>Social</h3>
             <ul className="icons alt">
-                <li><a href="https://twitter.com/choir241" className="icon fa-twitter"></a></li>
-                <li><a href="https://www.linkedin.com/in/richard-choir/" className="icon fa-linkedin"></a></li>
-                <li><a href="https://www.instagram.com/225kh_drw/?hl=en" className="icon fa-instagram"></a></li>
-                <li><a href="https://github.com/choir27" className="icon fa-github"></a></li>
+                <li><a rel="noreferrer" target = '_blank' href="https://twitter.com/choir241" className="icon fa-twitter"><p className = 'hidden'>Twitter</p></a></li>
+                <li><a rel="noreferrer" target = '_blank' href="https://www.linkedin.com/in/richard-choir/" className="icon fa-linkedin"><p className = 'hidden'>LinkedIn</p></a></li>
+                <li><a rel="noreferrer" target = '_blank' href="https://www.instagram.com/225kh_drw/?hl=en" className="icon fa-instagram"><p className = 'hidden'>Instagram</p></a></li>
+                <li><a rel="noreferrer" target = '_blank' href="https://github.com/choir27" className="icon fa-github"><p className = 'hidden'>Github</p></a></li>
             </ul>
+        </section>
+        <section>
+            <h3>Portfolio</h3>
+            <p><a rel="noreferrer" target = '_blank' href = 'https://choir.netlify.app/'>My Portfolio</a></p>
         </section>
     </section>
 </footer>

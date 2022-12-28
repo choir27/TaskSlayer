@@ -3,21 +3,26 @@ import {Link} from "react-router-dom"
 const Header = ({vert}) => {
 
   return ( 
+<header>
+	<div id = 'intro' >
+	<Link to = '/'><h1>Illya Fansite</h1></Link>
+	  </div> 
+
         <nav id="nav">
 			<ul className="links">
               	<li><Link style = {vert} to = '/'>Home</Link></li>
               	<li><Link style = {vert} to = '/about'>About</Link></li>
 				<li><Link style = {vert} to = '/dashboard'>Dashboard</Link></li>
-              	<li><Link style = {vert} to = '/gameplay'>Gameplay</Link></li>
-              	<li><Link style = {vert} to = '/media'>Media</Link></li>
+              	<li><Link style = {vert} to = '/account'>Account</Link></li>
 			</ul>
 			<ul className="icons alt">
-				<li><a href="https://twitter.com/choir241" className="icon fa-twitter"></a></li>
-				<li><a href="https://www.linkedin.com/in/richard-choir/" className="icon fa-linkedin"></a></li>
-				<li><a href="https://www.instagram.com/225kh_drw/?hl=en" className="icon fa-instagram"></a></li>
-				<li><a href="https://github.com/choir27" className="icon fa-github"></a></li>
+				<li><a rel="noreferrer" target = '_blank' href="https://twitter.com/choir241" className="icon fa-twitter"><p className = 'hidden'>Twitter</p></a></li>
+				<li><a rel="noreferrer" target = '_blank' href="https://www.linkedin.com/in/richard-choir/" className="icon fa-linkedin"><p className = 'hidden'>LinkedIn</p></a></li>
+				<li><a rel="noreferrer" target = '_blank' href="https://www.instagram.com/225kh_drw/?hl=en" className="icon fa-instagram"><p className = 'hidden'>Instagram</p></a></li>
+				<li><a rel="noreferrer" target = '_blank' href="https://github.com/choir27" className="icon fa-github"><p className = 'hidden'>Github</p></a></li>
 			</ul>
 		</nav>
+		</header>
   )
 }
 
