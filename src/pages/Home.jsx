@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom'
 import Header from "../components/Header"
+import Button from "../components/Button"
 import HeavenArt from "../assets/home/Heaven Fanart.jpg"
 import Drawing from "../assets/home/Drawing.jpg"
 import Melusine from "../assets/home/melusine.jpg"
@@ -22,7 +23,7 @@ const Home = () => {
 									<a href="/account" className="image main"><img src= {Melusine} alt="" /></a>
 
 									<ul className = 'special'>
-									<li><a href="/account" className="button large">Here for More!</a></li>
+									<li><Button domain = '/account' size = 'large' cname = 'button' text = 'Here for More!'/></li>
 									</ul>
 
 						</article>
@@ -37,7 +38,7 @@ const Home = () => {
 								
 								</header>
 								<ul className="special">
-									<li><Link to="/dashboard" className="button large">See Dashboard</Link></li>
+									<li><Button domain = '/dashboard' size = 'large' cname = 'button' text = 'See Dashboard'/></li>
 								</ul>
 							</article>
 

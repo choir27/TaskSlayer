@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
+import {Link} from "react-router-dom"
 
-const Button = ({cName, text}) => {
+const Button = ({domain, cname, size, text, onClick}) => {
   return (
-    <button className = {cName}>{text}</button>  )
+<Link to={domain} className={cname + ' ' + size} onClick = {onClick}>{text}</Link>
+  )
 }
 
 Button.propTypes = {
