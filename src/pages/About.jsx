@@ -10,17 +10,14 @@ const About = () => {
   const [audio, setAudio] = useState(false);
   const [currentAudio, setCurrentAudio] = useState("");
 
-  let audioElement = useRef({});
+  let audioPlayer = useRef({});
 
   useEffect(() => {
-    const addAudio = async() =>{
       try{
-        audioElement.current = new Audio(currentAudio);
+        audioPlayer.current = new Audio(currentAudio);
       }catch(err){
         throw new Error(err)
       }
-    }
-    addAudio()
   }, [currentAudio]);
 
   const handlePlayAudio = (audioFile) => {
@@ -28,7 +25,7 @@ const About = () => {
     setCurrentAudio(audioFile);
   };
 
-  const audioAddition = (file) =>{
+  const toggleAudio = (file) =>{
     audio ? alert('Audio is off') : handlePlayAudio(file)
   }
 
@@ -57,7 +54,6 @@ const About = () => {
               value = {audio} 
               onChange = {(e)=>{
                 setAudio(e.currentTarget.checked)
-                setCurrentAudio('')
               }}/>
 
             </div>
@@ -67,6 +63,7 @@ const About = () => {
               <img 
                 src = {Assets.HeavenSmile} 
                 alt = 'Illya gif of her smiling and twirling around'
+                loading="lazy"
               />
 
               <ul className = 'special'>
@@ -76,9 +73,8 @@ const About = () => {
                 size = 'large' 
                 text = 'Change'
                 onClick={(e)=>{
-                console.log(audioElement)
                 e.preventDefault()
-                audioAddition(Assets.BerserkerAudio)
+                toggleAudio(Assets.BerserkerAudio)
                 }} />
                 </li>
               </ul>
@@ -91,10 +87,9 @@ const About = () => {
                 size = 'large' 
                 text = 'Play'
                 onClick={(e)=>{
-                console.log(audioElement)
                 e.preventDefault()
                 try{
-                  audioElement.current.play()
+                  audioPlayer.current.play()
                 }
                 catch(err){
                   console.error(err)
@@ -113,7 +108,7 @@ const About = () => {
                     onClick = {(e)=>{
                       try{
                       e.preventDefault()
-                      audioElement.current.pause()
+                      audioPlayer.current.pause()
                       }catch(err){
                         console.error(err)
                       }
@@ -131,6 +126,7 @@ const About = () => {
               <img 
                 src = {Assets.IllyaCat} 
                 alt = 'Illya with cat ears with a bit of a perplexed expression'
+                loading="lazy"
               />
 
              
@@ -142,7 +138,7 @@ const About = () => {
                   text = 'Change'
                   onClick={(e)=>{
                   e.preventDefault()
-                  audioAddition(Assets.IllyaArcherAudio)
+                  toggleAudio(Assets.IllyaArcherAudio)
                   }} />
                 </li>
               </ul>
@@ -155,10 +151,9 @@ const About = () => {
                 size = 'large' 
                 text = 'Play'
                 onClick={(e)=>{
-                console.log(audioElement)
                 e.preventDefault()
                 try{
-                  audioElement.current.play()
+                  audioPlayer.current.play()
                 }
                 catch(err){
                   console.error(err)
@@ -175,10 +170,9 @@ const About = () => {
                     size ='large' 
                     text = 'pause' 
                     onClick = {(e)=>{
-                      console.log(audioElement)
                       try{
                       e.preventDefault()
-                      audioElement.current.pause()
+                      audioPlayer.current.pause()
                       }catch(err){
                         console.error(err)
                       }
@@ -197,6 +191,7 @@ const About = () => {
           <img 
           src = {Assets.Believe} 
           alt = 'Illya believes and makes a fist'
+          loading="lazy"
           />
 
           <ul className = 'special'>
@@ -208,10 +203,10 @@ const About = () => {
               text = 'Play'
               onClick={(e)=>{
               e.preventDefault()
-              audioAddition(Assets.IllyaCasterAudio)
+              toggleAudio(Assets.IllyaCasterAudio)
 
               try{
-                audioElement.current.play()
+                audioPlayer.current.play()
               }
 
               catch(err){
@@ -232,7 +227,7 @@ const About = () => {
                     onClick = {(e)=>{
                       try{
                       e.preventDefault()
-                      audioElement.current.pause()
+                      audioPlayer.current.pause()
                       }catch(err){
                         console.error(err)
                       }
@@ -248,7 +243,9 @@ const About = () => {
         <div className = 'image flex justifyContent'>
           <img 
           src = {Assets.Freakout} 
-          alt = 'Illya freaking out and grabbing her head by the sides with both hands'/>
+          alt = 'Illya freaking out and grabbing her head by the sides with both hands'
+          loading="lazy"
+          />
 
           <ul className = 'special'>
             <li className = 'flex column justifyContent'>
@@ -259,10 +256,10 @@ const About = () => {
               text = 'Play'
               onClick={(e)=>{
               e.preventDefault()
-              audioAddition(Assets.Sitonai)
+              toggleAudio(Assets.Sitonai)
 
               try{
-                audioElement.current.play()
+                audioPlayer.current.play()
               }
 
               catch(err){
@@ -283,7 +280,7 @@ const About = () => {
                 onClick = {(e)=>{
                   try{
                   e.preventDefault()
-                  audioElement.current.pause()
+                  audioPlayer.current.pause()
                   }catch(err){
                     console.error(err)
                   }
@@ -301,6 +298,7 @@ const About = () => {
           <img 
           src = {Assets.IllyaCute} 
           alt = 'Illya finds a walnut on a snow tree'
+          loading="lazy"
           />
 
           <ul className = 'special'>
@@ -312,10 +310,10 @@ const About = () => {
               text = 'Play'
               onClick={(e)=>{
               e.preventDefault()
-              audioAddition(Assets.WalnutGame)
+              toggleAudio(Assets.WalnutGame)
 
               try{
-                audioElement.current.play()
+                audioPlayer.current.play()
               }
 
               catch(err){
@@ -336,7 +334,7 @@ const About = () => {
                 onClick = {(e)=>{
                   try{
                   e.preventDefault()
-                  audioElement.current.pause()
+                  audioPlayer.current.pause()
                   }catch(err){
                     console.error(err)
                   }

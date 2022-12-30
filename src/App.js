@@ -1,13 +1,16 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import Home from "./pages/Home"
-import About from "./pages/About"
-import Account from "./pages/Account"
-import Dashboard from "./pages/Dashboard"
 import PropTypes from 'prop-types';
+import React, { Suspense } from 'react';
 
 function App() {
+
+  const Home = React.lazy(() => import('./pages/Home'));
+  const About = React.lazy(() => import('./pages/About'));
+  const Dashboard = React.lazy(() => import('./pages/Dashboard'));
+  const Account = React.lazy(() => import('./pages/Account'));
+
   return (
-    <>
+    <Suspense fallback={<div><p>Loading...</p></div>}>
     <Router>
       <Routes>
         <Route exact path="/" element={<Home css={centerVertical} />} />
@@ -16,7 +19,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
-    </>
+    </Suspense>
   );
 }
 

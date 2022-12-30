@@ -25,6 +25,7 @@ const Home = () => {
 				<img 
 					src= {Assets.Melusine} 
 					alt="Melusine fan art with moon in the background" 
+					loading="lazy"
 				/>
 			</Link>
 
@@ -60,6 +61,7 @@ const Home = () => {
 						<img 
 							src= {Assets.Drawing} 
 							alt="Illya Prisma Movie Art Artoria Skin" 
+							loading="lazy"
 						/>
 						</Link>
 
@@ -98,6 +100,7 @@ const Home = () => {
 							<img 
 								src= {Assets.HeavenArt} 
 								alt="Illya fanart in the forest with a blue bird in all varying blue color pallettes" 
+								loading="lazy"
 					/>
 					</Link>
 
