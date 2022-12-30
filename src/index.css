@@ -1606,3 +1606,6 @@ a#navPanelToggle{
 	color: white;
 }
 
+#imageContainer{
+	justify-content: space-around;
+}

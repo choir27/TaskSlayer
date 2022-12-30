@@ -10,6 +10,9 @@ import IllyaCasterAudio from "../assets/about/audio/caster.mp3";
 import Sitonai from "../assets/about/audio/sitonai.mp3";
 import WalnutGame from "../assets/about/audio/walnutGame.mp3";
 
+import HeavenArt from "../assets/home/Heaven Fanart.jpg"
+import Drawing from "../assets/home/Drawing.jpg"
+import Melusine from "../assets/home/melusine.jpg" 
 
 const Assets = {
 HeavenSmile,
@@ -17,6 +20,10 @@ IllyaCat,
 Believe,
 Freakout,
 IllyaCute,
+
+HeavenArt,
+Drawing,
+Melusine,
 
 BerserkerAudio,
 IllyaArcherAudio,
