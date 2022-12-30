@@ -14,9 +14,9 @@ const Home = () => {
 		<article className = 'post featured'>
 			<section className = 'major'>
 
-				<h2 className = 'flex justifyContent'>
+				<h1 className = 'flex justifyContent'>
 					<Link to = '/'>Welcome to the Illya Site!</Link>
-				</h2>
+				</h1>
 
 				<p>A wholesome site dedicated to the cutest student and sister servant Illyasviel Von Einzbern; with her cute design, voice, and outfits, this site introduces it all.  Register/Login to see exclusive content made from our various users!</p>
 			</section>
@@ -111,7 +111,7 @@ const Home = () => {
 				<ul className="special">
 					<li>
 						<Button 
-							domain = '/account' 
+							domain = '/about' 
 							size = 'large' 
 							cname = 'button' 
 							text = 'Here for More!'

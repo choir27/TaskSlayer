@@ -1606,6 +1606,22 @@ a#navPanelToggle{
 	color: white;
 }
 
-#imageContainer{
-	justify-content: space-around;
+.imageContainer{
+	padding: 2rem;
 }
+
+
+.containerBox{
+	padding: 2rem;
+	justify-content: space-around;
+	display: flex;
+	flex-direction: row;
+}
+
+
+
+
+#account.post form{
+	padding-top: 4rem;
+}
+
