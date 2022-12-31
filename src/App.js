@@ -8,6 +8,7 @@ function App() {
   const About = React.lazy(() => import('./pages/About'));
   const Dashboard = React.lazy(() => import('./pages/Dashboard'));
   const Account = React.lazy(() => import('./pages/Account'));
+  const Login = React.lazy(() => import('./pages/Login'));
 
   return (
     <Suspense fallback={<div><p>Loading...</p></div>}>
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home css={centerVertical} />} />
         <Route path="/about" element={<About />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/account" element={<Account />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
