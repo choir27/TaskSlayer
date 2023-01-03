@@ -3,11 +3,13 @@ const validator = require("validator");
 const User = require("../models/User");
 const bcrypt = require('bcrypt')
 
-exports.getLogin = (req, res) => {
-  if (req.user) {
-    res.json({msg: 'logged in!'})
-  }
-};
+
+
+// exports.getLogin = (req, res) => {
+//   if (req.user) {
+//     res.json({msg: 'logged in!'})
+//   }
+// };
 
 exports.postLogin = (req, res, next) => {
   
@@ -68,11 +70,11 @@ exports.logout = (req, res) => {
   });
 };
 
-exports.getSignup = (req, res) => {
-  if (req.user) {
-    res.json({msg: 'account created'})
-  }
-};
+// exports.getSignup = (req, res) => {
+//   if (req.user) {
+//     res.json({msg: 'account created'})
+//   }
+// };
 
 exports.postSignup = (req, res, next) => {
   if (!validator.isEmail(req.body.email)){
@@ -128,4 +130,3 @@ exports.postSignup = (req, res, next) => {
     }
   );
 };
-

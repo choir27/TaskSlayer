@@ -13,7 +13,7 @@ const Header = () => {
               	<li><Link to = '/'>Home</Link></li>
               	<li><Link to = '/about'>About</Link></li>
 				<li><Link to = '/dashboard'>Dashboard</Link></li>
-              	<li><Link to = '/account'>Account</Link></li>
+              	<li><Link to = '/register'>Register</Link></li>
 			</ul>
 			<ul className="icons alt">
 				<li><a rel="noreferrer" target = '_blank' href="https://twitter.com/choir241" className="icon fa-twitter"><p className = 'hidden'>Twitter</p></a></li>
