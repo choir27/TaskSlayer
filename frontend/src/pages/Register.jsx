@@ -1,25 +1,58 @@
 import Header from "../components/Header"
 import Footer from "../components/Footer";
 import Button from "../components/Button"
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+import {useNavigate} from "react-router-dom"
+import {toast} from "react-toastify"
+
 const Register = ( {onAdd} ) => {
+
   const [name , setName] = useState('')
   const [email , setEmail] = useState('')
   const [password , setPassword] = useState('')
   const [confirmPassword , setConfirmPassword] = useState('')
+  const [users, setUsers] = useState([])
+
+  const navigate = useNavigate()
+
+  useEffect( () => {
+    const getUsers = async () => {
+      const usersFromServer = await fetchTasks()
+      setUsers(usersFromServer)
+    }
+
+    getUsers()
+  }, [])
+
+//Fetch Tasks
+
+const fetchTasks = async () => {
+  const res = await fetch('http://localhost:8000/api')
+  
+  // const res = await fetch('https://task-tracker-api-v1eh.onrender.com/api')
+  const data = await res.json()
+  return data
+}
+
+
+const checkForEmailDuplicates = (emailAddress) =>{
+  console.log(users[0].email)
+}
 
   const onSubmit = (e) => {
     e.preventDefault()
 
+    checkForEmailDuplicates(email)
+
     let errors = []
 
     if(!name){
-        alert('Please add your name')
+      toast.error('Please add your name')
         errors.push('1')
     }
     
     if(!email){
-      alert('Please add your email')
+      toast.error('Please add your email')
       errors.push('1')
     }
 
@@ -27,34 +60,33 @@ const Register = ( {onAdd} ) => {
     const mail = email.split('@')[0]
     const symbols = ["!", "#", "$", "%" ,"&", " ' " , "*", "+" , "-", "/", "=" , "?", "^", "_", " ` " , " {", "|" , "\\" , "\"", "(" , ")" ,  "," , ":" , ";" , "<" ,">" , "@", "[" ,"]"]
     if(symbols.includes(mail[0]) || symbols.includes(mail[mail.length-1])){
-      alert("Symbols cannot be placed as the first or last character for the first part of your email before the \"@\" symbol" )
+      toast.error("Symbols cannot be placed as the first or last character for the first part of your email before the \"@\" symbol" )
     }
 
     if(!password){
-      alert('Please add a password')
+      toast.error('Please add a password')
       errors.push('1')
     }
 
     if(!confirmPassword){
-      alert('Please confirm your password')
+      toast.error('Please confirm your password')
       errors.push('1')
     }
 
     if(password !== confirmPassword){
-      alert("Passwords do not match, please try again")
+      toast.error("Passwords do not match, please try again")
       errors.push('1')
     }
 
     if(password.length < 8 || confirmPassword < 8){
-      alert('Password needs to be at least 8 characters long')
+      toast.error('Password needs to be at least 8 characters long')
       errors.push('1')
     }
 
     if(errors.length > 0){
       return 'Error'
     }
-
-
+    
     
     onAdd({ name, email, password, confirmPassword})
 
@@ -63,7 +95,11 @@ const Register = ( {onAdd} ) => {
     setEmail('')
     setPassword('')
     setConfirmPassword('')
-}
+
+    navigate('/Account')
+}  
+
+
 
   return (
    <div>

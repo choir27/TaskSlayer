@@ -1,6 +1,8 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import React, { Suspense } from 'react';
 import { useState } from 'react'
+import {ToastContainer} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 function App() {
 
@@ -12,6 +14,8 @@ function App() {
   const Dashboard = React.lazy(() => import('./pages/Dashboard'));
   const Register = React.lazy(() => import('./pages/Register'));
   const Login = React.lazy(() => import('./pages/Login'));
+  const Account = React.lazy(() => import('./pages/Account'));
+
 
   const registerUser = async (user) => {
   
@@ -38,8 +42,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register onAdd = {registerUser}/>} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/account" element={<Account />} />
       </Routes>
     </Router>
+    <ToastContainer />
     </Suspense>
   );
 }

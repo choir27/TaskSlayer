@@ -5,7 +5,7 @@ const MongoClient = require('mongodb').MongoClient
 require("dotenv").config();
 
 let db,
-dbName = 'users'
+dbName = 'test'
 
 MongoClient.connect(process.env.MONGO_URI, { useUnifiedTopology: true })
     .then(client => {
@@ -14,17 +14,14 @@ MongoClient.connect(process.env.MONGO_URI, { useUnifiedTopology: true })
 
 
 //Main Routes - simplified for now
-// router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
-// router.get("/signup", authController.getSignup);
 router.post("/register", authController.postSignup);
-
 router.get('/api',(req,res)=>{
     db.collection('users').find().toArray()
     .then(data=>{
         res.json(data)
-    })
+    }).catch(err =>console.error(err))
 })
 
 module.exports = router;
