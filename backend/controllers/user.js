@@ -99,6 +99,7 @@ exports.postSignup = (req, res, next) => {
       }
       if (existingUser) {
         res.status(400)
+        console.log(existingUser)
         return next('User Already Exists')
       }
       user.save((err) => {

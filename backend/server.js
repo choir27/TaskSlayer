@@ -7,6 +7,7 @@ const connectDB = require("./config/database");
 const session = require('express-session');
 const MongoStore = require('connect-mongo')
 const cors = require('cors')
+const { OAuth2Client } = require('google-auth-library')
 const mainRoutes = require("./routes/user");
 const PORT = 8000
 const authRoutes =  require('./routes/auth')
@@ -23,7 +24,10 @@ require("./config/passport")(passport);
 //Connect To Database
 connectDB();
 
-app.use(cors())
+app.use(cors({
+  origin: ['http://localhost:3000'],
+  methods: "GET, POST, GET, DELETE, OPTIONS"
+}))
 
 //Body Parsing
 app.use(express.urlencoded({ extended: true }));
@@ -47,6 +51,14 @@ app.use(session({
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+//set global variable
+app.use(function (req,res,next) {
+  res.locals.user = req.user || null
+  next()
+})
+
 
 //Setup Routes For Which The Server Is Listening
 app.use("/", mainRoutes);

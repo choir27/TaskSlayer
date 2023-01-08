@@ -36,6 +36,7 @@ const fetchTasks = async () => {
 
 
 const checkForEmailDuplicates = (emailAddress) =>{
+  
   console.log(users[0].email)
 }
 
