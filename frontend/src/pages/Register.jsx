@@ -10,6 +10,7 @@ const Register = ( {onAdd} ) => {
   const [name , setName] = useState('')
   const [email , setEmail] = useState('')
   const [password , setPassword] = useState('')
+  const [userName, setUserName] = useState('')
   const [confirmPassword , setConfirmPassword] = useState('')
   const [users, setUsers] = useState([])
 
@@ -34,18 +35,15 @@ const fetchTasks = async () => {
   return data
 }
 
-
-const checkForEmailDuplicates = (emailAddress) =>{
-  
-  console.log(users[0].email)
-}
-
   const onSubmit = (e) => {
-    e.preventDefault()
-
-    checkForEmailDuplicates(email)
+    e.preventDefault()  
 
     let errors = []
+
+    if(!userName){
+      toast.error('Please add an username')
+      errors.push('1')
+    }
 
     if(!name){
       toast.error('Please add your name')
@@ -84,14 +82,25 @@ const checkForEmailDuplicates = (emailAddress) =>{
       errors.push('1')
     }
 
+
+    if(users){
+      for(let i = 0; i <users.length; i++){
+        if(users[i].email === email){
+          toast.error('Email Address already exists')
+         errors.push('1')
+        }
+      }
+  
+    }
+
     if(errors.length > 0){
       return 'Error'
     }
     
     
-    onAdd({ name, email, password, confirmPassword})
+    onAdd({ userName, name, email, password, confirmPassword})
 
-
+    setUserName('')
     setName('')
     setEmail('')
     setPassword('')
@@ -116,6 +125,10 @@ const checkForEmailDuplicates = (emailAddress) =>{
                 <div className="field">
                     <label>Name</label>
                     <input type="text" name  ='name' value = {name} placeholder ='Enter your name' onChange = {(e)=>setName(e.target.value)}/>
+                </div>
+                <div className="field">
+                    <label>User Name</label>
+                    <input type="text" name  ='userName' value = {userName} placeholder ='Enter your user name' onChange = {(e)=>setUserName(e.target.value)}/>
                 </div>
                 <div className="field">
                     <label>Email</label>
