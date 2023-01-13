@@ -6,26 +6,20 @@ const bcrypt = require('bcrypt')
 
 exports.postLogin = (req, res, next) => {
   
-  if (!validator.isEmail(req.body.email)){
-    res.status(400)
-    return next("Please enter a valid email address." )
-  }
-  if (validator.isEmpty(req.body.password)){
-    res.status(400)
-    return next( "Password cannot be blank.")
-  }
-
-
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
   });
 
-  passport.authenticate("local", (err, user, info) => {
+  passport.authenticate("local", (err, user) => {
     if (err) {
+      console.log(err)
       res.status(400)
       return next('Incorrect Login Credentials')
         }
+        console.log(err)
+        console.log(user)
     if (!user) {
+      console.log(user)
       res.status(400)
       return next('Incorrect Login Credentials')
     }
@@ -35,6 +29,7 @@ exports.postLogin = (req, res, next) => {
       const {email, password} = req.body
 
       if (err) {
+        console.log(err)
         res.status(400)
         return next('Incorrect Login Credentials')
       }
@@ -45,6 +40,7 @@ exports.postLogin = (req, res, next) => {
         res.json({msg: 'logged in!'})
      }else{
       res.status(400)
+      console.log(email)
       return next('Incorrect Login Credentials')
      }
 
@@ -64,37 +60,25 @@ exports.logout = (req, res) => {
 };
 
 exports.postSignup = (req, res, next) => {
-  if (!validator.isEmail(req.body.email)){
-    res.status(400)
-    return next("Please enter a valid email address.") 
-  }
-  if (!validator.isLength(req.body.password, { min: 8 })){
-    res.status(400)
-    return next("Password must be at least 8 characters long") 
-  } 
-
-
-  if (req.body.password !== req.body.confirmPassword){
-    res.status(400)
-    validationErrors.push({ msg: "Passwords do not match" });
-    return next("Passwords do not match")
-  }
 
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
   });
 
   const user = new User({
-    userName: req.body.userName,
+    name: req.body.name,
     email: req.body.email,
+    userName: req.body.userName,
+    confirmPassword: req.body.confirmPassword,
     password: req.body.password,
   });
 
   User.findOne(
-    { $or: [{ email: req.body.email }, { userName: req.body.userName }] },
+    { $or: [{ email: req.body.email }] },
     (err, existingUser) => {
       if (err) {
         res.status(400)
+        console.log(err)
         return next('Incorrect Login Credentials')
       }
       if (existingUser) {
@@ -105,11 +89,13 @@ exports.postSignup = (req, res, next) => {
       user.save((err) => {
         if (err) {
           res.status(400)
+          console.log(err)
           return next('Incorrect Login Credentials')
         }
         req.logIn(user, (err) => {
           if (err) {
             res.status(400)
+            console.log(err)
             return next('Incorrect Login Credentials')
           }
           res.json({msg: 'account created'})

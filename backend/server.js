@@ -7,10 +7,8 @@ const connectDB = require("./config/database");
 const session = require('express-session');
 const MongoStore = require('connect-mongo')
 const cors = require('cors')
-const { OAuth2Client } = require('google-auth-library')
 const mainRoutes = require("./routes/user");
 const PORT = 8000
-const authRoutes =  require('./routes/auth')
 
 
 //Use .env file in config folder
@@ -62,7 +60,6 @@ app.use(function (req,res,next) {
 
 //Setup Routes For Which The Server Is Listening
 app.use("/", mainRoutes);
-app.use('/auth', authRoutes)
 
 //Server Running
 app.listen(process.env.PORT || PORT, () => {

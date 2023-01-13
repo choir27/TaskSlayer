@@ -3,6 +3,7 @@ const router = express.Router();
 const authController = require("../controllers/user");
 const MongoClient = require('mongodb').MongoClient
 require("dotenv").config();
+const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 let db,
 dbName = 'test'
@@ -15,7 +16,7 @@ MongoClient.connect(process.env.MONGO_URI, { useUnifiedTopology: true })
 
 //Main Routes - simplified for now
 router.post("/login", authController.postLogin);
-router.get("/logout", authController.logout);
+router.get("/logout", ensureAuth, authController.logout);
 router.post("/register", authController.postSignup);
 router.get('/api',(req,res)=>{
     db.collection('users').find().toArray()
