@@ -1,3 +1,4 @@
+
 const express = require("express")
 const app = express()
 const passport = require("passport");
@@ -11,8 +12,10 @@ const mainRoutes = require("./routes/user");
 const PORT = 8000
 
 
+
 //Use .env file in config folder
-require("dotenv").config();
+if(process.env.NODE_ENV !== 'production') {require("dotenv").config();}
+
 
 app.set("view engine", "ejs");
 
@@ -44,6 +47,7 @@ app.use(session({
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI
   })
 }))
+
 
 
 // Passport middleware

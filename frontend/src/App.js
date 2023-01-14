@@ -3,8 +3,7 @@ import React, { Suspense } from 'react';
 import { useState } from 'react'
 import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import auth from "./middleware/auth"
-
+import PrivateRoutes from "./middleware/PrivateRoutes"
 function App() {
 
   const [users, setUsers] = useState([])
@@ -60,7 +59,9 @@ setUsers([...users, data])
         <Route path="/login" element={<Login onAdd = {loginUser} />} />
         <Route path="/register" element={<Register onAdd = {registerUser}/>} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/account" element={<Account ensureAuth = {auth.ensureAuth}/>} />
+        <Route path="/account" element={<PrivateRoutes/>}>
+          <Route element = {<Account/>} exact/>
+        </Route>
       </Routes>
     </Router>
     <ToastContainer />
