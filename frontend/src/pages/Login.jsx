@@ -3,7 +3,6 @@ import Footer from "../components/Footer";
 import {toast} from "react-toastify"
 import {useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
-
 const Login = ({onAdd}) => {
 
   const [email, setEmail] = useState('')

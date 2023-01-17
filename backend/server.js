@@ -1,7 +1,6 @@
 
 const express = require("express")
 const app = express()
-const passport = require("passport");
 const methodOverride = require("method-override");
 const logger = require("morgan");
 const connectDB = require("./config/database");
@@ -18,9 +17,6 @@ if(process.env.NODE_ENV !== 'production') {require("dotenv").config();}
 
 
 app.set("view engine", "ejs");
-
-// Passport config
-require("./config/passport")(passport);
 
 //Connect To Database
 connectDB();
@@ -49,12 +45,6 @@ app.use(session({
 }))
 
 
-
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
-
 //set global variable
 app.use(function (req,res,next) {
   res.locals.user = req.user || null
@@ -66,6 +56,6 @@ app.use(function (req,res,next) {
 app.use("/", mainRoutes);
 
 //Server Running
-app.listen(process.env.PORT || PORT, () => {
-  console.log(`Server is running on ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running`);
 });

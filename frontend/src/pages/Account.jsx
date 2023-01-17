@@ -1,10 +1,8 @@
-const Account = ({ensureAuth}) => {
+const Account = () => {
 
-
-{console.log(ensureAuth)}
   return (
     <div>
-      {ensureAuth ? <h1>Account</h1> : <h1>Not Authorized</h1>}
+      <h1>Account</h1>
     </div>
   )
 }

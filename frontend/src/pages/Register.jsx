@@ -4,6 +4,7 @@ import Button from "../components/Button"
 import {useState, useEffect} from 'react'
 import {useNavigate} from "react-router-dom"
 import {toast} from "react-toastify"
+import axios from "axios"
 
 const Register = ( {onAdd} ) => {
 
@@ -13,6 +14,7 @@ const Register = ( {onAdd} ) => {
   const [userName, setUserName] = useState('')
   const [confirmPassword , setConfirmPassword] = useState('')
   const [users, setUsers] = useState([])
+  const [register, setRegister] = useState(false)
 
   const navigate = useNavigate()
 
@@ -106,8 +108,31 @@ const fetchTasks = async () => {
     setPassword('')
     setConfirmPassword('')
 
-    navigate('/Account')
+    const configuration = {
+      method: "post",
+      url: "https://task-api-pvi2.onrender.com/register",
+      data: {
+        email,
+        password,
+      }
+    }
+
+    axios(configuration)
+        .then((result)=>{
+          setRegister(true);
+        })
+        .catch((error)=>{        
+          error = new Error();
+        })
+  
+    if(register){
+      navigate('/account')
+    }else{
+      navigate('/')
+    }
+
 }  
+
 
 
 
@@ -143,7 +168,7 @@ const fetchTasks = async () => {
                     <input placeholder = 'Confirm password here' name="confirmPassword" type = 'password' value = {confirmPassword} onChange = {(e)=>setConfirmPassword(e.target.value)}></input>
                 </div>
             </div>
-                <input className = 'button' type="submit" value="Register Here" />
+                <input className = 'button' type="submit" value="Register Here" onClick = {(e)=>onSubmit(e)}/>
             </form>
 
 
@@ -164,7 +189,6 @@ const fetchTasks = async () => {
           </section>
         </article>
       </div>
-
       <Footer/>
 
       <div id="copyright">
