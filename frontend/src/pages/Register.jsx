@@ -102,34 +102,41 @@ const fetchTasks = async () => {
     
     onAdd({ userName, name, email, password, confirmPassword})
 
-    setUserName('')
-    setName('')
-    setEmail('')
-    setPassword('')
-    setConfirmPassword('')
+        //set configuration
+        const configuration = {
+          method: "post",
+          url: "https://illya-site-api.onrender.com/register",
+          data: {
+            userName,
+            name,
+            email,
+            password,
+          }
+        }
 
-    const configuration = {
-      method: "post",
-      url: "https://task-api-pvi2.onrender.com/register",
-      data: {
-        email,
-        password,
-      }
-    }
+    
+          axios(configuration)
+            .then((result)=>{
+              console.log(result)
+              setRegister(true);
+            })
+            .catch((error)=>{        
+              error = new Error();
+            })
+          
+          console.log(register)
 
-    axios(configuration)
-        .then((result)=>{
-          setRegister(true);
-        })
-        .catch((error)=>{        
-          error = new Error();
-        })
-  
-    if(register){
-      navigate('/account')
-    }else{
-      navigate('/')
-    }
+          setUserName('')
+          setName('')
+          setEmail('')
+          setPassword('')
+          setConfirmPassword('')
+
+          if(register){
+            navigate('/account')
+          }else{
+            navigate('/')
+          }
 
 }  
 
