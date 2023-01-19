@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/user");
 const MongoClient = require('mongodb').MongoClient
-require("dotenv").config();
 
 let db,
 dbName = 'test'

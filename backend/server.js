@@ -8,21 +8,18 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')
 const cors = require('cors')
 const mainRoutes = require("./routes/user");
-const PORT = 8000
-
-
-
-//Use .env file in config folder
-if(process.env.NODE_ENV !== 'production') {require("dotenv").config();}
-
+require("dotenv").config();
 
 app.set("view engine", "ejs");
 
 //Connect To Database
 connectDB();
 
+
+const apiPORT = 'http://localhost:3000'
+
 app.use(cors({
-  origin: ['http://localhost:3000'],
+  origin: [apiPORT],
   methods: "GET, POST, GET, DELETE, OPTIONS"
 }))
 
