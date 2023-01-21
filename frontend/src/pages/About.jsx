@@ -169,7 +169,7 @@ const About = () => {
             
 
               <ul className = 'special'>
-                <li className>
+                <li>
                   <Button 
                     cname = 'button' 
                     size ='large' 
