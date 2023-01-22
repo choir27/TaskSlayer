@@ -2,11 +2,6 @@ const User = require("../models/User");
 const bcrypt = require('bcrypt')
 const jwt = require("jsonwebtoken")
 
-const generateToken  = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-      expiresIn: '30d',
-  })
-}
 
 module.exports = {
   postSignup : async (req, res) => {
@@ -42,13 +37,11 @@ module.exports = {
       })
 
       if(user){
-          res.status(201).json({
-          _id: user.id,
-          name: user.name,
-          email: user.email,
-          userName: user.userName,
-          token: generateToken(user._id)
-          })
+jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: '30d'}, (err,token)=> {
+  res.json({
+    token
+  })
+  })
       } else{
           res.status(400)
           throw new Error('Invalid user data')
@@ -66,14 +59,12 @@ postLogin : async (req, res) => {
       const user = await User.findOne({email})
 
 
-      if(user && (await bcrypt.compare(password, user.password))){
-          res.json({
-              _id: user.id,
-              name: user.name,
-              email: user.email,
-              userName: user.userName,
-              token: generateToken(user._id)
-          })
+      if(bcrypt.compare(password, user.password)){
+jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: '30d'}, (err,token)=> {
+  res.json({
+    token
+  })
+  })
       } else {
           res.status(400)
           throw new Error('Invalid credentials')
@@ -110,5 +101,6 @@ logout : (req, res) => {
       console.log("Error : Failed to destroy the session during logout.", err);
     req.user = null;
   });
-}
+},
+
   }

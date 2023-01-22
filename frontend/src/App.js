@@ -1,12 +1,14 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import React, { Suspense } from 'react';
-import { useState } from 'react'
+import React, { Suspense, useState } from 'react';
 import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PrivateRoutes from "./middleware/PrivateRoutes"
+import useAuth from "./middleware/UseAuth"
+
 function App() {
 
   const [users, setUsers] = useState([])
+  const {setAuth} = useAuth()
 
   const Home = React.lazy(() => import('./pages/Home'));
   const About = React.lazy(() => import('./pages/About'));
@@ -26,6 +28,11 @@ function App() {
     },
     body: JSON.stringify(user )
   })
+
+  console.log(JSON.stringify(res?.data))
+  const accessToken = res?.data?.accessToken
+  setAuth({user, accessToken})
+  console.log(accessToken)
 
   const data = await res.json()
 
