@@ -27,6 +27,7 @@
     "google-auth-library": "^8.7.0",
     "js": "^0.1.0",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
     "method-override": "^3.0.0",
     "mongoose": "^6.8.2",
     "morgan": "^1.10.0",
@@ -35,6 +36,9 @@
     "passport-local": "^1.0.0",
     "util": "^0.12.5",
     "validator": "^13.7.0"
+  },
+  "referrerPolicy": {
+    "policy": "strict-origin-when-cross-origin"
   },
   "devDependencies": {
     "concurrently": "^7.6.0",
