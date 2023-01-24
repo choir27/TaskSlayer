@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const UserSchema = new mongoose.Schema({
   name: {type: String},
   userName: {type: String, unique: true},
-  isLoggedin: {type: Boolean},
   email: { type: String, unique: true },
   password: {type: String, unique: true}
 });

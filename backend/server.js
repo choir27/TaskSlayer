@@ -3,17 +3,22 @@ const express = require("express")
 const app = express()
 const methodOverride = require("method-override");
 const logger = require("morgan");
+const passport = require("passport");
 const connectDB = require("./config/database");
 const session = require('express-session');
 const MongoStore = require('connect-mongo')
 const cors = require('cors')
 const mainRoutes = require("./routes/user");
 require("dotenv").config();
+require("./config/passport")(passport);
 
-app.set("view engine", "ejs");
 
 //Connect To Database
 connectDB();
+
+app.set("view engine", "ejs");
+
+
 
 
 const apiPORT = 'http://localhost:3000'
@@ -42,12 +47,8 @@ app.use(session({
 }))
 
 
-//set global variable
-app.use(function (req,res,next) {
-  res.locals.user = req.user || null
-  next()
-})
-
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Setup Routes For Which The Server Is Listening
 app.use("/", mainRoutes);

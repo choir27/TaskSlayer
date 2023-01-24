@@ -42,6 +42,7 @@ jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: '30d'}, (err,token)=> {
     token
   })
   })
+  console.log(user)
       } else{
           res.status(400)
           throw new Error('Invalid user data')

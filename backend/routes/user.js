@@ -31,6 +31,9 @@ MongoClient.connect(process.env.MONGO_URI, { useUnifiedTopology: true })
 router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.post("/register", authController.postSignup);
+router.get('/account', (req,res)=>{
+  res.json({msg: 'you are authorized'})
+})
 router.get('/api',(req,res)=>{
     db.collection('users').find().toArray()
     .then(data=>{

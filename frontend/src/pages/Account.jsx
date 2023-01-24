@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom"
+
 const Account = () => {
 
+const navigate = useNavigate()
+
   return (
-    <div>
-      <h1>Account</h1>
+    <div>Account
     </div>
   )
 }
