@@ -7,6 +7,7 @@ import PrivateRoutes from "./middleware/PrivateRoutes"
 function App() {
 
   const [users, setUsers] = useState([])
+  const [token, setToken] = useState('')
 
   const Home = React.lazy(() => import('./pages/Home'));
   const About = React.lazy(() => import('./pages/About'));
@@ -30,6 +31,7 @@ function App() {
     const data = await res.json()
   
     setUsers([...users, data])
+
 }
 
 
@@ -44,7 +46,7 @@ const loginUser = async (user) => {
 })
 
 const data = await res.json()
-
+  
 setUsers([...users, data])
 
 }
@@ -59,7 +61,7 @@ setUsers([...users, data])
         <Route path="/login" element={<Login onAdd = {loginUser} />} />
         <Route path="/register" element={<Register onAdd = {registerUser}/>} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route element={<PrivateRoutes/>}>
+        <Route element={<PrivateRoutes token = {token}/>}>
           <Route element = {<Account/>} path = '/account'/>
         </Route>
       </Routes>
