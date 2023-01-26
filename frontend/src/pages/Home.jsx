@@ -21,7 +21,7 @@ const Home = () => {
 				<p>A wholesome site dedicated to the cutest student and sister servant Illyasviel Von Einzbern; with her cute design, voice, and outfits, this site introduces it all.  Register/Login to see exclusive content made from our various users!</p>
 			</section>
 			
-			<Link to="/account" className="image main">
+			<Link to="/register" className="image main">
 				<img 
 					src= {Assets.Melusine} 
 					alt="Melusine fan art with moon in the background" 
@@ -32,10 +32,10 @@ const Home = () => {
 			<ul className = 'special'>
 				<li>
 					<Button 
-						domain = '/account' 
+						domain = '/register' 
 						size = 'large' 
 						cname = 'button' 
-						text = 'Here for More!'
+						text = 'Register Here'
 					/>
 				</li>
 			</ul>

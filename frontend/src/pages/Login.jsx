@@ -5,60 +5,54 @@ import {useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
 const Login = ({onAdd}) => {
 
-  const [email, setEmail] = useState('')
-  const [password , setPassword] = useState('')
-  const [users, setUsers] = useState([])
 
-  const navigate = useNavigate()
+  const EMAIL_REGEX = /^[\w!#$%&'*+/=?`{|}~^-]+(?:\.[\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$/;
+  const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-  useEffect( () => {
-    const getUsers = async () => {
-      const usersFromServer = await fetchTasks()
-      setUsers(usersFromServer)
-    }
+  const [email, setEmail] = useState('');
+  const [validEmail, setValidEmail] = useState(false);
 
-    getUsers()
-  }, [])
+  const [password , setPassword] = useState('');
+  const [validPassword, setValidPassword] = useState(false);
 
-//Fetch Tasks
+  const [success, setSuccess] = useState(false);
 
-const fetchTasks = async () => {
-  const res = await fetch('http://localhost:8000/api')
-  
-  const data = await res.json()
-  return data
-}
+  const navigate = useNavigate();
 
-const onSubmit = (e) => {
-  e.preventDefault() 
+  useEffect(()=>{
+    setValidEmail(EMAIL_REGEX.test(email))
+}, [email])
 
-  let errors = []
+useEffect(()=>{
+  setValidPassword(PASSWORD_REGEX.test(password))
+}, [password])
 
-  if(!email){
-    toast.error('Please add an email')
-    errors.push('1')
+
+useEffect(()=>{
+  validEmail && validPassword ? setSuccess(true) : setSuccess(false)
+}, [validEmail, success])
+
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  // if button enabled with JS hack   
+  const v1 = EMAIL_REGEX.test(email);
+  const v2 = PASSWORD_REGEX.test(password);
+
+  if (!v1 || !v2) {
+      toast.error('Registration Error');
+      return;
   }
 
-  if(!password){
-    toast.error('Please add a password')
-    errors.push('1')
+      onAdd({email, password})
+    
+      setEmail('')
+      setPassword('');
+
+      success? navigate('/account') : navigate('/')
   }
 
-  if(users){
-    for(let i = 0; i <users.length; i++){
-      if(users[i].email === email){
-          console.log('Success')
-      }
-    }
-}
 
-onAdd({ email, password})
-
-setEmail('')
-setPassword('')
-
-navigate('/Account')
-}
 
   return (
    <div>
@@ -68,7 +62,7 @@ navigate('/Account')
           <section className="major column flex">
             <h1 className = 'flex justifyContent'>Login</h1>
 
-            <form onSubmit = {onSubmit} className = 'flex column justifyContent alignItems' method="POST" action="#">
+            <form onSubmit = {handleSubmit} className = 'flex column justifyContent alignItems' method="POST" action="#">
             <div className="fields">  
                 <div className="field">
                     <label>Email</label>
@@ -79,7 +73,7 @@ navigate('/Account')
                     <input placeholder = 'Put your password here' type="password" name="password" value = {password} onChange = {(e)=>setPassword(e.target.value)}/>
                 </div>
             </div>
-                <input className = 'button' type="submit" value="Login Here" />
+                <input className = 'button' type="submit" value="Login Here" disabled ={!validEmail || !validPassword ? true: false} onClick = {(e)=>handleSubmit(e)}/>
             </form>
 
           </section>

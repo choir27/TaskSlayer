@@ -1,11 +1,11 @@
+import {Outlet, Navigate} from "react-router-dom"
 
-const PrivateRoutes = ({token}) => {
+const PrivateRoutes = () => {
 
-  console.log(token)
+const token = localStorage.getItem("token");
 
 return(
-  <div>Account</div>
-  // userToken? <Outlet/> : <Navigate to = "/"/>
+  token? <Outlet/> : <Navigate to = "/"/>
 )
 
 }

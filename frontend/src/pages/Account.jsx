@@ -1,11 +1,16 @@
-import { useNavigate } from "react-router-dom"
+import Header from "../components/Header"
+import Footer from "../components/Footer"
 
 const Account = () => {
-
-const navigate = useNavigate()
-
   return (
-    <div>Account
+    <div>
+      <Header />
+      <div id = 'main'>
+        <section className="major column flex">
+        Account
+        </section>
+      </div>
+      <Footer />
     </div>
   )
 }

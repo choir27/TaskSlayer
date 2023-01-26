@@ -3,6 +3,7 @@ const express = require("express")
 const app = express()
 const methodOverride = require("method-override");
 const logger = require("morgan");
+const passport = require("passport");
 const connectDB = require("./config/database");
 const session = require('express-session');
 const MongoStore = require('connect-mongo')
@@ -15,9 +16,6 @@ require("dotenv").config();
 connectDB();
 
 app.set("view engine", "ejs");
-
-
-
 
 const apiPORT = 'http://localhost:3000'
 
@@ -44,7 +42,9 @@ app.use(session({
   })
 }))
 
-
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Setup Routes For Which The Server Is Listening
 app.use("/", mainRoutes);

@@ -30,9 +30,10 @@
     "method-override": "^3.0.0",
     "mongoose": "^6.8.2",
     "morgan": "^1.10.0",
-    "passport": "^0.6.0",
+    "passport": "^0.5.3",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
+    "supertokens-node": "^12.1.6",
     "util": "^0.12.5",
     "validator": "^13.7.0"
   },
