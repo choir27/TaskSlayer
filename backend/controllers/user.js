@@ -69,7 +69,8 @@ postLogin : async (req, res) => {
       if(bcrypt.compare(password, user.password)){
 jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: '30d'}, (err,token)=> {
   res.json({
-    token
+    token,
+    user
   })
   })
       } else {

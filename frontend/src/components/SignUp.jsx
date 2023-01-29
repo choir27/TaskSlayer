@@ -31,8 +31,6 @@ const SignUp = ( {onAdd} ) => {
     const [matchPassword, setMatchPassword] = useState('');
     const [validMatch, setValidMatch] = useState(false);
 
-    const [success, setSuccess] = useState(false);
-
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -51,12 +49,6 @@ const SignUp = ( {onAdd} ) => {
         setValidPassword(PASSWORD_REGEX.test(password));
         setValidMatch(password === matchPassword);
     }, [password, matchPassword])
-
-    useEffect(()=>{
-        validEmail && validMatch && validName && validPassword && validUserName ? setSuccess(true) : setSuccess(false)
-    }, [validEmail, validMatch, validUserName, validPassword, validName, success])
-
-
 
 
     const fetchUsers = async () => {
@@ -120,8 +112,11 @@ const SignUp = ( {onAdd} ) => {
             setPassword('');
             setMatchPassword('');
 
-            success? navigate('/account') : navigate('/')
-        }
+            const token = localStorage.getItem("token");
+
+            console.log(token)
+
+            token? navigate('/account') : navigate('/')        }
 
 
 

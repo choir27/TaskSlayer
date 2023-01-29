@@ -5,12 +5,52 @@ import Button from "../components/Button"
 import Assets from "../components/Assets"
 
 const Home = () => {
+
+	let token = localStorage.getItem("token");
+	let email = localStorage.getItem("email");
+	let name = localStorage.getItem("name");
+	let userName = localStorage.getItem("userName");
+
   return (
 	<div>
 
 	<Header/>
 
 	<div id="main">
+	{token ? 
+
+		<article className = 'post featured'>
+		<section className = 'major'>
+
+			<h1 className = 'flex justifyContent'>
+				<Link to = '/'>{name ? `${name}, ` : ""}Welcome to the Illya Site!</Link>
+			</h1>
+
+			<p>A wholesome site dedicated to the cutest student and sister servant Illyasviel Von Einzbern; with her cute design, voice, and outfits, this site introduces it all.  Add various content to your customized account!</p>
+		</section>
+		
+		<Link to="/account" className="image main">
+			<img 
+				src= {Assets.Melusine} 
+				alt="Melusine fan art with moon in the background" 
+				loading="lazy"
+			/>
+		</Link>
+
+		<ul className = 'special'>
+			<li>
+				<Button 
+					domain = '/account' 
+					size = 'large' 
+					cname = 'button' 
+					text = 'See Account'
+				/>
+			</li>
+		</ul>
+
+	</article>
+
+	:
 		<article className = 'post featured'>
 			<section className = 'major'>
 
@@ -41,6 +81,8 @@ const Home = () => {
 			</ul>
 
 		</article>
+}
+
 
 
 		<section className = 'posts'>

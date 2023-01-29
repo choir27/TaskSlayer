@@ -31,6 +31,9 @@ function App() {
     const data = await res.json()
 
     localStorage.setItem("token", data.token);
+    localStorage.setItem("email", data.user.email);
+    localStorage.setItem("name", data.user.name);
+    localStorage.setItem("userName", data.user.userName)
 
     setUsers([...users, data])
 
@@ -49,7 +52,12 @@ const loginUser = async (user) => {
 
 const data = await res.json()
 
+console.log(data)
+
 localStorage.setItem("token", data.token);
+localStorage.setItem("email", data.user.email);
+localStorage.setItem("name", data.user.name);
+localStorage.setItem("userName", data.user.userName)
   
 setUsers([...users, data])
 
