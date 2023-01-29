@@ -8,7 +8,6 @@ let Button = ({domain, cname, size, text, onClick}) => {
 }
 
 Button.propTypes = {
-    text: PropTypes.string.isRequired,
     className: PropTypes.string
   }
 
