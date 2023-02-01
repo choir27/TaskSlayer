@@ -1,33 +1,8 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Button from "../components/Button";
-import { useState, useEffect, useRef} from "react";
-
-import Assets from "../components/Assets"
-
+import Assets from "../components/Assets";
 
 const About = () => {
-  const [audio, setAudio] = useState(false);
-  const [currentAudio, setCurrentAudio] = useState("");
-
-  let audioPlayer = useRef({});
-
-  useEffect(() => {
-      try{
-        audioPlayer.current = new Audio(currentAudio);
-      }catch(err){
-        throw new Error(err)
-      }
-  }, [currentAudio]);
-
-  const handlePlayAudio = (audioFile) => {
-    if (audio) return;
-    setCurrentAudio(audioFile);
-  };
-
-  const toggleAudio = (file) =>{
-    audio ? alert('Audio is off') : handlePlayAudio(file)
-  }
 
   return (
     <div>
@@ -38,24 +13,6 @@ const About = () => {
             <h1 className="flex justifyContent">About Illya</h1>
             <div className="flex column alignItems">
 
-              <label
-                id="audio"
-                className="flex justifyContent"
-                htmlFor="audioSwitch"
-              >
-                Turn audio off
-              </label>
-
-              <input 
-              type = 'checkbox' 
-              id = 'audioSwitch' 
-              name = 'audioSwitch' 
-              checked = {audio} 
-              value = {audio} 
-              onChange = {(e)=>{
-                setAudio(e.currentTarget.checked)
-              }}/>
-
             </div>
             
             <div className = 'containerBox image'>
@@ -65,62 +22,7 @@ const About = () => {
                 alt = 'Illya gif of her smiling and twirling around'
                 loading="lazy"
               />
-
-              <div className = 'column flex justifyContent'>
-
-              <ul className = 'special'>
-                <li>
-                <Button 
-                cname = 'button' 
-                size = 'large' 
-                text = 'Change'
-                onClick={(e)=>{
-                e.preventDefault()
-                toggleAudio(Assets.BerserkerAudio)
-                }} />
-                </li>
-              </ul>
-
-              
-              <ul className = 'special'>
-                <li>
-                <Button 
-                cname = 'button' 
-                size = 'large' 
-                text = 'Play'
-                onClick={(e)=>{
-                e.preventDefault()
-                try{
-                  audioPlayer.current.play()
-                }
-                catch(err){
-                  console.error(err)
-                }
-                }} />
-                </li>
-              </ul>
-
-
-              <ul className = 'special'>
-                <li>
-                  <Button 
-                    cname = 'button' 
-                    size ='large' 
-                    text = 'pause' 
-                    onClick = {(e)=>{
-                      try{
-                      e.preventDefault()
-                      audioPlayer.current.pause()
-                      }catch(err){
-                        console.error(err)
-                      }
-                    
-                  }}/>
-                </li>
-              </ul>
-
-              </div>
-
+             
             </div>
   
 		        <p>She is the daughter of Kiritsugu Emiya and Irisviel von Einzbern, both whom participated in the Fourth Holy Grail War, and the adoptive older sister of Shirou Emiya.  She appears in the following media: All Around Type-Moon, Capsule Servant, Carnival Phantasm, Character Material, Chibichuki!, Fate/hollow ataraxia, Fate/stay night, Fate/tiger colosseum, Fate/Unlimited Codes, Fate/Zero, Today's Menu for Emiya Family, All Around Type-Moon, Fate/kaleid liner, PRISMA&#9734;ILLYA, and Fate/Grand Order.  Illya was voiced by Mai Kadowaki in Japanese, Stephanie Sheh in the Fate series and Cynthia Martinez in the Prisma/FGO series in English.  A Female with a height of 133 cm and weight of 34 kg, Illya in the fate seriese was born in Germany but her birthday is still unknown; Illya was 8 in Fate/Zero, and 18 in Fate/Zero Unlimated.  In the Prisma series, Illya was 10 and eventually becomes 11 years old and is born in Fuyuki City, Japan; with a birthdate of July 20 and weighing 29kg.</p>
@@ -132,62 +34,6 @@ const About = () => {
                 alt = 'Illya with cat ears with a bit of a perplexed expression'
                 loading="lazy"
               />
-
-              <div className = 'flex column justifyContent'>
-             
-              <ul className = 'special'>
-                <li>
-                  <Button 
-                  cname = 'button' 
-                  size = 'large' 
-                  text = 'Change'
-                  onClick={(e)=>{
-                  e.preventDefault()
-                  toggleAudio(Assets.IllyaArcherAudio)
-                  }} />
-                </li>
-              </ul>
-  
-          
-              <ul className = 'special'>
-                <li>
-                <Button 
-                cname = 'button' 
-                size = 'large' 
-                text = 'Play'
-                onClick={(e)=>{
-                e.preventDefault()
-                try{
-                  audioPlayer.current.play()
-                }
-                catch(err){
-                  console.error(err)
-                }
-                }} />
-                </li>
-              </ul>
-            
-
-              <ul className = 'special'>
-                <li>
-                  <Button 
-                    cname = 'button' 
-                    size ='large' 
-                    text = 'pause' 
-                    onClick = {(e)=>{
-                      try{
-                      e.preventDefault()
-                      audioPlayer.current.pause()
-                      }catch(err){
-                        console.error(err)
-                      }
-                    
-                  }}/>
-
-                </li>
-              </ul>
-
-              </div>
       
             </div>
 
@@ -200,61 +46,6 @@ const About = () => {
           alt = 'Illya believes and makes a fist'
           loading="lazy"
           />
-
-          <div className = 'flex column justifyContent'>
-
-          <ul className = 'special'>
-            <li>
-              <Button 
-                cname = 'button' 
-                size = 'large' 
-                text = 'Change'
-                onClick={(e)=>{
-                e.preventDefault()
-                toggleAudio(Assets.BerserkerAudio)
-              }} />
-            </li>
-          </ul>
-
-              
-              <ul className = 'special'>
-                <li>
-                  <Button 
-                    cname = 'button' 
-                    size = 'large' 
-                    text = 'Play'
-                    onClick={(e)=>{
-                    e.preventDefault()
-                    try{
-                      audioPlayer.current.play()
-                    }
-                    catch(err){
-                      console.error(err)
-                    }
-                  }} />
-                </li>
-              </ul>
-
-
-              <ul className = 'special'>
-                <li>
-                  <Button 
-                    cname = 'button' 
-                    size ='large' 
-                    text = 'pause' 
-                    onClick = {(e)=>{
-                      try{
-                      e.preventDefault()
-                      audioPlayer.current.pause()
-                      }catch(err){
-                        console.error(err)
-                      }
-                    
-                  }}/>
-                </li>
-              </ul>
-
-              </div>
                 
         </div>
 
@@ -267,61 +58,6 @@ const About = () => {
           loading="lazy"
           />
 
-        <div className = 'flex column justifyContent'>
-
-          <ul className = 'special'>
-            <li>
-              <Button 
-                cname = 'button' 
-                size = 'large' 
-                text = 'Change'
-                onClick={(e)=>{
-                e.preventDefault()
-                toggleAudio(Assets.BerserkerAudio)
-              }} />
-            </li>
-          </ul>
-
-              
-          <ul className = 'special'>
-            <li>
-                <Button 
-                  cname = 'button' 
-                  size = 'large' 
-                  text = 'Play'
-                  onClick={(e)=>{
-                  e.preventDefault()
-                  try{
-                    audioPlayer.current.play()
-                  }
-                  catch(err){
-                    console.error(err)
-                  }
-                }} />
-            </li>
-          </ul>
-
-
-              <ul className = 'special'>
-                <li>
-                  <Button 
-                    cname = 'button' 
-                    size ='large' 
-                    text = 'pause' 
-                    onClick = {(e)=>{
-                      try{
-                      e.preventDefault()
-                      audioPlayer.current.pause()
-                      }catch(err){
-                        console.error(err)
-                      }
-                    
-                  }}/>
-                </li>
-              </ul>
-
-              </div>
-
         </div>
 
         <p>While exhibiting a cheerful and positive attitude, Illya is shy, easily flustered, and more innocent at the beginning. In her first fight, she is shown to be agile but rather cowardly. Also, Illya is an ardent fan of anime, much to Sella's disappointment. She secretly harbors feelings for her brother, Shirou, something that Ruby highlights frequently much to her embarrassment.She is also rarely (if ever) clingy when with him unlike her Fate/Stay Night counterpart.  When interacting with her friends at school, she shares a dynamic relationship with them where she usually acts as the voice of reason, a role that is very much like a Tsukkomi (a person who throws punchlines). This is particularly expressed when it comes to suggestively lewd or comedically immoral situations.She has a rather intense fascination with maid outfits, though she does not like the official Einzbern maid outfit Sella puts on at one point.  As the series progresses, Illya matures into a strong individual who's willing to face overwhelming odds for what she cares about while also maintaining her innocent nature and strong morals. This is proven when Illya also wants to protect everyone, especially her friends.It is shown as Illya proclaims that she will help Miyu and her world, even though Julian stated that it is almost impossible.  This characterizes the immeasurable amount of kindness Illya possesses that she is considered a natural genius in becoming friends with her enemies.  Despite her growth in maturity, she still holds behaviors fitting of her age such as childish tempers, trying to act mature, and being stubborn towards things she dislikes. Like all young girls her age she adores cute things like animals and stuffed toys. In stark contrast to her original version, she really likes cats.</p>
@@ -333,61 +69,6 @@ const About = () => {
           alt = 'Illya finds a walnut on a snow tree'
           loading="lazy"
           />
-
-          <div className = 'flex column justifyContent'>
-
-          <ul className = 'special'>
-            <li>
-              <Button 
-                cname = 'button' 
-                size = 'large' 
-                text = 'Change'
-                onClick={(e)=>{
-                e.preventDefault()
-                toggleAudio(Assets.BerserkerAudio)
-              }} />
-            </li>
-          </ul>
-
-              
-          <ul className = 'special'>
-            <li>
-              <Button 
-                cname = 'button' 
-                size = 'large' 
-                text = 'Play'
-                onClick={(e)=>{
-                e.preventDefault()
-                try{
-                  audioPlayer.current.play()
-                }
-                catch(err){
-                  console.error(err)
-                }
-              }} />
-            </li>
-          </ul>
-
-
-          <ul className = 'special'>
-            <li>
-              <Button 
-                cname = 'button' 
-                size ='large' 
-                text = 'pause' 
-                onClick = {(e)=>{
-                  try{
-                  e.preventDefault()
-                  audioPlayer.current.pause()
-                  }catch(err){
-                    console.error(err)
-                  }
-                    
-              }}/>
-            </li>
-          </ul>
-
-          </div>
 
         </div>
        

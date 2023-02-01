@@ -4,13 +4,6 @@ const jwt = require("jsonwebtoken")
 
 
 module.exports = {
-  postToken: async(req,res)=>{
-    try{
-      
-    }catch(err){
-        console.log(err)
-    }
-  },
   postSignup : async (req, res) => {
   try{
       const {name , email, password , userName} = req.body

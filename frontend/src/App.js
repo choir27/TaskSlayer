@@ -8,6 +8,7 @@ import RegisterLoginRoutes from './middleware/RegisterLoginRoutes';
 function App() {
 
   const [users, setUsers] = useState([])
+  const [audios, setAudio] = useState([])
 
   const Home = React.lazy(() => import('./pages/Home'));
   const About = React.lazy(() => import('./pages/About'));
@@ -17,6 +18,19 @@ function App() {
   const Account = React.lazy(() => import('./pages/Account'));
 
   
+  const addAudio = async (audio) => {
+    const res = await fetch('http://localhost:8000/addAudio', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(audio)
+    })
+
+    const data = await res.json();
+    setAudio([...audios, data])
+  }
+
 
   const registerUser = async (user) => {
   
@@ -52,8 +66,6 @@ const loginUser = async (user) => {
 
 const data = await res.json()
 
-console.log(data)
-
 localStorage.setItem("token", data.token);
 localStorage.setItem("email", data.user.email);
 localStorage.setItem("name", data.user.name);
@@ -76,7 +88,7 @@ setUsers([...users, data])
             <Route path="/login" element={<Login onAdd = {loginUser} />} />
         </Route>
         <Route element={<PrivateRoutes />}>
-            <Route element = {<Account/>} path = '/account'/>
+            <Route element = {<Account onAdd = {addAudio}/>} path = '/account'/>
         </Route>
       </Routes>
     </Router>

@@ -114,8 +114,6 @@ const SignUp = ( {onAdd} ) => {
 
             const token = localStorage.getItem("token");
 
-            console.log(token)
-
             token? navigate('/account') : navigate('/')        }
 
 

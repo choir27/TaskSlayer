@@ -1,5 +1,3 @@
-import Header from "./Header"
-import Footer from "./Footer"
 import Assets from "./Assets"
 import Button from "./Button";
 import {useState, useEffect} from "react";
@@ -10,7 +8,7 @@ const VoiceLinePlayer = () => {
 
   const [currentAudio, setCurrentAudio] = useState("");
   let [currentIndex, setCurrentIndex] = useState(0);
-  let [audioPlayer, setAudioPlayer] = useState({});
+  let [audioPlayer] = useState({});
   
 
   const audioTracks = [Assets.BerserkerAudio, Assets.IllyaArcherAudio, Assets.IllyaCasterAudio, Assets.Sitonai, Assets.WalnutGame]
@@ -21,7 +19,7 @@ const VoiceLinePlayer = () => {
     }catch(err){
       throw new Error(err);
     }
-}, [currentIndex]);
+}, [currentIndex, audioPlayer]);
 
 
 const goBackOne = () => currentIndex > 0 ? setCurrentIndex(currentIndex-1):setCurrentIndex(audioTracks.length-1);
@@ -29,10 +27,7 @@ const goBackOne = () => currentIndex > 0 ? setCurrentIndex(currentIndex-1):setCu
 const goForwardOne = () => currentIndex === audioTracks.length-1 ? setCurrentIndex(0) : setCurrentIndex(currentIndex+1);
 
   return (
-    <div>
-      <Header />
-      <div id = 'main'>
-        <section className="major column flex">
+<>
 
         <AudioPlayer
     autoPlay
@@ -68,10 +63,9 @@ const goForwardOne = () => currentIndex === audioTracks.length-1 ? setCurrentInd
             />
 
             </div>
-        </section>
-      </div>
-      <Footer />
-    </div>
+
+    </>
+
   )
 }
 
