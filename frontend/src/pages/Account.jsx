@@ -1,12 +1,14 @@
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import VoiceLinePlayer from "../components/VoiceLinePlayer"
-import {useState, useEffect} from "react"
+import {useState, useEffect,useParams} from "react"
 import { toast } from "react-toastify"
 import {useNavigate} from "react-router-dom"
 
 
 const Account = ({onAdd}) => {
+
+  const { id }: { id: string } = useParams();
 
   const navigate = useNavigate();
 
@@ -40,7 +42,7 @@ const Account = ({onAdd}) => {
       return;
     }
 
-    onAdd({audio})
+    onAdd({audio, id})
 
     setAudio('')
 
@@ -62,7 +64,7 @@ const Account = ({onAdd}) => {
             <li>{currentUser ? currentUser.name : "No name found"}</li>
             <li>{currentUser ? currentUser.userName : "No username found"}</li>
           </ul>
-
+      {id}
           <form onSubmit = {handleSubmit}>
             <div className = 'field'>
               <label htmlFor = 'audio' className = 'button'>Add Audio</label>

@@ -17,7 +17,7 @@ function App() {
   const Login = React.lazy(() => import('./pages/Login'));
   const Account = React.lazy(() => import('./pages/Account'));
 
-  
+
   const addAudio = async (audio) => {
     const res = await fetch('http://localhost:8000/addAudio', {
       method: 'POST',
@@ -44,6 +44,7 @@ function App() {
   
     const data = await res.json()
 
+
     localStorage.setItem("token", data.token);
     localStorage.setItem("email", data.user.email);
     localStorage.setItem("name", data.user.name);
@@ -66,10 +67,13 @@ const loginUser = async (user) => {
 
 const data = await res.json()
 
+console.log(data)
+
 localStorage.setItem("token", data.token);
 localStorage.setItem("email", data.user.email);
 localStorage.setItem("name", data.user.name);
 localStorage.setItem("userName", data.user.userName)
+localStorage.setItem("id", data.user._id);
   
 setUsers([...users, data])
 
@@ -88,7 +92,7 @@ setUsers([...users, data])
             <Route path="/login" element={<Login onAdd = {loginUser} />} />
         </Route>
         <Route element={<PrivateRoutes />}>
-            <Route element = {<Account onAdd = {addAudio}/>} path = '/account'/>
+            <Route element = {<Account onAdd = {addAudio}/>} path = '/account/:id'/>
         </Route>
       </Routes>
     </Router>
@@ -96,6 +100,7 @@ setUsers([...users, data])
     </Suspense>
   );
 }
+
 
 export default App;
 

@@ -6,11 +6,9 @@ module.exports = {
     postAudio: async(req,res)=>{
         try{
             const {audio} = req.body
-            
-            console.log(req)
     
             const voiceLine = await Audio.create({
-                audio
+                audio 
             })
 
             res.json({voiceLine})
