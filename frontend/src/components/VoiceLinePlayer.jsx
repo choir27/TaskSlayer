@@ -12,9 +12,10 @@ const VoiceLinePlayer = () => {
   
 
   const audioTracks = [Assets.BerserkerAudio, Assets.IllyaArcherAudio, Assets.IllyaCasterAudio, Assets.Sitonai, Assets.WalnutGame]
-
+  
   useEffect(() => { 
     try{
+      const audioTracks = [Assets.BerserkerAudio, Assets.IllyaArcherAudio, Assets.IllyaCasterAudio, Assets.Sitonai, Assets.WalnutGame]
       audioPlayer.current = new Audio(audioTracks[currentIndex]);
     }catch(err){
       throw new Error(err);

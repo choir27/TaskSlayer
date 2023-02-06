@@ -4,7 +4,7 @@ import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PrivateRoutes from "./middleware/PrivateRoutes"
 import RegisterLoginRoutes from './middleware/RegisterLoginRoutes';
-
+  
 function App() {
 
   const [users, setUsers] = useState([])
@@ -26,6 +26,7 @@ function App() {
       },
       body: JSON.stringify(audio)
     })
+
 
     const data = await res.json();
     setAudio([...audios, data])
@@ -67,8 +68,6 @@ const loginUser = async (user) => {
 
 const data = await res.json()
 
-console.log(data)
-
 localStorage.setItem("token", data.token);
 localStorage.setItem("email", data.user.email);
 localStorage.setItem("name", data.user.name);
@@ -92,7 +91,7 @@ setUsers([...users, data])
             <Route path="/login" element={<Login onAdd = {loginUser} />} />
         </Route>
         <Route element={<PrivateRoutes />}>
-            <Route element = {<Account onAdd = {addAudio}/>} path = '/account/:id'/>
+            <Route element = {<Account onAdd = {addAudio}/>} path = '/account'/>
         </Route>
       </Routes>
     </Router>

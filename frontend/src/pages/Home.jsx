@@ -7,9 +7,7 @@ import Assets from "../components/Assets"
 const Home = () => {
 
 	let token = localStorage.getItem("token");
-	let email = localStorage.getItem("email");
 	let name = localStorage.getItem("name");
-	let userName = localStorage.getItem("userName");
 
   return (
 	<div>

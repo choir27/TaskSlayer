@@ -5,7 +5,6 @@ import {useState, useEffect} from 'react'
 
 const SignIn = ({onAdd}) => {
 
-
   const EMAIL_REGEX = /^[\w!#$%&'*+/=?`{|}~^-]+(?:\.[\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$/;
   const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
@@ -15,12 +14,13 @@ const SignIn = ({onAdd}) => {
   const [password , setPassword] = useState('');
   const [validPassword, setValidPassword] = useState(false);
 
-
   useEffect(()=>{
+    let EMAIL_REGEX = /^[\w!#$%&'*+/=?`{|}~^-]+(?:\.[\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$/;
     setValidEmail(EMAIL_REGEX.test(email))
 }, [email])
 
 useEffect(()=>{
+    let PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
   setValidPassword(PASSWORD_REGEX.test(password))
 }, [password])
 
