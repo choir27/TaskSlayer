@@ -6,26 +6,23 @@ const MongoClient = require('mongodb').MongoClient
 require("dotenv").config();
 const { protect } = require('../middleware/auth')
 const cloudinary = require("../middleware/cloudinary");
+const Audio = require("../models/Audio");
 
 const multer = require('multer')
-      uuid = require("uuid");
       DIR = "./public";
+      const { v4 } = require('uuidv4');
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null,DIR);
-    },
     filename: (req,file,cb) => {
         const fileName = file.originalname.toLowerCase().split(" ").join("-");
-        cb(null, "-" + fileName);
+        cb(null, fileName);
     }
 })
 
 const upload = multer({
     storage: storage,
     fileFilter: (req, file, cb) => {
-            cb(null, true);
-      
+        cb(null, true);   
     }
 });
 
@@ -50,15 +47,22 @@ router.get('/api',(req,res)=>{
 
 
 router.post("/addAudio", upload.single("file"), async(req,res,next)=>{
-    const url = req.protocol + "://" + req.get("host")
-    const result = await cloudinary.uploader.upload(url + "/public/" + req.file.filename);    
+    try{
+        console.log(req.user)
+        req.user = req.user._id
+        const result = await cloudinary.uploader.upload(req.file.path, {resource_type: "auto"});    
+        
+        const voiceLine = await Audio.create({
+            audio: result.secure_url,
+            cloudinaryId: result.public_id,
+            user: req.user
+        })
     
-    const voiceLine = await Audio.create({
-        audio: result.secure_url,
-        cloudinaryId: result.public_id,
-    })
-
-    res.json({voiceLine})
+        res.json({voiceLine})
+    }catch(err){
+        console.error(err)
+    }
+  
 });
 
 

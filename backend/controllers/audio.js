@@ -8,10 +8,6 @@ module.exports = {
     postAudio: async(req,res,next)=>{
         try{
 
-            console.log(req.file)
-            console.log(req.files)
-            console.log(req.body.file)
-
             const result = await cloudinary.uploader.upload(req.body.file);    
     
             const voiceLine = await Audio.create({
