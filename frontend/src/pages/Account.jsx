@@ -2,21 +2,19 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import VoiceLinePlayer from "../components/VoiceLinePlayer"
 import {useState, useEffect} from "react"
-import { toast } from "react-toastify"
 import {useNavigate} from "react-router-dom"
-
+import PostAudio from "../components/PostAudio"
 
 const Account = ({onAdd}) => {
 
   const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
-  const [audio, setAudio] = useState('');
+  const [file, setFile] = useState('');
 
   const fetchUsers = async () => {
     const res = await fetch('http://localhost:8000/api')
     
-    // const res = await fetch('https://task-tracker-api-v1eh.onrender.com/api')
     const data = await res.json()
     return data
   }
@@ -26,25 +24,24 @@ const Account = ({onAdd}) => {
       const usersFromServer = await fetchUsers()
       setUsers(usersFromServer)
     }
-
     getUsers()
   }, [])
 
-
+  useEffect(()=>{
+    setFile(file);
+  },[file])
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const audioSplit = audio.split('.')
-    if(audioSplit[audioSplit.length-1] !== 'mp3' && audioSplit[audioSplit.length-1] !== 'ogg'){
-      toast.error("Please Upload Proper Audio File");
+    if (!file) {
       return;
     }
 
-    onAdd({audio})
+    onAdd({file})
 
-    setAudio('')
+    setFile('')
 
     navigate('/')
     
@@ -64,10 +61,13 @@ const Account = ({onAdd}) => {
             <li>{currentUser ? currentUser.name : "No name found"}</li>
             <li>{currentUser ? currentUser.userName : "No username found"}</li>
           </ul>
-          <form onSubmit = {handleSubmit}>
+
+          <PostAudio/>
+
+          <form onSubmit = {handleSubmit} encType="multipart/form-data" >
             <div className = 'field'>
-              <label htmlFor = 'audio' className = 'button'>Add Audio</label>
-              <input id ='audio' className = 'hidden' type = "file" name = 'audio' value = {audio} onChange = {(e)=>setAudio(e.target.value)}></input>
+              <label htmlFor = 'file' className = 'button'>Add Audio</label>
+              <input id ='file' filename = {file} className = 'hidden' type = "file" name = 'file' value = {file} onChange = {(e)=>setFile(e.target.value)}></input>
             </div>
             <input className = 'button large' type="submit" value="Upload File" onClick = {(e)=>handleSubmit(e)}/>
           </form>

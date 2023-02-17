@@ -4,7 +4,6 @@ import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PrivateRoutes from "./middleware/PrivateRoutes"
 import RegisterLoginRoutes from './middleware/RegisterLoginRoutes';
-  
 function App() {
 
   const [users, setUsers] = useState([])
@@ -18,18 +17,23 @@ function App() {
   const Account = React.lazy(() => import('./pages/Account'));
 
 
-  const addAudio = async (audio) => {
+  const addAudio = async (file) => {
+
     const res = await fetch('http://localhost:8000/addAudio', {
       method: 'POST',
       headers: {
-        'Content-type': 'application/json'
+        'content-type': file.type,
+        'content-length': `${file.size}`,
       },
-      body: JSON.stringify(audio)
+      body: JSON.stringify(file)
     })
 
-
     const data = await res.json();
+
+    console.log(data)
     setAudio([...audios, data])
+
+    console.log(audios)
   }
 
 

@@ -5,6 +5,29 @@ const audioController = require("../controllers/audio")
 const MongoClient = require('mongodb').MongoClient
 require("dotenv").config();
 const { protect } = require('../middleware/auth')
+const cloudinary = require("../middleware/cloudinary");
+
+const multer = require('multer')
+      uuid = require("uuid");
+      DIR = "./public";
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null,DIR);
+    },
+    filename: (req,file,cb) => {
+        const fileName = file.originalname.toLowerCase().split(" ").join("-");
+        cb(null, "-" + fileName);
+    }
+})
+
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+            cb(null, true);
+      
+    }
+});
 
 let db,
 dbName = 'test'
@@ -26,7 +49,17 @@ router.get('/api',(req,res)=>{
 })
 
 
-router.post("/addAudio", audioController.postAudio);
+router.post("/addAudio", upload.single("file"), async(req,res,next)=>{
+    const url = req.protocol + "://" + req.get("host")
+    const result = await cloudinary.uploader.upload(url + "/public/" + req.file.filename);    
+    
+    const voiceLine = await Audio.create({
+        audio: result.secure_url,
+        cloudinaryId: result.public_id,
+    })
+
+    res.json({voiceLine})
+});
 
 
 module.exports = router;    
