@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {useNavigate} from "react-router-dom"
 
 
 export default class FilesUploadComponent extends Component {
@@ -21,6 +22,8 @@ export default class FilesUploadComponent extends Component {
         axios.post("http://localhost:8000/addAudio", formData, {
         }).then(res => {
             console.log(res)
+            const navigate = useNavigate();
+            navigate("/")
         })
     }
 

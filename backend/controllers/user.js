@@ -29,11 +29,18 @@ module.exports = {
 
       //create user
 
-      const user = await User.create({
+      let user = new User({
           name,
           email,
           userName,
           password: hashedPassword,
+      })
+
+      user = await User.create({
+        name,
+        email,
+        userName,
+        password: hashedPassword,
       })
 
       if(user){

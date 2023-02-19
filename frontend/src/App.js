@@ -49,6 +49,8 @@ function App() {
   
     const data = await res.json()
 
+    console.log(data)
+
 
     localStorage.setItem("token", data.token);
     localStorage.setItem("email", data.user.email);
