@@ -2,8 +2,10 @@ import Header from "./Header"
 import Footer from "./Footer";
 import {toast} from "react-toastify"
 import {useState, useEffect} from 'react'
+import {useNavigate} from "react-router-dom"
 
 const SignIn = ({onAdd}) => {
+  const navigate = useNavigate();
 
   const EMAIL_REGEX = /^[\w!#$%&'*+/=?`{|}~^-]+(?:\.[\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$/;
   const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -40,6 +42,10 @@ const handleSubmit = (e) => {
     
       setEmail('')
       setPassword('');
+
+      const token = localStorage.getItem("token");
+
+      token? navigate('/account') : navigate('/')    
 
   }
 

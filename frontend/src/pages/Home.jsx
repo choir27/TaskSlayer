@@ -1,19 +1,27 @@
-import {Link} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import Button from "../components/Button"
 import Assets from "../components/Assets"
+import UserHeader from "../components/UserHeader"
+const Home = ({props}) => {
 
-const Home = () => {
+	const queryParameters = new URLSearchParams(window.location.search)
+	// {console.log(queryParameters)}
+	// {console.log(props)}
+	let id= useParams();
+	{console.log(id)}
+	const type = queryParameters.get("type")
+	const name = queryParameters.get("name")
 
 	let token = localStorage.getItem("token");
-	let name = localStorage.getItem("name");
+	// let name = localStorage.getItem("name");
 
   return (
 	<div>
-
-	<Header/>
-
+		<Header/>
+		<UserHeader/>
+	{/* {queryParameters!== 'account' && queryParameters!=='about' && queryParameters!=='dashboard' ? <UserHeader/> : <Header/>} */}
 	<div id="main">
 	{token ? 
 

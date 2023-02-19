@@ -5,17 +5,21 @@ const fs = require('fs');
 
 
 module.exports = {
-    postAudio: async(req,res,next)=>{
+    postAudio: async(req,res,user)=>{
         try{
 
-            const result = await cloudinary.uploader.upload(req.body.file);    
-    
-            const voiceLine = await Audio.create({
-                audio: result.secure_url,
-                cloudinaryId: result.public_id,
-            })
+            // console.log(user)
+            console.log(req)
+            console.log(req.user)
 
-            res.json({voiceLine})
+            // const result = await cloudinary.uploader.upload(req.body.file);    
+    
+            // const voiceLine = await Audio.create({
+            //     audio: result.secure_url,
+            //     cloudinaryId: result.public_id,
+            // })
+
+            // res.json({voiceLine})
         }catch(err){
             console.error(err);
         }

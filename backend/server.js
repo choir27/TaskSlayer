@@ -11,6 +11,7 @@ const cors = require('cors')
 const mainRoutes = require("./routes/user");
 require("dotenv").config();
 
+require("./config/passport")(passport);
 
 //Connect To Database
 connectDB();

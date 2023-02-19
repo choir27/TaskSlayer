@@ -10,6 +10,7 @@ const Account = ({onAdd}) => {
   const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
+  const [user, setUser] = useState([]);
   const [file, setFile] = useState('');
 
   const fetchUsers = async () => {
@@ -19,12 +20,27 @@ const Account = ({onAdd}) => {
     return data
   }
 
+  const fetchUser = async () => {
+    const res = await fetch("http://localhost:8000/user" , { credentials : 'same-origin' })
+
+    const data = await res.json();
+    return data;
+  }
+
   useEffect( () => {
     const getUsers = async () => {
       const usersFromServer = await fetchUsers()
       setUsers(usersFromServer)
     }
     getUsers()
+  }, [])
+
+  useEffect(()=> {
+    const getUser = async () => {
+      const user = await fetchUser();
+      setUser(user)
+    }
+    getUser()
   }, [])
 
   useEffect(()=>{
@@ -47,6 +63,7 @@ const Account = ({onAdd}) => {
     
   }
 
+  {console.log(user)}
   
   const currentUser = users.find((ele) => ele.email === localStorage.getItem('email'))
 
@@ -61,6 +78,8 @@ const Account = ({onAdd}) => {
             <li>{currentUser ? currentUser.name : "No name found"}</li>
             <li>{currentUser ? currentUser.userName : "No username found"}</li>
           </ul>
+
+        
 
           <PostAudio/>
 

@@ -4,7 +4,15 @@ const jwt = require("jsonwebtoken")
 
 
 module.exports = {
-  postSignup : async (req, res) => {
+  getUser: async(req,res,next)=>{
+try{
+  console.log(req.user)
+  res.json({user: req.user})
+}catch(err){
+  console.error(err);
+}
+  },
+  postSignup : async (req, res, next) => {
   try{
       const {name , email, password , userName} = req.body
 
@@ -29,6 +37,14 @@ module.exports = {
 
       //create user
 
+
+      // await User.create({
+      //   name,
+      //   email,
+      //   userName,
+      //   password: hashedPassword,
+      // })
+
       let user = new User({
           name,
           email,
@@ -36,25 +52,51 @@ module.exports = {
           password: hashedPassword,
       })
 
-      user = await User.create({
-        name,
-        email,
-        userName,
-        password: hashedPassword,
-      })
+      User.findOne(
+        { $or: [{ email: req.body.email }, { userName: req.body.userName }] },
+        (err, existingUser) => {
+          if (err) {
+            return next(err);
+          }
+          if (existingUser) {
+            req.flash("errors", {
+              msg: "Account with that email address or username already exists.",
+            });
+            return res.redirect("../signup");
+          }
+          user.save((err) => {
+            if (err) {
+              return next(err);
+            }
+            req.logIn(user, (err) => {
+              if (err) {
+                return next(err);
+              }
 
-      if(user){
-jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: '30d'}, (err,token)=> {
-  res.json({
-    token
-  })
-  })
-      } else{
-          res.status(400)
-          throw new Error('Invalid user data')
-      }
+              console.log(req.user)
+    
+              let tokenItem = ''
+              
+              if(user){
+                jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: '30d'}, (err,token)=> {
+                  res.json({
+                    token,
+                    user
+                  })
+                  tokenItem = token;
+                  })
+              } else{
+                          res.status(400)
+                          throw new Error('Invalid user data')
+                      }           
+                    
+                    });
+          });
+        }
+      );
 
-  }catch(err){
+    
+    }catch(err){
       console.error(err)
   }
 },
@@ -81,25 +123,6 @@ jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: '30d'}, (err,token)=> {
       console.error(err)
   }
   },
-
-getUser : async(req, res) => {
-  try{
-
-      const {_id, name, email} = await User.findById(req.user.id)
-
-      res.status(200).json({
-          id: _id,
-          name,
-          email,
-          userName,
-      })
-
-
-  }catch(err){
-      console.error(err)
-  }
-  },
-
 logout : (req, res) => {
   req.logout(() => {
     console.log('User has logged out.')
