@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css"
 import PrivateRoutes from "./middleware/PrivateRoutes"
 import RegisterLoginRoutes from './middleware/RegisterLoginRoutes';
 import { createBrowserHistory } from "history";
-import qs from "qs";
 
 
 function App() {
@@ -22,16 +21,6 @@ function App() {
   const Register = React.lazy(() => import('./pages/Register'));
   const Login = React.lazy(() => import('./pages/Login'));
   const Account = React.lazy(() => import('./pages/Account'));
-
-
-  useEffect(() => {
-    const filterParams = history.location.search.substr(1);
-    const filtersFromParams = qs.parse(filterParams);
-    if (filtersFromParams.id) {
-      setID(filtersFromParams.id);
-    }
-  }, []);
-
 
   const addId = (id) => {
     history.push(id)
@@ -79,9 +68,6 @@ function App() {
     setID(data.user._id);
 
     localStorage.setItem("token", data.token);
-    localStorage.setItem("email", data.user.email);
-    localStorage.setItem("name", data.user.name);
-    localStorage.setItem("userName", data.user.userName)
     localStorage.setItem("id", data.user._id);
 
     setUsers([...users, data])
@@ -106,9 +92,6 @@ console.log(data)
 setID(data.user._id);
 
 localStorage.setItem("token", data.token);
-localStorage.setItem("email", data.user.email);
-localStorage.setItem("name", data.user.name);
-localStorage.setItem("userName", data.user.userName)
 localStorage.setItem("id", data.user._id);
   
 setUsers([...users, data])

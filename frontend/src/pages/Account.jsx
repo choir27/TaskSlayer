@@ -63,8 +63,7 @@ const Account = ({onAdd}) => {
     
   }
 
-  {console.log(user)}
-  
+
   const currentUser = users.find((ele) => ele.email === localStorage.getItem('email'))
 
   return (

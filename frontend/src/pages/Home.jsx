@@ -20,7 +20,7 @@ const Home = ({props}) => {
   return (
 	<div>
 		<Header/>
-		<UserHeader/>
+		{/* <UserHeader/> */}
 	{/* {queryParameters!== 'account' && queryParameters!=='about' && queryParameters!=='dashboard' ? <UserHeader/> : <Header/>} */}
 	<div id="main">
 	{token ? 
