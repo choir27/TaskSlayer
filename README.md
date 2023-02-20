@@ -2,6 +2,9 @@
 
 Taking the foundations created by this repository, https://github.com/choir27/Illya-Site, this project strives to take the Illya website and not only improve the UI, but also apply React elements to various aspects of the web application.
 
+
+![Illya](https://user-images.githubusercontent.com/66279068/220187754-5403c5b6-a1b6-4f43-ad72-c181e766bcda.png)
+
 - [ ] Use the user's unique id in the url parameter to tell the code which Header to show (one for logged in users, and one for guests only).
 - [ ] Employ local storage as fall back in case url paramater gets tempered with, or other possible errors that may occur with the url paramater
 - [ ] Add user info when posting audio file relative to who is logged in
