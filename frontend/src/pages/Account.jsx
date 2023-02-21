@@ -82,14 +82,6 @@ const Account = ({onAdd}) => {
 
           <PostAudio/>
 
-          <form onSubmit = {handleSubmit} encType="multipart/form-data" >
-            <div className = 'field'>
-              <label htmlFor = 'file' className = 'button'>Add Audio</label>
-              <input id ='file' filename = {file} className = 'hidden' type = "file" name = 'file' value = {file} onChange = {(e)=>setFile(e.target.value)}></input>
-            </div>
-            <input className = 'button large' type="submit" value="Upload File" onClick = {(e)=>handleSubmit(e)}/>
-          </form>
-
           <VoiceLinePlayer />
         </section>
         </article>

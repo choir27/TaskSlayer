@@ -49,17 +49,15 @@ router.get('/api',(req,res)=>{
 
 router.post("/addAudio", upload.single("file"), async(req,res)=>{
     try{
-        console.log(req.user)
-        // req.user = req.user._id
-        // const result = await cloudinary.uploader.upload(req.file.path, {resource_type: "auto"});    
+        const result = await cloudinary.uploader.upload(req.file.path, {resource_type: "auto"});    
         
-        // const voiceLine = await Audio.create({
-        //     audio: result.secure_url,
-        //     cloudinaryId: result.public_id,
-        //     user: req.user
-        // })
+        const voiceLine = await Audio.create({
+            audio: result.secure_url,
+            cloudinaryId: result.public_id,
+            user: req.user
+        })
     
-        // res.json({voiceLine})
+        res.json({voiceLine})
     }catch(err){
         console.error(err)
     }
