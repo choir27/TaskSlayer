@@ -1,14 +1,6 @@
-import {Link, useNavigate} from "react-router-dom"
+import {Link} from "react-router-dom"
 
 const Header = () => {
-
-	const navigate = useNavigate();
-	const token = localStorage.getItem("token");
-	const logout = (e) => {
-		e.preventDefault();
-		localStorage.removeItem("token");
-		navigate('/');
-	}
 
   return ( 
 <header>
@@ -21,15 +13,8 @@ const Header = () => {
               	<li><Link to = '/'>Home</Link></li>
               	<li><Link to = '/about'>About</Link></li>
 				<li><Link to = '/dashboard'>Dashboard</Link></li>
-				{token ? <>
-				<li><Link to = '/account'>Account</Link></li>
-				<li><Link to ='/' onClick = {(e)=>logout(e)}>Logout</Link></li>
-						</>
-				:
-				<>
 				<li><Link to = '/register'>Register</Link></li>
 				<li><Link to = '/login'>Login</Link></li>
-				</>}
 			</ul>
 			<ul className="icons alt">
 				<li><a rel="noreferrer" target = '_blank' href="https://twitter.com/choir241" className="icon fa-twitter"><p className = 'hidden'>Twitter</p></a></li>

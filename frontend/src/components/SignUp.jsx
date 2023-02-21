@@ -54,7 +54,6 @@ const SignUp = ( {onAdd} ) => {
     const fetchUsers = async () => {
         const res = await fetch('http://localhost:8000/api')
         
-        // const res = await fetch('https://task-tracker-api-v1eh.onrender.com/api')
         const data = await res.json()
         return data
       }

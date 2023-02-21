@@ -1,81 +1,19 @@
-import Header from "../components/Header"
 import Footer from "../components/Footer"
 import VoiceLinePlayer from "../components/VoiceLinePlayer"
-import {useState, useEffect} from "react"
-import {useNavigate} from "react-router-dom"
 import PostAudio from "../components/PostAudio"
+import ValidateHeader from "../components/ValidateHeader"
 
 const Account = ({onAdd}) => {
 
-  const navigate = useNavigate();
-
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState([]);
-  const [file, setFile] = useState('');
-
-  const fetchUsers = async () => {
-    const res = await fetch('http://localhost:8000/api')
-    
-    const data = await res.json()
-    return data
-  }
-
-  const fetchUser = async () => {
-    const res = await fetch("http://localhost:8000/user" , { credentials : 'same-origin' })
-
-    const data = await res.json();
-    return data;
-  }
-
-  useEffect( () => {
-    const getUsers = async () => {
-      const usersFromServer = await fetchUsers()
-      setUsers(usersFromServer)
-    }
-    getUsers()
-  }, [])
-
-  useEffect(()=> {
-    const getUser = async () => {
-      const user = await fetchUser();
-      setUser(user)
-    }
-    getUser()
-  }, [])
-
-  useEffect(()=>{
-    setFile(file);
-  },[file])
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!file) {
-      return;
-    }
-
-    onAdd({file})
-
-    setFile('')
-
-    navigate('/')
-    
-  }
-
-
-  const currentUser = users.find((ele) => ele.email === localStorage.getItem('email'))
 
   return (
     <div> 
-      <Header />
+      <ValidateHeader />
           <div id = 'main'>
             <article className = 'post'>
         <section className="major column flex">
           <ul className = 'special flex column'>
-            <li>{currentUser ? currentUser.email : "No email found"}</li>
-            <li>{currentUser ? currentUser.name : "No name found"}</li>
-            <li>{currentUser ? currentUser.userName : "No username found"}</li>
+         
           </ul>
 
         

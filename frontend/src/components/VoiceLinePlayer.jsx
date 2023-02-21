@@ -44,7 +44,6 @@ const goForwardOne = () => currentIndex === audioTracks.length-1 ? setCurrentInd
             text = <i className="fa-solid fa-backward-step"></i>
             onClick = {(e)=>{
               e.preventDefault();
-              console.log(currentAudio)
               audioPlayer.current.pause();
               goBackOne();
               setCurrentAudio(audioTracks[currentIndex]);

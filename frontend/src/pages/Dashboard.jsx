@@ -1,10 +1,10 @@
-import Header from "../components/Header"
 import Footer from "../components/Footer"
+import ValidateHeader from "../components/ValidateHeader"
 
 const Dashboard = () => {
   return (
     <div>
-      <Header />
+      <ValidateHeader />
       <div id = 'main'>
         <section className="major column flex">
         Dashboard

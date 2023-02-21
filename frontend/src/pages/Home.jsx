@@ -1,27 +1,18 @@
-import {Link, useParams} from 'react-router-dom'
-import Header from "../components/Header"
+import {Link} from 'react-router-dom'
 import Footer from "../components/Footer"
 import Button from "../components/Button"
 import Assets from "../components/Assets"
-import UserHeader from "../components/UserHeader"
-const Home = ({props}) => {
+import ValidateHeader from "../components/ValidateHeader"
 
-	const queryParameters = new URLSearchParams(window.location.search)
-	// {console.log(queryParameters)}
-	// {console.log(props)}
-	let id= useParams();
-	{console.log(id)}
-	const type = queryParameters.get("type")
-	const name = queryParameters.get("name")
 
-	let token = localStorage.getItem("token");
-	// let name = localStorage.getItem("name");
+const Home = () => {
+    let token = localStorage.getItem("token")
 
+
+	// {name ? `${name}, ` : ""}
   return (
 	<div>
-		<Header/>
-		<UserHeader/>
-	{/* {queryParameters!== 'account' && queryParameters!=='about' && queryParameters!=='dashboard' ? <UserHeader/> : <Header/>} */}
+		<ValidateHeader/>
 	<div id="main">
 	{token ? 
 
@@ -29,7 +20,7 @@ const Home = ({props}) => {
 		<section className = 'major'>
 
 			<h1 className = 'flex justifyContent'>
-				<Link to = '/'>{name ? `${name}, ` : ""}Welcome to the Illya Site!</Link>
+				<Link to = '/'>Welcome to the Illya Site!</Link>
 			</h1>
 
 			<p>A wholesome site dedicated to the cutest student and sister servant Illyasviel Von Einzbern; with her cute design, voice, and outfits, this site introduces it all.  Add various content to your customized account!</p>

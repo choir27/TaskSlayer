@@ -1,12 +1,12 @@
-import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Assets from "../components/Assets";
+import ValidateHeader from "../components/ValidateHeader"
 
 const About = () => {
 
   return (
     <div>
-      <Header />
+      <ValidateHeader />
       <div id="main">
         <article className="post">
           <section className="major">

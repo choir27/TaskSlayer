@@ -1,24 +1,23 @@
-import {Link, useNavigate, useParams} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import {useEffect, useState} from "react"
 
-const Header = () => {
+const UserHeader = () => {
 
-	const { id } = useParams()
-	const [user,setUser] = useState([])
+	const [id, setID] = useState('')
 
-	useEffect(() => {
-		setUser(id)
-}, [user])
-
+	useEffect(()=> {
+		let userID = localStorage.getItem("id");
+		setID(userID)
+	}, [id])
 
     // const id = new URLSearchParams(window.location.search)
-	console.log(id)
-	console.log(user)
+	// console.log(id)
+	// console.log(user)
 
 	const navigate = useNavigate();
-	const token = localStorage.getItem("token");
 	const logout = (e) => {
 		e.preventDefault();
+		localStorage.removeItem("id");
 		localStorage.removeItem("token");
 		navigate('/');
 	}
@@ -46,6 +45,7 @@ const Header = () => {
 		</nav>
 		</header>
   )
+
 }
 
-export default Header
+export default UserHeader

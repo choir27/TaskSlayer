@@ -3,13 +3,10 @@ import React, { Suspense, useState, useEffect } from 'react';
 import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PrivateRoutes from "./middleware/PrivateRoutes"
-import RegisterLoginRoutes from './middleware/RegisterLoginRoutes';
 import { createBrowserHistory } from "history";
 
 
 function App() {
-  const history = createBrowserHistory();
-
 
   const [users, setUsers] = useState([])
   const [audios, setAudio] = useState([])
@@ -22,11 +19,14 @@ function App() {
   const Login = React.lazy(() => import('./pages/Login'));
   const Account = React.lazy(() => import('./pages/Account'));
 
-  const addId = (id) => {
-    history.push(id)
-  }
 
   useEffect(() => {
+    const history = createBrowserHistory();
+
+    const addId = (userID) => {
+      history.push(userID)
+    }
+
     addId(id)
   }, [id]);
 
@@ -44,7 +44,6 @@ function App() {
 
     const data = await res.json();
 
-    console.log(data)
     setAudio([...audios, data])
 
     console.log(audios)
@@ -62,8 +61,6 @@ function App() {
     })
   
     const data = await res.json()
-
-    console.log(data)
 
     setID(data.user._id);
 
@@ -87,8 +84,6 @@ const loginUser = async (user) => {
 
 const data = await res.json()
 
-console.log(data)
-
 setID(data.user._id);
 
 localStorage.setItem("token", data.token);
@@ -106,10 +101,8 @@ setUsers([...users, data])
         <Route exact path="/" element={<Home/>} />
         <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route element = {<RegisterLoginRoutes/>}>
             <Route path="/register" element={<Register onAdd = {registerUser}/>} />
             <Route path="/login" element={<Login onAdd = {loginUser} />} />
-        </Route>
         <Route element={<PrivateRoutes />}>
              <Route path="/:id" element={<Home/>} />
             <Route path="/:id/about" element={<About/>} />
@@ -121,8 +114,8 @@ setUsers([...users, data])
     <ToastContainer />
     </Suspense>
   );
-}
 
+}
 
 export default App;
 
