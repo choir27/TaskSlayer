@@ -1,7 +1,7 @@
 import Footer from "../components/Footer"
 import VoiceLinePlayer from "../components/VoiceLinePlayer"
-import PostAudio from "../components/PostAudio"
 import ValidateHeader from "../components/ValidateHeader"
+import Button from "../components/Button"
 
 const Account = ({onAdd}) => {
 
@@ -16,9 +16,13 @@ const Account = ({onAdd}) => {
          
           </ul>
 
-        
+          <Button 
+            cname = 'button'
+            size = 'large'
+            text = 'add Audio'
+            domain = {`/${localStorage.getItem("id")}/addAudio`}
 
-          <PostAudio/>
+            />
 
           <VoiceLinePlayer />
         </section>

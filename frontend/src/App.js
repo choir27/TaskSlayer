@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css"
 import PrivateRoutes from "./middleware/PrivateRoutes"
 import { createBrowserHistory } from "history";
 
-
 function App() {
 
   const [users, setUsers] = useState([])
@@ -18,6 +17,7 @@ function App() {
   const Register = React.lazy(() => import('./pages/Register'));
   const Login = React.lazy(() => import('./pages/Login'));
   const Account = React.lazy(() => import('./pages/Account'));
+  const AddAudio = React.lazy(()=> import("./components/PostAudio"))
 
 
   useEffect(() => {
@@ -104,7 +104,8 @@ setUsers([...users, data])
             <Route path="/register" element={<Register onAdd = {registerUser}/>} />
             <Route path="/login" element={<Login onAdd = {loginUser} />} />
         <Route element={<PrivateRoutes />}>
-             <Route path="/:id" element={<Home/>} />
+            <Route path="/:id/addAudio" element={<AddAudio/>}/>
+            <Route path="/:id" element={<Home/>} />
             <Route path="/:id/about" element={<About/>} />
             <Route path="/:id/dashboard" element={<Dashboard/>} />
             <Route element = {<Account onAdd = {addAudio}/>} path = '/:id/account'/>

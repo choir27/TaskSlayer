@@ -1,6 +1,8 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom"
+import ValidateHeader from "../components/ValidateHeader"
+import Footer from "../components/Footer"
 
 const PostAudio = () => {
 
@@ -24,18 +26,30 @@ const PostAudio = () => {
     }
 
         return(
+            <div>
+                <ValidateHeader/>
+                <div id = "main">
+            <article className = 'post featured'>
+		<section className = 'major'>
+
+
             <form onSubmit={onSubmit} encttype = "multipart/form-data">
-                <div className = "field">
+                <div className = "field flex column">
                 <label htmlFor = 'file' className = "button large">Add Audio</label>
                     <input id = "file" name = 'file' className = "hidden" type="file" onChange={onFileChange} />
 
-                    {getFile[0] ? getFile[0].name : "No File Chosen"}
+                    <span>{getFile[0] ? getFile[0].name : "No File Chosen"}</span>
 
                 </div>
                 <div>
                     <button type="submit" className = "button large">Upload</button>
                 </div>
             </form>
+        </section>
+            </article>
+            </div>
+            <Footer />
+            </div>
         )
         
 }

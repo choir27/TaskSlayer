@@ -7,14 +7,14 @@ import ValidateHeader from "../components/ValidateHeader"
 
 const Home = () => {
     let token = localStorage.getItem("token")
-
+	let id = localStorage.getItem("id")
 
 	// {name ? `${name}, ` : ""}
   return (
 	<div>
 		<ValidateHeader/>
 	<div id="main">
-	{token ? 
+	{(token && id) ? 
 
 		<article className = 'post featured'>
 		<section className = 'major'>
