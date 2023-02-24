@@ -7,6 +7,7 @@ const fs = require('fs');
 module.exports = {
     postAudio: async(req,res)=>{
         try{
+            console.log(req.user)
 
             // console.log(user)
             // console.log(req)

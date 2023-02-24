@@ -36,7 +36,7 @@ const goForwardOne = () => currentIndex === audioTracks.length-1 ? setCurrentInd
   />
 
 
-<div className = 'flex row justifyContent'>
+<div className = 'flex row justifyContent buttons'>
 
             <Button
             cname = 'button'

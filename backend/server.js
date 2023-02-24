@@ -10,6 +10,9 @@ const MongoStore = require('connect-mongo')
 const cors = require('cors')
 const mainRoutes = require("./routes/user");
 require("dotenv").config();
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+
 
 require("./config/passport")(passport);
 
@@ -20,10 +23,13 @@ app.set("view engine", "ejs");
 
 const apiPORT = 'http://localhost:3000'
 
+
 app.use(cors({
   origin: [apiPORT],
   methods: "GET, POST, GET, DELETE, OPTIONS"
 }))
+
+
 
 //Body Parsing
 app.use(express.urlencoded({ extended: true }));
@@ -37,7 +43,7 @@ app.use(methodOverride("_method"));
 
 app.use(session({
   secret: 'keyboard cat',
-  resave: false,
+  resave: true,
   saveUnitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI
   })

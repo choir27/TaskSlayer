@@ -1625,3 +1625,17 @@ a#navPanelToggle{
 	padding-top: 4rem;
 }
 
+#audio{
+	width: 50%;
+}
+
+.buttons{
+	padding-top: 5%;
+	justify-content: space-between;
+}
+
+
+
+/* body *{
+	border: 3px solid black;
+} */

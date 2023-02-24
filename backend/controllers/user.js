@@ -102,6 +102,7 @@ try{
 },
 postLogin : async (req, res) => {
   try{
+    console.log(req.user)
       const {email, password} = req.body
 
       //checks for user email

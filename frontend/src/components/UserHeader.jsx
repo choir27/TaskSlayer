@@ -34,6 +34,7 @@ const UserHeader = () => {
               	<li><Link to = {`/${id}/about`}>About</Link></li>
 				<li><Link to = {`/${id}/dashboard`}>Dashboard</Link></li>
 				<li><Link to = {`/${id}/account`}>Account</Link></li>
+				<li><Link to = {`/${id}/addAudio`}>Add Audio</Link></li>
 				<li><Link to ='/' onClick = {(e)=>logout(e)}>Logout</Link></li>
 			</ul>
 			<ul className="icons alt">

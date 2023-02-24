@@ -8,7 +8,6 @@ import { createBrowserHistory } from "history";
 function App() {
 
   const [users, setUsers] = useState([])
-  const [audios, setAudio] = useState([])
   const [id, setID] = useState('')
  
   const Home = React.lazy(() => import('./pages/Home'));
@@ -29,25 +28,6 @@ function App() {
 
     addId(id)
   }, [id]);
-
-
-  const addAudio = async (file) => {
-
-    const res = await fetch('http://localhost:8000/addAudio', {
-      method: 'POST',
-      headers: {
-        'content-type': file.type,
-        'content-length': `${file.size}`,
-      },
-      body: JSON.stringify(file)
-    })
-
-    const data = await res.json();
-
-    setAudio([...audios, data])
-
-    console.log(audios)
-  }
 
 
   const registerUser = async (user) => {
@@ -108,7 +88,7 @@ setUsers([...users, data])
             <Route path="/:id" element={<Home/>} />
             <Route path="/:id/about" element={<About/>} />
             <Route path="/:id/dashboard" element={<Dashboard/>} />
-            <Route element = {<Account onAdd = {addAudio}/>} path = '/:id/account'/>
+            <Route element = {<Account />} path = '/:id/account'/>
         </Route>
       </Routes>
     </Router>
