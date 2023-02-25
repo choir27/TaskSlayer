@@ -1,5 +1,5 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect, createContext } from 'react';
 import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PrivateRoutes from "./middleware/PrivateRoutes"
@@ -18,6 +18,31 @@ function App() {
   const Account = React.lazy(() => import('./pages/Account'));
   const AddAudio = React.lazy(()=> import("./components/PostAudio"))
 
+  const [userAccounts, setUserAccounts] = useState([])
+  const [currentUser, setCurrentUser] = useState({})
+
+  const fetchUsers = async () => {
+    const res = await fetch('http://localhost:8000/api')
+    
+    const data = await res.json()
+    return data
+  }
+
+useEffect( () => {
+    const getUsers = async () => {
+      const usersFromServer = await fetchUsers()
+      setUserAccounts(usersFromServer)
+    }
+
+    getUsers()
+  }, [])
+
+useEffect(()=>{
+  if(userAccounts)
+  {
+    setCurrentUser(userAccounts.find(ele=>ele._id === id))
+  }
+}, [currentUser, userAccounts])
 
   useEffect(() => {
     const history = createBrowserHistory();
@@ -31,8 +56,8 @@ function App() {
 
 
   const registerUser = async (user) => {
-  
     const res = await fetch(`http://localhost:8000/register`, {
+      credentials: 'include',
       method: 'POST',
       headers: {
         'Content-type': 'application/json'      
@@ -55,6 +80,7 @@ function App() {
 const loginUser = async (user) => {
   
   const res = await fetch(`http://localhost:8000/login`, {
+  credentials: 'same-origin',
   method: 'POST',
   headers: {
     'Content-type': 'application/json'      
@@ -75,6 +101,7 @@ setUsers([...users, data])
 
   
   return (
+    <MyContext.Provider value = {currentUser}>
     <Suspense fallback={<div><p>Loading...</p></div>}>
     <Router>
       <Routes>
@@ -94,6 +121,7 @@ setUsers([...users, data])
     </Router>
     <ToastContainer />
     </Suspense>
+    </MyContext.Provider>
   );
 
 }
@@ -101,3 +129,23 @@ setUsers([...users, data])
 export default App;
 
 
+export const fetchUsers = async () => {
+  try{
+    const res = await fetch('http://localhost:8000/api')
+    let users = {}
+    const data = await res.json()
+    data.find(ele=>{
+      if(ele._id === localStorage.getItem('id')){
+          users = ele
+      }
+    })
+  return data
+  }catch(err){
+    console.error(err)
+  }
+  
+}
+
+const users = fetchUsers()
+
+export const MyContext = createContext(users)

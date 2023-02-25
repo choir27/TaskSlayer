@@ -49,6 +49,7 @@ router.get('/api',(req,res)=>{
 
 router.post("/addAudio", upload.single("file"), async(req,res)=>{
     try{
+        console.log(req.user)
         const result = await cloudinary.uploader.upload(req.file.path, {resource_type: "auto"});    
         
         const voiceLine = await Audio.create({

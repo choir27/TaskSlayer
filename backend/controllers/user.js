@@ -102,12 +102,12 @@ try{
 },
 postLogin : async (req, res) => {
   try{
-    console.log(req.user)
       const {email, password} = req.body
 
       //checks for user email
       const user = await User.findOne({email})
 
+      console.log(req.user)
 
       if(bcrypt.compare(password, user.password)){
 jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: '30d'}, (err,token)=> {
@@ -116,6 +116,8 @@ jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: '30d'}, (err,token)=> {
     user
   })
   })
+  console.log(req.user)
+
       } else {
           res.status(400)
           throw new Error('Invalid credentials')
