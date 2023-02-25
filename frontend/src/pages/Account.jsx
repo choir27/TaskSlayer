@@ -2,7 +2,7 @@ import Footer from "../components/Footer"
 import VoiceLinePlayer from "../components/VoiceLinePlayer"
 import ValidateHeader from "../components/ValidateHeader"
 import {useState, useEffect, useContext} from "react"
-import MyContext from "../App"
+import {MyContext} from "../App"
 const Account = ({children}) => {
   const [userAccounts, setUserAccounts] = useState([])
   const [currentUser, setCurrentUser] = useState({})
@@ -11,20 +11,19 @@ const Account = ({children}) => {
   const UserContext = useContext(MyContext)
   {console.log(UserContext)}
   
-  const fetchUsers = async () => {
-    const res = await fetch('http://localhost:8000/api')
-    
-    const data = await res.json()
-    return data
-  }
+
+
 
 useEffect( () => {
-    const getUsers = async () => {
-      const usersFromServer = await fetchUsers()
-      setUserAccounts(usersFromServer)
-    }
 
-    getUsers()
+  const fetchUsers = async () => {
+    const res = await fetch('http://localhost:8000/api')
+    const data = await res.json()
+    const usersFromServer = await data
+    setUserAccounts(usersFromServer)
+  }
+
+    fetchUsers()
   }, [])
 
 useEffect(()=>{
@@ -37,7 +36,6 @@ useEffect(()=>{
 
   return (
     <div>  
-
       <ValidateHeader />  
           <div id = 'main'>
             <article className = 'post'>

@@ -40,7 +40,7 @@ useEffect( () => {
 useEffect(()=>{
   if(userAccounts)
   {
-    setCurrentUser(userAccounts.find(ele=>ele._id === id))
+    setCurrentUser(userAccounts.find(ele=>ele._id === localStorage.getItem('id')))
   }
 }, [currentUser, userAccounts])
 
