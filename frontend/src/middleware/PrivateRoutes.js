@@ -1,11 +1,12 @@
 import {Outlet, Navigate} from "react-router-dom"
-
+import {MyContext} from "../App"
+import {useContext} from "react"
 const PrivateRoutes = () => {
 
-const token = localStorage.getItem("token");
+  const UserContext = useContext(MyContext)
 
 return(
-  token? <Outlet/> : <Navigate to = "/"/>
+  UserContext? <Outlet/> : <Navigate to = "/"/>
 )
 
 }

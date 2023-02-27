@@ -1,18 +1,10 @@
 import {Link, useNavigate} from "react-router-dom"
-import {useEffect, useState} from "react"
+import {useContext} from "react"
+import {MyContext} from "../App"
 
 const UserHeader = () => {
-
-	const [id, setID] = useState('')
-
-	useEffect(()=> {
-		let userID = localStorage.getItem("id");
-		setID(userID)
-	}, [id])
-
-    // const id = new URLSearchParams(window.location.search)
-	// console.log(id)
-	// console.log(user)
+	const UserContext = useContext(MyContext)
+	const id = UserContext._id
 
 	const navigate = useNavigate();
 	const logout = (e) => {

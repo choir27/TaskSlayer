@@ -4,9 +4,8 @@ const jwt = require("jsonwebtoken")
 
 
 module.exports = {
-  getUser: async(req,res,next)=>{
+  getUser: async(req,res)=>{
 try{
-  console.log(req.user)
   res.json({user: req.user})
 }catch(err){
   console.error(err);
@@ -37,14 +36,6 @@ try{
 
       //create user
 
-
-      // await User.create({
-      //   name,
-      //   email,
-      //   userName,
-      //   password: hashedPassword,
-      // })
-
       let user = new User({
           name,
           email,
@@ -62,7 +53,7 @@ try{
             req.flash("errors", {
               msg: "Account with that email address or username already exists.",
             });
-            return res.redirect("../signup");
+            return next(err);
           }
           user.save((err) => {
             if (err) {
