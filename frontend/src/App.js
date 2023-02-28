@@ -73,6 +73,8 @@ useEffect(()=>{
     localStorage.setItem("id", data.user._id);
 
     setUsers([...users, data])
+    window.location.reload(false);
+
 
 }
 
@@ -96,6 +98,7 @@ localStorage.setItem("token", data.token);
 localStorage.setItem("id", data.user._id);
   
 setUsers([...users, data])
+window.location.reload(false);
 
 }
 

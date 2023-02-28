@@ -2,31 +2,32 @@ import {Link} from 'react-router-dom'
 import Footer from "../components/Footer"
 import Button from "../components/Button"
 import Assets from "../components/Assets"
-import {useContext} from "react"
+import {useContext, useState, useEffect} from "react"
 import {MyContext} from "../App"
 import UserHeader from "../components/UserHeader"
 import Header from "../components/Header"
 
 const Home = () => {
-	const UserContext = useContext(MyContext)
+
+	const userContext = useContext(MyContext)
 
   return (
 	<>
 	{
-	UserContext ?
+	userContext ?
 	<div>
 		<UserHeader/>
 	<div id="main">
 		<article className = 'post featured'>
 		<section className = 'major'>
 			<h1 className = 'flex justifyContent'>
-				<Link to = {`${UserContext._id}`}>Welcome {UserContext.userName} to the Illya Site!</Link>
+				<Link to = {`${userContext._id}`}>Welcome {userContext.userName} to the Illya Site!</Link>
 			</h1>
 
 			<p>A wholesome site dedicated to the cutest student and sister servant Illyasviel Von Einzbern; with her cute design, voice, and outfits, this site introduces it all.  Add various content to your customized account!</p>
 		</section>
 		
-		<Link to= {`${UserContext._id}/account`} className="image main">
+		<Link to= {`${userContext._id}/account`} className="image main">
 			<img 
 				src= {Assets.Melusine} 
 				alt="Melusine fan art with moon in the background" 

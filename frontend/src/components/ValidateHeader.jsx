@@ -7,7 +7,7 @@ const ValidateHeader = () =>{
 
   const UserContext = useContext(MyContext)
 
-return(UserContext ? <UserHeader/> : <Header/>)
+return(UserContext ? console.log(UserContext) : console.log(UserContext))
 
 }
 

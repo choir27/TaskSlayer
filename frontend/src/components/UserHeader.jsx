@@ -3,7 +3,7 @@ import {useContext} from "react"
 import {MyContext} from "../App"
 
 const UserHeader = () => {
-	const UserContext = useContext(MyContext)
+	let UserContext = useContext(MyContext)
 	const id = UserContext._id
 
 	const navigate = useNavigate();
@@ -11,7 +11,9 @@ const UserHeader = () => {
 		e.preventDefault();
 		localStorage.removeItem("id");
 		localStorage.removeItem("token");
+		UserContext = null;
 		navigate('/');
+		window.location.reload(false);
 	}
 
   return ( 
