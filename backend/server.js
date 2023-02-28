@@ -10,8 +10,6 @@ const MongoStore = require('connect-mongo')
 const cors = require('cors')
 const mainRoutes = require("./routes/user");
 require("dotenv").config();
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 
 
 require("./config/passport")(passport);

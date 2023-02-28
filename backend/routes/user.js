@@ -1,16 +1,12 @@
 const express = require("express");
+const multer = require('multer')
 const router = express.Router();
 const authController = require("../controllers/user");
 const audioController = require("../controllers/audio")
-const MongoClient = require('mongodb').MongoClient
+const MongoClient = require('mongodb').MongoClient;
 require("dotenv").config();
-const { protect } = require('../middleware/auth')
-const cloudinary = require("../middleware/cloudinary");
-const Audio = require("../models/Audio");
 
-const multer = require('multer')
-      DIR = "./public";
-      const { v4 } = require('uuidv4');
+
 
 const storage = multer.diskStorage({
     filename: (req,file,cb) => {
@@ -39,11 +35,12 @@ router.post("/login", authController.postLogin);
 router.get("/user", authController.getUser);
 router.get("/logout", authController.logout);
 router.post("/register", authController.postSignup);
+
 router.get('/api',(req,res)=>{
     db.collection('users').find().toArray()
     .then(data=>{
-        res.json(data)
-    }).catch(err =>console.error(err))
+        res.json(data);
+    }).catch(err =>console.error(err));
 })
 
 
