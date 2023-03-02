@@ -63,10 +63,6 @@ try{
               if (err) {
                 return next(err);
               }
-
-              console.log(req.user)
-    
-              let tokenItem = ''
               
               if(user){
                 jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: '30d'}, (err,token)=> {

@@ -69,7 +69,6 @@ useEffect(()=>{
 
     setID(data.user._id);
 
-    localStorage.setItem("token", data.token);
     localStorage.setItem("id", data.user._id);
 
     setUsers([...users, data])
