@@ -1,12 +1,17 @@
 import Footer from "../components/Footer";
 import Assets from "../components/Assets";
-import ValidateHeader from "../components/ValidateHeader"
+import UserHeader from "../components/UserHeader"
+import Header from "../components/Header"
+import {useContext} from "react"
+import {MyContext} from "../App"
 
 const About = () => {
 
+  const UserContext = useContext(MyContext)
+
   return (
     <div>
-      <ValidateHeader />
+      {UserContext ? <UserHeader/> : <Header/>}
       <div id="main">
         <article className="post">
           <section className="major">

@@ -73,7 +73,6 @@ useEffect(()=>{
     localStorage.setItem("id", data.user._id);
 
     setUsers([...users, data])
-    window.location.reload(false);
 
 
 }
@@ -98,7 +97,6 @@ localStorage.setItem("token", data.token);
 localStorage.setItem("id", data.user._id);
   
 setUsers([...users, data])
-window.location.reload(false);
 
 }
 
@@ -135,11 +133,10 @@ export default App;
 export const fetchUsers = async () => {
   try{
     const res = await fetch('http://localhost:8000/api')
-    let users = {}
     const data = await res.json()
     data.find(ele=>{
       if(ele._id === localStorage.getItem('id')){
-          users = ele
+          return {ele}
       }
     })
   return data

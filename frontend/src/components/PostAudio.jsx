@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import ValidateHeader from "./ValidateHeader";
+import UserHeader from "../components/UserHeader"
 import Footer from "./Footer";
+import {useContext} from "react"
+import {MyContext} from "../App"
 
 export default function FilesUploadComponent() {
   const [audioFile, setAudioFile] = useState(null);
+  const UserContext = useContext(MyContext)
 
   const onFileChange = (e) => {
     setAudioFile(e.target.files[0]);
@@ -15,6 +18,7 @@ export default function FilesUploadComponent() {
     e.preventDefault();
     const formData = new FormData();
     formData.append("file", audioFile);
+    formData.append("user", UserContext)
     axios
       .post("http://localhost:8000/addAudio", formData, {})
       .then((res) => {
@@ -26,7 +30,7 @@ export default function FilesUploadComponent() {
 
   return (
     <div>
-      <ValidateHeader />
+      <UserHeader />
       <div id="main">
         <article className="post featured">
           <section className="major">
@@ -43,7 +47,6 @@ export default function FilesUploadComponent() {
                   onChange={onFileChange}
                 />
 
-                {console.log(audioFile)}
                 <span>{audioFile ? audioFile.name : "No File Chosen"}</span>
               </div>
               <div>

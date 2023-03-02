@@ -43,9 +43,8 @@ const handleSubmit = (e) => {
       setEmail('')
       setPassword('');
 
-      const token = localStorage.getItem("token");
-
-      token? navigate('/account') : navigate('/')    
+      navigate('/account') 
+      window.location.reload(false);
 
   }
 

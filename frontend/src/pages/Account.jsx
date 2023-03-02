@@ -1,6 +1,6 @@
 import Footer from "../components/Footer"
 import VoiceLinePlayer from "../components/VoiceLinePlayer"
-import ValidateHeader from "../components/ValidateHeader"
+import UserHeader from "../components/UserHeader"
 import {useContext} from "react"
 import {MyContext} from "../App"
 
@@ -10,7 +10,7 @@ const Account = () => {
 
   return (
     <div>  
-      <ValidateHeader />  
+      <UserHeader />  
           <div id = 'main'>
             <article className = 'post'>
         <section className="major column flex">
