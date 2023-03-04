@@ -3,32 +3,15 @@ import React, { Suspense, useState, useEffect, createContext } from 'react';
 import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PrivateRoutes from "./middleware/PrivateRoutes"
-import { createBrowserHistory } from "history";
+
 
 function App() {
 
   const [users, setUsers] = useState([])
-  const [id, setID] = useState('')
- 
-  const Home = React.lazy(() => import('./pages/Home'));
-  const About = React.lazy(() => import('./pages/About'));
-  const Dashboard = React.lazy(() => import('./pages/Dashboard'));
-  const Register = React.lazy(() => import('./pages/Register'));
-  const Login = React.lazy(() => import('./pages/Login'));
-  const Account = React.lazy(() => import('./pages/Account'));
-  const AddAudio = React.lazy(()=> import("./components/PostAudio"))
-
   const [userAccounts, setUserAccounts] = useState([])
   const [currentUser, setCurrentUser] = useState({})
 
-  const fetchUsers = async () => {
-    const res = await fetch('http://localhost:8000/api')
-    
-    const data = await res.json()
-    return data
-  }
-
-useEffect( () => {
+  useEffect( () => {
     const getUsers = async () => {
       const usersFromServer = await fetchUsers()
       setUserAccounts(usersFromServer)
@@ -44,15 +27,15 @@ useEffect(()=>{
   }
 }, [currentUser, userAccounts])
 
-  useEffect(() => {
-    const history = createBrowserHistory();
 
-    const addId = (userID) => {
-      history.push(userID)
-    }
+  const fetchUsers = async () => {
+    const res = await fetch('http://localhost:8000/api')
+    
+    const data = await res.json()
+    return data
+  }
 
-    addId(id)
-  }, [id]);
+
 
 
   const registerUser = async (user) => {
@@ -66,8 +49,6 @@ useEffect(()=>{
     })
   
     const data = await res.json()
-
-    setID(data.user._id);
 
     localStorage.setItem("id", data.user._id);
 
@@ -88,20 +69,27 @@ const loginUser = async (user) => {
   body: JSON.stringify(user )
 })
 
-const data = await res.json()
+const data = await res.json();
 
-setID(data.user._id);
-
-localStorage.setItem("token", data.token);
 localStorage.setItem("id", data.user._id);
   
 setUsers([...users, data])
 
 }
 
+
+
+
+const Home = React.lazy(() => import('./pages/Home'));
+const About = React.lazy(() => import('./pages/About'));
+const Dashboard = React.lazy(() => import('./pages/Dashboard'));
+const Register = React.lazy(() => import('./pages/Register'));
+const Login = React.lazy(() => import('./pages/Login'));
+const Account = React.lazy(() => import('./pages/Account'));
+const AddAudio = React.lazy(()=> import("./components/PostAudio"))
+
   
   return (
-    <MyContext.Provider value = {currentUser}>
     <Suspense fallback={<div><p>Loading...</p></div>}>
     <Router>
       <Routes>
@@ -111,17 +99,13 @@ setUsers([...users, data])
             <Route path="/register" element={<Register onAdd = {registerUser}/>} />
             <Route path="/login" element={<Login onAdd = {loginUser} />} />
         <Route element={<PrivateRoutes />}>
-            <Route path="/:id/addAudio" element={<AddAudio/>}/>
-            <Route path="/:id" element={<Home/>} />
-            <Route path="/:id/about" element={<About/>} />
-            <Route path="/:id/dashboard" element={<Dashboard/>} />
-            <Route element = {<Account />} path = '/:id/account'/>
+            <Route path="/addAudio" element={<AddAudio/>}/>
+            <Route element = {<Account />} path = '/account'/>
         </Route>
       </Routes>
     </Router>
     <ToastContainer />
     </Suspense>
-    </MyContext.Provider>
   );
 
 }

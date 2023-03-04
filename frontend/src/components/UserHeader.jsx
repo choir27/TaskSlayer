@@ -4,7 +4,6 @@ import {MyContext} from "../App"
 
 const UserHeader = () => {
 	let UserContext = useContext(MyContext)
-	const id = UserContext._id
 
 	const navigate = useNavigate();
 	const logout = (e) => {
@@ -13,7 +12,7 @@ const UserHeader = () => {
 		localStorage.removeItem("token");
 		UserContext = null;
 		navigate('/');
-		window.location.reload(false);
+		window.location.reload();
 	}
 
   return ( 
@@ -24,11 +23,11 @@ const UserHeader = () => {
 
         <nav id="nav">
 			<ul className="links">
-              	<li><Link  to={`/${id}`}>Home</Link></li>
-              	<li><Link to = {`/${id}/about`}>About</Link></li>
-				<li><Link to = {`/${id}/dashboard`}>Dashboard</Link></li>
-				<li><Link to = {`/${id}/account`}>Account</Link></li>
-				<li><Link to = {`/${id}/addAudio`}>Add Audio</Link></li>
+              	<li><Link  to='/'>Home</Link></li>
+              	<li><Link to = '/about'>About</Link></li>
+				<li><Link to = '/dashboard'>Dashboard</Link></li>
+				<li><Link to = '/account'>Account</Link></li>
+				<li><Link to = '/addAudio'>Add Audio</Link></li>
 				<li><Link to ='/' onClick = {(e)=>logout(e)}>Logout</Link></li>
 			</ul>
 			<ul className="icons alt">

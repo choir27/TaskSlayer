@@ -115,7 +115,7 @@ const SignUp = ( {onAdd} ) => {
 
 
             navigate('/account')
-            window.location.reload(false);
+            window.location.reload();
           }
 
 
