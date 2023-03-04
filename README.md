@@ -6,7 +6,7 @@ Taking the foundations created by this repository, https://github.com/choir27/Il
 ![Illya](https://user-images.githubusercontent.com/66279068/220187754-5403c5b6-a1b6-4f43-ad72-c181e766bcda.png)
 
 - [X] Use the respective users' unique id in the database to tell the code which Header to show (one for logged in users, and one for guests only).
-- [ ] Add user info when posting audio file relative to who is logged in
+- [X] Add user info when posting audio file relative to who is logged in
 - [ ] Clean up Account page to look more like a website user account page
 - [X] Add component for uploading audio to use on verified pages
 - [ ] Show audios that have been added by various users, showing which post belongs to which user
