@@ -10,7 +10,7 @@ module.exports = {
             const voiceLine = await Audio.create({
                 audio: result.secure_url,
                 cloudinaryId: result.public_id,
-                user: req.user
+                user: req.body.user
             })
         
             res.json({voiceLine})

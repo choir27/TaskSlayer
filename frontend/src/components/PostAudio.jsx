@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import UserHeader from "../components/UserHeader"
 import Footer from "./Footer";
 import {useContext} from "react"
 import {MyContext} from "../App"
 
-export default class FilesUploadComponent extends Component {
+class FilesUploadComponent extends Component {
   constructor(props) {
       super(props);
       this.onFileChange = this.onFileChange.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
       this.state = {
-          audioFile: ''
+          audioFile: '',
+          user: ''
       }
   }
   onFileChange(e) {
@@ -22,11 +22,21 @@ export default class FilesUploadComponent extends Component {
       e.preventDefault()
       const formData = new FormData()
       formData.append('file', this.state.audioFile)
+      formData.append("user", this.state.user)
       axios.post("http://localhost:8000/addAudio", formData, {
       }).then(res => {
           console.log(res)
       })
   }
+
+  async getUser(){
+   let res = await this.props.userContext
+   const onUserChange = () => this.setState({user: res[0]._id})
+   onUserChange()
+   console.log(this.state.user)
+  return res
+  }
+
 
 render(){
   return (
@@ -46,16 +56,24 @@ render(){
                   className="hidden"
                   type="file"
                   onChange={this.onFileChange}
+                  onClick = {() => this.getUser()}
                 />
+       
                 <input
-                
-                />
-                <input
+                id = "user"
+                type = "text"
+                name = "user"
+                className = "hidden"
+                disabled
+                value = {this.state.user}
+                readOnly = {true}
                 />
 
                 <span>{this.state.audioFile ? this.state.audioFile.name : "No File Chosen"}</span>
               </div>
               <div>
+
+
                 <button
                   type="submit"
                   className="button large"
@@ -72,3 +90,17 @@ render(){
   );
                 }
 }
+
+const GetUser = () =>{
+  const userContext = useContext(MyContext)
+
+  const users = async() =>{
+    let user = await userContext;
+    return user
+  }
+
+  return <FilesUploadComponent userContext = {users()}/>
+
+}
+
+export default GetUser
