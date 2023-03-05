@@ -1,12 +1,33 @@
 import Footer from "../components/Footer"
 import VoiceLinePlayer from "../components/VoiceLinePlayer"
 import UserHeader from "../components/UserHeader"
-import {useContext} from "react"
+import {useContext, useEffect, useState} from "react"
 import {MyContext} from "../App"
 
 const Account = () => {
 
   const UserContext = useContext(MyContext)
+
+  const [user, setUser] = useState({})
+
+  
+  useEffect(()=>{
+
+    const getAccount = async() =>{
+      const userFromServer = await getUser()
+      setUser(userFromServer)
+    }
+
+    getAccount()
+
+  },[])
+
+  const getUser = async() => {
+    let user = await UserContext
+    return user
+  }
+
+  
 
   return (
     <div>  
@@ -15,7 +36,7 @@ const Account = () => {
             <article className = 'post'>
         <section className="major column flex">
         
-            <h2>{UserContext._id ? UserContext.userName : "ERROR HAS OCCURED"}</h2>
+            <h2>{user[0] ? user[0].userName : "ERROR HAS OCCURED"}</h2>
 
         <div id = 'audio'>
           <VoiceLinePlayer />

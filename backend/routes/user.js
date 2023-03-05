@@ -44,6 +44,15 @@ router.get('/api',(req,res)=>{
 })
 
 
+router.get('/audio',(req,res)=>{
+    db.collection('audios').find().toArray()
+    .then(data=>{
+        res.json(data);
+    }).catch(err =>console.error(err));
+})
+
+
+
 router.post("/addAudio", upload.single("file"), audioController.postAudio);
  
 
