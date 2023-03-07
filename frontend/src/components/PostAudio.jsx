@@ -4,7 +4,6 @@ import UserHeader from "../components/UserHeader"
 import Footer from "./Footer";
 import {useContext} from "react"
 import {MyContext} from "../App"
-import {Link} from "react-router-dom"
 
 class FilesUploadComponent extends Component {
   constructor(props) {
@@ -74,15 +73,13 @@ render(){
               </div>
               <div>
 
-            <Link to ="/">
+
                 <button
                   type="submit"
                   className="button large"
                 >
                   Upload
                 </button>
-                </Link>
-
               </div>
             </form>
           </section>

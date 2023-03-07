@@ -14,6 +14,12 @@ const Account = () => {
   useEffect(()=>{
 
     const getAccount = async() =>{
+
+      const getUser = async() => {
+        let user = await UserContext
+        return user
+      }
+
       const userFromServer = await getUser()
       setUser(userFromServer)
     }
@@ -21,13 +27,6 @@ const Account = () => {
     getAccount()
 
   },[])
-
-  const getUser = async() => {
-    let user = await UserContext
-    return user
-  }
-
-  
 
   return (
     <div>  

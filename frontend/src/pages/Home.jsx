@@ -9,6 +9,8 @@ const Home = () => {
 
 	const userContext = useContext(MyContext)
 
+	console.log(userContext)
+
 	useEffect(()=>{
 		userContext ?  <HomeAuth/> :  <HomeAuth/> 
 	}, [user])

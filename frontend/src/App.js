@@ -5,6 +5,9 @@ import "react-toastify/dist/ReactToastify.css"
 import PrivateRoutes from "./middleware/PrivateRoutes"
 
 
+
+export const MyContext = React.createContext(); 
+
 function App() {
 
   const [users, setUsers] = useState([])
@@ -20,12 +23,6 @@ function App() {
     getUsers()
   }, [])
 
-useEffect(()=>{
-  if(userAccounts)
-  {
-    setCurrentUser(userAccounts.find(ele=>ele._id === localStorage.getItem('id')))
-  }
-}, [currentUser, userAccounts])
 
 
   const fetchUsers = async () => {
@@ -71,9 +68,14 @@ const loginUser = async (user) => {
 
 const data = await res.json();
 
+setCurrentUser(data)
+
 localStorage.setItem("id", data.user._id);
+
+console.log(currentUser
+  )
   
-setUsers([...users, data])
+setUsers([...users, data, currentUser])
 
 }
 
@@ -87,9 +89,9 @@ const Register = React.lazy(() => import('./pages/Register'));
 const Login = React.lazy(() => import('./pages/Login'));
 const Account = React.lazy(() => import('./pages/Account'));
 const AddAudio = React.lazy(()=> import("./components/PostAudio"))
-
   
   return (
+    <MyContext.Provider value={currentUser}>
     <Suspense fallback={<div><p>Loading...</p></div>}>
     <Router>
       <Routes>
@@ -106,6 +108,7 @@ const AddAudio = React.lazy(()=> import("./components/PostAudio"))
     </Router>
     <ToastContainer />
     </Suspense>
+    </MyContext.Provider>
   );
 
 }
@@ -113,22 +116,4 @@ const AddAudio = React.lazy(()=> import("./components/PostAudio"))
 export default App;
 
 
-export const fetchUsers = async () => {
-  try{
-    const res = await fetch('http://localhost:8000/api')
-    const data = await res.json()
-    data.find(ele=>{
-      if(ele._id === localStorage.getItem('id')){
-          return {ele}
-      }
-    })
-  return data
-  }catch(err){
-    console.error(err)
-  }
-  
-}
 
-const users = fetchUsers()
-
-export const MyContext = createContext(users)

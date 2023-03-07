@@ -115,11 +115,9 @@ const SignUp = ( {onAdd} ) => {
 
 
             navigate('/account')
-            window.location.reload();
-          }
 
 
-
+}
 
   return (
    <div>

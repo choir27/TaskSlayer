@@ -6,22 +6,11 @@ const UserHeader = () => {
 	let UserContext = useContext(MyContext)
 
 	const navigate = useNavigate();
-	
 	const logout = (e) => {
 		e.preventDefault();
 		localStorage.removeItem("id");
+		localStorage.removeItem("token");
 		UserContext = null;
-
-		const logoutUser = async (user) => {
-  
-			const res = await fetch(`http://localhost:8000/logout`, {
-			credentials: 'same-origin',
-			method: 'GET',
-		  })
-		}
-		
-		logoutUser()
-
 		navigate('/');
 		window.location.reload();
 	}
