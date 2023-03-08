@@ -17,13 +17,7 @@ const About = () => {
         <article className="post">
           <section className="major">
             <h1 className="flex justifyContent">About Illya</h1>
-            
-            <button onClick = {()=>{
-              console.log(UserContext)
-            }}>
-              Click
-            </button>
-            
+        
             <div className = 'containerBox image'>
 
               <img 

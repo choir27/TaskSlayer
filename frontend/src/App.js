@@ -1,5 +1,5 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import React, { Suspense, useState, createContext, useRef } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PrivateRoutes from "./middleware/PrivateRoutes"
@@ -7,7 +7,20 @@ import {MyContext} from "./middleware/Context"
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState({})
+  const currentUser = useRef({});
+      
+  let fetchUsers = fetch("http://localhost:8000/api")
+      .then(res=>res.json())
+      .then(data=>{
+        for(let i = 0; i <data.length ; i++){
+          if(data[i]._id == localStorage.getItem("id")){
+            return data[i]
+          }
+        }
+      });
+    
+
+
 
   const registerUser = async (user) => {
     const res = await fetch(`http://localhost:8000/register`, {
@@ -21,9 +34,6 @@ function App() {
   
     const data = await res.json()
     localStorage.setItem("id", data.user._id);
-
-    setCurrentUser(data);
-
 
 }
 
@@ -41,9 +51,6 @@ const loginUser = async (user) => {
 
 const data = await res.json();
 localStorage.setItem("id", data.user._id);
-
-setCurrentUser(data);
-
   
 }
 
@@ -60,7 +67,7 @@ const AddAudio = React.lazy(()=> import("./components/PostAudio"))
 
 
   return (
-    <MyContext.Provider value={currentUser}>
+    <MyContext.Provider value={fetchUsers}>
     <Suspense fallback={<div><p>Loading...</p></div>}>
     <Router>
       <Routes>

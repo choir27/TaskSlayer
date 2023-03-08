@@ -1,6 +1,6 @@
-const Post = ({test}) => {
+const Post = ({text}) => {
   return (
-    <div>{test}</div>
+    <div>{text}</div>
   )
 }
 

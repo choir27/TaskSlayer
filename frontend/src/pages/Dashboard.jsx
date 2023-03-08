@@ -7,16 +7,27 @@ import {MyContext} from "../middleware/Context"
 
 const Dashboard = () => {
 
-  const UserContext = useContext(MyContext)
 
-  const [audioTracks, setAudioTracks] = useState([])
+  const userContext = useContext(MyContext)
+  const currentUser = useRef({})
   const [user, setUser] = useState({})
+  const [audioTracks, setAudioTracks] = useState([])
+
+  useEffect(()=>{
+    userContext.then(data=>{
+      setUser(data)
+    })
+  },[])
+
+  userContext.then(data=>{
+    currentUser.current = data
+  })
+
 
   useEffect(()=>{
 
     const getAccount = async() =>{
-      const userFromServer = await getUser()
-      setUser(userFromServer)
+      setUser(currentUser.current)
     }
 
     getAccount()
@@ -39,15 +50,11 @@ const Dashboard = () => {
     return data
   }
 
-  const getUser = async() => {
-    let user = await UserContext
-    return user
-  }
 
   const data = []
 
   audioTracks.forEach(ele=>{
-    if(ele.user === user[0]._id){
+    if(ele.user === user._id){
         data.push({audio: ele.audio,id: ele._id})
     }
 })
@@ -59,11 +66,11 @@ const Dashboard = () => {
       rows.push(<Post text = {ele.audio} key = {ele.id}/>)
   })
 
-  console.log(data)
+  console.log(rows)
   
   return (
     <div>
-      {UserContext ? <UserHeader/> : <Header/>}
+      {userContext ? <UserHeader/> : <Header/>}
       <div id = 'main'>
         <section className="major column flex">
         Dashboard

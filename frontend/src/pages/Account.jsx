@@ -1,32 +1,24 @@
 import Footer from "../components/Footer"
 import VoiceLinePlayer from "../components/VoiceLinePlayer"
 import UserHeader from "../components/UserHeader"
-import {useContext, useEffect, useState} from "react"
+import {useContext, useEffect, useState, useRef} from "react"
 import {MyContext} from "../middleware/Context"
 
 const Account = () => {
 
-  const UserContext = useContext(MyContext)
-
+  const userContext = useContext(MyContext)
+  const currentUser = useRef({})
   const [user, setUser] = useState({})
 
-  
   useEffect(()=>{
-
-    const getAccount = async() =>{
-
-      const getUser = async() => {
-        let user = await UserContext
-        return user
-      }
-
-      const userFromServer = await getUser()
-      setUser(userFromServer)
-    }
-
-    getAccount()
-
+    userContext.then(data=>{
+      setUser(data)
+    })
   },[])
+
+  userContext.then(data=>{
+    currentUser.current = data
+  })
 
   return (
     <div>  
@@ -35,7 +27,7 @@ const Account = () => {
             <article className = 'post'>
         <section className="major column flex">
         
-            <h2>{user[0] ? user[0].userName : "ERROR HAS OCCURED"}</h2>
+        <h2>{currentUser ? currentUser.current.userName : "Error has occured, please try again later!"}</h2>
 
         <div id = 'audio'>
           <VoiceLinePlayer />
