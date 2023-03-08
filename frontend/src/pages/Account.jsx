@@ -2,7 +2,7 @@ import Footer from "../components/Footer"
 import VoiceLinePlayer from "../components/VoiceLinePlayer"
 import UserHeader from "../components/UserHeader"
 import {useContext, useEffect, useState} from "react"
-import {MyContext} from "../App"
+import {MyContext} from "../middleware/Context"
 
 const Account = () => {
 

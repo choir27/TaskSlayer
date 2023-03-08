@@ -3,14 +3,10 @@ import Footer from "../components/Footer"
 import Assets from "../components/Assets"
 import Button from "../components/Button"
 import UserHeader from "../components/UserHeader"
-import {MyContext} from "../App"
+import {MyContext} from "../middleware/Context"
 import {useContext} from "react"
-
 const HomeAuth = () => {
-
-	const user = useContext(MyContext)
-
-
+const user = useContext(MyContext)
   return (
 <div>
 		<UserHeader/>

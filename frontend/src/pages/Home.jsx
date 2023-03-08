@@ -1,22 +1,12 @@
-import {useContext, useState, useEffect} from "react"
-import {MyContext} from "../App"
+import {useContext} from "react"
 import HomeGuest from "./HomeGuest"
 import HomeAuth from "./HomeAuth"
+import {MyContext} from "../middleware/Context"
 
 const Home = () => {
 
-	const [user,setUser] = useState(false)
-
-	const userContext = useContext(MyContext)
-
-	console.log(userContext)
-
-	useEffect(()=>{
-		userContext ?  <HomeAuth/> :  <HomeAuth/> 
-	}, [user])
-	
 	return(
-		userContext ? <HomeAuth/> : <HomeGuest/>
+		localStorage.getItem('id') ? <HomeAuth/> : <HomeGuest/>
 	)
 }
 

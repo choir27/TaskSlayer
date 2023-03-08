@@ -2,8 +2,9 @@ import Footer from "../components/Footer"
 import UserHeader from "../components/UserHeader"
 import Header from "../components/Header"
 import {useContext, useState, useEffect, useRef} from "react"
-import {MyContext} from "../App"
 import Post from "../components/Post"
+import {MyContext} from "../middleware/Context"
+
 const Dashboard = () => {
 
   const UserContext = useContext(MyContext)

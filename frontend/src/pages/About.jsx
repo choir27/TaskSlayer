@@ -3,11 +3,12 @@ import Assets from "../components/Assets";
 import UserHeader from "../components/UserHeader"
 import Header from "../components/Header"
 import {useContext} from "react"
-import {MyContext} from "../App"
+import {MyContext} from "../middleware/Context"
 
 const About = () => {
 
   const UserContext = useContext(MyContext)
+
 
   return (
     <div>
@@ -16,9 +17,12 @@ const About = () => {
         <article className="post">
           <section className="major">
             <h1 className="flex justifyContent">About Illya</h1>
-            <div className="flex column alignItems">
-
-            </div>
+            
+            <button onClick = {()=>{
+              console.log(UserContext)
+            }}>
+              Click
+            </button>
             
             <div className = 'containerBox image'>
 

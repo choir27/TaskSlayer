@@ -1,16 +1,19 @@
 import {Link, useNavigate} from "react-router-dom"
 import {useContext} from "react"
-import {MyContext} from "../App"
+import {MyContext} from "../middleware/Context"
 
 const UserHeader = () => {
-	let UserContext = useContext(MyContext)
+	let UserContext = useContext(MyContext);
 
 	const navigate = useNavigate();
+
+
 	const logout = (e) => {
 		e.preventDefault();
 		localStorage.removeItem("id");
 		localStorage.removeItem("token");
 		UserContext = null;
+
 		navigate('/');
 		window.location.reload();
 	}

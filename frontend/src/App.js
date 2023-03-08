@@ -1,39 +1,13 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import React, { Suspense, useState, useEffect, createContext } from 'react';
+import React, { Suspense, useState, createContext, useRef } from 'react';
 import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PrivateRoutes from "./middleware/PrivateRoutes"
-
-
-
-export const MyContext = React.createContext(); 
+import {MyContext} from "./middleware/Context"
 
 function App() {
 
-  const [users, setUsers] = useState([])
-  const [userAccounts, setUserAccounts] = useState([])
   const [currentUser, setCurrentUser] = useState({})
-
-  useEffect( () => {
-    const getUsers = async () => {
-      const usersFromServer = await fetchUsers()
-      setUserAccounts(usersFromServer)
-    }
-
-    getUsers()
-  }, [])
-
-
-
-  const fetchUsers = async () => {
-    const res = await fetch('http://localhost:8000/api')
-    
-    const data = await res.json()
-    return data
-  }
-
-
-
 
   const registerUser = async (user) => {
     const res = await fetch(`http://localhost:8000/register`, {
@@ -46,10 +20,9 @@ function App() {
     })
   
     const data = await res.json()
-
     localStorage.setItem("id", data.user._id);
 
-    setUsers([...users, data])
+    setCurrentUser(data);
 
 
 }
@@ -67,16 +40,11 @@ const loginUser = async (user) => {
 })
 
 const data = await res.json();
-
-setCurrentUser(data)
-
 localStorage.setItem("id", data.user._id);
 
-console.log(currentUser
-  )
-  
-setUsers([...users, data, currentUser])
+setCurrentUser(data);
 
+  
 }
 
 
@@ -89,7 +57,8 @@ const Register = React.lazy(() => import('./pages/Register'));
 const Login = React.lazy(() => import('./pages/Login'));
 const Account = React.lazy(() => import('./pages/Account'));
 const AddAudio = React.lazy(()=> import("./components/PostAudio"))
-  
+
+
   return (
     <MyContext.Provider value={currentUser}>
     <Suspense fallback={<div><p>Loading...</p></div>}>
@@ -114,6 +83,3 @@ const AddAudio = React.lazy(()=> import("./components/PostAudio"))
 }
 
 export default App;
-
-
-

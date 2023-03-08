@@ -3,7 +3,7 @@ import axios from "axios";
 import UserHeader from "../components/UserHeader"
 import Footer from "./Footer";
 import {useContext} from "react"
-import {MyContext} from "../App"
+import {MyContext} from "../middleware/Context"
 
 class FilesUploadComponent extends Component {
   constructor(props) {
