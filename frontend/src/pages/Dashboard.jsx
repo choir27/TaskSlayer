@@ -6,8 +6,7 @@ import Post from "../components/Post"
 import {MyContext} from "../middleware/Context"
 
 const Dashboard = () => {
-
-
+  
   const userContext = useContext(MyContext)
   const currentUser = useRef({})
   const [user, setUser] = useState({})

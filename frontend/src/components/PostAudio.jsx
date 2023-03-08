@@ -4,6 +4,8 @@ import UserHeader from "../components/UserHeader"
 import Footer from "./Footer";
 import {useContext} from "react"
 import {MyContext} from "../middleware/Context"
+import {toast} from "react-toastify"
+import {useNavigate} from "react-router-dom"
 
 class FilesUploadComponent extends Component {
   constructor(props) {
@@ -20,21 +22,31 @@ class FilesUploadComponent extends Component {
   }
   onSubmit(e) {
       e.preventDefault()
+
+      if(this.state.audioFile.name.includes("mp3") || this.state.audioFile.name.includes("ogg")){
+    
+
       const formData = new FormData()
       formData.append('file', this.state.audioFile)
       formData.append("user", this.state.user)
       axios.post("http://localhost:8000/addAudio", formData, {
       }).then(res => {
           console.log(res)
+          this.props.navigate("/")
       })
+    }else{
+      toast.error("Incorrect File Uploaded. Please Upload An Audio File")
+      return;
+    }
   }
 
-  async getUser(){
-   let res = await this.props.userContext
-   const onUserChange = () => this.setState({user: res[0]._id})
-   onUserChange()
-   console.log(this.state.user)
-  return res
+  getUser(){
+
+    this.props.userContext.then(data=>{
+      const onUserChange = () => this.setState({user: data._id})
+      onUserChange()
+    }
+    )
   }
 
 
@@ -73,10 +85,13 @@ render(){
               </div>
               <div>
 
-
+          
                 <button
                   type="submit"
                   className="button large"
+                  onClick = {()=>{
+
+                  }}
                 >
                   Upload
                 </button>
@@ -93,14 +108,16 @@ render(){
 
 const GetUser = () =>{
   const userContext = useContext(MyContext)
+  const navigate = useNavigate()
 
   const users = async() =>{
     let user = await userContext;
     return user
   }
 
-  return <FilesUploadComponent userContext = {users()}/>
+  return <FilesUploadComponent userContext = {users()} navigate = {navigate}/>
 
 }
 
 export default GetUser
+
