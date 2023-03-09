@@ -43,8 +43,9 @@ const handleSubmit = (e) => {
       setEmail('')
       setPassword('');
 
-      navigate('/account') 
+      navigate('/') 
       window.location.reload();
+      navigate('/') 
 
   }
 

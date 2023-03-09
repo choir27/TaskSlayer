@@ -50,22 +50,13 @@ const Dashboard = () => {
   }
 
 
-  const data = []
-
-  audioTracks.forEach(ele=>{
-    if(ele.user === user._id){
-        data.push({audio: ele.audio,id: ele._id})
-    }
-})
-  
-
   const rows = []
 
-  data.forEach(ele=>{
-      rows.push(<Post text = {ele.audio} key = {ele.id}/>)
+  audioTracks.forEach(ele=>{
+    rows.push(<Post text = {ele.audio} key = {ele._id}/>)
   })
+  
 
-  console.log(rows)
   
   return (
     <div>

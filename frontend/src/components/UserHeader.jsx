@@ -11,7 +11,9 @@ const UserHeader = () => {
 	const logout = (e) => {
 		e.preventDefault();
 		localStorage.removeItem("id");
-		localStorage.removeItem("token");
+
+
+
 		UserContext = null;
 
 		navigate('/');

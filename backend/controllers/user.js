@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken")
 
 
 module.exports = {
+  
   getUser: async(req,res)=>{
 try{
   res.json({user: req.user})
