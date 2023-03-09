@@ -85,16 +85,18 @@ const SignUp = ( {onAdd} ) => {
         //Checks if the user name or email already exists
 
         if(users){
-            for(let i = 0; i <users.length; i++){
-              if(users[i].email === email){
-                toast.error('Email Address already exists');
-                return;
-              }
-              if(users[i].userName === userName){
-                toast.error('Username already exists');
-                return;
-              }
+          let i = 0;
+          while(i < users.length){
+            if(users[i].email === email){
+              toast.error('Email Address already exists');
+              return;
             }
+            if(users[i].userName === userName){
+              toast.error('Username already exists');
+              return;
+            }
+            i++
+          }
           }
 
           //if passwords don't match and the button is enabled by hacking
@@ -111,12 +113,11 @@ const SignUp = ( {onAdd} ) => {
             setPassword('');
             setMatchPassword('');
 
-            const token = localStorage.getItem("token");
 
-            token? navigate('/account') : navigate('/')        }
-
+            navigate('/')
 
 
+}
 
   return (
    <div>

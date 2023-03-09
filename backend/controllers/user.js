@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken")
 
 
 module.exports = {
+  
   getUser: async(req,res)=>{
 try{
   res.json({user: req.user})
@@ -63,10 +64,6 @@ try{
               if (err) {
                 return next(err);
               }
-
-              console.log(req.user)
-    
-              let tokenItem = ''
               
               if(user){
                 jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: '30d'}, (err,token)=> {
@@ -98,17 +95,8 @@ postLogin : async (req, res) => {
       //checks for user email
       const user = await User.findOne({email})
 
-      console.log(req.user)
-
       if(bcrypt.compare(password, user.password)){
-jwt.sign({user}, process.env.JWT_SECRET, {expiresIn: '30d'}, (err,token)=> {
-  res.json({
-    token,
-    user
-  })
-  })
-  console.log(req.user)
-
+  res.json({user})
       } else {
           res.status(400)
           throw new Error('Invalid credentials')

@@ -1,20 +1,23 @@
 import Footer from "../components/Footer";
 import Assets from "../components/Assets";
-import ValidateHeader from "../components/ValidateHeader"
+import UserHeader from "../components/UserHeader"
+import Header from "../components/Header"
+import {useContext} from "react"
+import {MyContext} from "../middleware/Context"
 
 const About = () => {
 
+  const UserContext = useContext(MyContext)
+
+
   return (
     <div>
-      <ValidateHeader />
+      {UserContext ? <UserHeader/> : <Header/>}
       <div id="main">
         <article className="post">
           <section className="major">
             <h1 className="flex justifyContent">About Illya</h1>
-            <div className="flex column alignItems">
-
-            </div>
-            
+        
             <div className = 'containerBox image'>
 
               <img 

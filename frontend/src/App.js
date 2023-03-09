@@ -1,58 +1,25 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import React, { Suspense, useState, useEffect, createContext } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PrivateRoutes from "./middleware/PrivateRoutes"
-import { createBrowserHistory } from "history";
+import {MyContext} from "./middleware/Context"
 
 function App() {
 
-  const [users, setUsers] = useState([])
-  const [id, setID] = useState('')
- 
-  const Home = React.lazy(() => import('./pages/Home'));
-  const About = React.lazy(() => import('./pages/About'));
-  const Dashboard = React.lazy(() => import('./pages/Dashboard'));
-  const Register = React.lazy(() => import('./pages/Register'));
-  const Login = React.lazy(() => import('./pages/Login'));
-  const Account = React.lazy(() => import('./pages/Account'));
-  const AddAudio = React.lazy(()=> import("./components/PostAudio"))
-
-  const [userAccounts, setUserAccounts] = useState([])
-  const [currentUser, setCurrentUser] = useState({})
-
-  const fetchUsers = async () => {
-    const res = await fetch('http://localhost:8000/api')
+  const currentUser = useRef({});
+      
+  let fetchUsers = fetch("http://localhost:8000/api")
+      .then(res=>res.json())
+      .then(data=>{
+        for(let i = 0; i <data.length ; i++){
+          if(data[i]._id == localStorage.getItem("id")){
+            return data[i]
+          }
+        }
+      });
     
-    const data = await res.json()
-    return data
-  }
 
-useEffect( () => {
-    const getUsers = async () => {
-      const usersFromServer = await fetchUsers()
-      setUserAccounts(usersFromServer)
-    }
-
-    getUsers()
-  }, [])
-
-useEffect(()=>{
-  if(userAccounts)
-  {
-    setCurrentUser(userAccounts.find(ele=>ele._id === localStorage.getItem('id')))
-  }
-}, [currentUser, userAccounts])
-
-  useEffect(() => {
-    const history = createBrowserHistory();
-
-    const addId = (userID) => {
-      history.push(userID)
-    }
-
-    addId(id)
-  }, [id]);
 
 
   const registerUser = async (user) => {
@@ -66,15 +33,7 @@ useEffect(()=>{
     })
   
     const data = await res.json()
-
-    setID(data.user._id);
-
-    localStorage.setItem("token", data.token);
     localStorage.setItem("id", data.user._id);
-
-    setUsers([...users, data])
-    window.location.reload(false);
-
 
 }
 
@@ -90,21 +49,25 @@ const loginUser = async (user) => {
   body: JSON.stringify(user )
 })
 
-const data = await res.json()
-
-setID(data.user._id);
-
-localStorage.setItem("token", data.token);
+const data = await res.json();
 localStorage.setItem("id", data.user._id);
   
-setUsers([...users, data])
-window.location.reload(false);
-
 }
 
-  
+
+
+
+const Home = React.lazy(() => import('./pages/Home'));
+const About = React.lazy(() => import('./pages/About'));
+const Dashboard = React.lazy(() => import('./pages/Dashboard'));
+const Register = React.lazy(() => import('./pages/Register'));
+const Login = React.lazy(() => import('./pages/Login'));
+const Account = React.lazy(() => import('./pages/Account'));
+const AddAudio = React.lazy(()=> import("./components/PostAudio"))
+
+
   return (
-    <MyContext.Provider value = {currentUser}>
+    <MyContext.Provider value={fetchUsers}>
     <Suspense fallback={<div><p>Loading...</p></div>}>
     <Router>
       <Routes>
@@ -114,11 +77,8 @@ window.location.reload(false);
             <Route path="/register" element={<Register onAdd = {registerUser}/>} />
             <Route path="/login" element={<Login onAdd = {loginUser} />} />
         <Route element={<PrivateRoutes />}>
-            <Route path="/:id/addAudio" element={<AddAudio/>}/>
-            <Route path="/:id" element={<Home/>} />
-            <Route path="/:id/about" element={<About/>} />
-            <Route path="/:id/dashboard" element={<Dashboard/>} />
-            <Route element = {<Account />} path = '/:id/account'/>
+            <Route path="/addAudio" element={<AddAudio/>}/>
+            <Route element = {<Account />} path = '/account'/>
         </Route>
       </Routes>
     </Router>
@@ -130,25 +90,3 @@ window.location.reload(false);
 }
 
 export default App;
-
-
-export const fetchUsers = async () => {
-  try{
-    const res = await fetch('http://localhost:8000/api')
-    let users = {}
-    const data = await res.json()
-    data.find(ele=>{
-      if(ele._id === localStorage.getItem('id')){
-          users = ele
-      }
-    })
-  return data
-  }catch(err){
-    console.error(err)
-  }
-  
-}
-
-const users = fetchUsers()
-
-export const MyContext = createContext(users)

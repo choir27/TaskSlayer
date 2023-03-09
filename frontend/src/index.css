@@ -1634,7 +1634,9 @@ a#navPanelToggle{
 	justify-content: space-between;
 }
 
-
+#user{
+	display: none;
+}
 
 /* body *{
 	border: 3px solid black;

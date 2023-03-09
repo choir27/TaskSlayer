@@ -1,36 +1,63 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import ValidateHeader from "./ValidateHeader";
+import UserHeader from "../components/UserHeader"
 import Footer from "./Footer";
+import {useContext} from "react"
+import {MyContext} from "../middleware/Context"
+import {toast} from "react-toastify"
+import {useNavigate} from "react-router-dom"
 
-export default function FilesUploadComponent() {
-  const [audioFile, setAudioFile] = useState(null);
+class FilesUploadComponent extends Component {
+  constructor(props) {
+      super(props);
+      this.onFileChange = this.onFileChange.bind(this);
+      this.onSubmit = this.onSubmit.bind(this);
+      this.state = {
+          audioFile: '',
+          user: ''
+      }
+  }
+  onFileChange(e) {
+      this.setState({ audioFile: e.target.files[0] })
+  }
+  onSubmit(e) {
+      e.preventDefault()
 
-  const onFileChange = (e) => {
-    setAudioFile(e.target.files[0]);
-  };
+      if(this.state.audioFile.name.includes("mp3") || this.state.audioFile.name.includes("ogg")){
+    
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("file", audioFile);
-    axios
-      .post("http://localhost:8000/addAudio", formData, {})
-      .then((res) => {
-        console.log(res);
-      });
-  };
+      const formData = new FormData()
+      formData.append('file', this.state.audioFile)
+      formData.append("user", this.state.user)
+      axios.post("http://localhost:8000/addAudio", formData, {
+      }).then(res => {
+          console.log(res)
+          this.props.navigate("/")
+      })
+    }else{
+      toast.error("Incorrect File Uploaded. Please Upload An Audio File")
+      return;
+    }
+  }
 
-  const navigate = useNavigate();
+  getUser(){
 
+    this.props.userContext.then(data=>{
+      const onUserChange = () => this.setState({user: data._id})
+      onUserChange()
+    }
+    )
+  }
+
+
+render(){
   return (
     <div>
-      <ValidateHeader />
+      <UserHeader />
       <div id="main">
         <article className="post featured">
           <section className="major">
-            <form onSubmit={onSubmit} encttype="multipart/form-data">
+            <form onSubmit={this.onSubmit} encttype="multipart/form-data">
               <div className="field flex column">
                 <label htmlFor="file" className="button large">
                   Add Audio
@@ -40,18 +67,30 @@ export default function FilesUploadComponent() {
                   name="file"
                   className="hidden"
                   type="file"
-                  onChange={onFileChange}
+                  onChange={this.onFileChange}
+                  onClick = {() => this.getUser()}
+                />
+       
+                <input
+                id = "user"
+                type = "text"
+                name = "user"
+                className = "hidden"
+                disabled
+                value = {this.state.user}
+                readOnly = {true}
                 />
 
-                {console.log(audioFile)}
-                <span>{audioFile ? audioFile.name : "No File Chosen"}</span>
+                <span>{this.state.audioFile ? this.state.audioFile.name : "No File Chosen"}</span>
               </div>
               <div>
+
+          
                 <button
                   type="submit"
                   className="button large"
-                  onClick={() => {
-                    navigate("/");
+                  onClick = {()=>{
+
                   }}
                 >
                   Upload
@@ -64,4 +103,21 @@ export default function FilesUploadComponent() {
       <Footer />
     </div>
   );
+                }
 }
+
+const GetUser = () =>{
+  const userContext = useContext(MyContext)
+  const navigate = useNavigate()
+
+  const users = async() =>{
+    let user = await userContext;
+    return user
+  }
+
+  return <FilesUploadComponent userContext = {users()} navigate = {navigate}/>
+
+}
+
+export default GetUser
+

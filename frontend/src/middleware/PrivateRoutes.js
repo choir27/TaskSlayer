@@ -1,5 +1,5 @@
 import {Outlet, Navigate} from "react-router-dom"
-import {MyContext} from "../App"
+import {MyContext} from "../middleware/Context"
 import {useContext} from "react"
 const PrivateRoutes = () => {
 
