@@ -51,7 +51,8 @@ const loginUser = async (user) => {
 
 const data = await res.json();
 localStorage.setItem("id", data.user._id);
-  
+window.location.reload();
+
 }
 
 

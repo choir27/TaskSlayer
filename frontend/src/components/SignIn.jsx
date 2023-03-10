@@ -44,8 +44,6 @@ const handleSubmit = (e) => {
       setPassword('');
 
       navigate('/') 
-      window.location.reload();
-      navigate('/') 
 
   }
 
