@@ -19,11 +19,8 @@ connectDB();
 
 app.set("view engine", "ejs");
 
-const apiPORT = 'http://localhost:3000'
-
-
 app.use(cors({
-  origin: [apiPORT],
+  origin: [process.env.API_PORT_URL],
   methods: "GET, POST, GET, DELETE, OPTIONS"
 }))
 

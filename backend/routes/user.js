@@ -34,10 +34,10 @@ const upload = multer({
 
 
 //Main Routes - simplified for now
-router.post("/login", authController.postLogin);
+router.post("/login", authController.login);
 router.get("/logout", authController.logout);
-router.post("/register", authController.postSignup);
-
+router.post("/register", authController.signup);
+router.get("/user", authController.getUser);
 
 router.get('/api', async(req,res)=>{
     try{
