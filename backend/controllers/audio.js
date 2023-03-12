@@ -5,12 +5,14 @@ const cloudinary = require("../middleware/cloudinary");
 module.exports = {
     postAudio: async(req,res)=>{
         try{
-            const result = await cloudinary.uploader.upload(
+            console.log(req.file.originalname)
+            const result = await cloudinary.uploader.upload(    
                 req.file.path, 
                 {resource_type: "auto"
             });    
             
             const voiceLine = await Audio.create({
+                name: req.file.originalname,
                 audio: result.secure_url,
                 cloudinaryId: result.public_id,
                 user: req.body.user

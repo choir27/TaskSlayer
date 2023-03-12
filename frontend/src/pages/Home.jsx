@@ -1,7 +1,5 @@
-import {useContext} from "react"
 import HomeGuest from "./HomeGuest"
 import HomeAuth from "./HomeAuth"
-import {MyContext} from "../middleware/Context"
 
 const Home = () => {
 

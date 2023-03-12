@@ -14,13 +14,13 @@ const user = useContext(MyContext)
 		<article className = 'post featured'>
 		<section className = 'major'>
 			<h1 className = 'flex justifyContent'>
-				<Link to = {`${user._id}`}>Welcome {user.userName} to the Illya Site!</Link>
+				<Link to = '/'>Welcome {user.userName} to the Illya Site!</Link>
 			</h1>
 
 			<p>A wholesome site dedicated to the cutest student and sister servant Illyasviel Von Einzbern; with her cute design, voice, and outfits, this site introduces it all.  Add various content to your customized account!</p>
 		</section>
 		
-		<Link to= {`${user._id}/account`} className="image main">
+		<Link to= {`/account`} className="image main">
 			<img 
 				src= {Assets.Melusine} 
 				alt="Melusine fan art with moon in the background" 

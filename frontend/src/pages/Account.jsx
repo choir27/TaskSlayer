@@ -1,9 +1,9 @@
 import Footer from "../components/Footer"
-import VoiceLinePlayer from "../components/VoiceLinePlayer"
 import UserHeader from "../components/UserHeader"
 import {useContext, useEffect, useState, useRef} from "react"
 import {MyContext} from "../middleware/Context"
 import Post from "../components/Post"
+import {default as MusicPlayer} from "../components/MusicPlayer.tsx"
 
 const Account = () => {
 
@@ -16,7 +16,7 @@ const Account = () => {
     userContext.then(data=>{
       setUser(data)
     })
-  },[])
+  },[user])
 
   userContext.then(data=>{
     currentUser.current = data
@@ -38,20 +38,22 @@ const Account = () => {
     return data
   }
 
-  const data = []
+  const hide = (arr) => {
+      if(arr.length > 3){
 
-  audioTracks.forEach(ele=>{
-    if(ele.user === user._id){
-        data.push({audio: ele.audio,id: ele._id})
-    }
-})
+      }
+  }
+  
   
 
   const rows = []
 
-  data.forEach(ele=>{
-      rows.push(<Post text = {ele.audio} key = {ele.id}/>)
-  })
+  audioTracks.forEach(ele=>{
+    if(ele.user === user._id){
+      rows.push(<Post cName = {hide(rows)} text = {ele.name} key = {ele._id}/>)
+    }
+})
+  
 
 
   return (
@@ -63,12 +65,10 @@ const Account = () => {
         
         <h2>{currentUser ? currentUser.current.userName : "Error has occured, please try again later!"}</h2>
 
-        <div id = 'audio'>
-          <VoiceLinePlayer />
-          </div>
-
+        <MusicPlayer/>
 
           {rows}
+          
         </section>
         </article>
           </div>

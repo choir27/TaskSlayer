@@ -53,7 +53,7 @@ const Dashboard = () => {
   const rows = []
 
   audioTracks.forEach(ele=>{
-    rows.push(<Post text = {ele.audio} key = {ele._id}/>)
+    rows.push(<Post text = {ele.name} key = {ele._id}/>)
   })
   
 

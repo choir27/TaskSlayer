@@ -23,7 +23,7 @@ class FilesUploadComponent extends Component {
   onSubmit(e) {
       e.preventDefault()
 
-      if(this.state.audioFile.name.includes("mp3") || this.state.audioFile.name.includes("ogg")){
+      if(this.state.audioFile && (this.state.audioFile.name.includes("mp3") || this.state.audioFile.name.includes("ogg"))){
     
 
       const formData = new FormData()
@@ -34,6 +34,9 @@ class FilesUploadComponent extends Component {
           console.log(res)
           this.props.navigate("/")
       })
+    }else if(!this.state.audioFile){
+      toast.error("Please Upload a File")
+      return;
     }else{
       toast.error("Incorrect File Uploaded. Please Upload An Audio File")
       return;
