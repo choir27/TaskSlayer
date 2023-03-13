@@ -114,7 +114,7 @@ const SignUp = ( {onAdd} ) => {
             setMatchPassword('');
 
 
-            navigate('/')
+            navigate('/account')
 
 
 }

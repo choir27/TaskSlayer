@@ -43,7 +43,7 @@ const handleSubmit = (e) => {
       setEmail('')
       setPassword('');
 
-      navigate('/') 
+      navigate('/account') 
 
   }
 

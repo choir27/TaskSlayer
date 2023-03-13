@@ -1638,6 +1638,23 @@ a#navPanelToggle{
 	display: none;
 }
 
+.fa-trash{
+	padding: 1rem;
+}
+
+.fa-trash:hover{
+	cursor: pointer;
+}
+
+.songs{
+	display: flex;
+	flex-direction: column;
+}
+
+.songs li{
+	display: flex;	
+}
+
 /* body *{
-	border: 3px solid black;
+border: 3px solid black;
 } */

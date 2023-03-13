@@ -12,11 +12,14 @@ interface PlayListState {
   playlist: PlayListItem[];
 }
 
+
+
 class PlayList extends Component<unknown, PlayListState> {
   state: PlayListState = {
     currentMusicIndex: 0,
     playlist: [],
   };
+  
 
   componentDidMount() {
     fetch('http://localhost:8000/audio')
@@ -50,12 +53,15 @@ class PlayList extends Component<unknown, PlayListState> {
   render(): React.ReactNode {
     const { currentMusicIndex, playlist } = this.state;
 
+
+
     return (
       <div>
         <p>Currently Playing: </p>
-  <p>{playlist[currentMusicIndex] ? playlist[currentMusicIndex].name : "Error"}</p>
+  <p>{playlist[currentMusicIndex] ? playlist[currentMusicIndex].name : "No music has been added"}</p>
         {playlist.length > 0 && (
           <AudioPlayer
+            key = {currentMusicIndex}
             onEnded={this.handleClickNext}
             autoPlayAfterSrcChange={true}
             showSkipControls={true}

@@ -35,9 +35,14 @@ const upload = multer({
 
 //Main Routes - simplified for now
 router.post("/login", authController.login);
-router.get("/logout", authController.logout);
 router.post("/register", authController.signup);
+
+router.get("/logout", authController.logout);
 router.get("/user", authController.getUser);
+
+router.delete("/deletePost/:id", audioController.deletePost);
+
+router.post("/addAudio", upload.single("file"), audioController.postAudio);
 
 router.get('/api', async(req,res)=>{
     try{
@@ -61,7 +66,6 @@ router.get('/audio',async(req,res)=>{
 
 
 
-router.post("/addAudio", upload.single("file"), audioController.postAudio);
  
 
 module.exports = router;    

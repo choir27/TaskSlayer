@@ -38,19 +38,12 @@ const Account = () => {
     return data
   }
 
-  const hide = (arr) => {
-      if(arr.length > 3){
-
-      }
-  }
-  
-  
 
   const rows = []
 
   audioTracks.forEach(ele=>{
     if(ele.user === user._id){
-      rows.push(<Post cName = {hide(rows)} text = {ele.name} key = {ele._id}/>)
+      rows.push(<Post id = {ele._id} text = {ele.name} key = {ele._id}/>)
     }
 })
   
@@ -67,7 +60,9 @@ const Account = () => {
 
         <MusicPlayer/>
 
-          {rows}
+        <ul className = "songs">
+        {rows}  
+        </ul>
           
         </section>
         </article>

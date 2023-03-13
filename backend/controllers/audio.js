@@ -23,5 +23,17 @@ module.exports = {
             console.error(err)
             res.status(500).send("Internal Server Error");
         }
-    }
+    },
+    deletePost: async (req, res) => {
+        try{
+          let post = await Audio.findById({ _id: req.params.id });
+
+          await cloudinary.uploader.destroy(post.cloudinaryId);
+
+          await Audio.remove({ _id: req.params.id });
+
+        }catch(err){
+          console.error(err)
+        }
+      }
 }
