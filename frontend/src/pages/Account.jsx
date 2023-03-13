@@ -8,7 +8,6 @@ import {default as MusicPlayer} from "../components/MusicPlayer.tsx"
 const Account = () => {
 
   const userContext = useContext(MyContext)
-  const currentUser = useRef({})
   const [user, setUser] = useState({})
   const [audioTracks, setAudioTracks] = useState([])
 
@@ -18,9 +17,6 @@ const Account = () => {
     })
   },[user])
 
-  userContext.then(data=>{
-    currentUser.current = data
-  })
 
   useEffect(()=>{
 
@@ -56,7 +52,7 @@ const Account = () => {
             <article className = 'post'>
         <section className="major column flex">
         
-        <h2>{currentUser ? currentUser.current.userName : "Error has occured, please try again later!"}</h2>
+        <h2>{user ? user.userName : "Error has occured, please try again later!"}</h2>
 
         <MusicPlayer/>
 

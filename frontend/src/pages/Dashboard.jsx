@@ -1,16 +1,16 @@
 import Footer from "../components/Footer"
 import UserHeader from "../components/UserHeader"
 import Header from "../components/Header"
-import {useContext, useState, useEffect, useRef} from "react"
+import {useContext, useState, useEffect} from "react"
 import Post from "../components/Post"
 import {MyContext} from "../middleware/Context"
 
 const Dashboard = () => {
   
   const userContext = useContext(MyContext)
-  const currentUser = useRef({})
   const [user, setUser] = useState({})
   const [audioTracks, setAudioTracks] = useState([])
+  const [accounts, setAccounts] = useState([])
 
   useEffect(()=>{
     userContext.then(data=>{
@@ -18,20 +18,6 @@ const Dashboard = () => {
     })
   },[])
 
-  userContext.then(data=>{
-    currentUser.current = data
-  })
-
-
-  useEffect(()=>{
-
-    const getAccount = async() =>{
-      setUser(currentUser.current)
-    }
-
-    getAccount()
-
-  },[])
 
   useEffect(()=>{
 
@@ -49,13 +35,41 @@ const Dashboard = () => {
     return data
   }
 
+  useEffect(()=>{
+    const fetchUsers = () =>{
+      try{
+        fetch("http://localhost:8000/api")
+          .then(res=>res.json())
+          .then(data=>{
+          setAccounts(data)
+        })
+      }catch(err){
+        console.error(err)
+      } 
+    }
+    fetchUsers()
+
+  },[])
+
 
   const rows = []
 
-  audioTracks.forEach(ele=>{
-    rows.push(<Post text = {ele.name} key = {ele._id}/>)
-  })
-  
+// create a lookup object for the accounts array
+const accountLookup = accounts.reduce((lookup, account) => {
+  lookup[account._id] = {
+    userName: account.userName,
+    userID: account._id
+  };
+  return lookup;
+}, {});
+
+// iterate over the audioTracks array and retrieve user information using the lookup object
+audioTracks.forEach(ele => {
+  const user = accountLookup[ele.user];
+  if (user) {
+    rows.push(<Post text={ele.name} key={ele._id} userName={user.userName} userID={user.userID} />);
+  }
+});
 
   
   return (
@@ -66,7 +80,6 @@ const Dashboard = () => {
         Dashboard
 
         {rows}
-
 
         </section>
       </div>

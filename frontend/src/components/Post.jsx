@@ -1,9 +1,18 @@
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {useContext, useState, useEffect} from "react"
+import {MyContext} from "../middleware/Context"
 
-const Post = ({ text, id }) => {
+const Post = ({ text, id, userName, userID }) => {
   
-  const navigate = useNavigate();
+  const userContext = useContext(MyContext)
+  const [user, setUser] = useState({})
+
+
+  useEffect(()=>{
+    userContext.then(data=>{
+      setUser(data)
+    })
+  },[])
 
  const trim = (str) => {
     if (str.length > 15) {
@@ -26,13 +35,18 @@ const Post = ({ text, id }) => {
       });
   };
 
+
   return (
     <li className="post">
     {trim(text)}
       <form onSubmit={handleDelete}>
+        {user._id == userID ?
         <button
         onClick = {()=>window.location.reload()}
-         className="fa-solid fa-trash" type="submit"></button>
+         className="button small fa-solid fa-trash" type="submit"></button>
+         : ""
+         }
+    {userName}
       </form>
     </li>
   );

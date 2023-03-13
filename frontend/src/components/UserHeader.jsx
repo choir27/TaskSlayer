@@ -3,7 +3,7 @@ import {useContext} from "react"
 import {MyContext} from "../middleware/Context"
 
 const UserHeader = () => {
-	let UserContext = useContext(MyContext);
+	let userContext = useContext(MyContext);
 
 	const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ const UserHeader = () => {
 
 
 
-		UserContext = null;
+		userContext = null;
 
 		navigate('/');
 		window.location.reload();

@@ -4,9 +4,19 @@ import Assets from "../components/Assets"
 import Button from "../components/Button"
 import UserHeader from "../components/UserHeader"
 import {MyContext} from "../middleware/Context"
-import {useContext} from "react"
+import {useContext, useEffect, useState} from "react"
 const HomeAuth = () => {
-const user = useContext(MyContext)
+
+const userContext = useContext(MyContext)
+
+const [user,setUser] = useState({}
+	)
+useEffect(()=>{
+    userContext.then(data=>{
+      setUser(data)
+    })
+  },[user])
+
   return (
 <div>
 		<UserHeader/>
