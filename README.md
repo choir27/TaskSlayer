@@ -9,7 +9,7 @@ Taking the foundations created by this repository, https://github.com/choir27/Il
 - [X] Add user info when posting audio file relative to who is logged in
 - [ ] Clean up Account page to look more like a website user account page
 - [X] Add component for uploading audio to use on verified pages
-- [ ] Show audios that have been added by various users, showing which post belongs to which user
+- [X] Show audios that have been added by various users, showing which post belongs to which user
 - [X] Allow users to delete/add/edit(?) songs to application
 - [ ] Add option for user account playlist, where the respective user can add, remove songs, and add, edit, and remove playlists
 - [ ] Add option for user account to add songs from other users to their own respective playlist
