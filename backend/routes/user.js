@@ -43,6 +43,7 @@ router.get("/user", authController.getUser);
 router.delete("/deletePost/:id", audioController.deletePost);
 
 router.post("/addAudio", upload.single("file"), audioController.postAudio);
+router.put("/editPlaylist/:id", audioController.editPlaylist);
 
 router.get('/api', async(req,res)=>{
     try{

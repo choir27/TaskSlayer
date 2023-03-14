@@ -1642,9 +1642,6 @@ a#navPanelToggle{
 	padding: 1rem;
 }
 
-.fa-trash:hover{
-	cursor: pointer;
-}
 
 .songs{
 	display: flex;

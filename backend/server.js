@@ -21,7 +21,7 @@ app.set("view engine", "ejs");
 
 app.use(cors({
   origin: [process.env.API_PORT_URL],
-  methods: "GET, POST, GET, DELETE, OPTIONS"
+  methods: "GET, POST, PUT, GET, DELETE, OPTIONS"
 }))
 
 

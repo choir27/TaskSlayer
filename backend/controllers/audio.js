@@ -15,7 +15,8 @@ module.exports = {
                 name: req.file.originalname,
                 audio: result.secure_url,
                 cloudinaryId: result.public_id,
-                user: req.body.user
+                user: req.body.user,
+                playlist: "",
             })
         
             res.json({voiceLine})
@@ -35,5 +36,16 @@ module.exports = {
         }catch(err){
           console.error(err)
         }
-      }
+      },
+    editPlaylist: async (req, res) => {
+        try{
+            await Audio.findOneAndUpdate({_id: req.params.id},req.body,{
+                new: true,
+                runValidators: true,
+            })
+            
+        }catch(err){
+            console.error(err)
+        }
+    }
 }

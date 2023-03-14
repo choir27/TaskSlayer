@@ -1,6 +1,6 @@
 import Footer from "../components/Footer"
 import UserHeader from "../components/UserHeader"
-import {useContext, useEffect, useState, useRef} from "react"
+import {useContext, useEffect, useState} from "react"
 import {MyContext} from "../middleware/Context"
 import Post from "../components/Post"
 import {default as MusicPlayer} from "../components/MusicPlayer.tsx"
@@ -39,7 +39,7 @@ const Account = () => {
 
   audioTracks.forEach(ele=>{
     if(ele.user === user._id){
-      rows.push(<Post id = {ele._id} text = {ele.name} key = {ele._id}/>)
+      rows.push(<Post userID = {ele.user} id = {ele._id} text = {ele.name} key = {ele._id}/>)
     }
 })
   
