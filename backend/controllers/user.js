@@ -49,12 +49,6 @@ try{
           if (err) {
             return next(err);
           }
-          if (existingUser) {
-            req.flash("errors", {
-              msg: "Account with that email address or username already exists.",
-            });
-            return next(err);
-          }
           user.save((err) => {
             if (err) {
               return next(err);

@@ -8,12 +8,32 @@ const Post = ({ text, id, userName, userID }) => {
   const userContext = useContext(MyContext)
   const [user, setUser] = useState({})
   const [playlist, setPlaylist] = useState('')
+  const [songs, setSongs] = useState([])
 
   useEffect(()=>{
     userContext.then(data=>{
       setUser(data)
     })
-  },[])
+  },[userContext])
+
+  useEffect(()=>{
+    const getPlaylists = async()=>{
+      const data = await fetchPlaylist();
+      setSongs(data);
+    }
+
+    getPlaylists()
+  }, [])
+
+  const fetchPlaylist = async () => {
+    try{
+      let res = await fetch("http://localhost:8000/playlist");
+      let data = await res.json();
+      return data;
+    }catch(err){
+      console.error(err);
+    }
+  }
 
  const trim = (str) => {
     if (str.length > 15) {
@@ -42,7 +62,7 @@ const Post = ({ text, id, userName, userID }) => {
       const formData = new URLSearchParams()
       formData.append("playlist", playlist)
       axios
-        .put(`http://localhost:8000/editPlaylist/${id}`, formData, {})
+        .put(`http://localhost:8000/addToPlaylist/${id}`, formData, {})
         .then(res=>console.log(res))
         .catch(err=>{
           console.error(err);
@@ -55,6 +75,14 @@ const Post = ({ text, id, userName, userID }) => {
    
   }
 
+  let rows = []
+
+  if(songs){
+    songs.forEach((ele)=>{
+    rows.push(<option value = {ele._id} key = {ele._id}>{ele.name}</option> )
+   })
+  }
+
 
   return (
     <li className="post">
@@ -62,11 +90,11 @@ const Post = ({ text, id, userName, userID }) => {
     <form onSubmit={handleAddToPlaylist}>
         <select name = "playlist"
         value = {playlist}
-        onChange = {(e)=>setPlaylist(e.target.value)}
+        onChange = {(e)=>{
+          setPlaylist(e.target.value)}}
         >
-          <option value = {playlist}>{playlist}</option>
-          <option value = "playlist1">playlist1</option>
-          <option value="playlist2">playlist2</option>
+          <option value = ''></option>
+          {rows}
         </select>
         <button className="fa-solid fa-plus button small"
         type = "submit"
@@ -80,7 +108,6 @@ const Post = ({ text, id, userName, userID }) => {
       <form onSubmit={handleDelete}>
         {user._id === userID ?
         <button
-        onClick = {()=>window.location.reload()}
          className="button small fa-solid fa-trash" type="submit"></button>
          : ""
          }

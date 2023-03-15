@@ -1,11 +1,10 @@
 const Audio = require("../models/Audio");
 const cloudinary = require("../middleware/cloudinary");
-
+const Playlist = require("../models/Playlist");
 
 module.exports = {
     postAudio: async(req,res)=>{
         try{
-            console.log(req.file.originalname)
             const result = await cloudinary.uploader.upload(    
                 req.file.path, 
                 {resource_type: "auto"
@@ -16,7 +15,6 @@ module.exports = {
                 audio: result.secure_url,
                 cloudinaryId: result.public_id,
                 user: req.body.user,
-                playlist: "",
             })
         
             res.json({voiceLine})
@@ -37,9 +35,30 @@ module.exports = {
           console.error(err)
         }
       },
-    editPlaylist: async (req, res) => {
+    createPlaylist: async (req, res) => {
         try{
-            await Audio.findOneAndUpdate({_id: req.params.id},req.body,{
+            const playlist = await Playlist.create({
+                name: req.body.playlistName,
+                user: req.body.user,
+                songs: [],
+            })
+
+            res.json({playlist})
+        }catch(err){
+            console.error(err)
+        }
+    },
+    addToPlaylist: async (req, res) => {
+        try{
+            let audio = await Audio.findById(req.params.id)
+            let playlist = await Playlist.findById(req.body.playlist)
+            playlist.songs.push(audio)   
+            console.log(playlist)
+            await Playlist.findOneAndUpdate({_id: req.body.playlist},
+                {
+                songs : playlist.songs
+                }
+                ,{
                 new: true,
                 runValidators: true,
             })

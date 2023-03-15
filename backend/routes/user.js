@@ -43,13 +43,37 @@ router.get("/user", authController.getUser);
 router.delete("/deletePost/:id", audioController.deletePost);
 
 router.post("/addAudio", upload.single("file"), audioController.postAudio);
-router.put("/editPlaylist/:id", audioController.editPlaylist);
+router.put("/addToPlaylist/:id", audioController.addToPlaylist);
+router.post("/createPlaylist", audioController.createPlaylist);
+
+const getCollectionData = async (collectionName) => {
+    try{
+        let data = await db.collection(collectionName).find().toArray()
+        return data;
+    }catch(err){
+        res.status(500)
+        console.error(err)
+    }
+
+};
+
 
 router.get('/api', async(req,res)=>{
     try{
-        let data = await db.collection('users').find().toArray()
+        const data = await getCollectionData('users')
         res.json(data);
     }catch(err){
+        res.status(500)
+        console.error(err)
+    }
+})
+
+router.get('/playlist', async(req,res)=>{
+    try{
+        const data = await getCollectionData('playlists')
+        res.json(data);
+    }catch(err){
+        res.status(500)
         console.error(err)
     }
 })
@@ -57,12 +81,12 @@ router.get('/api', async(req,res)=>{
 
 router.get('/audio',async(req,res)=>{
     try{
-        let data = await db.collection('audios').find().toArray()
+        const data = await getCollectionData('audios')
         res.json(data);
     }catch(err){
+        res.status(500)
         console.error(err)
     }
-
 })
 
 

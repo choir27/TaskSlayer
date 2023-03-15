@@ -4,6 +4,7 @@ import {useContext, useEffect, useState} from "react"
 import {MyContext} from "../middleware/Context"
 import Post from "../components/Post"
 import {default as MusicPlayer} from "../components/MusicPlayer.tsx"
+import PostPlaylist from "../components/PostPlaylist"
 
 const Account = () => {
 
@@ -15,7 +16,7 @@ const Account = () => {
     userContext.then(data=>{
       setUser(data)
     })
-  },[user])
+  },[user,userContext])
 
 
   useEffect(()=>{
@@ -59,6 +60,8 @@ const Account = () => {
         <ul className = "songs">
         {rows}  
         </ul>
+
+        <PostPlaylist/>
           
         </section>
         </article>
