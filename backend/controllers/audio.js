@@ -1,8 +1,25 @@
 const Audio = require("../models/Audio");
 const cloudinary = require("../middleware/cloudinary");
 const Playlist = require("../models/Playlist");
-
+const CurrentPlaylist = require("../models/CurrentPlaylist")
 module.exports = {
+    choosePlaylist: async (req, res) => {
+        try {
+          let playlist = await Playlist.findById(req.params.id);
+          await CurrentPlaylist.findOneAndUpdate(
+            { _id: "6413a5304d704f7c32da06bd" },
+            { playlist: playlist },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+          res.status(200).send("Playlist updated successfully.");
+        } catch (err) {
+          console.error(err);
+          res.status(500).send("Internal server error.");
+        }
+      },
     postAudio: async(req,res)=>{
         try{
             const result = await cloudinary.uploader.upload(    

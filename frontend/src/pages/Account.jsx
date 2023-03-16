@@ -4,13 +4,15 @@ import {useContext, useEffect, useState} from "react"
 import {MyContext} from "../middleware/Context"
 import Post from "../components/Post"
 import {default as MusicPlayer} from "../components/MusicPlayer.tsx"
-import PostPlaylist from "../components/PostPlaylist"
+import axios from "axios";
 
 const Account = () => {
 
   const userContext = useContext(MyContext)
   const [user, setUser] = useState({})
   const [audioTracks, setAudioTracks] = useState([])
+  const [playlist, setPlaylist] = useState([])
+  const [choosePlaylist, setChoosePlaylist] = useState({})
 
   useEffect(()=>{
     userContext.then(data=>{
@@ -29,11 +31,56 @@ const Account = () => {
     getPost()
   },[])
 
+  useEffect(()=>{
+    const fetchPlaylist = () => {
+      fetch("http://localhost:8000/playlist")
+        .then(res=>res.json())
+        .then(data => {
+          setPlaylist(data)
+        });
+      }
+
+    fetchPlaylist()
+  },[])
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let list = playlist.find(ele=>ele._id === choosePlaylist)
+    const formData = new URLSearchParams()
+    formData.append("currentPlaylist", list)
+    axios
+        .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`, formData, {})
+        .then(res=>console.log(res))
+        .catch(err=>{
+          console.error(err);
+          return;
+        })
+
+        window.location.reload();
+  }
+
+
+  let list = []
+
+  playlist.forEach(ele=>{
+    if(ele.user === localStorage.getItem('id')){
+      list.push(
+      <form key = {ele._id} onSubmit = {handleSubmit}>
+           <input name = 'choosePlaylist' value = {ele._id} className = "hidden" readOnly = {true}></input>
+      <button className = 'button large' onClick = {()=>setChoosePlaylist(ele._id)}>{ele.name}</button>
+      </form>
+    )
+    }
+  })
+
+
   const getAudios = async() => {
     let res = await fetch("http://localhost:8000/audio")
     let data = await res.json();
     return data
   }
+
+ 
 
 
   const rows = []
@@ -44,8 +91,6 @@ const Account = () => {
     }
 })
   
-
-
   return (
     <div>  
       <UserHeader />  
@@ -61,8 +106,10 @@ const Account = () => {
         {rows}  
         </ul>
 
-        <PostPlaylist/>
+
+        {list}
           
+
         </section>
         </article>
           </div>

@@ -85,7 +85,7 @@ const Post = ({ text, id, userName, userID }) => {
 
 
   return (
-    <li className="post">
+    <li className="post flex">
     {trim(text)}
     <form onSubmit={handleAddToPlaylist}>
         <select name = "playlist"

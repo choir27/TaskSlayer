@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import {useContext} from "react"
 import {MyContext} from "../middleware/Context"
 import {toast} from "react-toastify"
+import PostPlaylist from "../components/PostPlaylist"
 
 class FilesUploadComponent extends Component {
   constructor(props) {
@@ -98,6 +99,10 @@ render(){
                 </button>
               </div>
             </form>
+
+
+            <PostPlaylist/>
+
           </section>
         </article>
       </div>

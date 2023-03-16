@@ -15,7 +15,7 @@ useEffect(()=>{
     userContext.then(data=>{
       setUser(data)
     })
-  },[user])
+  },[user, userContext])
 
   return (
 <div>

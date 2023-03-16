@@ -44,7 +44,7 @@ const PostPlaylist = () => {
     }
 
     return(
-        <form onSubmit = {handleSubmit}>
+        <form onSubmit = {handleSubmit} className = "flex">
                <input
                 id = "user"
                 type = "text"
@@ -52,7 +52,7 @@ const PostPlaylist = () => {
                 className = "hidden"
                 disabled
                 value = {user._id || ""}
-                />
+                />            
             <input 
             type = "text"
             name = 'playlistName'
@@ -64,6 +64,7 @@ const PostPlaylist = () => {
             />
             <button className="fa-solid fa-list button large"
             type = "submit">
+                Create Playlist
             </button>
         </form>
    

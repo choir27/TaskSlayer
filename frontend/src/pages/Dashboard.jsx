@@ -16,7 +16,7 @@ const Dashboard = () => {
     userContext.then(data=>{
       setUser(data)
     })
-  },[])
+  },[userContext])
 
 
   useEffect(()=>{
@@ -74,7 +74,7 @@ audioTracks.forEach(ele => {
   
   return (
     <div>
-      {userContext ? <UserHeader/> : <Header/>}
+      {user? <UserHeader/> : <Header/>}
       <div id = 'main'>
         <section className="major column flex">
         Dashboard
