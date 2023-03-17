@@ -55,9 +55,17 @@ const getCollectionData = async (collectionName) => {
         res.status(500)
         console.error(err)
     }
-
 };
 
+
+router.get("/currentPlaylist", async(req,res)=>{
+    try{
+        const data = await getCollectionData("currentplaylists")
+        res.json(data);
+    }catch(err){
+        console.error(err)
+    }
+})
 
 router.get('/api', async(req,res)=>{
     try{

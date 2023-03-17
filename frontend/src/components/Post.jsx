@@ -68,6 +68,19 @@ const Post = ({ text, id, userName, userID }) => {
           console.error(err);
           return;
         })
+
+      axios
+        .put(`http://localhost:8000/choosePlaylist/${playlist}`)
+        .then(res=>console.log(res))
+        .catch(err=>{
+          console.error(err);
+          return;
+        })
+
+        window.location.reload();
+
+        window.location.reload();  
+      
     }else{
       toast.error("Please Choose A Valid Option")
       return;
@@ -79,7 +92,10 @@ const Post = ({ text, id, userName, userID }) => {
 
   if(songs){
     songs.forEach((ele)=>{
-    rows.push(<option value = {ele._id} key = {ele._id}>{ele.name}</option> )
+      if(ele.user === localStorage.getItem("id")){
+        rows.push(<option value = {ele._id} key = {ele._id}>{ele.name}</option> )
+      }
+
    })
   }
 

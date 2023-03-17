@@ -45,11 +45,8 @@ const Account = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let list = playlist.find(ele=>ele._id === choosePlaylist)
-    const formData = new URLSearchParams()
-    formData.append("currentPlaylist", list)
     axios
-        .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`, formData, {})
+        .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
         .then(res=>console.log(res))
         .catch(err=>{
           console.error(err);
@@ -90,6 +87,7 @@ const Account = () => {
       rows.push(<Post userID = {ele.user} id = {ele._id} text = {ele.name} key = {ele._id}/>)
     }
 })
+
   
   return (
     <div>  

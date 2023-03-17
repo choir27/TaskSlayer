@@ -22,24 +22,15 @@ class PlayList extends Component<unknown, PlayListState> {
   
 
   componentDidMount() {
-    fetch("http://localhost:8000/playlist")
+    fetch("http://localhost:8000/currentPlaylist")
       .then(res=>res.json())
       .then((data) => {
-        let play = data
-        const playlist = play[0].songs
+        const list = data
+        const playlist = list[0].playlist.songs
           .filter((item: {user: any}) => item.user === localStorage.getItem('id'))
           .map((ele: { name: any; audio: any; }) => ({ name: ele.name, src: ele.audio }));
         this.setState({ playlist });
       });
-
-    // fetch('http://localhost:8000/audio')
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     const playlist = data
-    //       .filter((item: {user: any}) => item.user === localStorage.getItem('id'))
-    //       .map((ele: { name: any; audio: any; }) => ({ name: ele.name, src: ele.audio }));
-    //     this.setState({ playlist });
-    //   });
   }
 
   handleClickPrevious = (): void => {
