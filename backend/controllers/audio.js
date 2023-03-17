@@ -3,6 +3,16 @@ const cloudinary = require("../middleware/cloudinary");
 const Playlist = require("../models/Playlist");
 const CurrentPlaylist = require("../models/CurrentPlaylist")
 module.exports = {
+    deletePlaylist: async (req, res) => {
+        try{
+        let playlist = await Playlist.findById({ _id: req.params.id });
+        await playlist.remove({ _id: req.params.id });
+
+        }catch(err){
+            console.error(err);
+            res.status(500).send("Internal server error.");
+        }
+    },
     choosePlaylist: async (req, res) => {
         try {
           let playlist = await Playlist.findById(req.params.id);

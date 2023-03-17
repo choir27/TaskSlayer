@@ -1652,3 +1652,7 @@ a#navPanelToggle{
 	display: flex;	
 }
 
+#playlist{
+	width: 50%;
+	justify-content: space-between;
+}

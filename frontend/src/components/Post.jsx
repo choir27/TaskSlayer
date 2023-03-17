@@ -77,8 +77,6 @@ const Post = ({ text, id, userName, userID }) => {
           return;
         })
 
-        window.location.reload();
-
         window.location.reload();  
       
     }else{

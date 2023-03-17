@@ -13,6 +13,7 @@ const Account = () => {
   const [audioTracks, setAudioTracks] = useState([])
   const [playlist, setPlaylist] = useState([])
   const [choosePlaylist, setChoosePlaylist] = useState({})
+  const [playlistID, setPlaylistID] = useState('')
 
   useEffect(()=>{
     userContext.then(data=>{
@@ -56,16 +57,40 @@ const Account = () => {
         window.location.reload();
   }
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+    axios
+      .delete(`http://localhost:8000/deletePlaylist/${playlistID}`)
+      .then(res=>{
+        console.log(res)
+      })
+      .catch(error=>{
+        console.error(error)
+        return;
+      })
+
+      window.location.reload();
+  }
+
 
   let list = []
 
   playlist.forEach(ele=>{
     if(ele.user === localStorage.getItem('id')){
       list.push(
-      <form key = {ele._id} onSubmit = {handleSubmit}>
+        <div className = "flex" id = "playlist" key = {ele._id}>
+      <form onSubmit = {handleSubmit}>
            <input name = 'choosePlaylist' value = {ele._id} className = "hidden" readOnly = {true}></input>
       <button className = 'button large' onClick = {()=>setChoosePlaylist(ele._id)}>{ele.name}</button>
       </form>
+
+      <form onSubmit = {handleDelete}>
+        <input value = {ele._id} className = "hidden" readOnly = {true}></input>
+        <button
+          onClick = {()=>setPlaylistID(ele._id)}
+         className="button small fa-solid fa-trash" type="submit"></button>
+      </form>
+      </div>
     )
     }
   })
