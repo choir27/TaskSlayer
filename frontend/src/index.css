@@ -1653,6 +1653,51 @@ a#navPanelToggle{
 }
 
 #playlist{
-	width: 50%;
 	justify-content: space-between;
+}
+
+.current{
+	width: 60%;
+}
+
+table{
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	text-indent: initial;
+}
+
+table th{
+	color: #212931;
+	font-family: "Source Sans Pro", Helvetica, sans-serif;
+	font-size: 0.8rem;
+	font-weight: 900;
+	letter-spacing: 0.075em;
+	line-height: 1.5;
+	padding: 0 .75rem 0.75rem 0.75rem;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+table tbody tr:nth-child(2n + 1){
+	background-color: rgba(220, 220,220, 0.25);
+}
+
+table tbody tr{
+	border-color: #eeeeee;
+	border: solid 1px;
+	border-left: 0;
+	border-right: 0;
+}
+
+table td{
+padding: 0.75rem 0.75rem;
+}
+
+.table-wrapper{
+	overflow-x: auto;
+}
+
+.tableHeading{
+	padding-top: 2rem
 }

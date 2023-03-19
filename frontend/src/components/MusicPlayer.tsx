@@ -10,6 +10,7 @@ interface PlayListItem {
 interface PlayListState {
   currentMusicIndex: number;
   playlist: PlayListItem[];
+  playlistName: string;
 }
 
 
@@ -18,6 +19,7 @@ class PlayList extends Component<unknown, PlayListState> {
   state: PlayListState = {
     currentMusicIndex: 0,
     playlist: [],
+    playlistName: "",
   };
   
 
@@ -26,10 +28,23 @@ class PlayList extends Component<unknown, PlayListState> {
       .then(res=>res.json())
       .then((data) => {
         const list = data
+        const playlistName = list[0].playlist.name
+        if(!list[0].playlist.length && !list[0].playlist.songs){          
+        fetch("http://localhost:8000/audio")
+            .then(res=>res.json())
+            .then(data=>{
+              const playlist = data
+                .filter((item: {user: any})=> item.user === localStorage.getItem("id"))
+                .map((ele: {name: any; audio: any}) => ({name: ele.name, src: ele.audio}));
+              this.setState({playlist})
+            })
+        }else{
         const playlist = list[0].playlist.songs
           .filter((item: {user: any}) => item.user === localStorage.getItem('id'))
           .map((ele: { name: any; audio: any; }) => ({ name: ele.name, src: ele.audio }));
+        this.setState({ playlistName })
         this.setState({ playlist });
+        }
       });
   }
 
@@ -58,8 +73,17 @@ class PlayList extends Component<unknown, PlayListState> {
 
     return (
       <div>
-        <p>Currently Playing: </p>
-  <p>{playlist[currentMusicIndex] ? playlist[currentMusicIndex].name : "No music has been added"}</p>
+        <section className = 'flex' id = 'playlist'>
+        <section className = "flex column current">
+        <h4>Currently Playing Song</h4>
+        <h2>{playlist[currentMusicIndex] ? playlist[currentMusicIndex].name : "No music has been added"}</h2>
+        </section>
+        <section className = "flex column">
+        <h4>{this.state.playlist ? `Playlist name` : "No playlist playing"}</h4>
+      <h2>{this.state.playlistName}</h2>
+        </section>
+        </section>
+
         {playlist.length > 0 && (
           <AudioPlayer
             key = {currentMusicIndex}

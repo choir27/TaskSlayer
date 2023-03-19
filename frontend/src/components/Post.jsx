@@ -56,29 +56,23 @@ const Post = ({ text, id, userName, userID }) => {
       });
   };
 
-  const handleAddToPlaylist = (e) => {
+  const handleAddToPlaylist = async (e) => {
     e.preventDefault();
     if(playlist !== ""){
       const formData = new URLSearchParams()
       formData.append("playlist", playlist)
       axios
         .put(`http://localhost:8000/addToPlaylist/${id}`, formData, {})
-        .then(res=>console.log(res))
-        .catch(err=>{
-          console.error(err);
-          return;
-        })
-
+        .then(res=>res.json())
+        .then(data=>console.log(data))
       axios
-        .put(`http://localhost:8000/choosePlaylist/${playlist}`)
+        .put(`http://localhost:8000/choosePlaylist/${playlist}`, formData, {})
         .then(res=>console.log(res))
         .catch(err=>{
           console.error(err);
           return;
         })
 
-        window.location.reload();  
-      
     }else{
       toast.error("Please Choose A Valid Option")
       return;
@@ -97,13 +91,14 @@ const Post = ({ text, id, userName, userID }) => {
    })
   }
 
-
   return (
-    <li className="post flex">
+  <tr>
+    <td>
     {trim(text)}
+    </td>
+    <td>
     <form onSubmit={handleAddToPlaylist}>
         <select name = "playlist"
-        value = {playlist}
         onChange = {(e)=>{
           setPlaylist(e.target.value)}}
         >
@@ -111,23 +106,28 @@ const Post = ({ text, id, userName, userID }) => {
           {rows}
         </select>
         <button className="fa-solid fa-plus button small"
-        type = "submit"
         onClick = {()=>{
-          if(playlist !== ""){
+          if(playlist){
             window.location.reload();
           }
-        }}>
+        }}
+        type = "submit">
         </button>
-    </form>
+  </form>
+    </td>
+    <td>
       <form onSubmit={handleDelete}>
         {user._id === userID ?
         <button
          className="button small fa-solid fa-trash" type="submit"></button>
          : ""
          }
-    {userName}
       </form>
-    </li>
+    </td>
+    <td>
+      {userName}
+    </td>
+  </tr>
   );
 };
 

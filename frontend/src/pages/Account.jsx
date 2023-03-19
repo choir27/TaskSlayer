@@ -69,6 +69,18 @@ const Account = () => {
         return;
       })
 
+      axios
+      .put(`http://localhost:8000/deleteCurrentPlaylist`)
+      .then(res=>{
+        res.json()
+      })
+      .then(data=>console.log(data))
+      .catch(error=>{
+        console.error(error)
+        return;
+      })
+
+
       window.location.reload();
   }
 
@@ -78,19 +90,18 @@ const Account = () => {
   playlist.forEach(ele=>{
     if(ele.user === localStorage.getItem('id')){
       list.push(
-        <div className = "flex" id = "playlist" key = {ele._id}>
+        <li className = "flex" id = "playlist" key = {ele._id}>
       <form onSubmit = {handleSubmit}>
            <input name = 'choosePlaylist' value = {ele._id} className = "hidden" readOnly = {true}></input>
       <button className = 'button large' onClick = {()=>setChoosePlaylist(ele._id)}>{ele.name}</button>
       </form>
 
       <form onSubmit = {handleDelete}>
-        <input value = {ele._id} className = "hidden" readOnly = {true}></input>
         <button
           onClick = {()=>setPlaylistID(ele._id)}
          className="button small fa-solid fa-trash" type="submit"></button>
       </form>
-      </div>
+      </li>
     )
     }
   })
@@ -109,7 +120,7 @@ const Account = () => {
 
   audioTracks.forEach(ele=>{
     if(ele.user === user._id){
-      rows.push(<Post userID = {ele.user} id = {ele._id} text = {ele.name} key = {ele._id}/>)
+      rows.push(<Post userName = {user.userName} userID = {ele.user} id = {ele._id} text = {ele.name} key = {ele._id}/>)
     }
 })
 
@@ -121,16 +132,30 @@ const Account = () => {
             <article className = 'post'>
         <section className="major column flex">
         
-        <h2>{user ? user.userName : "Error has occured, please try again later!"}</h2>
+        <h3>{user ? user.userName : "Error has occured, please try again later!"}</h3>
 
         <MusicPlayer/>
 
+        <h2 className = 'tableHeading'>Song List</h2>
+
+        <div className = "table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Song Name</th>
+              <th>Playlist</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows}  
+          </tbody>
+        </table>
+        </div>
+
         <ul className = "songs">
-        {rows}  
-        </ul>
-
-
         {list}
+        </ul>
           
 
         </section>

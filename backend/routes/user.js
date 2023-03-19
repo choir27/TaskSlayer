@@ -43,6 +43,7 @@ router.get("/user", authController.getUser);
 router.delete("/deletePost/:id", audioController.deletePost);
 router.put("/choosePlaylist/:id", audioController.choosePlaylist);
 router.delete("/deletePlaylist/:id", audioController.deletePlaylist);
+router.put("deleteCurrentPlaylist", audioController.deleteCurrentPlaylist);
 
 router.post("/addAudio", upload.single("file"), audioController.postAudio);
 router.put("/addToPlaylist/:id", audioController.addToPlaylist);

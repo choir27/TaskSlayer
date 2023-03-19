@@ -8,10 +8,35 @@ module.exports = {
         let playlist = await Playlist.findById({ _id: req.params.id });
         await playlist.remove({ _id: req.params.id });
 
+        await CurrentPlaylist.findOneAndUpdate(
+          {_id: "6413a94694c65b807a6ed151"},
+          {playlist: {}},
+          {
+            new: true,
+            runValidators: true,
+          }
+          );
+
         }catch(err){
             console.error(err);
             res.status(500).send("Internal server error.");
         }
+    },
+    deleteCurrentPlaylist: async (req, res)=> {
+      try{
+       let song = await CurrentPlaylist.findById({_id: "6413a94694c65b807a6ed151"})
+        
+        await CurrentPlaylist.findOneAndUpdate(
+          {_id: "6413a94694c65b807a6ed151"},
+          {playlist: {}},
+          {
+            new: true,
+            runValidators: true,
+          }
+          );
+      }catch(err){
+        console.error(err)
+      } 
     },
     choosePlaylist: async (req, res) => {
         try {
@@ -78,8 +103,24 @@ module.exports = {
         try{
             let audio = await Audio.findById(req.params.id)
             let playlist = await Playlist.findById(req.body.playlist)
-            playlist.songs.push(audio)   
-            console.log(playlist)
+            playlist.songs.push(audio)
+            
+            let list = await CurrentPlaylist.findById({_id: "6413a94694c65b807a6ed151"})
+
+            let data = list.playlist
+         
+            if(data._id.toString() === req.body.playlist){
+              await CurrentPlaylist.findOneAndUpdate(
+                {_id: "6413a94694c65b807a6ed151"},
+                {playlist: playlist},
+                {
+                  new: true,
+                  runValidators: true,
+                }
+                );
+            }
+          
+            
             await Playlist.findOneAndUpdate({_id: req.body.playlist},
                 {
                 songs : playlist.songs
