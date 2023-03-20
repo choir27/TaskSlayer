@@ -84,6 +84,9 @@ audioTracks.forEach(ele => {
         </section>
       </div>
       <Footer />
+      <div id="copyright">
+&copy; choir Design: HTML5 UP
+</div>
     </div>
   )
 }

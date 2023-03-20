@@ -1,8 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import axios from "axios";
 import UserHeader from "../components/UserHeader"
 import Footer from "./Footer";
-import {useContext} from "react"
 import {MyContext} from "../middleware/Context"
 import {toast} from "react-toastify"
 import PostPlaylist from "../components/PostPlaylist"
@@ -31,8 +30,9 @@ class FilesUploadComponent extends Component {
       formData.append("user", this.state.user)
       axios.post("http://localhost:8000/addAudio", formData, {
       }).then(res => {
-          window.location.reload();
+        console.log(res)
       })
+      window.location.reload();
     }else if(!this.state.audioFile){
       toast.error("Please Upload a File")
       return;
@@ -107,6 +107,9 @@ render(){
         </article>
       </div>
       <Footer />
+      <div id="copyright">
+&copy; choir Design: HTML5 UP
+</div>
     </div>
   );
                 }

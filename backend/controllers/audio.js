@@ -6,7 +6,7 @@ module.exports = {
     deletePlaylist: async (req, res) => {
         try{
         let playlist = await Playlist.findById({ _id: req.params.id });
-        await playlist.remove({ _id: req.params.id });
+        await playlist.deleteOne({ _id: req.params.id });
 
         await CurrentPlaylist.findOneAndUpdate(
           {_id: "6413a94694c65b807a6ed151"},
@@ -80,7 +80,7 @@ module.exports = {
 
           await cloudinary.uploader.destroy(post.cloudinaryId);
 
-          await Audio.remove({ _id: req.params.id });
+          await Audio.deleteOne({ _id: req.params.id });
 
         }catch(err){
           console.error(err)

@@ -3,7 +3,7 @@ import {useContext, useState, useEffect} from "react"
 import {MyContext} from "../middleware/Context"
 import {toast} from "react-toastify"
 
-const Post = ({ text, id, userName, userID }) => {
+const Post = ({ text, id, userName, userID, hidden }) => {
   
   const userContext = useContext(MyContext)
   const [user, setUser] = useState({})
@@ -92,11 +92,12 @@ const Post = ({ text, id, userName, userID }) => {
   }
 
   return (
-  <tr>
+  <tr className = {hidden}>
     <td>
-    {trim(text)}
+      {trim(text)}
     </td>
     <td>
+
     <form onSubmit={handleAddToPlaylist}>
         <select name = "playlist"
         onChange = {(e)=>{
@@ -105,13 +106,7 @@ const Post = ({ text, id, userName, userID }) => {
           <option value = ''></option>
           {rows}
         </select>
-        <button className="fa-solid fa-plus button small"
-        onClick = {()=>{
-          if(playlist){
-            window.location.reload();
-          }
-        }}
-        type = "submit">
+        <button className="fa-solid fa-plus button small" type = "submit">
         </button>
   </form>
     </td>
@@ -119,7 +114,8 @@ const Post = ({ text, id, userName, userID }) => {
       <form onSubmit={handleDelete}>
         {user._id === userID ?
         <button
-         className="button small fa-solid fa-trash" type="submit"></button>
+         className="button small fa-solid fa-trash" type="submit"
+         ></button>
          : ""
          }
       </form>
