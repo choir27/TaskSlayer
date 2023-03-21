@@ -79,8 +79,8 @@ class PlayList extends Component<unknown, PlayListState> {
         <h2>{playlist[currentMusicIndex] ? playlist[currentMusicIndex].name : "No music has been added"}</h2>
         </section>
         <section className = "flex column">
-        <h4>{this.state.playlist ? `Playlist name` : "No playlist playing"}</h4>
-      <h2>{this.state.playlistName}</h2>
+      <h2>Playlist Name</h2>
+      <h2>{this.state.playlistName ? this.state.playlistName : "N/A"}</h2>
         </section>
         </section>
 

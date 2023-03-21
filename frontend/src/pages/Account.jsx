@@ -76,7 +76,9 @@ const Account = () => {
                             </td>
                             <td>
                                 <input name = "editPlaylist" value = {ele._id} className = "hidden" readOnly = {true}></input>
-                                <Link to = {`/editPlaylist/${ele._id}`} className = "fa-solid small fa-pen-to-square button"></Link>
+                                <Link to = {`/editPlaylist`}
+                                onClick = {()=>localStorage.setItem('playlistID', ele._id)} 
+                                className = "fa-solid small fa-pen-to-square button"></Link>
                             </td>
                             <td>
                                 <form onSubmit = {handleDelete}>

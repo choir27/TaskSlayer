@@ -4,6 +4,7 @@ import Header from "../components/Header"
 import {useContext, useState, useEffect} from "react"
 import Post from "../components/Post"
 import {MyContext} from "../middleware/Context"
+import {GetUser} from "../components/AccountHooks"
 
 const Dashboard = () => {
   
@@ -11,12 +12,32 @@ const Dashboard = () => {
   const [user, setUser] = useState({})
   const [audioTracks, setAudioTracks] = useState([])
   const [accounts, setAccounts] = useState([])
+  const [rows, setRows] = useState([])
 
   useEffect(()=>{
     userContext.then(data=>{
       setUser(data)
     })
-  },[userContext])
+
+    GetUser.then(data=>{
+
+      const users = data.map(ele=>[ele._id,ele.userName]);
+      const list = []
+
+        audioTracks.forEach(ele => {
+          users.forEach(element =>{
+            if(element[0] === ele.user){
+              list.push(<Post id = {ele._id} text={ele.name} key={ele._id} userName={element[1]} userID={element[0]} />);
+            }
+          })
+        })
+        setRows(list)
+
+      })
+
+      },[audioTracks])
+
+
 
 
   useEffect(()=>{
@@ -52,24 +73,8 @@ const Dashboard = () => {
   },[])
 
 
-  const rows = []
 
-// create a lookup object for the accounts array
-const accountLookup = accounts.reduce((lookup, account) => {
-  lookup[account._id] = {
-    userName: account.userName,
-    userID: account._id
-  };
-  return lookup;
-}, {});
 
-// iterate over the audioTracks array and retrieve user information using the lookup object
-audioTracks.forEach(ele => {
-  const user = accountLookup[ele.user];
-  if (user) {
-    rows.push(<Post text={ele.name} key={ele._id} userName={user.userName} userID={user.userID} />);
-  }
-});
 
   
   return (
@@ -79,7 +84,25 @@ audioTracks.forEach(ele => {
         <section className="major column flex">
         Dashboard
 
-        {rows}
+
+        <div className = "table-wrapper">
+
+<h2 className = 'tableHeading'>Songs</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Song Name</th>
+      <th>Playlist</th>
+      <th>Delete</th>
+      <th>User</th>
+    </tr>
+  </thead>
+  <tbody>
+  {rows}
+  </tbody>
+</table>
+</div>
 
         </section>
       </div>

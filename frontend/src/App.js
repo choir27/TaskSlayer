@@ -73,7 +73,7 @@ const EditPlaylist = React.lazy(()=> import('./pages/EditPlaylist'))
             <Route path="/register" element={<Register onAdd = {registerUser}/>} />
             <Route path="/login" element={<Login onAdd = {loginUser} />} />
         <Route element={<PrivateRoutes />}>
-            <Route path= "/editPlaylist/:id" element = {<EditPlaylist/>}/>
+            <Route path= "/editPlaylist" element = {<EditPlaylist/>}/>
             <Route path="/addAudio" element={<AddAudio/>}/>
             <Route element = {<Account />} path = '/account'/>
         </Route>

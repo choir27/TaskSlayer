@@ -40,7 +40,6 @@ window.location.reload();
       {trim(text)}
     </td>
     <td>
-        {user._id === userID ?
     <form onSubmit={handleDelete}>
         <input className = "hidden" name = "songID" value = {id} readOnly = {true}/>
         <button
@@ -48,8 +47,6 @@ window.location.reload();
          onClick = {()=>{setSongID(id)}}
          ></button>
     </form>
-         : ""
-         }
     </td>
     <td>
       {userName}
