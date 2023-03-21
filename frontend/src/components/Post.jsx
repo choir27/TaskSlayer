@@ -72,7 +72,7 @@ const Post = ({ text, id, userName, userID, hidden }) => {
           console.error(err);
           return;
         })
-
+window.location.reload();
     }else{
       toast.error("Please Choose A Valid Option")
       return;
