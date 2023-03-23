@@ -5,11 +5,15 @@ import {useContext, useState, useEffect} from "react"
 import Post from "../components/Post"
 import {MyContext} from "../middleware/Context"
 import {GetUser, GetAudio} from "../hooks/FetchHooks"
+import Button from "../components/Button"
+import PlaylistPost from "../components/PlaylistPost"
+
 const Dashboard = () => {
   
   const userContext = useContext(MyContext)
   const [audio, setAudio] = useState([])
   const [rows, setRows] = useState([])
+  const [display, setDisplay] = useState(true)
 
   useEffect(()=>{
 
@@ -30,13 +34,11 @@ const Dashboard = () => {
 
       })
 
+      localStorage.setItem("display", display)
 
-      },[audio])
+      },[audio, display, userContext])
 
 
-
-
-  
   return (
     <div>
       {userContext? <UserHeader/> : <Header/>}
@@ -44,10 +46,31 @@ const Dashboard = () => {
         <section className="major column flex">
         Dashboard
 
+      <div className = "flex">
+        <Button 
+        cname = 'button'
+        size = 'large'
+        onClick = {()=>{setDisplay(false)
+        localStorage.setItem('display', display)
+        }} 
+        text = 'playlist'/>
+        <Button
+        cname = 'button'
+        size = 'large'
+        onClick = {()=>{setDisplay(true)
+        localStorage.setItem('display',display)
+        }
+      }
+        text = 'song'
+        />
+      </div>
+
+
+    {display ? 
+
         <div className = "table-wrapper">
 
 <h2 className = 'tableHeading'>Songs</h2>
-
 <table>
   <thead>
     <tr>
@@ -62,6 +85,11 @@ const Dashboard = () => {
   </tbody>
 </table>
 </div>
+:
+
+<PlaylistPost/>
+
+}
 
         </section>
       </div>

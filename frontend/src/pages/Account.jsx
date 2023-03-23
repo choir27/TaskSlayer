@@ -153,6 +153,7 @@ const Account = () => {
   <thead>
     <tr>
       <th>Playlist Name</th>
+      <th>Edit</th>
       <th>Delete</th>
     </tr>
   </thead>
