@@ -5,7 +5,7 @@ import {MyContext} from "../middleware/Context"
 import Post from "../components/Post"
 import {default as MusicPlayer} from "../components/MusicPlayer.tsx"
 import axios from "axios";
-import {GetPlaylist, GetAudio} from "../components/AccountHooks"
+import {GetPlaylist, GetAudio} from "../hooks/FetchHooks"
 import {Link} from "react-router-dom"
 
 const Account = () => {

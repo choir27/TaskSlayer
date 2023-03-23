@@ -4,74 +4,34 @@ import Header from "../components/Header"
 import {useContext, useState, useEffect} from "react"
 import Post from "../components/Post"
 import {MyContext} from "../middleware/Context"
-import {GetUser} from "../components/AccountHooks"
-
+import {GetUser, GetAudio} from "../hooks/FetchHooks"
 const Dashboard = () => {
   
   const userContext = useContext(MyContext)
-  const [user, setUser] = useState({})
-  const [audioTracks, setAudioTracks] = useState([])
-  const [accounts, setAccounts] = useState([])
+  const [audio, setAudio] = useState([])
   const [rows, setRows] = useState([])
 
   useEffect(()=>{
-    userContext.then(data=>{
-      setUser(data)
-    })
 
-    GetUser.then(data=>{
+    GetAudio.then(data=>setAudio(data))
 
-      const users = data.map(ele=>[ele._id,ele.userName]);
-      const list = []
+    GetUser.then(users=>{
 
-        audioTracks.forEach(ele => {
+      const songList = []
+
+        audio.forEach(song => {
           users.forEach(element =>{
-            if(element[0] === ele.user){
-              list.push(<Post id = {ele._id} text={ele.name} key={ele._id} userName={element[1]} userID={element[0]} />);
+            if(element._id === song.user){
+              songList.push(<Post id = {song._id} text={song.name} key={song._id} userName={element.userName} userID={element._id} />);
             }
           })
         })
-        setRows(list)
+        setRows(songList)
 
       })
 
-      },[audioTracks])
 
-
-
-
-  useEffect(()=>{
-
-    const getPost = async() =>{
-       const postsFromServer = await getAudios()
-       setAudioTracks(postsFromServer)
-    }
-
-    getPost()
-  },[])
-
-  const getAudios = async() => {
-    let res = await fetch("http://localhost:8000/audio")
-    let data = await res.json();
-    return data
-  }
-
-  useEffect(()=>{
-    const fetchUsers = () =>{
-      try{
-        fetch("http://localhost:8000/api")
-          .then(res=>res.json())
-          .then(data=>{
-          setAccounts(data)
-        })
-      }catch(err){
-        console.error(err)
-      } 
-    }
-    fetchUsers()
-
-  },[])
-
+      },[audio])
 
 
 
@@ -79,11 +39,10 @@ const Dashboard = () => {
   
   return (
     <div>
-      {user? <UserHeader/> : <Header/>}
+      {userContext? <UserHeader/> : <Header/>}
       <div id = 'main'>
         <section className="major column flex">
         Dashboard
-
 
         <div className = "table-wrapper">
 
