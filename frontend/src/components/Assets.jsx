@@ -18,6 +18,6 @@ IllyaCute,
 HeavenArt,
 Drawing,
 Melusine,
-  };
+};
 
 export default Assets

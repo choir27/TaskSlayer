@@ -4,6 +4,7 @@ import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import PrivateRoutes from "./middleware/PrivateRoutes"
 import {MyContext} from "./middleware/Context"
+import PublicRoutes from "./middleware/PublicRoutes"
 
 function App() {
       
@@ -70,8 +71,10 @@ const EditPlaylist = React.lazy(()=> import('./pages/EditPlaylist'))
         <Route exact path="/" element={<Home/>} />
         <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route element = {<PublicRoutes/>}>
             <Route path="/register" element={<Register onAdd = {registerUser}/>} />
             <Route path="/login" element={<Login onAdd = {loginUser} />} />
+        </Route>
         <Route element={<PrivateRoutes />}>
             <Route path= "/editPlaylist" element = {<EditPlaylist/>}/>
             <Route path="/addAudio" element={<AddAudio/>}/>
