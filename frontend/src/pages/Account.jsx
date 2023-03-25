@@ -12,14 +12,16 @@ const Account = () => {
 
   const userContext = useContext(MyContext)
   const [user, setUser] = useState({})
-  const [playlist, setPlaylist] = useState([])
   const [choosePlaylist, setChoosePlaylist] = useState({})
   const [playlistID, setPlaylistID] = useState('')
   const [list, setList] = useState([])
   const [rows, setRows] = useState([])
 
   useEffect(()=>{
-      setUser(userContext)
+    userContext.then(data=>{
+      console.log(data)
+      setUser(data)
+    })
     }, [user])
     
 
@@ -62,7 +64,6 @@ const Account = () => {
 
 
     GetPlaylist.then(data=>{
-        setPlaylist(data)
         let playlists = []
             data.forEach(ele=>{
                 if(ele.user === localStorage.getItem('id')){
@@ -108,8 +109,6 @@ const Account = () => {
       setRows(audio)
     })
 
-    console.log(userContext)
-
   return (
     <div>  
       <UserHeader />  
@@ -117,7 +116,7 @@ const Account = () => {
             <article className = 'post'>
         <section className="major column flex">
         
-        <h3>{userContext.userName}</h3>
+        <h3>{user.userName}</h3>
 
         <MusicPlayer/>
 
