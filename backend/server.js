@@ -19,6 +19,8 @@ connectDB();
 
 app.set("view engine", "ejs");
 
+app.use(cors());
+
 app.use(cors({
   origin: [process.env.API_PORT_URL],
   methods: "GET, POST, PUT, GET, DELETE, OPTIONS"

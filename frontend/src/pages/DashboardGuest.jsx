@@ -1,5 +1,4 @@
 import Footer from "../components/Footer"
-import UserHeader from "../components/UserHeader"
 import Header from "../components/Header"
 import {useContext, useState, useEffect} from "react"
 import {MyContext} from "../middleware/Context"
@@ -65,7 +64,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      {userContext? <UserHeader/> : <Header/>}
+      <Header/>
       <div id = 'main'>
         <section className="major column flex">
         Dashboard

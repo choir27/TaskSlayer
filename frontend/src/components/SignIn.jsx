@@ -2,7 +2,7 @@ import Header from "./Header"
 import Footer from "./Footer";
 import {toast} from "react-toastify"
 import {useState, useEffect} from 'react'
-import {useNavigate} from "react-router-dom"
+import {useNavigate, Navigate} from "react-router-dom"
 
 const SignIn = ({onAdd}) => {
   const navigate = useNavigate();
@@ -43,7 +43,8 @@ const handleSubmit = (e) => {
       setEmail('')
       setPassword('');
 
-      navigate('/account') 
+    navigate('/account')
+
 
   }
 

@@ -1,16 +1,12 @@
-import Footer from "../components/Footer"
-import UserHeader from "../components/UserHeader"
-import {useContext, useEffect, useState} from "react"
-import {MyContext} from "../middleware/Context"
-import Post from "../components/Post"
-import {default as MusicPlayer} from "../components/MusicPlayer.tsx"
 import axios from "axios";
 import {GetPlaylist, GetAudio} from "../hooks/FetchHooks"
 import {Link} from "react-router-dom"
+import {useContext, useEffect, useState} from "react"
+import {MyContext} from "../middleware/Context"
+import Post from "./Post"
 
-const Account = () => {
-
-  const userContext = useContext(MyContext)
+const PlaylistSongs = () =>{
+const userContext = useContext(MyContext)
   const [user, setUser] = useState({})
   const [playlist, setPlaylist] = useState([])
   const [choosePlaylist, setChoosePlaylist] = useState({})
@@ -19,9 +15,9 @@ const Account = () => {
   const [rows, setRows] = useState([])
 
   useEffect(()=>{
-      setUser(userContext)
-    }, [user])
-    
+    userContext.then(data=>{
+      setUser(data)
+    })
 
 
     const handleSubmit = e => {
@@ -108,23 +104,11 @@ const Account = () => {
       setRows(audio)
     })
 
-    console.log(userContext)
+  },[user,userContext, playlist, playlistID, choosePlaylist])
 
-  return (
-    <div>  
-      <UserHeader />  
-          <div id = 'main'>
-            <article className = 'post'>
-        <section className="major column flex">
-        
-        <h3>{userContext.userName}</h3>
-
-        <MusicPlayer/>
-
+  return(
     <section className = 'flex tables'>
-    
-
-        <div className = "table-wrapper">
+    <div className = "table-wrapper">
 
         <h2 className = 'tableHeading'>Songs</h2>
 
@@ -143,8 +127,6 @@ const Account = () => {
         </table>
         </div>
 
-
-
 <div className = "table-wrapper">
 <h2 className = 'tableHeading'>Playlists</h2>
 
@@ -161,20 +143,8 @@ const Account = () => {
   </tbody>
 </table>
 </div>
-
-
 </section>
-
-        </section>
-        </article>
-          </div>
-        <Footer />
-        <div id="copyright">
-&copy; choir Design: HTML5 UP
-</div>
-    
-    </div>
   )
 }
 
-export default Account
+export default PlaylistSongs
