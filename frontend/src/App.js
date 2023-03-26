@@ -1,71 +1,64 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import React, { Suspense } from 'react';
-import {ToastContainer} from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
-import PrivateRoutes from "./middleware/PrivateRoutes"
 import {MyContext} from "./middleware/Context"
+import PrivateRoutes from "./middleware/PrivateRoutes"
 import PublicRoutes from "./middleware/PublicRoutes"
 
+import React, {Suspense} from 'react';
+import {ToastContainer} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import {BrowserRouter as Router, 
+                         Routes, 
+                         Route} from 'react-router-dom'
+import Spinner from "./components/Spinner"
+
 function App() {
-      
-  let fetchUsers = fetch("http://localhost:8000/api")
-      .then(res=>res.json())
-      .then(data=>{
-        for(let i = 0; i <data.length ; i++){
-          if(data[i]._id === localStorage.getItem("id")){
-            return data[i]
-          }
-        }
-      });
+  
+  //Finds currently signed in account user
+  const fetchUser = fetch("http://localhost:8000/api")
+    .then(res=>res.json())
+    .then(data=>data.find(ele=>ele._id === localStorage.getItem("id")));
 
   const registerUser = async (user) => {
-    const res = await fetch(`http://localhost:8000/register`, {
-      credentials: 'include',
-      method: 'POST',
+    const res = await fetch("http://localhost:8000/register", {
+      credentials: "same-origin",
+      method: "POST",
       headers: {
-        'Content-type': 'application/json'      
+        "Content-type": "application/json"      
       },
       body: JSON.stringify(user)
-    })
+    });
   
-    const data = await res.json()
+    const data = await res.json();
     localStorage.setItem("id", data.user._id);
+    window.location.reload();
+    }
 
-}
+    const loginUser = async (user) => {
+      const res = await fetch("http://localhost:8000/login", {
+      credentials: "same-origin",
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"     
+      },
+      body: JSON.stringify(user)
+    });
 
+    const data = await res.json();
+    localStorage.setItem("id", data.user._id);
+    window.location.reload();
+    }
 
-const loginUser = async (user) => {
-  
-  const res = await fetch(`http://localhost:8000/login`, {
-  credentials: 'same-origin',
-  method: 'POST',
-  headers: {
-    'Content-type': 'application/json'      
-  },
-  body: JSON.stringify(user )
-})
-
-const data = await res.json();
-localStorage.setItem("id", data.user._id);
-window.location.reload();
-
-}
-
-
-
-
-const Home = React.lazy(() => import('./pages/Home'));
-const About = React.lazy(() => import('./pages/About'));
-const Dashboard = React.lazy(() => import('./pages/Dashboard'));
-const Register = React.lazy(() => import('./pages/Register'));
-const Login = React.lazy(() => import('./pages/Login'));
-const Account = React.lazy(() => import('./pages/Account'));
-const AddAudio = React.lazy(()=> import("./components/PostAudio"))
-const EditPlaylist = React.lazy(()=> import('./pages/EditPlaylist'))
+const Home = React.lazy(() => import("./pages/Home"));
+const About = React.lazy(() => import("./pages/About"));
+const Dashboard = React.lazy(() => import("./pages/Dashboard"));
+const Register = React.lazy(() => import("./pages/Register"));
+const Login = React.lazy(() => import("./pages/Login"));
+const Account = React.lazy(() => import("./pages/Account"));
+const EditPlaylist = React.lazy(()=> import("./pages/EditPlaylist"));
+const PostAudio = React.lazy(()=> import("./pages/PostAudio"));
 
   return (
-    <MyContext.Provider value={fetchUsers}>
-    <Suspense fallback={<div><p>Loading...</p></div>}>
+    <MyContext.Provider value={fetchUser}>
+    <Suspense fallback={<Spinner />}>
     <Router>
       <Routes>
         <Route exact path="/" element={<Home/>} />
@@ -77,7 +70,7 @@ const EditPlaylist = React.lazy(()=> import('./pages/EditPlaylist'))
         </Route>
         <Route element={<PrivateRoutes />}>
             <Route path= "/editPlaylist" element = {<EditPlaylist/>}/>
-            <Route path="/addAudio" element={<AddAudio/>}/>
+            <Route path="/addAudio" element={<PostAudio/>}/>
             <Route element = {<Account />} path = '/account'/>
         </Route>
       </Routes>

@@ -4,6 +4,7 @@ const router = express.Router();
 const authController = require("../controllers/user");
 const audioController = require("../controllers/audio")
 const MongoClient = require('mongodb').MongoClient;
+
 require("dotenv").config();
 
 let db,
@@ -53,10 +54,9 @@ router.post("/createPlaylist", audioController.createPlaylist);
 
 const getCollectionData = async (collectionName) => {
     try{
-        let data = await db.collection(collectionName).find().toArray()
+        const data = await db.collection(collectionName).find().toArray()
         return data;
     }catch(err){
-        res.status(500)
         console.error(err)
     }
 };

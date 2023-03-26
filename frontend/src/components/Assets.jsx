@@ -4,9 +4,9 @@ import Believe from "../assets/about/gifs/KaleidBelieve.gif";
 import Freakout from "../assets/about/gifs/IllyaFreakOut.gif";
 import IllyaCute from "../assets/about/gifs/illyaCute.gif";
 
-import HeavenArt from "../assets/home/Heaven Fanart.jpg"
-import Drawing from "../assets/home/Drawing.jpg"
-import Melusine from "../assets/home/melusine.jpg" 
+import HeavenArt from "../assets/home/Heaven Fanart.jpg";
+import Drawing from "../assets/home/Drawing.jpg";
+import Melusine from "../assets/home/melusine.jpg" ;
 
 const Assets = {
 HeavenSmile,
@@ -20,4 +20,4 @@ Drawing,
 Melusine,
 };
 
-export default Assets
+export default Assets;

@@ -12,7 +12,6 @@ const HomeGuest = () => {
 <div id = 'main'>
 <article className = 'post featured'>
 <section className = 'major'>
-
 	<h1 className = 'flex justifyContent'>
 		<Link to = '/'>Welcome to the Illya Site!</Link>
 	</h1>

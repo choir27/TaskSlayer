@@ -1,7 +1,7 @@
 import React, { Component, useContext } from "react";
 import axios from "axios";
 import UserHeader from "../components/UserHeader"
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 import {MyContext} from "../middleware/Context"
 import {toast} from "react-toastify"
 import PostPlaylist from "../components/PostPlaylist"

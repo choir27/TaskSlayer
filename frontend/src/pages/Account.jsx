@@ -18,27 +18,29 @@ const Account = () => {
   const [rows, setRows] = useState([])
 
   useEffect(()=>{
-    userContext.then(data=>{
-      console.log(data)
-      setUser(data)
-    })
-    }, [user])
+    userContext.then(data=>setUser(data))
+    }, [userContext, user])
     
 
 
     const handleSubmit = e => {
-      e.preventDefault();
-      axios
-          .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
-          .then(res=>console.log(res))
-          .catch(err=>{
-            console.error(err);
-            return;
-          })
-      window.location.reload();
+      try{
+        e.preventDefault();
+        axios
+            .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
+            .then(res=>console.log(res))
+            .catch(err=>{
+              console.error(err);
+              return;
+            })
+        window.location.reload();
+      }catch(err){
+        console.error(err)
+      }
   }
   
   const handleDelete = e => {
+    try{
       e.preventDefault();
       
       axios
@@ -60,6 +62,9 @@ const Account = () => {
         })
   
         window.location.reload();
+    }catch(err){
+      console.error(err)
+    }
       }
 
 
