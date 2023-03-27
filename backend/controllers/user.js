@@ -1,9 +1,7 @@
 const User = require("../models/User");
-const bcrypt = require('bcrypt')
-
+const bcrypt = require('bcrypt');
 
 module.exports = {
-  
   getUser: async(req,res)=>{
 try{
   res.json({user: req.user})

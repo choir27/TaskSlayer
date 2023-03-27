@@ -1,9 +1,9 @@
 const express = require("express");
-const multer = require('multer')
 const router = express.Router();
 const authController = require("../controllers/user");
-const audioController = require("../controllers/audio")
 const MongoClient = require('mongodb').MongoClient;
+const audioController = require("../controllers/audio")
+const multer = require("multer");
 
 require("dotenv").config();
 
@@ -19,21 +19,6 @@ MongoClient.connect(process.env.MONGO_URI, {
     })
 
 
-const storage = multer.diskStorage({
-    filename: (req,file,cb) => {
-        const fileName = file.originalname.toLowerCase().split(" ").join("-");
-        cb(null, fileName);
-    }
-})
-
-const upload = multer({
-    storage: storage,
-    fileFilter: (req, file, cb) => {
-        cb(null, true);   
-    }
-});
-
-
 //Main Routes - simplified for now
 router.post("/login", authController.login);
 router.post("/register", authController.signup);
@@ -41,16 +26,7 @@ router.post("/register", authController.signup);
 router.get("/logout", authController.logout);
 router.get("/user", authController.getUser);
 
-router.delete("/deletePost/:id", audioController.deletePost);
-router.put("/choosePlaylist/:id", audioController.choosePlaylist);
-router.delete("/deletePlaylist/:id", audioController.deletePlaylist);
-router.put("deleteCurrentPlaylist", audioController.deleteCurrentPlaylist);
-
-router.put("/editPlaylist/:id", audioController.editPlaylist)
-
-router.post("/addAudio", upload.single("file"), audioController.postAudio);
-router.put("/addToPlaylist/:id", audioController.addToPlaylist);
-router.post("/createPlaylist", audioController.createPlaylist);
+router.post("/sendMessage", audioController.sendMessage);
 
 const getCollectionData = async (collectionName) => {
     try{
@@ -101,6 +77,33 @@ router.get('/audio',async(req,res)=>{
         console.error(err)
     }
 })
+
+
+
+const storage = multer.diskStorage({
+    filename: (req,file,cb) => {
+        const fileName = file.originalname.toLowerCase().split(" ").join("-");
+        cb(null, fileName);
+    }
+})
+
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        cb(null, true);   
+    }
+});
+
+router.delete("/deletePost/:id", audioController.deletePost);
+router.put("/choosePlaylist/:id", audioController.choosePlaylist);
+router.delete("/deletePlaylist/:id", audioController.deletePlaylist);
+router.put("deleteCurrentPlaylist", audioController.deleteCurrentPlaylist);
+
+router.put("/editPlaylist/:id", audioController.editPlaylist)
+
+router.post("/addAudio", upload.single("file"), audioController.postAudio);
+router.put("/addToPlaylist/:id", audioController.addToPlaylist);
+router.post("/createPlaylist", audioController.createPlaylist);
 
 
 

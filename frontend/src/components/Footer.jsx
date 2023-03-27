@@ -1,5 +1,4 @@
-import {useState,
-        useEffect} from "react"
+import {useState} from "react"
 import axios from "axios"
 import {toast} from "react-toastify"
 
@@ -10,12 +9,7 @@ const Footer = () => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [validEmail, setValidEmail] = useState(false);
     const [message, setMessage] = useState("");
-
-    useEffect(()=>{
-        setValidEmail(EMAIL_REGEX.test(email));
-    }, [email]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -26,15 +20,29 @@ const Footer = () => {
         };
 
         const checkEmail = EMAIL_REGEX.test(email);
+        const checkName = NAME_REGEX.test(name);
 
         if(!checkEmail){
             toast.error("Please Input Proper Email");
             return;
         }
 
+        if(!checkName){
+            toast.error("Please Input Proper Name");
+            return;
+        }
+        const formData = new URLSearchParams();
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("message", message);
 
-
-
+        axios.post("http://localhost:8000/sendMessage", formData, {})
+                .then(data=>console.log(data))
+                .catch(err=>{
+                    console.log(err)
+                    return;
+                })
+            window.location.reload();
     }
 
     return (

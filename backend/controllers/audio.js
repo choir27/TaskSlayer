@@ -2,8 +2,18 @@ const Audio = require("../models/Audio");
 const cloudinary = require("../middleware/cloudinary");
 const Playlist = require("../models/Playlist");
 const CurrentPlaylist = require("../models/CurrentPlaylist");
+const Message = require("../models/Message");
 
 module.exports = {
+  sendMessage: async(req,res)=>{
+    try{
+      const message = await Message.create(req.body)
+    res.json(message);
+
+    }catch(err){
+      console.error(err);
+    }
+  },
     editPlaylist: async(req,res)=>{
         try{
           let playlist = await Playlist.findById({_id: req.params.id});
