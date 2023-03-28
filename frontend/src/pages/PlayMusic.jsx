@@ -59,12 +59,14 @@ const handleAddToPlaylist = async (e) => {
         .then(data=>console.log(data))
       axios
         .put(`http://localhost:8000/choosePlaylist/${playlist}`, formData, {})
-        .then(res=>console.log(res))
+        .then(res=>
+          {if(res){
+          window.location.reload();
+        }})
         .catch(err=>{
           console.error(err);
           return;
         })
-window.location.reload();
     }else{
       toast.error("Please Choose A Valid Option")
       return;
@@ -84,7 +86,7 @@ window.location.reload();
         return;
       });
 
-      navigate('/dashboard')
+      navigate('/dashboard');
       window.location.reload();
 
   };
@@ -117,7 +119,7 @@ window.location.reload();
                   autoPlay = {true}
                     src = {audioSource.audio}>
                     </audio>  
-
+{ currentUser ?
                     <form onSubmit={handleAddToPlaylist}>
         <select name = "playlist"
         onChange = {(e)=>{
@@ -128,17 +130,21 @@ window.location.reload();
         </select>
         <button className="fa-solid fa-plus button small" type = "submit">
         </button>
-  </form>              
+  </form> :
+  ""             
+}
 
-
+{currentUser ?
   <form onSubmit={handleDelete}>
-        {currentUser._id === user._id ?
+        {currentUser._id === user._id?
         <button
          className="button small fa-solid fa-trash" type="submit"
          ></button>
          : ""
          }
       </form>
+               : ""
+              }
             </section>
           </section>
           </article>

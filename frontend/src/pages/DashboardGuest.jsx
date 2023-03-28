@@ -4,7 +4,7 @@ import {useContext, useState, useEffect} from "react"
 import {MyContext} from "../middleware/Context"
 import {GetUser, GetAudio, GetPlaylist} from "../hooks/FetchHooks"
 import Button from "../components/Button"
-
+import {Link} from "react-router-dom"
 const Dashboard = () => {
   
   const userContext = useContext(MyContext)
@@ -46,6 +46,13 @@ const Dashboard = () => {
               songList.push(
               <tr key = {song._id}>
                 <td>{song.name}</td>
+                <td>
+      <Link className = "button small"
+      to = "/playMusic"
+      onClick = {()=>localStorage.setItem('song', song._id)}>
+        Play
+      </Link>
+                </td>
                 <td></td>
                 <td></td>
                 <td>{element.userName}</td>

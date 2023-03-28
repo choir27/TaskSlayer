@@ -10,7 +10,9 @@ const UserHeader = () => {
 		e.preventDefault();
 		localStorage.removeItem("id");
 		navigate('/');
-		window.location.reload();
+		if(!localStorage.getItem("id")){
+			window.location.reload();
+		}
 	}
 
   return ( 

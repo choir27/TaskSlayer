@@ -28,13 +28,14 @@ const PostPlaylist = () => {
                     .post("http://localhost:8000/createPlaylist", formData, {})
                     .then(res=>console.log(res))
                     .then(data=>{
-                        console.log(data)
+                        if(data){
+                            window.location.reload();        
+                        }
                     })
                     .catch(err=>{
                         console.error(err)
                         return;
                     })
-            window.location.reload()        
         }else{
             toast.error("Please input a valid playlist name")
             return;

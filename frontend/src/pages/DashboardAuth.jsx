@@ -74,6 +74,7 @@ const Dashboard = () => {
   <thead>
     <tr>
       <th>Song Name</th>
+      <th></th>
       <th>Playlist</th>
       <th>Delete</th>
       <th>User</th>

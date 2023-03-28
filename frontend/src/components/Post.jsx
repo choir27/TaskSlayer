@@ -2,6 +2,8 @@ import axios from "axios";
 import {useContext, useState, useEffect} from "react"
 import {MyContext} from "../middleware/Context"
 import {toast} from "react-toastify"
+import {Link} from "react-router-dom"
+import {GetPlaylist} from "../hooks/FetchHooks"
 
 const Post = ({ text, id, userName, userID, hidden }) => {
   
@@ -11,32 +13,15 @@ const Post = ({ text, id, userName, userID, hidden }) => {
   const [songs, setSongs] = useState([])
 
   useEffect(()=>{
-    userContext.then(data=>{
-      setUser(data)
-    })
-  },[userContext])
+    userContext.then(data=>setUser(data))
 
-  useEffect(()=>{
-    const getPlaylists = async()=>{
-      const data = await fetchPlaylist();
-      setSongs(data);
-    }
+    GetPlaylist.then(data=>setSongs(data));
+    
+  },[userContext, playlist])
 
-    getPlaylists()
-  }, [])
-
-  const fetchPlaylist = async () => {
-    try{
-      let res = await fetch("http://localhost:8000/playlist");
-      let data = await res.json();
-      return data;
-    }catch(err){
-      console.error(err);
-    }
-  }
 
  const trim = (str) => {
-    if (str.length > 15) {
+    if (str.length > 35) {
       return str.substr(0, 30) + "...";
     } else {
       return str;
@@ -67,12 +52,14 @@ const Post = ({ text, id, userName, userID, hidden }) => {
         .then(data=>console.log(data))
       axios
         .put(`http://localhost:8000/choosePlaylist/${playlist}`, formData, {})
-        .then(res=>console.log(res))
+        .then(res=>{
+        if(res){
+          window.location.reload();
+        }})
         .catch(err=>{
           console.error(err);
           return;
         })
-window.location.reload();
     }else{
       toast.error("Please Choose A Valid Option")
       return;
@@ -95,6 +82,13 @@ window.location.reload();
   <tr className = {hidden}>
     <td>
       {trim(text)}
+    </td>
+    <td>
+      <Link className = "button small"
+      to = "/playMusic"
+      onClick = {localStorage.setItem('song', id)}>
+        Play
+      </Link>
     </td>
     <td>
 

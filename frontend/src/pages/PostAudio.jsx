@@ -31,8 +31,10 @@ class FilesUploadComponent extends Component {
       axios.post("http://localhost:8000/addAudio", formData, {
       }).then(res => {
         console.log(res)
+        if(res){
+          window.location.reload();
+        }
       })
-      window.location.reload();
     }else if(!this.state.audioFile){
       toast.error("Please Upload a File")
       return;

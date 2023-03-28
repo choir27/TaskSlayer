@@ -18,101 +18,116 @@ const Account = () => {
   const [rows, setRows] = useState([])
 
   useEffect(()=>{
-    userContext.then(data=>setUser(data))
-    }, [userContext, user])
-    
+    try{
+      userContext.then(data=>setUser(data))
 
-
-    const handleSubmit = e => {
-      try{
+      const handleSubmit = (e) => {
+          try{
+            e.preventDefault();
+            axios.put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
+                .then(res=>{
+                  console.log(res)
+                if(res){
+                  window.location.reload();
+                }})
+                .catch(err=>{
+                  console.error(err);
+                  return;
+                })
+          }catch(err){
+            console.error(err);
+            return;
+          }
+      }
+      
+      const handleDelete = e => {
         e.preventDefault();
-        axios
-            .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
-            .then(res=>console.log(res))
-            .catch(err=>{
-              console.error(err);
+        try{
+
+          axios
+          .delete(`http://localhost:8000/deletePlaylist/${playlistID}`)
+          .then(res=>{
+
+            axios
+            .put(`http://localhost:8000/deleteCurrentPlaylist`)
+            .then(data=>{
+              console.log(data);
+            })
+            .catch(error=>{
+              console.error(error)
               return;
             })
-        window.location.reload();
-      }catch(err){
-        console.error(err)
+
+          })
+          .catch(err=>console.error(err))
+          
+          window.location.reload();
+
+        }catch(err){
+          console.error(err);
+        }
+           
       }
-  }
   
-  const handleDelete = e => {
-    try{
-      e.preventDefault();
-      
-      axios
-        .delete(`http://localhost:8000/deletePlaylist/${playlistID}`)
-        .catch(error=>{
-          console.error(error)
-          return;
-        })
   
-      axios
-        .put(`http://localhost:8000/deleteCurrentPlaylist`)
-        .then(res=>{
-          res.json()
-        })
-        .then(data=>console.log(data))
-        .catch(error=>{
-          console.error(error)
-          return;
-        })
   
-        window.location.reload();
-    }catch(err){
+      GetPlaylist.then(data=>{
+          let playlists = []
+              data.forEach(ele=>{
+                  if(ele.user === localStorage.getItem('id')){
+                      playlists.push(
+                          <tr key = {ele._id}>
+                              <td>
+                                  <form onSubmit = {handleSubmit}>
+                                      <input name = 'choosePlaylist' value = {ele._id} className = "hidden" readOnly = {true}></input>
+                                      <button className = 'button' onClick = {()=>setChoosePlaylist(ele._id)}>{ele.name}</button>
+                                  </form>
+                              </td>
+                              <td>
+                                  <input name = "editPlaylist" value = {ele._id} className = "hidden" readOnly = {true}></input>
+                                  <Link to = {`/editPlaylist`}
+                                  onClick = {()=>localStorage.setItem('playlistID', ele._id)} 
+                                  className = "fa-solid small fa-pen-to-square button"></Link>
+                              </td>
+                              <td>
+                                  <form onSubmit = {handleDelete}>
+                                      <button
+                                          onClick = {()=>{
+                                          setPlaylistID(ele._id)
+                                          }}
+                                          className="button small fa-solid fa-trash" 
+                                          type="submit">    
+                                      </button>
+                                  </form>
+                              </td>
+                          </tr>
+                      )
+                  }
+              })
+          setList(playlists)
+      })
+  
+      GetAudio.then(data=>{
+        let audio = []
+        data.forEach(ele=>{
+            if(ele.user === localStorage.getItem('id')){
+              audio.push(<Post userName = {user.userName} userID = {ele.user} id = {ele._id} text = {ele.name} key = {ele._id}/>)
+            }
+        })
+        setRows(audio)
+      })
+  
+    }
+    catch(err){
       console.error(err)
     }
-      }
+    
+    }, [userContext, user, choosePlaylist, playlistID])
 
 
-    GetPlaylist.then(data=>{
-        let playlists = []
-            data.forEach(ele=>{
-                if(ele.user === localStorage.getItem('id')){
-                    playlists.push(
-                        <tr key = {ele._id}>
-                            <td>
-                                <form onSubmit = {handleSubmit}>
-                                    <input name = 'choosePlaylist' value = {ele._id} className = "hidden" readOnly = {true}></input>
-                                    <button className = 'button' onClick = {()=>setChoosePlaylist(ele._id)}>{ele.name}</button>
-                                </form>
-                            </td>
-                            <td>
-                                <input name = "editPlaylist" value = {ele._id} className = "hidden" readOnly = {true}></input>
-                                <Link to = {`/editPlaylist`}
-                                onClick = {()=>localStorage.setItem('playlistID', ele._id)} 
-                                className = "fa-solid small fa-pen-to-square button"></Link>
-                            </td>
-                            <td>
-                                <form onSubmit = {handleDelete}>
-                                    <button
-                                        onClick = {()=>{
-                                        setPlaylistID(ele._id)
-                                        }}
-                                        className="button small fa-solid fa-trash" 
-                                        type="submit">    
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    )
-                }
-            })
-        setList(playlists)
-    })
 
-    GetAudio.then(data=>{
-      let audio = []
-      data.forEach(ele=>{
-          if(ele.user === localStorage.getItem('id')){
-            audio.push(<Post userName = {user.userName} userID = {ele.user} id = {ele._id} text = {ele.name} key = {ele._id}/>)
-          }
-      })
-      setRows(audio)
-    })
+
+   
 
   return (
     <div>  

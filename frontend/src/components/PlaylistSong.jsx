@@ -1,17 +1,9 @@
 import axios from "axios";
-import {useContext, useState, useEffect} from "react"
-import {MyContext} from "../middleware/Context"
+import {useState} from "react"
 
 const PlaylistSong = ({ text, id, userName, userID, hidden }) => {
   
-  const userContext = useContext(MyContext)
-  const [user, setUser] = useState({})
   const [songID ,setSongID] = useState('')
-  useEffect(()=>{
-    userContext.then(data=>{
-      setUser(data)
-    })
-  },[userContext])
 
  const trim = (str) => {
     if (str.length > 15) {
@@ -28,10 +20,11 @@ const PlaylistSong = ({ text, id, userName, userID, hidden }) => {
         formData.append('songID', songID);
       axios
       .put(`http://localhost:8000/editPlaylist/${localStorage.getItem('playlistID')}`, formData, {
-      }).then(res=>console.log(res))
-      .then(data=>console.log(data))
+      }).then(res=>{if(res){
+        window.location.reload();    
+      }})
+
     }
-window.location.reload();    
 };
 
   return (

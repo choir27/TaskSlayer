@@ -21,12 +21,13 @@ const handleSubmit = e => {
     e.preventDefault();
     axios
         .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
-        .then(res=>console.log(res))
+        .then(res=>{if(res){
+          window.location.reload();
+        }})
         .catch(err=>{
           console.error(err);
           return;
         })
-    window.location.reload();
 }
 
 const handleDelete = e => {
@@ -42,15 +43,15 @@ const handleDelete = e => {
     axios
       .put(`http://localhost:8000/deleteCurrentPlaylist`)
       .then(res=>{
-        res.json()
+        if(res){
+          window.location.reload();
+        }
       })
-      .then(data=>console.log(data))
       .catch(error=>{
         console.error(error)
         return;
       })
 
-      window.location.reload();
     }
 
 
@@ -67,7 +68,7 @@ const handleDelete = e => {
                           <td>
                               <form onSubmit = {handleSubmit}>
                                   <input name = 'choosePlaylist' value = {ele._id} className = "hidden" readOnly = {true}></input>
-                                  <button className = 'button' onClick = {()=>setChoosePlaylist(ele._id)}>{ele.name}</button>
+                                  <button className = 'button' onClick = {setChoosePlaylist(ele._id)}>{ele.name}</button>
                               </form>
                           </td>
                     
@@ -75,7 +76,7 @@ const handleDelete = e => {
                           <td>
                               <input name = "editPlaylist" value = {ele._id} className = "hidden" readOnly = {true}></input>
                               <Link to = {`/editPlaylist`}
-                              onClick = {()=>localStorage.setItem('playlistID', ele._id)} 
+                              onClick = {localStorage.setItem('playlistID', ele._id)} 
                               className = "fa-solid small fa-pen-to-square button"></Link>
                           </td>
                 :
@@ -85,9 +86,7 @@ const handleDelete = e => {
                           <td>
                               <form onSubmit = {handleDelete}>
                                   <button
-                                      onClick = {()=>{
-                                      setPlaylistID(ele._id)
-                                      }}
+                                      onClick = {setPlaylistID(ele._id)}
                                       className="button small fa-solid fa-trash" 
                                       type="submit">    
                                   </button>

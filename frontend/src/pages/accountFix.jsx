@@ -1,64 +1,86 @@
+import Footer from "../components/Footer"
+import UserHeader from "../components/UserHeader"
+import {useContext, useEffect, useState} from "react"
+import {MyContext} from "../middleware/Context"
+import Post from "../components/Post"
+import {default as MusicPlayer} from "../components/MusicPlayer.tsx"
 import axios from "axios";
 import {GetPlaylist, GetAudio} from "../hooks/FetchHooks"
 import {Link} from "react-router-dom"
-import {useContext, useEffect, useState} from "react"
-import {MyContext} from "../middleware/Context"
-import Post from "./Post"
 
-const PlaylistSongs = () =>{
-const userContext = useContext(MyContext)
+const Account = () => {
+
+  const userContext = useContext(MyContext)
   const [user, setUser] = useState({})
-  const [playlist, setPlaylist] = useState([])
   const [choosePlaylist, setChoosePlaylist] = useState({})
   const [playlistID, setPlaylistID] = useState('')
   const [list, setList] = useState([])
   const [rows, setRows] = useState([])
 
   useEffect(()=>{
-    userContext.then(data=>{
-      setUser(data)
-    })
+    try{
+      userContext.then(data=>setUser(data))
 
 
-    const handleSubmit = e => {
+      
+    const handleSubmit = (e) => {
+        try{
+          e.preventDefault();
+          axios.put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
+              .then(res=>{
+                console.log(res)
+              if(res){
+                window.location.reload();
+              }})
+              .catch(err=>{
+                console.error(err);
+                return;
+              })
+        }catch(err){
+          console.error(err);
+          return;
+        }
+    }
+    
+    const handleDelete = e => {
       e.preventDefault();
-      axios
-          .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
-          .then(res=>{if(res){
-            window.location.reload();
-          }})
-          .catch(err=>{
-            console.error(err);
+  
+      try{
+                
+        axios
+        .delete(`http://localhost:8000/deletePlaylist/${playlistID}`)
+        .then(res=>{console.log(res)
+          axios
+          .put(`http://localhost:8000/deleteCurrentPlaylist`)
+          .then(res=>{
+            if(res){
+              window.location.reload();
+            }
+          })
+          .then(data=>console.log(data))
+          .catch(error=>{
+            console.error(error)
             return;
           })
-  }
-  
-  const handleDelete = e => {
-      e.preventDefault();
-      
-      axios
-        .delete(`http://localhost:8000/deletePlaylist/${playlistID}`)
+          
+        
+        })
         .catch(error=>{
           console.error(error)
           return;
         })
-  
-      axios
-        .put(`http://localhost:8000/deleteCurrentPlaylist`)
-        .then(res=>{
-          if(res){
-            window.location.reload();
-          }})
-        .catch(error=>{
-          console.error(error)
-          return;
-        })
-  
+      }catch(err){
+        console.error(err)
+        return;
       }
+        }
+    }catch(err){
+      console.error(err)
+    }
+
 
 
     GetPlaylist.then(data=>{
-        setPlaylist(data)
         let playlists = []
             data.forEach(ele=>{
                 if(ele.user === localStorage.getItem('id')){
@@ -104,11 +126,29 @@ const userContext = useContext(MyContext)
       setRows(audio)
     })
 
-  },[user,userContext, playlist, playlistID, choosePlaylist])
+    
+    }, [userContext, user])
 
-  return(
+
+
+
+   
+
+  return (
+    <div>  
+      <UserHeader />  
+          <div id = 'main'>
+            <article className = 'post'>
+        <section className="major column flex">
+        
+        <h3>{user.userName}</h3>
+
+        <MusicPlayer/>
+
     <section className = 'flex tables'>
-    <div className = "table-wrapper">
+    
+
+        <div className = "table-wrapper">
 
         <h2 className = 'tableHeading'>Songs</h2>
 
@@ -127,6 +167,8 @@ const userContext = useContext(MyContext)
         </table>
         </div>
 
+
+
 <div className = "table-wrapper">
 <h2 className = 'tableHeading'>Playlists</h2>
 
@@ -143,8 +185,20 @@ const userContext = useContext(MyContext)
   </tbody>
 </table>
 </div>
+
+
 </section>
+
+        </section>
+        </article>
+          </div>
+        <Footer />
+        <div id="copyright">
+&copy; choir Design: HTML5 UP
+</div>
+    
+    </div>
   )
 }
 
-export default PlaylistSongs
+export default Account

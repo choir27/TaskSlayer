@@ -55,6 +55,7 @@ const Login = React.lazy(() => import("./pages/Login"));
 const Account = React.lazy(() => import("./pages/Account"));
 const EditPlaylist = React.lazy(()=> import("./pages/EditPlaylist"));
 const PostAudio = React.lazy(()=> import("./pages/PostAudio"));
+const PlayMusic = React.lazy(()=> import("./pages/PlayMusic"));
 
   return (
     <MyContext.Provider value={fetchUser}>
@@ -64,6 +65,7 @@ const PostAudio = React.lazy(()=> import("./pages/PostAudio"));
         <Route exact path="/" element={<Home/>} />
         <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/playMusic" element={<PlayMusic/>} />
         <Route element = {<PublicRoutes/>}>
             <Route path="/register" element={<Register onAdd = {registerUser}/>} />
             <Route path="/login" element={<Login onAdd = {loginUser} />} />
