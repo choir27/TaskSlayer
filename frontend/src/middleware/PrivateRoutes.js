@@ -4,7 +4,7 @@ import {useContext} from "react"
 
 const PrivateRoutes = () => {
 
-  const userContext = useContext(MyContext)
+  const userContext = useContext(MyContext);
 
 return(
   userContext? <Outlet/> : <Navigate to = "/"/>

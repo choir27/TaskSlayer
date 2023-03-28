@@ -26,11 +26,11 @@ const PostPlaylist = () => {
             formData.append("playlistName", playlistName)
                 axios
                     .post("http://localhost:8000/createPlaylist", formData, {})
-                    .then(res=>console.log(res))
-                    .then(data=>{
-                        if(data){
-                            window.location.reload();        
-                        }
+                    .then(res=>{
+                        if(res){
+                            console.log(res);
+                            window.location.reload();
+                          }
                     })
                     .catch(err=>{
                         console.error(err)

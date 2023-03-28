@@ -29,12 +29,15 @@ class FilesUploadComponent extends Component {
       formData.append('file', this.state.audioFile)
       formData.append("user", this.state.user)
       axios.post("http://localhost:8000/addAudio", formData, {
-      }).then(res => {
-        console.log(res)
-        if(res){
-          window.location.reload();
-        }
       })
+      .then(res =>
+        {
+          if(res){
+            console.log(res);
+            window.location.reload();
+          }
+        }
+        )
     }else if(!this.state.audioFile){
       toast.error("Please Upload a File")
       return;

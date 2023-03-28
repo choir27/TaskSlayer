@@ -21,12 +21,16 @@ const handleSubmit = e => {
     e.preventDefault();
     axios
         .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
-        .then(res=>console.log(res))
+        .then(res=>{
+          if(res){
+            console.log(res);
+            window.location.reload();
+          }
+        })
         .catch(err=>{
           console.error(err);
           return;
         })
-    window.location.reload();
 }
 
 const handleDelete = e => {
@@ -44,13 +48,17 @@ const handleDelete = e => {
       .then(res=>{
         res.json()
       })
-      .then(data=>console.log(data))
+      .then(data=>{
+        if(data){
+          console.log(data);
+          window.location.reload();
+        }
+      })
       .catch(error=>{
         console.error(error)
         return;
       })
 
-      window.location.reload();
     }
 
 

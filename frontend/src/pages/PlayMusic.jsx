@@ -49,7 +49,17 @@ GetAudio.then(song=>{
 
 
 const handleAddToPlaylist = async (e) => {
-    e.spreventDefault();
+    e.preventDefault();
+
+    if(songs[0].songs){
+      for(let i = 0; i <songs[0].songs.length; i++){
+        if(songs[0].songs[i]._id === audio){
+          toast.error("Song already exists in playlist");
+          return;
+        }
+      }
+    }
+
     if(playlist !== ""){
       const formData = new URLSearchParams()
       formData.append("playlist", playlist)
@@ -59,14 +69,14 @@ const handleAddToPlaylist = async (e) => {
         .then(data=>console.log(data))
       axios
         .put(`http://localhost:8000/choosePlaylist/${playlist}`, formData, {})
-        .then(res=>
-          {if(res){
-          window.location.reload();
-        }})
+        .then(res=>{
+          console.log(res)
+        })
         .catch(err=>{
           console.error(err);
           return;
         })
+      window.location.reload();
     }else{
       toast.error("Please Choose A Valid Option")
       return;
@@ -78,9 +88,7 @@ const handleAddToPlaylist = async (e) => {
     e.preventDefault();
       axios
       .delete(`http://localhost:8000/deletePost/${audio}`)
-      .then((res) => {
-        console.log(res)
-      })
+      .then(res=>console.log(res))
       .catch((error) => {
         console.error(error);
         return;

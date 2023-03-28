@@ -43,13 +43,14 @@ const Footer = () => {
             formData, 
             {}).then(res=>{
                 if(res){
+                    console.log(res);
                     window.location.reload();
-                }
-            }).catch(err=>{
+                  }
+            })
+              .catch(err=>{
                     console.log(err);
                     return;
                 })
-
         }catch(err){
             console.error(err);
         }

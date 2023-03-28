@@ -15,14 +15,16 @@ const PlaylistSong = ({ text, id, userName, userID, hidden }) => {
 
   const handleDelete = (e) => {
     e.preventDefault();
+
     if(songID){
         const formData = new URLSearchParams()
         formData.append('songID', songID);
       axios
       .put(`http://localhost:8000/editPlaylist/${localStorage.getItem('playlistID')}`, formData, {
-      }).then(res=>{if(res){
-        window.location.reload();    
-      }})
+      })
+
+      
+      window.location.reload();
 
     }
 };

@@ -24,13 +24,17 @@ const userContext = useContext(MyContext)
       e.preventDefault();
       axios
           .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
-          .then(res=>{if(res){
-            window.location.reload();
-          }})
+          .then(res=>{
+            if(res){
+              console.log(res);
+              window.location.reload();
+            }
+          })
           .catch(err=>{
             console.error(err);
             return;
           })
+
   }
   
   const handleDelete = e => {
@@ -45,15 +49,15 @@ const userContext = useContext(MyContext)
   
       axios
         .put(`http://localhost:8000/deleteCurrentPlaylist`)
-        .then(res=>{
-          if(res){
-            window.location.reload();
-          }})
+        .then(res=>{if(res){
+          console.log(res);
+          window.location.reload();
+        }})
         .catch(error=>{
           console.error(error)
           return;
         })
-  
+
       }
 
 

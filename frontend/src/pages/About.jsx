@@ -1,14 +1,14 @@
-import Footer from "../components/Footer";
-import Assets from "../components/Assets";
+import Footer from "../components/Footer"
+import Assets from "../components/Assets"
 import UserHeader from "../components/UserHeader"
 import Header from "../components/Header"
+
 import {useContext} from "react"
 import {MyContext} from "../middleware/Context"
 
 const About = () => {
 
-  const UserContext = useContext(MyContext)
-
+  const UserContext = useContext(MyContext);
 
   return (
     <div>
@@ -18,11 +18,11 @@ const About = () => {
           <section className="major">
             <h1 className="flex justifyContent">About Illya</h1>
         
-            <div className = 'containerBox image'>
+            <div className = "containerBox image">
 
               <img 
                 src = {Assets.HeavenSmile} 
-                alt = 'Illya gif of her smiling and twirling around'
+                alt = "Illya gif of her smiling and twirling around"
                 loading="lazy"
               />
              
@@ -34,30 +34,31 @@ const About = () => {
               
               <img 
                 src = {Assets.IllyaCat} 
-                alt = 'Illya with cat ears with a bit of a perplexed expression'
+                alt = "Illya with cat ears with a bit of a perplexed expression"
                 loading="lazy"
               />
       
             </div>
 
-        <p>Einzbern, one of three families of Magi involved in the Holy Grail War, were responsible for creation of the vessel into which the souls of the defeated Servants would go. As such, Illya was prepared by her family to act as a living vessel for the Grail.  Unlike other homunculi who are born without eggs and wombs, Illyasviel originally was developed in her mother's womb from a fertilized egg to an embryo through the same process as ordinary people do.  In the Fate/Zero Drama CD, she was born out of love between Kiritsugu and Irisviel, to be Kiritsugu's reason for living when he comes back from the war.  The head of the family Jubstacheit von Einzbern, however, anticipated the possibility that Kiritsugu and Irisviel would fail to win the Fourth Holy Grail War, so he allowed Illyasviel to be born with modifications to allow her to become the Holy Grail should a Fifth Holy Grail War occur.  The modifying made her growth slow down abnormally and resulted in her childlike appearance while she is actually slightly older than Shirou. Irisviel was gifted a working womb so she gave natural birth to Illya.</p>
+          <p>Einzbern, one of three families of Magi involved in the Holy Grail War, were responsible for creation of the vessel into which the souls of the defeated Servants would go. As such, Illya was prepared by her family to act as a living vessel for the Grail.  Unlike other homunculi who are born without eggs and wombs, Illyasviel originally was developed in her mother's womb from a fertilized egg to an embryo through the same process as ordinary people do.  In the Fate/Zero Drama CD, she was born out of love between Kiritsugu and Irisviel, to be Kiritsugu's reason for living when he comes back from the war.  The head of the family Jubstacheit von Einzbern, however, anticipated the possibility that Kiritsugu and Irisviel would fail to win the Fourth Holy Grail War, so he allowed Illyasviel to be born with modifications to allow her to become the Holy Grail should a Fifth Holy Grail War occur.  The modifying made her growth slow down abnormally and resulted in her childlike appearance while she is actually slightly older than Shirou. Irisviel was gifted a working womb so she gave natural birth to Illya.</p>
         
-        <div className = 'image containerBox'>
+          <div className = "image containerBox">
 
-          <img 
-          src = {Assets.Believe} 
-          alt = 'Illya believes and makes a fist'
-          loading="lazy"
-          />
+            <img 
+            src = {Assets.Believe} 
+            alt = "Illya believes and makes a fist"
+            loading="lazy"
+            />
                 
-        </div>
+          </div>
 
         <p>Illya is cheerful and outgoing, upbeat and generally exhibits a positive attitude. Possessing a friendly demeanor, she is easy to talk to and tends to be playful and mischievous. Deep inside, however, Illya is lonely as she has no friends her own age to play with and is often stuck inside the Einzbern castle. She asks those she feels comfortable around to call her 'Illya'.  Illya's personal interest in Shirou is conflicted due to the fact that Kiritsugu, whom she loved for he was her father, remained in Japan as Shirou's adoptive father after betraying her family by destroying the long-sought Grail. She feels that Kiritsugu abandoned her for Shirou, and is jealous of Shirou for that. When she first meets Shirou, she considers him as something of an older brother.  Though he is distrustful of her at first, he comes to like Illya, seeing her as a little sister. However at the same time, she also feels very close to Shirou for his relationship with Kiritsugu. As such, she becomes very affectionate and clingy towards him (like a younger sibling would) when Berserker is defeated, much to Saber and Rin's annoyance.  While her personality got more unstable and cold-blooded due to the Einzberns' inhuman treatment of her, she keeps the kindness inherited from her parents deep down in her heart</p>
 
-        <div className = 'image containerBox'>
+        <div className = "image containerBox">
+
           <img 
           src = {Assets.Freakout} 
-          alt = 'Illya freaking out and grabbing her head by the sides with both hands'
+          alt = "Illya freaking out and grabbing her head by the sides with both hands"
           loading="lazy"
           />
 
@@ -65,11 +66,11 @@ const About = () => {
 
         <p>While exhibiting a cheerful and positive attitude, Illya is shy, easily flustered, and more innocent at the beginning. In her first fight, she is shown to be agile but rather cowardly. Also, Illya is an ardent fan of anime, much to Sella's disappointment. She secretly harbors feelings for her brother, Shirou, something that Ruby highlights frequently much to her embarrassment.She is also rarely (if ever) clingy when with him unlike her Fate/Stay Night counterpart.  When interacting with her friends at school, she shares a dynamic relationship with them where she usually acts as the voice of reason, a role that is very much like a Tsukkomi (a person who throws punchlines). This is particularly expressed when it comes to suggestively lewd or comedically immoral situations.She has a rather intense fascination with maid outfits, though she does not like the official Einzbern maid outfit Sella puts on at one point.  As the series progresses, Illya matures into a strong individual who's willing to face overwhelming odds for what she cares about while also maintaining her innocent nature and strong morals. This is proven when Illya also wants to protect everyone, especially her friends.It is shown as Illya proclaims that she will help Miyu and her world, even though Julian stated that it is almost impossible.  This characterizes the immeasurable amount of kindness Illya possesses that she is considered a natural genius in becoming friends with her enemies.  Despite her growth in maturity, she still holds behaviors fitting of her age such as childish tempers, trying to act mature, and being stubborn towards things she dislikes. Like all young girls her age she adores cute things like animals and stuffed toys. In stark contrast to her original version, she really likes cats.</p>
 
-        <div className = 'image containerBox'>
+        <div className = "image containerBox">
 
           <img 
           src = {Assets.IllyaCute} 
-          alt = 'Illya finds a walnut on a snow tree'
+          alt = "Illya finds a walnut on a snow tree"
           loading="lazy"
           />
 

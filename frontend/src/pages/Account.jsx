@@ -1,39 +1,49 @@
 import Footer from "../components/Footer"
 import UserHeader from "../components/UserHeader"
-import {useContext, useEffect, useState} from "react"
-import {MyContext} from "../middleware/Context"
 import Post from "../components/Post"
 import {default as MusicPlayer} from "../components/MusicPlayer.tsx"
-import axios from "axios";
-import {GetPlaylist, GetAudio} from "../hooks/FetchHooks"
+
 import {Link} from "react-router-dom"
+import {useContext, 
+        useEffect, 
+        useState} from "react"
+
+import {MyContext} from "../middleware/Context"
+import axios from "axios";
+import {GetPlaylist, 
+        GetAudio} from "../hooks/FetchHooks"
 
 const Account = () => {
 
-  const userContext = useContext(MyContext)
-  const [user, setUser] = useState({})
-  const [choosePlaylist, setChoosePlaylist] = useState({})
-  const [playlistID, setPlaylistID] = useState('')
-  const [list, setList] = useState([])
-  const [rows, setRows] = useState([])
+  const userContext = useContext(MyContext);
+  const [user, setUser] = useState({});
+  const [choosePlaylist, setChoosePlaylist] = useState({});
+  const [playlistID, setPlaylistID] = useState("");
+  const [list, setList] = useState([]);
+  const [rows, setRows] = useState([]);
 
   useEffect(()=>{
     try{
-      userContext.then(data=>setUser(data))
+
+      userContext.then(data=>{
+        setUser(data)
+      });
 
       const handleSubmit = (e) => {
           try{
             e.preventDefault();
-            axios.put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
-                .then(res=>{
-                  console.log(res)
-                if(res){
-                  window.location.reload();
-                }})
-                .catch(err=>{
-                  console.error(err);
-                  return;
-                })
+
+            axios
+              .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
+              .then(res=>{
+                console.log(res);
+              })
+              .catch(err=>{
+                console.error(err);
+                return;
+              })
+
+            window.location.reload();
           }catch(err){
             console.error(err);
             return;
@@ -43,24 +53,24 @@ const Account = () => {
       const handleDelete = e => {
         e.preventDefault();
         try{
-
           axios
           .delete(`http://localhost:8000/deletePlaylist/${playlistID}`)
           .then(res=>{
 
-            axios
-            .put(`http://localhost:8000/deleteCurrentPlaylist`)
-            .then(data=>{
-              console.log(data);
-            })
-            .catch(error=>{
-              console.error(error)
-              return;
-            })
-
+              axios
+                .put(`http://localhost:8000/deleteCurrentPlaylist`)
+                .then(data=> {
+                  console.log(data);
+                })
+                .catch(error=>{
+                  console.error(error);
+                  return;
+                })
+          }).catch(err=>{
+            console.error(err);
           })
-          .catch(err=>console.error(err))
-          
+
+          localStorage.setItem("playlist", false);
           window.location.reload();
 
         }catch(err){
@@ -68,129 +78,162 @@ const Account = () => {
         }
            
       }
-  
-  
-  
+
       GetPlaylist.then(data=>{
-          let playlists = []
+          const playlists = []
               data.forEach(ele=>{
-                  if(ele.user === localStorage.getItem('id')){
+                  if(ele.user === localStorage.getItem("id")){
                       playlists.push(
                           <tr key = {ele._id}>
                               <td>
                                   <form onSubmit = {handleSubmit}>
-                                      <input name = 'choosePlaylist' value = {ele._id} className = "hidden" readOnly = {true}></input>
-                                      <button className = 'button' onClick = {()=>setChoosePlaylist(ele._id)}>{ele.name}</button>
+
+                                      <input 
+                                      name = "choosePlaylist" 
+                                      value = {ele._id} 
+                                      className = "hidden" 
+                                      readOnly = {true}
+                                      />
+
+                                      <button 
+                                      className = "button" 
+                                      onClick = {()=>{
+                                      setChoosePlaylist(ele._id)
+                                      localStorage.setItem("playlist", true)
+                                      }}
+                                      >{ele.name}
+                                      </button>
+
                                   </form>
+
                               </td>
                               <td>
-                                  <input name = "editPlaylist" value = {ele._id} className = "hidden" readOnly = {true}></input>
-                                  <Link to = {`/editPlaylist`}
-                                  onClick = {()=>localStorage.setItem('playlistID', ele._id)} 
-                                  className = "fa-solid small fa-pen-to-square button"></Link>
+
+                                  <input 
+                                  name = "editPlaylist" 
+                                  value = {ele._id} 
+                                  className = "hidden" 
+                                  readOnly = {true}
+                                  />
+
+                                  <Link 
+                                  to = {"/editPlaylist"}
+                                  onClick = {()=>{
+                                    localStorage.setItem('playlistID', ele._id)
+                                  }}
+                                  className = "fa-solid small fa-pen-to-square button"
+                                  />
+
                               </td>
                               <td>
+
                                   <form onSubmit = {handleDelete}>
                                       <button
                                           onClick = {()=>{
-                                          setPlaylistID(ele._id)
+                                          setPlaylistID(ele._id);
                                           }}
                                           className="button small fa-solid fa-trash" 
                                           type="submit">    
                                       </button>
                                   </form>
+
                               </td>
                           </tr>
                       )
                   }
               })
-          setList(playlists)
+          setList(playlists);
       })
   
       GetAudio.then(data=>{
-        let audio = []
+        const audio = [];
         data.forEach(ele=>{
             if(ele.user === localStorage.getItem('id')){
-              audio.push(<Post userName = {user.userName} userID = {ele.user} id = {ele._id} text = {ele.name} key = {ele._id}/>)
+              audio.push(<Post 
+                          userName = {user.userName} 
+                          userID = {ele.user} 
+                          id = {ele._id} 
+                          text = {ele.name} 
+                          key = {ele._id}
+                        />
+              )
             }
         })
-        setRows(audio)
+        setRows(audio);
       })
   
     }
     catch(err){
-      console.error(err)
+      console.error(err);
+      return;
     }
     
-    }, [userContext, user, choosePlaylist, playlistID])
-
-
-
-
-   
+    }, [userContext, 
+        user, 
+        choosePlaylist, 
+        playlistID])
 
   return (
     <div>  
       <UserHeader />  
-          <div id = 'main'>
-            <article className = 'post'>
-        <section className="major column flex">
+        <div id = "main">
+          <article className = "post">
+            <section className="major column flex">
         
-        <h3>{user.userName}</h3>
+              <h3>{user.userName}</h3>
 
-        <MusicPlayer/>
+              <MusicPlayer/>
 
-    <section className = 'flex tables'>
-    
+              <section className = 'flex tables'>
+  
+                <div className = "table-wrapper">
 
-        <div className = "table-wrapper">
+                  <h2 className = 'tableHeading'>Songs</h2>
 
-        <h2 className = 'tableHeading'>Songs</h2>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Song Name</th>
+                          <th></th>
+                          <th>Playlist</th>
+                          <th>Delete</th>
+                          <th>User</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {rows}
+                      </tbody>
+                    </table>
+                </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Song Name</th>
-              <th>Playlist</th>
-              <th>Delete</th>
-              <th>User</th>
-            </tr>
-          </thead>
-          <tbody>
-          {rows}
-          </tbody>
-        </table>
+                <div className = "table-wrapper">
+                  <h2 className = 'tableHeading'>Playlists</h2>
+
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Playlist Name</th>
+                          <th>Edit</th>
+                          <th>Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {list}  
+                      </tbody>
+                    </table>
+                </div>
+
+              </section>
+            </section>
+
+          </article>
         </div>
 
-
-
-<div className = "table-wrapper">
-<h2 className = 'tableHeading'>Playlists</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Playlist Name</th>
-      <th>Edit</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    {list}  
-  </tbody>
-</table>
-</div>
-
-
-</section>
-
-        </section>
-        </article>
-          </div>
-        <Footer />
-        <div id="copyright">
-&copy; choir Design: HTML5 UP
-</div>
+      <Footer />
+        
+      <div id="copyright">
+        &copy; choir Design: HTML5 UP
+      </div>
     
     </div>
   )

@@ -39,11 +39,25 @@ const Post = ({ text, id, userName, userID, hidden }) => {
         console.error(error);
         return;
       });
+      window.location.reload();
   };
 
   const handleAddToPlaylist = async (e) => {
     e.preventDefault();
+
+    if(songs[0].songs){
+    for(let i = 0; i <songs[0].songs.length; i++){
+      if(songs[0].songs[i]._id === id){
+        toast.error("Song already exists in playlist");
+        return;
+      }
+    }
+  }
+
+  
+
     if(playlist !== ""){
+
       const formData = new URLSearchParams()
       formData.append("playlist", playlist)
       axios
@@ -53,13 +67,13 @@ const Post = ({ text, id, userName, userID, hidden }) => {
       axios
         .put(`http://localhost:8000/choosePlaylist/${playlist}`, formData, {})
         .then(res=>{
-        if(res){
-          window.location.reload();
-        }})
+            console.log(res);
+        })
         .catch(err=>{
           console.error(err);
           return;
         })
+        window.location.reload();
     }else{
       toast.error("Please Choose A Valid Option")
       return;
@@ -86,7 +100,9 @@ const Post = ({ text, id, userName, userID, hidden }) => {
     <td>
       <Link className = "button small"
       to = "/playMusic"
-      onClick = {localStorage.setItem('song', id)}>
+      onClick = {()=>{
+        localStorage.setItem('song', id)}
+      }>
         Play
       </Link>
     </td>

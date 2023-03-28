@@ -28,7 +28,7 @@ class PlayList extends Component<unknown, PlayListState> {
       .then(res=>res.json())
       .then((data) => {
         const list = data
-        if(list.length < 1 || !list.playlist){          
+        if(Object.keys(list[0].playlist).length < 1 && (!(!localStorage.getItem("playlist")))){          
         fetch("http://localhost:8000/audio")
             .then(res=>res.json())
             .then(data=>{
@@ -40,7 +40,6 @@ class PlayList extends Component<unknown, PlayListState> {
         }else{
         const playlistName = list[0].playlist.name
         const playlist = list[0].playlist.songs
-          .filter((item: {user: any}) => item.user === localStorage.getItem('id'))
           .map((ele: { name: any; audio: any; }) => ({ name: ele.name, src: ele.audio }));
         this.setState({ playlistName })
         this.setState({ playlist });

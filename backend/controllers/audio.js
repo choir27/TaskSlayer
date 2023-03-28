@@ -23,6 +23,7 @@ module.exports = {
     
           data.splice(song,1);
 
+
           await Playlist.findOneAndUpdate(
             {_id: req.params.id},
             {songs: data},
@@ -31,7 +32,16 @@ module.exports = {
               runValidators: true,
             }
             );
-         
+
+            await CurrentPlaylist.findOneAndUpdate(
+              {_id: "6413a94694c65b807a6ed151"},
+              {playlist: playlist},
+              {
+                new: true,
+                runValidators: true,
+              }
+              );
+
         }catch(err){
           console.error(err)
           res.status(500).send("Internal server error.");
@@ -58,7 +68,6 @@ module.exports = {
     },
     deleteCurrentPlaylist: async (req, res)=> {
       try{
-       let song = await CurrentPlaylist.findById({_id: "6413a94694c65b807a6ed151"})
         
         await CurrentPlaylist.findOneAndUpdate(
           {_id: "6413a94694c65b807a6ed151"},
@@ -75,6 +84,7 @@ module.exports = {
     choosePlaylist: async (req, res) => {
         try {
           let playlist = await Playlist.findById(req.params.id);
+          console.log(playlist)
           await CurrentPlaylist.findOneAndUpdate(
             {_id: "6413a94694c65b807a6ed151"},
             {playlist: playlist},

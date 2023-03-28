@@ -19,15 +19,13 @@ useEffect(()=>{
 
 const handleSubmit = e => {
     e.preventDefault();
-    axios
-        .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
-        .then(res=>{if(res){
-          window.location.reload();
-        }})
-        .catch(err=>{
-          console.error(err);
-          return;
-        })
+      axios.put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
+        .then(res=>console.log(res))
+            .catch(err=>{
+            console.error(err);
+            return;
+          })
+    window.location.reload();
 }
 
 const handleDelete = e => {
@@ -42,15 +40,12 @@ const handleDelete = e => {
 
     axios
       .put(`http://localhost:8000/deleteCurrentPlaylist`)
-      .then(res=>{
-        if(res){
-          window.location.reload();
-        }
-      })
+      .then(res=>console.log(res))
       .catch(error=>{
         console.error(error)
         return;
       })
+      window.location.reload();
 
     }
 
