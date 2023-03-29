@@ -1,16 +1,12 @@
 import axios from "axios";
 import {useState} from "react"
 
-const PlaylistSong = ({ text, id, userName, userID, hidden }) => {
+const PlaylistSong = ({ text, id, userName, hidden }) => {
   
-  const [songID ,setSongID] = useState('')
+  const [songID ,setSongID] = useState("");
 
  const trim = (str) => {
-    if (str.length > 15) {
-      return str.substr(0, 30) + "...";
-    } else {
-      return str;
-    }
+   return str.length > 15 ? str.substr(0, 30) + "..." : str;
   };
 
   const handleDelete = (e) => {
@@ -23,30 +19,41 @@ const PlaylistSong = ({ text, id, userName, userID, hidden }) => {
       .put(`http://localhost:8000/editPlaylist/${localStorage.getItem('playlistID')}`, formData, {
       })
 
-      
       window.location.reload();
 
     }
 };
 
   return (
-  <tr className = {hidden}>
+    <tr className = {hidden}>
     <td>
       {trim(text)}
     </td>
+
     <td>
     <form onSubmit={handleDelete}>
-        <input className = "hidden" name = "songID" value = {id} readOnly = {true}/>
+
+        <input 
+        className = "hidden" 
+        name = "songID" 
+        value = {id} 
+        readOnly = {true}
+        />
+
         <button
-         className="button small fa-solid fa-xmark" type="submit"
-         onClick = {()=>{setSongID(id)}}
-         ></button>
+          className="button small fa-solid fa-xmark" type="submit"
+          onClick = {()=>{
+           setSongID(id)
+          }}
+        />
     </form>
     </td>
+
     <td>
       {userName}
     </td>
-  </tr>
+
+    </tr>
   );
 };
 

@@ -1,6 +1,10 @@
 import {Link} from "react-router-dom"
 
-const Button = ({domain, cname, size, text, onClick}) => {
+const Button = ({domain, 
+                cname, 
+                size, 
+                text, 
+                onClick}) => {
     return (
         <Link 
             to={domain} 

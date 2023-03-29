@@ -90,7 +90,7 @@ const Dashboard = () => {
       <Header/>
       <div id = "main">
         <section className="major column flex">
-        <h1>Dashboard</h1>
+        <h1 className = "flex justifyContent">Dashboard</h1>
 
       {/*Toggle between displaying playlists/songs*/}
 

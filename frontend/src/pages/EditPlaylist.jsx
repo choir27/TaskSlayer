@@ -29,7 +29,6 @@ const EditPlaylist = () => {
                 list.push(<PlaylistSong 
                           userName = {user.userName} 
                           id = {ele._id} 
-                          userID = {ele.user} 
                           text = {ele.name} 
                           key = {ele._id}
                           />)

@@ -1,56 +1,72 @@
 import axios from "axios"
-import {useContext,useState, useEffect} from "react"
-import {GetUser,GetPlaylist} from "../hooks/FetchHooks"
+import {useContext,
+        useState, 
+        useEffect} from "react"
+import {GetUser,
+        GetPlaylist} from "../hooks/FetchHooks"
 import {Link} from "react-router-dom"
 import {MyContext} from "../middleware/Context"
 
 
 const PlaylistDashboard = () =>{
 
-const userContext = useContext(MyContext)
+  const userContext = useContext(MyContext);
 
-const [choosePlaylist, setChoosePlaylist] = useState({})
-const [playlistID, setPlaylistID] = useState('')
-const [playlist, setPlaylist] = useState([])
-const [list, setList] = useState([])
+  const [choosePlaylist, setChoosePlaylist] = useState({});
+  const [playlistID, setPlaylistID] = useState("");
+  const [playlist, setPlaylist] = useState([]);
+  const [list, setList] = useState([]);
 
 
-useEffect(()=>{
+  useEffect(()=>{
 
-const handleSubmit = e => {
-    e.preventDefault();
-      axios.put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
-        .then(res=>console.log(res))
-            .catch(err=>{
-            console.error(err);
-            return;
+    const handleSubmit = e => {
+      try{
+
+        e.preventDefault();
+        axios.put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
+          .then(res=>console.log(res))
+              .catch(err=>{
+              console.error(err);
+              return;
+            })
+        window.location.reload();
+
+      }catch(err){
+        console.error(err);
+        return;
+      }
+      
+    }
+
+    const handleDelete = e => {
+      try{
+        e.preventDefault();
+        
+        axios
+          .delete(`http://localhost:8000/deletePlaylist/${playlistID}`)
+          .then(res=>{
+            axios
+            .put(`http://localhost:8000/deleteCurrentPlaylist`)
+            .then(data=>console.log(res))  
           })
-    window.location.reload();
-}
+          .catch(error=>{
+            console.error(error);
+            return;
+          });
 
-const handleDelete = e => {
-    e.preventDefault();
-    
-    axios
-      .delete(`http://localhost:8000/deletePlaylist/${playlistID}`)
-      .catch(error=>{
-        console.error(error)
+      
+        window.location.reload();
+        
+      }catch(err){
+        console.error(err);
         return;
-      })
-
-    axios
-      .put(`http://localhost:8000/deleteCurrentPlaylist`)
-      .then(res=>console.log(res))
-      .catch(error=>{
-        console.error(error)
-        return;
-      })
-      window.location.reload();
+      }
+      
 
     }
 
-
-  GetPlaylist.then(data=>{
+    GetPlaylist.then(data=>{
     GetUser.then(user=>{
         userContext.then(currentUser=>{
       setPlaylist(data)
@@ -102,29 +118,29 @@ const handleDelete = e => {
           setList(playlists)
         })
         })
-  })
+    })
 
-}, [playlist, playlistID, choosePlaylist, userContext])
+  }, [playlist, playlistID, choosePlaylist, userContext])
 
 
 return(
-    <div className = "table-wrapper">
-<h2 className = 'tableHeading'>Playlists</h2>
+  <div className = "table-wrapper">
+    <h2 className = "tableHeading">Playlists</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>Playlist Name</th>
-      <th>Edit</th>
-      <th>Delete</th>
-      <th>User</th>
-    </tr>
-  </thead>
-  <tbody>
-    {list}  
-  </tbody>
-</table>
-</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Playlist Name</th>
+          <th>Edit</th>
+          <th>Delete</th>
+          <th>User</th>
+        </tr>
+      </thead>
+      <tbody>
+        {list}  
+      </tbody>
+    </table>
+  </div>
 )
 
 }

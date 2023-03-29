@@ -179,8 +179,7 @@ const Account = () => {
         <div id = "main">
           <article className = "post">
             <section className="major column flex">
-        
-              <h3>{user.userName}</h3>
+              <h1 className = "flex justifyContent">{user.userName}</h1>
 
               <MusicPlayer/>
 

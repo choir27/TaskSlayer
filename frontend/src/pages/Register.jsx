@@ -100,74 +100,174 @@ const Register = ({onAdd}) => {
 
   return (
     <div>
-    <Header/>
-    <div id = "main">
-      <article className = "post" id = "account">
+      <Header/>
+      <div id = "main">
+      <article 
+        className = "post" 
+        id = "account"
+      >
         <section className="major column flex">
           <h1 className = "flex justifyContent">Register Account</h1>
 
           <form className = "flex column justifyContent alignItems" onSubmit = {handleSubmit} >
-          <div className="fields">
+
+            <div className="fields">
              
               <div className="field">
-                  <label>Name
-                  {name && validName ? <FontAwesomeIcon icon={faCheck}/> : <FontAwesomeIcon icon={faTimes}/>}
+                  <label>
+                    Name
+                  {
+                  name && 
+                  validName ? 
+                  <FontAwesomeIcon icon={faCheck}/> 
+                  : <FontAwesomeIcon icon={faTimes}
+                  />
+                  }
+
                   </label>
-                  <input type="text" name ="name" value = {name} placeholder ="Enter your name" onChange = {(e)=>setName(e.target.value)}/>
+                  <input 
+                    type="text" 
+                    name ="name" 
+                    value = {name} 
+                    placeholder ="Enter your name" 
+                    onChange = {(e)=>setName(e.target.value)}
+                  />
               </div>
+
               <div className="field">
+
                   <label>User Name
-                  {validUserName && userName? <FontAwesomeIcon icon={faCheck}/> : <FontAwesomeIcon icon={faTimes}/>}
+                  {
+                  validUserName && 
+                  userName? 
+                  <FontAwesomeIcon 
+                  icon={faCheck}/>
+                   : <FontAwesomeIcon icon={faTimes}
+                   />
+                  }
                   </label>
-                  <input type="text" name  ="userName" value = {userName} placeholder ="Enter your user name" onChange = {(e)=>setUserName(e.target.value)}/>
+
+                  <input 
+                  type="text" 
+                  name  ="userName" 
+                  value = {userName} 
+                  placeholder ="Enter your user name" 
+                  onChange = {(e)=>setUserName(e.target.value)}
+                  />
+
               </div>
+
               <div className="field">
+
                   <label>Email
-                  {validEmail && email? <FontAwesomeIcon icon={faCheck}/> : <FontAwesomeIcon icon={faTimes}/>}
+                  {
+                  validEmail && 
+                  email? 
+                  <FontAwesomeIcon 
+                  icon={faCheck}
+                  /> : 
+                  <FontAwesomeIcon 
+                  icon={faTimes}
+                  />
+                  }
                   </label>
-                  <input type="email" name ='email' value = {email} placeholder ="Enter your email" onChange = {(e)=>setEmail(e.target.value)}/>
+
+                  <input 
+                  type="email"
+                  name ="email"
+                  value = {email} 
+                  placeholder ="Enter your email" 
+                  onChange = {(e)=>setEmail(e.target.value)}
+                  />
+
               </div>
+
               <div className="field">
+
                   <label>Password
-                  {validPassword && password ? <FontAwesomeIcon icon={faCheck}/> : <FontAwesomeIcon icon={faTimes}/>}
+                    {
+                    validPassword && password ? 
+                    <FontAwesomeIcon icon={faCheck}/> 
+                    : <FontAwesomeIcon icon={faTimes}/>
+                    }
                   </label>
-                  <input type="password" name ='password' value = {password} placeholder ="Confirm password" onChange = {(e)=>setPassword(e.target.value)} />
+
+                  <input 
+                    type="password" 
+                    name ="password"
+                    value = {password} 
+                    placeholder ="Confirm password" 
+                    onChange = {(e)=>setPassword(e.target.value)}
+                  />
+
               </div>
+
               <div className="field">
-                  <label>Confirm Password
-                  {validMatch && matchPassword? <FontAwesomeIcon icon={faCheck}/> : <FontAwesomeIcon icon={faTimes}/>}
-                  </label>
-                  <input placeholder = "Confirm password here" name="confirmPassword" type = "password" value = {matchPassword} onChange = {(e)=>setMatchPassword(e.target.value)}></input>
+
+                <label>Confirm Password
+                  {
+                  validMatch && 
+                  matchPassword? 
+                  <FontAwesomeIcon icon={faCheck}/> 
+                  : <FontAwesomeIcon icon={faTimes}
+                  />
+                  }
+                </label>
+
+                <input
+                 placeholder = "Confirm password here" 
+                 name="confirmPassword" 
+                 type = "password" 
+                 value = {matchPassword} 
+                 onChange = {(e)=>setMatchPassword(e.target.value)}
+                />
               </div>
-          </div>
-              <input className = "button" type="submit" value="Register Here" disabled = {!validEmail|| !validName || !validUserName || !validPassword || !validMatch ? true : false}/>
+
+            </div>
+
+            <input
+              className = "button" 
+              type="submit" 
+              value="Register Here" 
+              disabled = {
+                !validEmail || 
+                !validName || 
+                !validUserName || 
+                !validPassword || 
+                !validMatch ? 
+                true : 
+                false
+              }/>
           </form>
 
 
           <ul className = "special flex column">
+
             <li className = "flex justifyContent">
               Already have an account?  Login below:
             </li>
+
             <li className = "flex justifyContent">
-            <Button 
-              domain = "/login"
-              size = "large"
-              cname = "button"
-              text = "Login Here"
-            />
+              <Button 
+                domain = "/login"
+                size = "large"
+                cname = "button"
+                text = "Login Here"
+              />
             </li>
           </ul>
 
         </section>
+
       </article>
-    </div>
-    <Footer/>
+      </div>
+      <Footer/>
 
-    <div id="copyright">
-      &copy; choir Design: HTML5 UP
-    </div>
+      <div id="copyright">
+        &copy; choir Design: HTML5 UP
+      </div>
 
-  </div>  
+    </div>  
   )
 }
 

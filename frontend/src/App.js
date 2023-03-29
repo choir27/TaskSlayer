@@ -16,7 +16,7 @@ function App() {
   const fetchUser = fetch("http://localhost:8000/api")
     .then(res=>res.json())
     .then(data=>data.find(ele=>ele._id === localStorage.getItem("id")));
-
+  
   const registerUser = async (user) => {
     try{
       const res = await fetch("http://localhost:8000/register", {

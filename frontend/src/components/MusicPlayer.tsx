@@ -13,8 +13,6 @@ interface PlayListState {
   playlistName: string;
 }
 
-
-
 class PlayList extends Component<unknown, PlayListState> {
   state: PlayListState = {
     currentMusicIndex: 0,
@@ -28,7 +26,9 @@ class PlayList extends Component<unknown, PlayListState> {
       .then(res=>res.json())
       .then((data) => {
         const list = data
-        if(Object.keys(list[0].playlist).length < 1 && (!(!localStorage.getItem("playlist")))){          
+        
+        if(Object.keys(list[0].playlist).length < 1 && (!(!localStorage.getItem("playlist")))){   
+          //If no playlist has been selected, grab all songs current user posted
         fetch("http://localhost:8000/audio")
             .then(res=>res.json())
             .then(data=>{
@@ -38,10 +38,11 @@ class PlayList extends Component<unknown, PlayListState> {
               this.setState({playlist})
             })
         }else{
-        const playlistName = list[0].playlist.name
+          //If playlist has been selected, grab songs from selected playlist user has posted
+        const playlistName = list[0].playlist.name;
         const playlist = list[0].playlist.songs
           .map((ele: { name: any; audio: any; }) => ({ name: ele.name, src: ele.audio }));
-        this.setState({ playlistName })
+        this.setState({ playlistName });
         this.setState({ playlist });
         }
       });
@@ -66,21 +67,35 @@ class PlayList extends Component<unknown, PlayListState> {
   };
 
   render(): React.ReactNode {
+
     const { currentMusicIndex, playlist } = this.state;
-
-
 
     return (
       <div>
         <section className = 'flex' id = 'playlist'>
-        <section className = "flex column current">
-        <h4>Currently Playing Song</h4>
-        <h2>{playlist[currentMusicIndex] ? playlist[currentMusicIndex].name : "No music has been added"}</h2>
-        </section>
-        <section className = "flex column">
-      <h2>Playlist Name</h2>
-      <h2>{this.state.playlistName ? this.state.playlistName : "N/A"}</h2>
-        </section>
+
+          <section className = "flex column current">
+          <h4>Currently Playing Song</h4>
+
+          <h2>
+            {playlist[currentMusicIndex] ? 
+          playlist[currentMusicIndex].name 
+          : "No music has been added"
+            }
+          </h2>
+
+          </section>
+
+          <section className = "flex column">
+            <h2>Playlist Name</h2>
+            <h2>
+            {
+            this.state.playlistName ? 
+            this.state.playlistName 
+            : "N/A"
+            }
+            </h2>
+          </section>
         </section>
 
         {playlist.length > 0 && (
