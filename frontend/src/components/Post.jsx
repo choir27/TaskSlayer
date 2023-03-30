@@ -21,10 +21,12 @@ const Post = ({ text,
   useEffect(()=>{
     try{
       userContext.then(data=>{
-        setUser(data)});
+        setUser(data)
+      });
   
       GetPlaylist.then(data=>{
-        setSongs(data)});
+        setSongs(data)
+      });
   
       const array= []
   

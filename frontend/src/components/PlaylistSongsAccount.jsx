@@ -20,7 +20,12 @@ const PlaylistSongs = () =>{
   useEffect(()=>{
 
     userContext.then(data=>{
-      setUser(data);
+      try{
+        setUser(data);
+      }catch(err){
+        console.error(err);
+        return;
+      }
     });
 
     const handleSubmit = e => {
@@ -46,26 +51,36 @@ const PlaylistSongs = () =>{
     };
   
     const handleDelete = e => {
-      e.preventDefault();
+      try{
+        e.preventDefault();
       
-      axios
-        .delete(`http://localhost:8000/deletePlaylist/${playlistID}`)
-        .then(res=>{
-          axios
-          .put("http://localhost:8000/deleteCurrentPlaylist")
-          .then(data=>{
-            console.log(data);
+        axios
+          .delete(`http://localhost:8000/deletePlaylist/${playlistID}`)
+          .then(res=>{
+            axios
+            .put("http://localhost:8000/deleteCurrentPlaylist")
+            .then(data=>{
+              console.log(data);
+            })
           })
-        })
-        .catch(error=>{
-          console.error(error);
-          return;
-        })
-        window.location.reload();
-
+          .catch(error=>{
+            console.error(error);
+            return;
+          })
+          window.location.reload();
+  
+      }catch(err){
+        console.error(err);
+        return;
+      }
+     
     };
+    
 
-    GetPlaylist.then(data=>{
+    try{
+
+      // Displays playlist(s) of current user, can edit/delete/select playlist
+      GetPlaylist.then(data=>{
 
         setPlaylist(data);
         const playlists = [];
@@ -127,10 +142,10 @@ const PlaylistSongs = () =>{
             };
           });
         setList(playlists);
+      });
 
-    });
-
-    GetAudio.then(data=>{
+      // Displays all songs of current user, can play music, add music to playlist, or delete music
+      GetAudio.then(data=>{
       const audio = [];
       data.forEach(ele=>{
         if(ele.user === localStorage.getItem('id')){
@@ -144,9 +159,19 @@ const PlaylistSongs = () =>{
         };
       });
       setRows(audio);
-    });
+      });
 
-  },[user,userContext, playlist, playlistID, choosePlaylist]);
+    }catch(err){
+      console.error(err);
+      return;
+    }
+  
+
+  },[user,
+    userContext, 
+    playlist, 
+    playlistID, 
+    choosePlaylist]);
 
   return(
     <section className ="flex tables">

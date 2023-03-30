@@ -12,9 +12,15 @@ const PostPlaylist = () => {
     const [playlistName, setPlaylistName] = useState("");
 
     useEffect(()=>{
-        userContext.then(userData=>{
-            setUser(userData)
-        });
+        try{
+            userContext.then(userData=>{
+                setUser(userData)
+            });
+        }catch(err){
+            console.error(err);
+            return;
+        }
+
     },[userContext]);
 
 

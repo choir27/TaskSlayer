@@ -66,61 +66,71 @@ const PlaylistDashboard = () =>{
 
     }
 
-    GetPlaylist.then(data=>{
-    GetUser.then(user=>{
-        userContext.then(currentUser=>{
-      setPlaylist(data)
-      let playlists = []
-          data.forEach(ele=>{
-            user.forEach(element=>{
-                if(element._id === ele.user){
-                  playlists.push(
-                      <tr key = {ele._id}>
-                          <td>
-                              <form onSubmit = {handleSubmit}>
-                                  <input name = 'choosePlaylist' value = {ele._id} className = "hidden" readOnly = {true}></input>
-                                  <button className = 'button' onClick = {setChoosePlaylist(ele._id)}>{ele.name}</button>
-                              </form>
-                          </td>
-                    
-                    {currentUser._id === ele.user ? 
-                          <td>
-                              <input name = "editPlaylist" value = {ele._id} className = "hidden" readOnly = {true}></input>
-                              <Link to = {`/editPlaylist`}
-                              onClick = {localStorage.setItem('playlistID', ele._id)} 
-                              className = "fa-solid small fa-pen-to-square button"></Link>
-                          </td>
-                :
-                <td></td>    
-                     }
-                    {currentUser._id === ele.user ? 
-                          <td>
-                              <form onSubmit = {handleDelete}>
-                                  <button
-                                      onClick = {setPlaylistID(ele._id)}
-                                      className="button small fa-solid fa-trash" 
-                                      type="submit">    
-                                  </button>
-                              </form>
-                          </td>
-                          :
-                          <td></td>
-                                    }
-                          
-                         <td>
-                            {element._id === ele.user ? element.userName : ""}
-                          </td>
-                      </tr>
-                  )
-                    }
-                })
-          })
-          setList(playlists)
+    try{
+      GetPlaylist.then(data=>{
+        GetUser.then(user=>{
+            userContext.then(currentUser=>{
+          setPlaylist(data)
+          let playlists = []
+              data.forEach(ele=>{
+                user.forEach(element=>{
+                    if(element._id === ele.user){
+                      playlists.push(
+                          <tr key = {ele._id}>
+                              <td>
+                                  <form onSubmit = {handleSubmit}>
+                                      <input name = 'choosePlaylist' value = {ele._id} className = "hidden" readOnly = {true}></input>
+                                      <button className = 'button' onClick = {setChoosePlaylist(ele._id)}>{ele.name}</button>
+                                  </form>
+                              </td>
+                        
+                        {currentUser._id === ele.user ? 
+                              <td>
+                                  <input name = "editPlaylist" value = {ele._id} className = "hidden" readOnly = {true}></input>
+                                  <Link to = {`/editPlaylist`}
+                                  onClick = {localStorage.setItem('playlistID', ele._id)} 
+                                  className = "fa-solid small fa-pen-to-square button"></Link>
+                              </td>
+                    :
+                    <td></td>    
+                         }
+                        {currentUser._id === ele.user ? 
+                              <td>
+                                  <form onSubmit = {handleDelete}>
+                                      <button
+                                          onClick = {setPlaylistID(ele._id)}
+                                          className="button small fa-solid fa-trash" 
+                                          type="submit">    
+                                      </button>
+                                  </form>
+                              </td>
+                              :
+                              <td></td>
+                                        }
+                              
+                             <td>
+                                {element._id === ele.user ? element.userName : ""}
+                              </td>
+                          </tr>
+                      )
+                        }
+                    })
+              })
+              setList(playlists)
+            })
+            })
         })
-        })
-    })
 
-  }, [playlist, playlistID, choosePlaylist, userContext])
+    }catch(err){
+      console.error(err);
+      return;
+    }
+   
+
+  }, [playlist, 
+      playlistID, 
+      choosePlaylist, 
+      userContext])
 
 
 return(

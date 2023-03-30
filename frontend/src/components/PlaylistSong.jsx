@@ -1,7 +1,10 @@
 import axios from "axios";
 import {useState} from "react"
 
-const PlaylistSong = ({ text, id, userName, hidden }) => {
+const PlaylistSong = ({ text, 
+                        id, 
+                        userName, 
+                        hidden }) => {
   
   const [songID ,setSongID] = useState("");
 
@@ -10,9 +13,10 @@ const PlaylistSong = ({ text, id, userName, hidden }) => {
   };
 
   const handleDelete = (e) => {
-    e.preventDefault();
+    try{
+      e.preventDefault();
 
-    if(songID){
+      if(songID){
         const formData = new URLSearchParams()
         formData.append('songID', songID);
       axios
@@ -22,6 +26,11 @@ const PlaylistSong = ({ text, id, userName, hidden }) => {
       window.location.reload();
 
     }
+    }catch(err){
+      console.error(err);
+      return;
+    }
+    
 };
 
   return (

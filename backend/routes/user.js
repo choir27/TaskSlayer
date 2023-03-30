@@ -8,15 +8,16 @@ const multer = require("multer");
 require("dotenv").config();
 
 let db,
-dbName = 'test'
+dbName = "test";
 
 
-MongoClient.connect(process.env.MONGO_URI, { 
+MongoClient.connect(
+    process.env.MONGO_URI, { 
     useUnifiedTopology: true,
-     useNewUrlParser: true,})
-    .then(client => {
-        db = client.db(dbName)
-    })
+    useNewUrlParser: true})
+        .then(client => {
+            db = client.db(dbName);
+        })
 
 
 //Main Routes - simplified for now
@@ -24,57 +25,62 @@ router.post("/login", authController.login);
 router.post("/register", authController.signup);
 
 router.get("/logout", authController.logout);
-router.get("/user", authController.getUser);
 
 router.post("/sendMessage", audioController.sendMessage);
 
 const getCollectionData = async (collectionName) => {
     try{
-        const data = await db.collection(collectionName).find().toArray()
+        const data = await db.collection(collectionName).find().toArray();
         return data;
     }catch(err){
-        console.error(err)
+        return res.status(500).json({
+            message: err
+        });     ;
     }
 };
 
-
 router.get("/currentPlaylist", async(req,res)=>{
     try{
-        const data = await getCollectionData("currentplaylists")
+        const data = await getCollectionData("currentplaylists");
         res.json(data);
     }catch(err){
-        console.error(err)
+        return res.status(500).json({
+            message: err
+        });     
     }
 })
 
 router.get('/api', async(req,res)=>{
     try{
-        const data = await getCollectionData('users')
+        const data = await getCollectionData("users");
         res.json(data);
     }catch(err){
-        res.status(500)
-        console.error(err)
+        return res.status(500).json({
+            message: err
+        });     
     }
 })
 
-router.get('/playlist', async(req,res)=>{
+router.get("/playlist", async(req,res)=>{
     try{
-        const data = await getCollectionData('playlists')
+        const data = await getCollectionData("playlists");
         res.json(data);
     }catch(err){
-        res.status(500)
-        console.error(err)
+        return res.status(500).json({
+            message: err
+        });        
     }
 })
 
 
-router.get('/audio',async(req,res)=>{
+router.get("/audio",async(req,res)=>{
     try{
-        const data = await getCollectionData('audios')
+        const data = await getCollectionData("audios")
         res.json(data);
     }catch(err){
-        res.status(500)
-        console.error(err)
+        return res.status(500).json({
+            message: err
+        });     
     }
 })
 
@@ -104,9 +110,5 @@ router.put("/editPlaylist/:id", audioController.editPlaylist)
 router.post("/addAudio", upload.single("file"), audioController.postAudio);
 router.put("/addToPlaylist/:id", audioController.addToPlaylist);
 router.post("/createPlaylist", audioController.createPlaylist);
-
-
-
- 
 
 module.exports = router;    

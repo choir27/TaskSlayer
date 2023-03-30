@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
+import React, { Component } from "react";
+import AudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
 
 interface PlayListItem {
   name: string;
@@ -22,7 +22,8 @@ class PlayList extends Component<unknown, PlayListState> {
   
 
   componentDidMount() {
-    fetch("http://localhost:8000/currentPlaylist")
+    try{
+       fetch("http://localhost:8000/currentPlaylist")
       .then(res=>res.json())
       .then((data) => {
         const list = data
@@ -46,6 +47,11 @@ class PlayList extends Component<unknown, PlayListState> {
         this.setState({ playlist });
         }
       });
+    }catch(err){
+      console.error(err);
+      return;
+    }
+   
   }
 
   handleClickPrevious = (): void => {
@@ -72,7 +78,7 @@ class PlayList extends Component<unknown, PlayListState> {
 
     return (
       <div>
-        <section className = 'flex' id = 'playlist'>
+        <section className = "flex" id = "playlist">
 
           <section className = "flex column current">
           <h4>Currently Playing Song</h4>
