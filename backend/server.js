@@ -18,17 +18,15 @@ connectDB();
 
 app.set("view engine", "ejs");
 
-app.use(cors());
-
 app.use(cors({
   origin: [process.env.API_PORT_URL],
   methods: "GET, POST, PUT, DELETE, OPTIONS"
 }));
 
-
+app.use(cors());
 
 //Body Parsing
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 //Logging
@@ -40,7 +38,7 @@ app.use(methodOverride("_method"));
 app.use(session({
   secret: "keyboard cat",
   resave: true,
-  saveUnitialized: false,
+  saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI
   })
 }));

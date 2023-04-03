@@ -6,6 +6,7 @@ import Footer from "../components/Footer"
 import {MyContext} from "../middleware/Context"
 import {toast} from "react-toastify"
 import PostPlaylist from "../components/PostPlaylist"
+import {useNavigate} from "react-router-dom"
 
 class FilesUploadComponent extends Component {
   constructor(props) {
@@ -32,13 +33,10 @@ class FilesUploadComponent extends Component {
         formData.append('file', this.state.audioFile);
         formData.append("user", this.state.user);
 
-        axios.post("http://localhost:8000/addAudio", formData, {
-        }).then(res =>{
-          if(res){
-            console.log(res);
-            window.location.reload();
-          }
-        })
+        axios.post("https://illya-site-backend-production.up.railway.app/addAudio", formData, {
+        }).then(res =>console.log(res));
+
+        this.props.navigate("/");
 
           }else if(!this.state.audioFile){
             toast.error("Please Upload a File");
@@ -131,6 +129,7 @@ class FilesUploadComponent extends Component {
 
 const GetUser = () =>{
   const userContext = useContext(MyContext);
+  const navigate = useNavigate();
 
   const users = async() =>{
     let user = await userContext;
@@ -139,9 +138,9 @@ const GetUser = () =>{
 
   return <FilesUploadComponent 
           userContext = {users()}
+          navigate = {navigate}
          />
 
 }
 
 export default GetUser
-

@@ -28,20 +28,25 @@ const Login = ({onAdd}) => {
 
 
   const handleSubmit = (e) => {
-
-   e.preventDefault();
-   // if button enabled with JS hack   
-   const v1 = EMAIL_REGEX.test(email);
-   const v2 = PASSWORD_REGEX.test(password);
-
-   if (!v1 || !v2) {
-       toast.error('Registration Error');
-       return;
-   }
-
-  onAdd({email, password});
-
-  navigate("/account");
+    try{
+      e.preventDefault();
+      // if button enabled with JS hack   
+      const v1 = EMAIL_REGEX.test(email);
+      const v2 = PASSWORD_REGEX.test(password);
+   
+      if (!v1 || !v2) {
+          toast.error('Registration Error');
+          return;
+      }
+   
+     onAdd({email, password});
+   
+     navigate("/");
+    }catch(err){
+      console.error(err);
+      return;
+    }
+   
 
   }
 

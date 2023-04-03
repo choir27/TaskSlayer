@@ -23,7 +23,7 @@ const PlaylistPost = () =>{
       try{
         e.preventDefault();
         axios
-          .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
+          .put(`https://illya-site-backend-production.up.railway.app/choosePlaylist/${choosePlaylist}`)
           .then(res=>{
             if(res){
               console.log(res);
@@ -46,10 +46,10 @@ const PlaylistPost = () =>{
         e.preventDefault();
     
         axios
-          .delete(`http://localhost:8000/deletePlaylist/${playlistID}`)
+          .delete(`https://illya-site-backend-production.up.railway.app/deletePlaylist/${playlistID}`)
           .then(res=>{
             axios
-            .put(`http://localhost:8000/deleteCurrentPlaylist`)
+            .put("https://illya-site-backend-production.up.railway.app/deleteCurrentPlaylist")
             .then(data=>{
               console.log(data)
             })

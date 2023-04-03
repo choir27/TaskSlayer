@@ -35,9 +35,9 @@ const Dashboard = () => {
 
             if(element._id === song.user){
               songList.push(<Post 
+                            key={song._id} 
                             id = {song._id} 
                             text={song.name} 
-                            key={song._id} 
                             userName={element.userName} 
                             userID={element._id} 
                             />);
@@ -54,7 +54,8 @@ const Dashboard = () => {
 
   },[audio, 
     display, 
-    userContext])
+    userContext,
+  rows])
 
   return (
     <div>

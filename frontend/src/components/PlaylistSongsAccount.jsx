@@ -1,6 +1,4 @@
 import axios from "axios";
-import {GetPlaylist, 
-        GetAudio} from "../hooks/FetchHooks"
 import {Link} from "react-router-dom"
 import {useContext, 
         useEffect, 
@@ -12,11 +10,12 @@ const PlaylistSongs = () =>{
   const userContext = useContext(MyContext);
   const [user, setUser] = useState({});
   const [playlist, setPlaylist] = useState([]);
+  const [audio, setAudio] = useState([]);
   const [choosePlaylist, setChoosePlaylist] = useState({});
   const [playlistID, setPlaylistID] = useState("");
   const [list, setList] = useState([]);
   const [rows, setRows] = useState([]);
-
+  
   useEffect(()=>{
 
     userContext.then(data=>{
@@ -28,64 +27,34 @@ const PlaylistSongs = () =>{
       }
     });
 
-    const handleSubmit = e => {
+    fetch("https://illya-site-backend-production.up.railway.app/audio")
+      .then(res=>res.json())
+      .then(data=>{
       try{
-        e.preventDefault();
-
-        axios
-            .put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
-            .then(res=>{
-              if(res){
-                console.log(res);
-                window.location.reload();
-              }
-            })
-            .catch(err=>{
-              console.error(err);
-              return;
-            })  
-      }catch(err){
-        console.error(err);
-      }
-     
-    };
-  
-    const handleDelete = e => {
-      try{
-        e.preventDefault();
-      
-        axios
-          .delete(`http://localhost:8000/deletePlaylist/${playlistID}`)
-          .then(res=>{
-            axios
-            .put("http://localhost:8000/deleteCurrentPlaylist")
-            .then(data=>{
-              console.log(data);
-            })
-          })
-          .catch(error=>{
-            console.error(error);
-            return;
-          })
-          window.location.reload();
-  
+          setAudio(data);
       }catch(err){
         console.error(err);
         return;
       }
-     
-    };
-    
+    })
+
+    fetch("https://illya-site-backend-production.up.railway.app/playlist")
+      .then(res=>res.json())
+      .then(data=>{
+    try{
+        setPlaylist(data);
+    }catch(err){
+      console.error(err);
+      return;
+    }
+  })
 
     try{
 
       // Displays playlist(s) of current user, can edit/delete/select playlist
-      GetPlaylist.then(data=>{
+      const playlists = [];
 
-        setPlaylist(data);
-        const playlists = [];
-
-          data.forEach(ele=>{
+          playlist.forEach(ele=>{
             if(ele.user === localStorage.getItem('id')){
               playlists.push(
                 <tr key = {ele._id}>
@@ -142,24 +111,22 @@ const PlaylistSongs = () =>{
             };
           });
         setList(playlists);
-      });
 
       // Displays all songs of current user, can play music, add music to playlist, or delete music
-      GetAudio.then(data=>{
-      const audio = [];
-      data.forEach(ele=>{
+      const array = [];
+
+      audio.forEach(ele=>{
         if(ele.user === localStorage.getItem('id')){
-          audio.push(<Post 
+          array.push(<Post 
+                      key = {ele._id}
                       userID = {ele.user}
                       userName = {user.userName} 
                       id = {ele._id} 
                       text = {ele.name} 
-                      key = {ele._id}
                     />)
-        };
+          };
       });
-      setRows(audio);
-      });
+      setRows(array);
 
     }catch(err){
       console.error(err);
@@ -167,11 +134,50 @@ const PlaylistSongs = () =>{
     }
   
 
-  },[user,
-    userContext, 
-    playlist, 
-    playlistID, 
-    choosePlaylist]);
+  },[userContext, playlist, audio]);
+
+  const handleSubmit = e => {
+    try{
+      e.preventDefault();
+
+      axios
+          .put(`https://illya-site-backend-production.up.railway.app/choosePlaylist/${choosePlaylist}`)
+          .then(res=>console.log(res))
+          .catch(err=>{
+            console.error(err);
+            return;
+          })  
+    }catch(err){
+      console.error(err);
+    }
+   
+  };
+
+  const handleDelete = e => {
+    try{
+      e.preventDefault();
+    
+      axios
+        .delete(`https://illya-site-backend-production.up.railway.app/deletePlaylist/${playlistID}`)
+        .then(res=>{
+        })
+        .catch(error=>{
+          console.error(error);
+          return;
+        })
+
+      axios
+        .put("https://illya-site-backend-production.up.railway.app/deleteCurrentPlaylist")
+        .then(data=>{
+          console.log(data);
+        })
+
+    }catch(err){
+      console.error(err);
+      return;
+    }
+   
+  };
 
   return(
     <section className ="flex tables">

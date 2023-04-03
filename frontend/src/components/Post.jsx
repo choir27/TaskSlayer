@@ -4,7 +4,7 @@ import {useContext,
         useEffect} from "react"
 import {MyContext} from "../middleware/Context"
 import {toast} from "react-toastify"
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import {GetPlaylist} from "../hooks/FetchHooks"
 
 const Post = ({ text, 
@@ -17,6 +17,8 @@ const Post = ({ text,
   const [playlist, setPlaylist] = useState("");
   const [songs, setSongs] = useState([]);
   const [rows, setRows] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(()=>{
     try{
@@ -66,16 +68,12 @@ const Post = ({ text,
       e.preventDefault();
 
       axios
-        .delete(`http://localhost:8000/deletePost/${id}`)
-        .then((res) => {
-          console.log(res)
-        })
+        .delete(`https://illya-site-backend-production.up.railway.app/deletePost/${id}`)
+        .then(res=>console.log(res))
         .catch((error) => {
           console.error(error);
           return;
         });
-
-      window.location.reload();
 
     }catch(err){
       console.error(err);
@@ -88,16 +86,14 @@ const Post = ({ text,
     try{
       e.preventDefault();
 
-      const list = songs[0].songs;
+      const list = songs.find(ele=>ele._id === playlist);
 
-      if(list){
-          for(let i = 0; i < list.length; i++){
-            if(list[i]._id === id){
-              toast.error("Song already exists in playlist");
-              return;
-            };
-          };
-      }
+      for(let i = 0; i < list.length; i++){
+        if(list.songs[i]._id === id){
+          toast.error("Song already exists in playlist");
+          return;
+        };
+      };
       
       if(playlist !== ""){
 
@@ -105,19 +101,20 @@ const Post = ({ text,
         formData.append("playlist", playlist);
 
         axios
-          .put(`http://localhost:8000/addToPlaylist/${id}`, formData, {})
-          .then(res=>{
-            axios
-            .put(`http://localhost:8000/choosePlaylist/${playlist}`, formData, {})
-            .then(data=>{
-                console.log(data);
-            })
-          })   
+          .put(`https://illya-site-backend-production.up.railway.app/addToPlaylist/${id}`, formData, {})
+          .then(res=>console.log(res))   
           .catch(err=>{
             console.error(err);
             return;
           })
-        window.location.reload();
+
+        axios
+          .put(`https://illya-site-backend-production.up.railway.app/choosePlaylist/${playlist}`, formData, {})
+          .then(data=>{
+              console.log(data);
+          })
+
+        navigate("/editPlaylist")
       }else{
         toast.error("Please Choose A Valid Option");
         return;

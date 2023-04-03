@@ -69,7 +69,7 @@ const UserHeader = () => {
 					rel="noreferrer" 
 					target = "_blank"
 					href="https://twitter.com/choir241" 
-					lassName="icon fa-twitter">
+					className="icon fa-twitter">
 						<p className = "hidden">Twitter</p>
 					</a>
 				</li>

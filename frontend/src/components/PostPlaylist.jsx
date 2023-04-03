@@ -4,13 +4,15 @@ import {useContext,
         useEffect} from "react"
 import {MyContext} from "../middleware/Context"
 import {toast} from "react-toastify"
+import {useNavigate} from "react-router-dom"
 
 const PostPlaylist = () => {
 
     const userContext = useContext(MyContext);
     const [user, setUser] = useState({});
     const [playlistName, setPlaylistName] = useState("");
-
+    const navigate = useNavigate();
+    
     useEffect(()=>{
         try{
             userContext.then(userData=>{
@@ -34,17 +36,13 @@ const PostPlaylist = () => {
             formData.append("playlistName", playlistName);
 
                 axios
-                    .post("http://localhost:8000/createPlaylist", formData, {})
-                    .then(res=>{
-                        if(res){
-                            console.log(res);
-                            window.location.reload();
-                          }
-                    })
+                    .post("https://illya-site-backend-production.up.railway.app/createPlaylist", formData, {})
+                    .then(res=>{})
                     .catch(err=>{
                         console.error(err)
                         return;
                     })
+                navigate("/");
             }else{
                 toast.error("Please input a valid playlist name")
                 return;

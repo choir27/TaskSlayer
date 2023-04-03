@@ -1,12 +1,12 @@
-const GetPlaylist = fetch("http://localhost:8000/playlist")
+const GetPlaylist = fetch("https://illya-site-backend-production.up.railway.app/playlist")
     .then(res=>res.json())
     .then(data=>data);
 
-const GetAudio = fetch("http://localhost:8000/audio")
+const GetAudio = fetch("https://illya-site-backend-production.up.railway.app/audio")
     .then(res=>res.json())
     .then(data=>data);
 
-const GetUser = fetch("http://localhost:8000/api")
+const GetUser = fetch("https://illya-site-backend-production.up.railway.app/api")
     .then(res=>res.json())
     .then(data=>data);
 

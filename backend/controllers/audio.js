@@ -160,13 +160,15 @@ module.exports = {
           {resource_type: "auto"
       });    
     
-      await Audio.create({
+      const audio = await Audio.create({
           name: req.file.originalname,
           audio: result.secure_url,
           cloudinaryId: result.public_id,
           user: req.body.user,
       });
       
+      res.status(200).json({audio});
+
     }catch(err){
       console.error(err);
       res.status(500).send("Internal Server Error");

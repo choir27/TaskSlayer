@@ -84,10 +84,10 @@ const PlayMusic = () => {
         formData.append("playlist", playlist);
 
         axios
-          .put(`http://localhost:8000/addToPlaylist/${audio}`, formData, {})
+          .put(`https://illya-site-backend-production.up.railway.app/addToPlaylist/${audio}`, formData, {})
           .then(res=>{res.json()
             axios
-              .put(`http://localhost:8000/choosePlaylist/${playlist}`, formData, {})
+              .put(`https://illya-site-backend-production.up.railway.app/choosePlaylist/${playlist}`, formData, {})
               .then(res=>{
                 console.log(res)
               });
@@ -114,7 +114,7 @@ const PlayMusic = () => {
     e.preventDefault();
 
     axios
-      .delete(`http://localhost:8000/deletePost/${audio}`)
+      .delete(`https://illya-site-backend-production.up.railway.app/deletePost/${audio}`)
       .then(res=>console.log(res))
       .catch((error) => {
         console.error(error);

@@ -57,8 +57,8 @@ const Register = ({onAdd}) => {
     }, [userName, name, email, password, matchPassword]);
 
     const handleSubmit = e => {
-
-      e.preventDefault();
+      try{
+        e.preventDefault();
 
       // if button enabled with JS hack   
       const check1 = USERNAME_REGEX.test(userName);
@@ -95,7 +95,13 @@ const Register = ({onAdd}) => {
 
       onAdd({name, email, password, userName});
 
-      navigate("/account");
+      navigate("/");
+      }catch(err){
+        console.error(err);
+        return;
+      }
+
+      
     }
 
   return (

@@ -23,20 +23,22 @@ class PlayList extends Component<unknown, PlayListState> {
 
   componentDidMount() {
     try{
-       fetch("http://localhost:8000/currentPlaylist")
+       fetch("https://illya-site-backend-production.up.railway.app/currentPlaylist")
       .then(res=>res.json())
       .then((data) => {
         const list = data
         
         if(Object.keys(list[0].playlist).length < 1 && (!(!localStorage.getItem("playlist")))){   
           //If no playlist has been selected, grab all songs current user posted
-        fetch("http://localhost:8000/audio")
+        fetch("https://illya-site-backend-production.up.railway.app/audio")
             .then(res=>res.json())
             .then(data=>{
+              if(data){
               const playlist = data
                 .filter((item: {user: any})=> item.user === localStorage.getItem("id"))
                 .map((ele: {name: any; audio: any}) => ({name: ele.name, src: ele.audio}));
               this.setState({playlist})
+              }
             })
         }else{
           //If playlist has been selected, grab songs from selected playlist user has posted

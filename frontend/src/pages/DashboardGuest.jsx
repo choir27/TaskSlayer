@@ -23,13 +23,12 @@ const Dashboard = () => {
 
     GetPlaylist.then(play => {
       GetUser.then(users=>{
-
         const playList = [];
 
         play.forEach(ele=>{
           users.forEach(element=>{
             if(element._id === ele.user){
-              playList.push(<tr>
+              playList.push(<tr key = {ele._id}>
                 <td>{ele.name}</td>
                 <td></td>
                 <td></td>

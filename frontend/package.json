@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "proxy": "https://illya-backend.netlify.app/",
+  "proxy": "https://illya-site-backend-production.up.railway.app",
   "private": true,
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
@@ -17,10 +17,13 @@
     "dotenv": "^16.0.3",
     "gapi-script": "^1.2.0",
     "history": "^5.3.0",
+    "node-cache": "^5.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-h5-audio-player": "^3.8.6",
     "react-icons": "^4.7.1",
+    "react-paginate": "^8.1.5",
+    "react-query": "^3.39.3",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.0",
     "react-scripts": "5.0.1",

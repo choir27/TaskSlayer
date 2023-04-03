@@ -1,7 +1,7 @@
 import {MyContext} from "./middleware/Context"
 import PrivateRoutes from "./middleware/PrivateRoutes"
 import PublicRoutes from "./middleware/PublicRoutes"
-
+import { QueryClient, QueryClientProvider} from 'react-query'
 import React, {Suspense} from 'react';
 import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
@@ -11,15 +11,17 @@ import {BrowserRouter as Router,
 import Spinner from "./components/Spinner"
 
 function App() {
-  
+  const queryClient = new QueryClient();
+
+
   //Finds currently signed in account user
-  const fetchUser = fetch("http://localhost:8000/api")
+  const fetchUser = fetch("https://illya-site-backend-production.up.railway.app/api")
     .then(res=>res.json())
     .then(data=>data.find(ele=>ele._id === localStorage.getItem("id")));
   
   const registerUser = async (user) => {
     try{
-      const res = await fetch("http://localhost:8000/register", {
+      const res = await fetch("https://illya-site-backend-production.up.railway.app/register", {
         credentials: "same-origin",
         method: "POST",
         headers: {
@@ -40,7 +42,7 @@ function App() {
 
     const loginUser = async (user) => {
       try{
-        const res = await fetch("http://localhost:8000/login", {
+        const res = await fetch("https://illya-site-backend-production.up.railway.app/login", {
           credentials: "same-origin",
           method: "POST",
           headers: {
@@ -70,6 +72,7 @@ function App() {
     const PlayMusic = React.lazy(()=> import("./pages/PlayMusic"));
 
     return (
+      <QueryClientProvider client={queryClient}>
       <MyContext.Provider value={fetchUser}>
         <Suspense fallback={<Spinner />}>
           <Router>
@@ -92,6 +95,7 @@ function App() {
           <ToastContainer />
         </Suspense>
       </MyContext.Provider>
+      </QueryClientProvider>
     );
 }
 

@@ -1,31 +1,27 @@
-import axios from "axios";
-import {useState} from "react"
+import {useEffect,
+        useState} from "react"
 
 const PlaylistSong = ({ text, 
                         id, 
-                        userName, 
-                        hidden }) => {
+                        userName
+                      }) => {
   
-  const [songID ,setSongID] = useState("");
-
- const trim = (str) => {
-   return str.length > 15 ? str.substr(0, 30) + "..." : str;
-  };
-
-  const handleDelete = (e) => {
-    try{
+  const handleDelete = async (e) => {
+    try{      
       e.preventDefault();
 
-      if(songID){
-        const formData = new URLSearchParams()
-        formData.append('songID', songID);
-      axios
-      .put(`http://localhost:8000/editPlaylist/${localStorage.getItem('playlistID')}`, formData, {
-      })
+      const res = await fetch(`https://illya-site-backend-production.up.railway.app/editPlaylist/${localStorage.getItem('playlistID')}`, {
+        credentials: "same-origin",
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json"      
+        },
+        body: JSON.stringify({id})
+      });
 
-      window.location.reload();
+      const data = await res.json();
+      console.log(data);
 
-    }
     }catch(err){
       console.error(err);
       return;
@@ -33,10 +29,13 @@ const PlaylistSong = ({ text,
     
 };
 
-  return (
-    <tr className = {hidden}>
-    <td>
-      {trim(text)}
+const [songs, setSongs] = useState([]);
+
+useEffect(()=>{
+  setSongs(
+  <tr>
+    <td className = "flex">
+      {text}
     </td>
 
     <td>
@@ -51,9 +50,6 @@ const PlaylistSong = ({ text,
 
         <button
           className="button small fa-solid fa-xmark" type="submit"
-          onClick = {()=>{
-           setSongID(id)
-          }}
         />
     </form>
     </td>
@@ -63,6 +59,12 @@ const PlaylistSong = ({ text,
     </td>
 
     </tr>
+  )
+}, [])
+
+  return (<>
+    {songs} 
+    </>
   );
 };
 

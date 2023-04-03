@@ -39,7 +39,7 @@ const Footer = () => {
             formData.append("email", email);
             formData.append("message", message);
 
-            axios.post("http://localhost:8000/sendMessage", 
+            axios.post("https://illya-site-backend-production.up.railway.app/sendMessage", 
             formData, 
             {}).then(res=>{
                 if(res){

@@ -24,13 +24,12 @@ const PlaylistDashboard = () =>{
       try{
 
         e.preventDefault();
-        axios.put(`http://localhost:8000/choosePlaylist/${choosePlaylist}`)
+        axios.put(`https://illya-site-backend-production.up.railway.app/choosePlaylist/${choosePlaylist}`)
           .then(res=>console.log(res))
               .catch(err=>{
               console.error(err);
               return;
             })
-        window.location.reload();
 
       }catch(err){
         console.error(err);
@@ -44,19 +43,16 @@ const PlaylistDashboard = () =>{
         e.preventDefault();
         
         axios
-          .delete(`http://localhost:8000/deletePlaylist/${playlistID}`)
+          .delete(`https://illya-site-backend-production.up.railway.app/deletePlaylist/${playlistID}`)
           .then(res=>{
             axios
-            .put(`http://localhost:8000/deleteCurrentPlaylist`)
-            .then(data=>console.log(res))  
+            .put(`https://illya-site-backend-production.up.railway.app/deleteCurrentPlaylist`)
+            .then(data=>console.log(data))  
           })
           .catch(error=>{
             console.error(error);
             return;
           });
-
-      
-        window.location.reload();
         
       }catch(err){
         console.error(err);
@@ -67,11 +63,12 @@ const PlaylistDashboard = () =>{
     }
 
     try{
+      let playlists = []
+
       GetPlaylist.then(data=>{
         GetUser.then(user=>{
             userContext.then(currentUser=>{
           setPlaylist(data)
-          let playlists = []
               data.forEach(ele=>{
                 user.forEach(element=>{
                     if(element._id === ele.user){
@@ -116,7 +113,7 @@ const PlaylistDashboard = () =>{
                         }
                     })
               })
-              setList(playlists)
+              setList(playlists);
             })
             })
         })
