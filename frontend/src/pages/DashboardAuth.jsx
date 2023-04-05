@@ -2,9 +2,6 @@ import {useContext,
         useState, 
         useEffect} from "react"
 
-import {GetUser, 
-        GetAudio} from "../hooks/FetchHooks"
-
 import {MyContext} from "../middleware/Context"
 import Footer from "../components/Footer"
 import UserHeader from "../components/UserHeader"
@@ -21,31 +18,38 @@ const Dashboard = () => {
 
   useEffect(()=>{
 
-    GetAudio.then(data=>{
+    fetch("https://illya-site-backend-production.up.railway.app/audio")
+      .then(res=>res.json())
+      .then(data=>{
       setAudio(data)
     })
 
     //Lists all songs posted by users
-    GetUser.then(users=>{
+    const songList = [];
 
-      const songList = [];
+    fetch("https://illya-site-backend-production.up.railway.app/api")
+      .then(res=>res.json())
+      .then(users=>{
 
-        audio.forEach(song => {
-          users.forEach(element =>{
+      const userMap = users.reduce((acc, user) => {
+        acc[user._id] = user;
+        return acc;
+      }, {});
 
-            if(element._id === song.user){
-              songList.push(<Post 
-                            key={song._id} 
-                            id = {song._id} 
-                            text={song.name} 
-                            userName={element.userName} 
-                            userID={element._id} 
-                            />);
-            }
+      audio.forEach(song => {
+        const user = userMap[song.user];
+        if (user) {
+          songList.push(<Post 
+                          key={song._id} 
+                          id={song._id} 
+                          text={song.name} 
+                          userName={user.userName} 
+                          userID={user._id} 
+                        />);
+        }
 
-          })
-        })
-
+      });
+      
       setRows(songList);
 
     })
@@ -53,9 +57,9 @@ const Dashboard = () => {
     localStorage.setItem("display", display);
 
   },[audio, 
-    display, 
     userContext,
-  rows])
+    rows,
+    display])
 
   return (
     <div>

@@ -13,7 +13,6 @@ const EditPlaylist = () => {
   useEffect(() => {
     const playlistID = localStorage.getItem("playlistID");
 
-    async function fetchData() {
       try {
         const songList = [];
 
@@ -21,50 +20,50 @@ const EditPlaylist = () => {
           .then(res=>res.json())
           .then(data=>{
 
-        const currentPlaylist = data.find(ele => ele._id === playlistID);
-        setPlaylist(currentPlaylist)
-    
+            const currentPlaylist = data.find(ele => ele._id === playlistID);
+            setPlaylist(currentPlaylist);
 
-        if (currentPlaylist) {
-          currentPlaylist.songs.forEach(song =>{
-            songList.push( <PlaylistSong
-              userName={song.userName}
-              id={song._id}
-              text={song.name}
-              key={song._id}
-            />
-            )
-          });
+            if (currentPlaylist) {
 
-          setList(songList);
+              currentPlaylist.songs.forEach(song =>{
+                songList.push( <PlaylistSong
+                  key={song._id}
+                  userName={song.userName}
+                  id={song._id}
+                  text={song.name}
+                />
+                );
+              });
 
-          setTable(
-          <div className="table-wrapper">
-              <h2 className='tableHeading'>Songs</h2>
+            setList(songList);
 
-              <table>
-                <thead>
-                  <tr>
-                    <th>Song Name</th>
-                    <th>Delete</th>
-                    <th>User</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {list}
-                </tbody>
-              </table>
-            </div>
-          )
-          }
+            setTable(
+              <div className="table-wrapper">
+                <h2 className='tableHeading'>Songs</h2>
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Song Name</th>
+                      <th>Delete</th>
+                      <th>User</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      {list}
+                  </tbody>
+                </table>
+              </div>
+            );
+
+            };
         
       })
-      } catch (error) {
+      }catch (error) {
         console.log(error);
+        return;
       }
-    }
 
-    fetchData();
   }, [userContext, list]);
 
   return (
@@ -80,10 +79,12 @@ const EditPlaylist = () => {
           </section>
         </article>
       </div>
+
       <Footer />
       <div id="copyright">
         &copy; choir Design: HTML5 UP
       </div>
+      
     </div>
   )
 }

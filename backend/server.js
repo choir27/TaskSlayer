@@ -1,6 +1,5 @@
-
-const express = require("express")
-const app = express()
+const express = require("express");
+const app = express();
 const methodOverride = require("method-override");
 const logger = require("morgan");
 const passport = require("passport");
@@ -18,15 +17,20 @@ connectDB();
 
 app.set("view engine", "ejs");
 
+app.use(cors());
+
 app.use(cors({
   origin: [process.env.API_PORT_URL],
   methods: "GET, POST, PUT, DELETE, OPTIONS"
 }));
 
-app.use(cors());
+app.use("*", (req,res)=>{
+  res.send("server side")
+})
+
 
 //Body Parsing
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //Logging
@@ -38,7 +42,7 @@ app.use(methodOverride("_method"));
 app.use(session({
   secret: "keyboard cat",
   resave: true,
-  saveUninitialized: false,
+  saveUnitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI
   })
 }));

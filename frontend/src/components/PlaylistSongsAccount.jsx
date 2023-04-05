@@ -1,8 +1,11 @@
 import axios from "axios";
 import {Link} from "react-router-dom"
-import {useContext, 
-        useEffect, 
-        useState} from "react"
+import React, 
+      {useContext, 
+       useEffect, 
+       useState,
+       useCallback,
+       useMemo} from "react"
 import {MyContext} from "../middleware/Context"
 import Post from "./Post"
 
@@ -15,168 +18,171 @@ const PlaylistSongs = () =>{
   const [playlistID, setPlaylistID] = useState("");
   const [list, setList] = useState([]);
   const [rows, setRows] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 5;
+
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const endIndex = startIndex + rowsPerPage;
+
+  const source = useMemo(() => axios.CancelToken.source(), []);
+
+  const handleSubmit = useCallback(e => {
+    e.preventDefault();
   
+    axios
+      .put(`https://illya-site-backend-production.up.railway.app/choosePlaylist/${choosePlaylist}`)
+      .then(res=>console.log(res))
+      .catch(err=>{
+        console.error(err);
+        return;
+      });
+
+  }, [choosePlaylist]);
+  
+  const handleDelete = useCallback(e => {
+    e.preventDefault();
+    
+    axios
+      .delete(`https://illya-site-backend-production.up.railway.app/deletePlaylist/${playlistID}`)
+      .then(res=>console.log(res))
+      .catch(error=>{
+        console.error(error);
+        return;
+      });
+  
+    axios
+      .put("https://illya-site-backend-production.up.railway.app/deleteCurrentPlaylist")
+      .then(data=>console.log(data))
+      .catch(error=>{
+        console.error(error);
+        return;
+      })
+  }, [playlistID]);
+
+
   useEffect(()=>{
 
     userContext.then(data=>{
-      try{
         setUser(data);
+    });
+
+    Promise.all([
+      fetch("https://illya-site-backend-production.up.railway.app/audio", {
+        cancelToken: source.token,
+      }),
+      fetch("https://illya-site-backend-production.up.railway.app/playlist", {
+        cancelToken: source.token,
+      })
+    ])
+    .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
+    .then(([data1, data2]) => {
+      try{
+        setAudio(data1);
+        setPlaylist(data2);
       }catch(err){
         console.error(err);
         return;
       }
     });
 
-    fetch("https://illya-site-backend-production.up.railway.app/audio")
-      .then(res=>res.json())
-      .then(data=>{
-      try{
-          setAudio(data);
-      }catch(err){
-        console.error(err);
-        return;
-      }
-    })
+   return () => {
+      source.cancel();
+    };
 
-    fetch("https://illya-site-backend-production.up.railway.app/playlist")
-      .then(res=>res.json())
-      .then(data=>{
-    try{
-        setPlaylist(data);
-    }catch(err){
-      console.error(err);
-      return;
-    }
-  })
+  },[]);
 
-    try{
 
-      // Displays playlist(s) of current user, can edit/delete/select playlist
-      const playlists = [];
+  // Displays playlist(s) of current user, can edit/delete/select playlist
+  useMemo(()=>{
 
-          playlist.forEach(ele=>{
-            if(ele.user === localStorage.getItem('id')){
-              playlists.push(
-                <tr key = {ele._id}>
+    const listOfPlaylists = playlist
+      .filter((ele) => ele.user === localStorage.getItem("id"))
+      .map(ele=>
+        <tr key = {ele._id}>
+          <td>
+            <form onSubmit = {handleSubmit}>
+              <input 
+              name = "choosePlaylist" 
+              value = {ele._id}
+               className = "hidden" 
+               readOnly = {true}
+              />
 
-                  <td>
-                    <form onSubmit = {handleSubmit}>
+              <button 
+              className = "button" 
+              onClick = {()=>{
+                setChoosePlaylist(ele._id)}
+              }>{ele.name}
+              </button>
+
+            </form>
+          </td>
+
+          <td>
+            <input 
+            name = "editPlaylist" 
+            value = {ele._id} 
+            className = "hidden" 
+            readOnly = {true}
+            />
+
+            <Link to = {"/editPlaylist"}
+            onClick = {()=>
+              localStorage.setItem('playlistID', ele._id)
+            } 
+            className = "fa-solid small fa-pen-to-square button">
+            </Link>
+          </td>
                     
-                      <input 
-                      name = "choosePlaylist" 
-                      value = {ele._id}
-                       className = "hidden" 
-                       readOnly = {true}
-                      />
+          <td>
+            <form onSubmit = {handleDelete}>
+              <button
+                  onClick = {()=>{
+                  setPlaylistID(ele._id)
+                  }}
+                  className="button small fa-solid fa-trash" 
+                  type="submit">    
+              </button>
+            </form>
+          </td>
+        </tr>
+    );
 
-                      <button 
-                      className = "button" 
-                      onClick = {()=>{
-                        setChoosePlaylist(ele._id)}
-                      }>{ele.name}
-                      </button>
+    setList(listOfPlaylists);
 
-                    </form>
-                  </td>
+  },[playlist,
+    handleDelete,
+    handleSubmit]);
 
-                  <td>
-                    <input 
-                    name = "editPlaylist" 
-                    value = {ele._id} 
-                    className = "hidden" 
-                    readOnly = {true}
-                    />
+// Displays all songs of current user, can play music, add music to playlist, or delete music
+  useMemo(()=>{
+    const listOfSongs = audio
+      .filter(ele=>ele.user === localStorage.getItem("id"))
+      .slice(startIndex, endIndex).map(ele=>
+            <Post 
+              key = {ele._id}
+              userID = {ele.user}
+              userName = {user.userName} 
+              id = {ele._id} 
+              text = {ele.name} 
+            />
+      );
 
-                    <Link to = {"/editPlaylist"}
-                    onClick = {()=>
-                      localStorage.setItem('playlistID', ele._id)
-                    } 
-                    className = "fa-solid small fa-pen-to-square button">
-                    </Link>
-                  </td>
-                            
-                  <td>
-                    <form onSubmit = {handleDelete}>
-                      <button
-                          onClick = {()=>{
-                          setPlaylistID(ele._id)
-                          }}
-                          className="button small fa-solid fa-trash" 
-                          type="submit">    
-                      </button>
-                    </form>
-                  </td>
-                </tr>
-              )
-            };
-          });
-        setList(playlists);
-
-      // Displays all songs of current user, can play music, add music to playlist, or delete music
-      const array = [];
-
-      audio.forEach(ele=>{
-        if(ele.user === localStorage.getItem('id')){
-          array.push(<Post 
-                      key = {ele._id}
-                      userID = {ele.user}
-                      userName = {user.userName} 
-                      id = {ele._id} 
-                      text = {ele.name} 
-                    />)
-          };
-      });
-      setRows(array);
-
-    }catch(err){
-      console.error(err);
-      return;
-    }
-  
-
-  },[userContext, playlist, audio]);
-
-  const handleSubmit = e => {
-    try{
-      e.preventDefault();
-
-      axios
-          .put(`https://illya-site-backend-production.up.railway.app/choosePlaylist/${choosePlaylist}`)
-          .then(res=>console.log(res))
-          .catch(err=>{
-            console.error(err);
-            return;
-          })  
-    }catch(err){
-      console.error(err);
-    }
-   
+  if (listOfSongs.length !== rows.length) {
+  setRows(listOfSongs);
   };
 
-  const handleDelete = e => {
-    try{
-      e.preventDefault();
-    
-      axios
-        .delete(`https://illya-site-backend-production.up.railway.app/deletePlaylist/${playlistID}`)
-        .then(res=>{
-        })
-        .catch(error=>{
-          console.error(error);
-          return;
-        })
+  },[audio, 
+    rows,
+    rows.length, 
+    user.userName,
+    startIndex,
+    endIndex]);
 
-      axios
-        .put("https://illya-site-backend-production.up.railway.app/deleteCurrentPlaylist")
-        .then(data=>{
-          console.log(data);
-        })
 
-    }catch(err){
-      console.error(err);
-      return;
-    }
-   
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
   };
 
   return(
@@ -186,18 +192,36 @@ const PlaylistSongs = () =>{
         <h2 className = "tableHeading">Songs</h2>
 
         <table>
+
           <thead>
             <tr>
               <th>Song Name</th>
+              <th></th>
               <th>Playlist</th>
               <th>Delete</th>
               <th>User</th>
             </tr>
           </thead>
+
           <tbody>
             {rows}
           </tbody>
         </table>
+
+        
+      <div className="pagination">
+          {Array.from({ length: Math.ceil(audio.length / rowsPerPage) }, (_, i) => (
+            <button 
+            key={i} 
+            onClick={() => {
+              handlePageChange(i + 1)
+            }}
+            className = "button small"
+            >
+              {i + 1}
+            </button>
+          ))}
+      </div>
       </div>
 
       <div className = "table-wrapper">
@@ -211,13 +235,15 @@ const PlaylistSongs = () =>{
               <th>Delete</th>
             </tr>
           </thead>
+
           <tbody>
             {list}  
           </tbody>
+
         </table>
       </div>
     </section>
   )
 }
 
-export default PlaylistSongs
+export default React.memo(PlaylistSongs);

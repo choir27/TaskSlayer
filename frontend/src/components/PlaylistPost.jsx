@@ -1,5 +1,6 @@
 import axios from "axios"
-import {Link} from "react-router-dom"
+import {Link,
+        useNavigate} from "react-router-dom"
 import {useContext,
         useState, 
         useEffect} from "react"
@@ -16,6 +17,7 @@ const PlaylistPost = () =>{
   const [playlist, setPlaylist] = useState([]);
   const [list, setList] = useState([]);
 
+  const navigate = useNavigate();
 
   useEffect(()=>{
 
@@ -24,16 +26,13 @@ const PlaylistPost = () =>{
         e.preventDefault();
         axios
           .put(`https://illya-site-backend-production.up.railway.app/choosePlaylist/${choosePlaylist}`)
-          .then(res=>{
-            if(res){
-              console.log(res);
-              window.location.reload();
-            }
-          })
+          .then(res=>console.log(res))
           .catch(err=>{
             console.error(err);
             return;
           })
+        
+        navigate("/dashboard");
       }catch(err){
         console.error(err);
         return;
@@ -47,17 +46,23 @@ const PlaylistPost = () =>{
     
         axios
           .delete(`https://illya-site-backend-production.up.railway.app/deletePlaylist/${playlistID}`)
-          .then(res=>{
-            axios
-            .put("https://illya-site-backend-production.up.railway.app/deleteCurrentPlaylist")
-            .then(data=>{
-              console.log(data)
-            })
+          .then(res=>console.log(res))
+          .catch(error=>{
+            console.error(error);
+            return;
+          })
+
+        axios
+          .put("https://illya-site-backend-production.up.railway.app/deleteCurrentPlaylist")
+          .then(data=>{
+            console.log(data)
           })
           .catch(error=>{
             console.error(error);
             return;
           })
+        
+        navigate("/dashboard");
 
       }catch(err){
           console.error(err);
@@ -68,11 +73,13 @@ const PlaylistPost = () =>{
     //Display songs for respective playlist
 
     try{
+      const playlists = [];
+
+
       GetPlaylist.then(data=>{
         GetUser.then(user=>{
             userContext.then(currentUser=>{
               setPlaylist(data);
-              const playlists = [];
   
               data.forEach(ele=>{
                 user.forEach(element=>{
@@ -156,10 +163,12 @@ const PlaylistPost = () =>{
                 })
               });
   
-              setList(playlists);
             });
             });
       });
+
+      setList(playlists);
+
     }catch(err){
       console.error(err);
       return;
@@ -169,7 +178,7 @@ const PlaylistPost = () =>{
   }, [playlist, 
       playlistID, 
       choosePlaylist, 
-  userContext]);
+      userContext]);
 
   return(
     <div className = "table-wrapper">

@@ -19,39 +19,39 @@ const PlaylistSong = ({ text,
         body: JSON.stringify({id})
       });
 
-      const data = await res.json();
-      console.log(data);
+      await res.json();
 
     }catch(err){
       console.error(err);
       return;
     }
     
-};
+  };
 
-const [songs, setSongs] = useState([]);
+  const [songs, setSongs] = useState([]);
 
-useEffect(()=>{
-  setSongs(
+  useEffect(()=>{
+    setSongs(
   <tr>
     <td className = "flex">
       {text}
     </td>
 
     <td>
-    <form onSubmit={handleDelete}>
+      <form onSubmit={handleDelete}>
 
-        <input 
-        className = "hidden" 
-        name = "songID" 
-        value = {id} 
-        readOnly = {true}
-        />
+          <input 
+          className = "hidden" 
+          name = "songID" 
+          value = {id} 
+          readOnly = {true}
+          />
 
-        <button
-          className="button small fa-solid fa-xmark" type="submit"
-        />
-    </form>
+          <button
+          className="button small fa-solid fa-xmark" 
+          type="submit"
+          />
+      </form>
     </td>
 
     <td>
@@ -59,13 +59,10 @@ useEffect(()=>{
     </td>
 
     </tr>
-  )
-}, [])
+    );
+  }, [])
 
-  return (<>
-    {songs} 
-    </>
-  );
+  return songs
 };
 
 export default PlaylistSong;

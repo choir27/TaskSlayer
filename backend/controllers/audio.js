@@ -179,6 +179,16 @@ module.exports = {
       let post = await Audio.findById({ _id: req.params.id });
       await cloudinary.uploader.destroy(post.cloudinaryId);
       await Audio.deleteOne({ _id: req.params.id });
+
+      await CurrentPlaylist.findOneAndUpdate(
+        {_id: "6413a94694c65b807a6ed151"},
+        {playlist: {}},
+        {
+          new: true,
+          runValidators: true,
+        }
+        );
+      
     }catch(err){
       console.error(err);
       res.status(500).send("Internal server error.");

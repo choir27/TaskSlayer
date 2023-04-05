@@ -26,7 +26,7 @@ class PlayList extends Component<unknown, PlayListState> {
        fetch("https://illya-site-backend-production.up.railway.app/currentPlaylist")
       .then(res=>res.json())
       .then((data) => {
-        const list = data
+        const list = data;
         
         if(Object.keys(list[0].playlist).length < 1 && (!(!localStorage.getItem("playlist")))){   
           //If no playlist has been selected, grab all songs current user posted

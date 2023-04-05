@@ -1,11 +1,11 @@
 import axios from "axios";
 import {useContext, 
         useState, 
-        useEffect} from "react"
+        useEffect,
+        useCallback} from "react"
 import {MyContext} from "../middleware/Context"
 import {toast} from "react-toastify"
 import {Link, useNavigate} from "react-router-dom"
-import {GetPlaylist} from "../hooks/FetchHooks"
 
 const Post = ({ text, 
                 id, 
@@ -17,20 +17,23 @@ const Post = ({ text,
   const [playlist, setPlaylist] = useState("");
   const [songs, setSongs] = useState([]);
   const [rows, setRows] = useState([]);
-
+  const [table, setTable] = useState([]);
   const navigate = useNavigate();
 
   useEffect(()=>{
+
     try{
       userContext.then(data=>{
-        setUser(data)
+        setUser(data);
       });
   
-      GetPlaylist.then(data=>{
-        setSongs(data)
+      fetch("https://illya-site-backend-production.up.railway.app/playlist")
+        .then(res=>res.json())
+        .then(data=>{
+          setSongs(data);
       });
   
-      const array= []
+      const array= [];
   
       if(songs){
         songs.forEach((ele)=>{
@@ -48,22 +51,66 @@ const Post = ({ text,
   
       setRows(array);
 
+
+       setTable(
+    <tr>
+      <td>
+        {text}
+      </td>
+
+      <td>
+        <Link className = "button small"
+          to = "/playMusic"
+          onClick = {()=>{
+            localStorage.setItem("song", id)}
+          }>
+            Play
+        </Link>
+      </td>
+
+      <td>
+        <form onSubmit={handleAddToPlaylist}>
+          <select name = "playlist"
+            onChange = {(e)=>{
+            setPlaylist(e.target.value)}}
+          >
+            <option value = ''></option>
+            {rows}
+          </select>
+          <button className="fa-solid fa-plus button small" type = "submit"/>
+        </form>
+
+      </td>
+
+      <td>
+        <form onSubmit={handleDelete}>
+          {user._id === userID ?
+            <button
+            className="button small fa-solid fa-trash" 
+            type="submit"
+            />
+          : ""
+          }
+        </form>
+      </td>
+
+      <td>
+        {userName}
+      </td>
+    </tr>
+    );
+
     }catch(err){
       console.error(err);
       return;
     }
+
+   
     
   },[userContext, playlist, songs])
 
 
-  const trim = (str) => {
-  return str.length > 35 ? 
-         str.substr(0,30) 
-         + "..." 
-         : str;
-  };
-
-  const handleDelete = (e) => {
+  const handleDelete = useCallback((e) => {
     try{
       e.preventDefault();
 
@@ -80,9 +127,9 @@ const Post = ({ text,
       return;
     }
    
-  };
+  }, [id]);
 
-  const handleAddToPlaylist = async (e) => {
+  const handleAddToPlaylist = useCallback(async (e) => {
     try{
       e.preventDefault();
 
@@ -125,55 +172,9 @@ const Post = ({ text,
       return;
     }
     
-  }
+  }, [playlist, songs, id, navigate]);
 
-  return (
-    <tr>
-      <td>
-        {trim(text)}
-      </td>
-
-      <td>
-        <Link className = "button small"
-          to = "/playMusic"
-          onClick = {()=>{
-            localStorage.setItem('song', id)}
-          }>
-            Play
-        </Link>
-      </td>
-
-      <td>
-        <form onSubmit={handleAddToPlaylist}>
-          <select name = "playlist"
-            onChange = {(e)=>{
-            setPlaylist(e.target.value)}}
-          >
-            <option value = ''></option>
-            {rows}
-          </select>
-          <button className="fa-solid fa-plus button small" type = "submit"/>
-        </form>
-
-      </td>
-
-      <td>
-        <form onSubmit={handleDelete}>
-          {user._id === userID ?
-            <button
-            className="button small fa-solid fa-trash" 
-            type="submit"
-            />
-          : ""
-          }
-        </form>
-      </td>
-
-      <td>
-        {userName}
-      </td>
-    </tr>
-  );
+  return table
 };
 
 export default Post;
