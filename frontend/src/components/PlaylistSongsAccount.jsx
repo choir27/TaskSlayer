@@ -19,6 +19,9 @@ const PlaylistSongs = () =>{
   const [list, setList] = useState([]);
   const [rows, setRows] = useState([]);
 
+  const [playlists, setPlaylists] = useState([]);
+  const [songs, setSongs] = useState([]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
 
@@ -92,99 +95,101 @@ const PlaylistSongs = () =>{
 
   },[]);
 
+  // Load data for current user
+useEffect(() => {
+  const userId = localStorage.getItem("id");
+  const playlists = playlist.filter((ele) => ele.user === userId);
+  const songs = audio.filter((ele) => ele.user === userId);
+  setPlaylists(playlists);
+  setSongs(songs);
+}, [playlist, audio]);
 
-  // Displays playlist(s) of current user, can edit/delete/select playlist
-  useMemo(()=>{
 
-    const listOfPlaylists = playlist
-      .filter((ele) => ele.user === localStorage.getItem("id"))
-      .map(ele=>
-        <tr key = {ele._id}>
+ // Render playlist table
+const playlistTable = useMemo(() => {
+  return (
+      playlists.map((playlist) => (
+        <tr key={playlist._id}>
           <td>
-            <form onSubmit = {handleSubmit}>
-              <input 
-              name = "choosePlaylist" 
-              value = {ele._id}
-               className = "hidden" 
-               readOnly = {true}
+            <form onSubmit={handleSubmit}>
+              <input
+                name="choosePlaylist"
+                value={playlist._id}
+                className="hidden"
+                readOnly={true}
               />
-
-              <button 
-              className = "button" 
-              onClick = {()=>{
-                setChoosePlaylist(ele._id)}
-              }>{ele.name}
+              <button
+                className="button"
+                onClick={() => {
+                  setChoosePlaylist(playlist._id);
+                }}
+              >
+                {playlist.name}
               </button>
-
             </form>
           </td>
-
           <td>
-            <input 
-            name = "editPlaylist" 
-            value = {ele._id} 
-            className = "hidden" 
-            readOnly = {true}
+            <input
+              name="editPlaylist"
+              value={playlist._id}
+              className="hidden"
+              readOnly={true}
             />
-
-            <Link to = {"/editPlaylist"}
-            onClick = {()=>
-              localStorage.setItem('playlistID', ele._id)
-            } 
-            className = "fa-solid small fa-pen-to-square button">
-            </Link>
+            <Link
+              to={"/editPlaylist"}
+              onClick={() => localStorage.setItem("playlistID", playlist._id)}
+              className="fa-solid small fa-pen-to-square button"
+            ></Link>
           </td>
-                    
           <td>
-            <form onSubmit = {handleDelete}>
+            <form onSubmit={handleDelete}>
               <button
-                  onClick = {()=>{
-                  setPlaylistID(ele._id)
-                  }}
-                  className="button small fa-solid fa-trash" 
-                  type="submit">    
-              </button>
+                onClick={() => {
+                  setPlaylistID(playlist._id);
+                }}
+                className="button small fa-solid fa-trash"
+                type="submit"
+              ></button>
             </form>
           </td>
         </tr>
-    );
+      ))
+  );
+}, [playlists, 
+    handleSubmit, 
+    handleDelete, 
+    setChoosePlaylist, 
+    setPlaylistID]);
 
-    setList(listOfPlaylists);
 
-  },[playlist,
-    handleDelete,
-    handleSubmit]);
-
-// Displays all songs of current user, can play music, add music to playlist, or delete music
-  useMemo(()=>{
-    const listOfSongs = audio
-      .filter(ele=>ele.user === localStorage.getItem("id"))
-      .slice(startIndex, endIndex).map(ele=>
-            <Post 
-              key = {ele._id}
-              userID = {ele.user}
-              userName = {user.userName} 
-              id = {ele._id} 
-              text = {ele.name} 
-            />
-      );
-
-  if (listOfSongs.length !== rows.length) {
-  setRows(listOfSongs);
-  };
-
-  },[audio, 
-    rows,
-    rows.length, 
-    user.userName,
-    startIndex,
-    endIndex]);
-
+// Render song list
+const songList = useMemo(() => {
+  return songs
+    .slice(startIndex, endIndex)
+    .map((song) => (
+      <Post
+        key={song._id}
+        userID={song.user}
+        userName={user.userName}
+        id={song._id}
+        text={song.name}
+      />
+    ));
+}, [songs, startIndex, endIndex, user.userName]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
+// Update table and song list if data changes
+useEffect(() => {
+  if (playlists.length !== list.length) {
+    setList(playlistTable);
+  }
+  if (songs.length !== rows.length) {
+    setRows(songList);
+  }
+}, [playlists.length, songs.length, list.length, rows.length, playlistTable, songList]);
   return(
     <section className ="flex tables">
       <div className = "table-wrapper">
