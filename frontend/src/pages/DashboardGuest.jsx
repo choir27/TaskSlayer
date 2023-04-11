@@ -129,7 +129,7 @@ const handlePageChange = (newPage) => {
       <Header/>
       <div id = "main">
         <section className="major column flex">
-        <h1 className = "flex justifyContent">Dashboard</h1>
+          <h1 className = "flex justifyContent">Dashboard</h1>
 
       {/*Toggle between displaying playlists/songs*/}
 
@@ -181,7 +181,7 @@ const handlePageChange = (newPage) => {
             onClick={() => {
               handlePageChange(i + 1)
             }}
-            className = "button small"
+            className = "page"
             >
               {i + 1}
             </button>

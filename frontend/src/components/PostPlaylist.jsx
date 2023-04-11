@@ -15,9 +15,7 @@ const PostPlaylist = () => {
     
     useEffect(()=>{
         try{
-            userContext.then(userData=>{
-                setUser(userData)
-            });
+            userContext.then(userData=>{setUser(userData)});
         }catch(err){
             console.error(err);
             return;
@@ -37,12 +35,14 @@ const PostPlaylist = () => {
 
                 axios
                     .post("https://illya-site-backend-production.up.railway.app/createPlaylist", formData, {})
-                    .then(res=>{})
+                    .then(res=>{
+                        console.log(res);
+                        navigate("/");
+                    })
                     .catch(err=>{
                         console.error(err)
                         return;
                     })
-                navigate("/");
             }else{
                 toast.error("Please input a valid playlist name")
                 return;

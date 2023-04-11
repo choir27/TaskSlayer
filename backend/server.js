@@ -24,11 +24,6 @@ app.use(cors({
   methods: "GET, POST, PUT, DELETE, OPTIONS"
 }));
 
-app.use("*", (req,res)=>{
-  res.send("server side")
-})
-
-
 //Body Parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

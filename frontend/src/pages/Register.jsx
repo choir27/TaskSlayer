@@ -1,7 +1,8 @@
 import {useNavigate} from "react-router-dom"
 import { toast } from "react-toastify";
 import { useState, 
-         useEffect } from "react";
+         useEffect,
+         useCallback } from "react";
          
 import { faCheck, 
          faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -56,7 +57,7 @@ const Register = ({onAdd}) => {
 
     }, [userName, name, email, password, matchPassword]);
 
-    const handleSubmit = e => {
+    const handleSubmit = useCallback((e) => {
       try{
         e.preventDefault();
 
@@ -102,7 +103,7 @@ const Register = ({onAdd}) => {
       }
 
       
-    }
+    }, [navigate, onAdd, name, email, password, userName, matchPassword, users])
 
   return (
     <div>

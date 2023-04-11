@@ -61,10 +61,10 @@ const EditPlaylist = () => {
       })
       }catch (error) {
         console.log(error);
-        return;
       }
 
   }, [userContext, list]);
+
 
   return (
     <div>

@@ -6,7 +6,7 @@ import Header from "../components/Header"
 
 const HomeGuest = () => {
   return (
-	<div>
+	<div id="wrapper" class="fade-in">
 		<Header/>
 		<div id = "main">
 

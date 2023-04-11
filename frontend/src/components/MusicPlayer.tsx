@@ -24,53 +24,57 @@ class PlayList extends Component<unknown, PlayListState> {
   componentDidMount() {
     try{
        fetch("https://illya-site-backend-production.up.railway.app/currentPlaylist")
-      .then(res=>res.json())
-      .then((data) => {
-        const list = data;
+        .then(res=>res.json())
+        .then((data) => {
+          const list = data;
         
         if(Object.keys(list[0].playlist).length < 1 && (!(!localStorage.getItem("playlist")))){   
           //If no playlist has been selected, grab all songs current user posted
         fetch("https://illya-site-backend-production.up.railway.app/audio")
             .then(res=>res.json())
             .then(data=>{
+
               if(data){
               const playlist = data
                 .filter((item: {user: any})=> item.user === localStorage.getItem("id"))
                 .map((ele: {name: any; audio: any}) => ({name: ele.name, src: ele.audio}));
-              this.setState({playlist})
-              }
-            })
+                
+              this.setState({playlist});
+              };
+
+            });
+
         }else{
           //If playlist has been selected, grab songs from selected playlist user has posted
         const playlistName = list[0].playlist.name;
+
         const playlist = list[0].playlist.songs
           .map((ele: { name: any; audio: any; }) => ({ name: ele.name, src: ele.audio }));
+
         this.setState({ playlistName });
         this.setState({ playlist });
-        }
+
+        };
       });
     }catch(err){
       console.error(err);
-      return;
     }
    
   }
 
   handleClickPrevious = (): void => {
     this.setState((prevState) => ({
-      currentMusicIndex:
-        prevState.currentMusicIndex === 0
-          ? prevState.playlist.length - 1
-          : prevState.currentMusicIndex - 1,
+      currentMusicIndex :
+        prevState.currentMusicIndex === 0 ? 
+            prevState.playlist.length - 1 : prevState.currentMusicIndex - 1,
     }));
   };
 
   handleClickNext = (): void => {
     this.setState((prevState) => ({
       currentMusicIndex:
-        prevState.currentMusicIndex < prevState.playlist.length - 1
-          ? prevState.currentMusicIndex + 1
-          : 0,
+        prevState.currentMusicIndex < prevState.playlist.length - 1 ? 
+            prevState.currentMusicIndex + 1 : 0,
     }));
   };
 
@@ -86,10 +90,7 @@ class PlayList extends Component<unknown, PlayListState> {
           <h4>Currently Playing Song</h4>
 
           <h2>
-            {playlist[currentMusicIndex] ? 
-          playlist[currentMusicIndex].name 
-          : "No music has been added"
-            }
+            { playlist[currentMusicIndex] ? playlist[currentMusicIndex].name : "No music has been added" }
           </h2>
 
           </section>
@@ -97,11 +98,7 @@ class PlayList extends Component<unknown, PlayListState> {
           <section className = "flex column">
             <h2>Playlist Name</h2>
             <h2>
-            {
-            this.state.playlistName ? 
-            this.state.playlistName 
-            : "N/A"
-            }
+            { this.state.playlistName ? this.state.playlistName : "N/A" }
             </h2>
           </section>
         </section>

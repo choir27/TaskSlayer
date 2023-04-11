@@ -2,15 +2,13 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import {toast} from "react-toastify"
 import {useState, 
-        useEffect} from "react"
+        useEffect,
+        useCallback} from "react"
 import {useNavigate} from "react-router-dom"
 
 const Login = ({onAdd}) => {
 
   const navigate = useNavigate();
-
-  const EMAIL_REGEX = /^[\w!#$%&'*+/=?`{|}~^-]+(?:\.[\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$/;
-  const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
@@ -27,8 +25,12 @@ const Login = ({onAdd}) => {
 }, [email, password])
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     try{
+
+      const EMAIL_REGEX = /^[\w!#$%&'*+/=?`{|}~^-]+(?:\.[\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$/;
+      const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+
       e.preventDefault();
       // if button enabled with JS hack   
       const v1 = EMAIL_REGEX.test(email);
@@ -47,8 +49,7 @@ const Login = ({onAdd}) => {
       return;
     }
    
-
-  }
+  },[email, password, navigate, onAdd]);
 
   return (
    <div>
@@ -95,7 +96,6 @@ const Login = ({onAdd}) => {
                 !validEmail || 
                 !validPassword ? 
                 true: false} 
-                onClick = {(e)=>handleSubmit(e)}
               />
             </form>
 

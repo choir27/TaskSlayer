@@ -15,7 +15,8 @@ class FilesUploadComponent extends Component {
       this.onSubmit = this.onSubmit.bind(this);
       this.state = {
           audioFile: "",
-          user: ""
+          user: "",
+          loading: false
       };
   };
   onFileChange(e) {
@@ -28,15 +29,24 @@ class FilesUploadComponent extends Component {
         (this.state.audioFile.name.includes("mp3") 
         || this.state.audioFile.name.includes("ogg"))
         ){
+
+        this.setState({loading: true});
     
         const formData = new FormData();
         formData.append('file', this.state.audioFile);
         formData.append("user", this.state.user);
 
-        axios.post("https://illya-site-backend-production.up.railway.app/addAudio", formData, {
-        }).then(res =>console.log(res));
+        axios.post("https://illya-site-backend-production.up.railway.app/addAudio", formData, {})
+          .then(res =>{
+            if(res){
+            this.setState({loading: false});
+            this.props.navigate("/account");
+            };
+          }).catch(err=>{
+            console.error(err);
+            this.setState({loading: false});
+          });
 
-        this.props.navigate("/");
 
           }else if(!this.state.audioFile){
             toast.error("Please Upload a File");
@@ -62,9 +72,16 @@ class FilesUploadComponent extends Component {
         <UserHeader />
         <div id="main">
           <article className="post featured">
-            <section className="major">
 
-              <form onSubmit={this.onSubmit} 
+            {this.state.loading ? 
+              (
+                <section className = "major">
+                    <h1>Loading...</h1> 
+                </section>
+              ):
+                <section className="major">
+
+                  <form onSubmit={this.onSubmit} 
                 encttype="multipart/form-data"
               >
                 <div className="field flex column">
@@ -111,11 +128,13 @@ class FilesUploadComponent extends Component {
                   Upload
                 </button>
                 </div>
-              </form>
+                  </form>
 
-              <PostPlaylist/>
+                  <PostPlaylist/>
 
-            </section>
+                </section>
+
+            }
           </article>
         </div>
         <Footer />

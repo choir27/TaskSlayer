@@ -1,23 +1,23 @@
 import {Link, 
 		useNavigate} from "react-router-dom"
+import {useCallback} from "react"
 
 const UserHeader = () => {
 
 	const navigate = useNavigate();
 
-	const logout = (e) => {
-
+	const logout = useCallback((e) => {
 		e.preventDefault();
 		localStorage.removeItem("id");
-		navigate('/');
+		navigate("/");
 
 		if(!localStorage.getItem("id")){
 			window.location.reload();
 		}
-	}
+	},[navigate]);
 
   return ( 
-	<header>
+	<header id = "navPanel">
 
 		<div id = "intro">
 			<Link to = "/">

@@ -1,12 +1,10 @@
 import {useEffect,
-        useState} from "react"
+        useState,
+        useCallback} from "react"
 
-const PlaylistSong = ({ text, 
-                        id, 
-                        userName
-                      }) => {
+const PlaylistSong = ({ text, id, userName}) => {
   
-  const handleDelete = async (e) => {
+  const handleDelete = useCallback(async (e) => {
     try{      
       e.preventDefault();
 
@@ -20,49 +18,54 @@ const PlaylistSong = ({ text,
       });
 
       await res.json();
+      localStorage.getItem("playlistID", "");
+
+      window.location.reload();
 
     }catch(err){
       console.error(err);
-      return;
     }
     
-  };
+  },[id]);
 
   const [songs, setSongs] = useState([]);
 
   useEffect(()=>{
     setSongs(
-  <tr>
-    <td className = "flex">
-      {text}
-    </td>
 
-    <td>
-      <form onSubmit={handleDelete}>
+      <tr>
+        <td className = "flex">
+          {text}
+        </td>
 
-          <input 
-          className = "hidden" 
-          name = "songID" 
-          value = {id} 
-          readOnly = {true}
-          />
+        <td>
+          <form onSubmit={handleDelete}>
 
-          <button
-          className="button small fa-solid fa-xmark" 
-          type="submit"
-          />
-      </form>
-    </td>
+              <input 
+              className = "hidden" 
+              name = "songID" 
+              value = {id} 
+              readOnly = {true}
+              />
 
-    <td>
-      {userName}
-    </td>
+              <button
+              className="button small fa-solid fa-xmark" 
+              type="submit"
+              />
+          </form>
+        </td>
 
-    </tr>
+        <td>
+          {userName}
+        </td>
+
+      </tr>
+
     );
-  }, [])
+  }, [id, text, userName, handleDelete])
 
   return songs
+
 };
 
 export default PlaylistSong;

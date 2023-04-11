@@ -2,24 +2,24 @@
   import PrivateRoutes from "./middleware/PrivateRoutes"
   import PublicRoutes from "./middleware/PublicRoutes"
   import { QueryClient, QueryClientProvider} from 'react-query'
-  import React, {Suspense} from 'react';
+  import React, {Suspense, useCallback} from 'react';
   import {ToastContainer} from "react-toastify"
   import "react-toastify/dist/ReactToastify.css"
   import {BrowserRouter as Router, 
                           Routes, 
-                          Route} from 'react-router-dom'
+                          Route,
+                          Navigate} from 'react-router-dom'
   import Spinner from "./components/Spinner"
 
   function App() {
     const queryClient = new QueryClient();
-
 
     //Finds currently signed in account user
     const fetchUser = fetch("https://illya-site-backend-production.up.railway.app/api")
       .then(res=>res.json())
       .then(data=>data.find(ele=>ele._id === localStorage.getItem("id")));
     
-    const registerUser = async (user) => {
+    const registerUser = useCallback(async (user) => {
       try{
         const res = await fetch("https://illya-site-backend-production.up.railway.app/register", {
           credentials: "same-origin",
@@ -38,9 +38,9 @@
         return;
       }
 
-      }
+      },[])
 
-      const loginUser = async (user) => {
+      const loginUser = useCallback(async (user) => {
         try{
           const res = await fetch("https://illya-site-backend-production.up.railway.app/login", {
             credentials: "same-origin",
@@ -59,7 +59,7 @@
           return;
         }
     
-      }
+      },[])
 
       const Home = React.lazy(() => import("./pages/Home"));
       const About = React.lazy(() => import("./pages/About"));
@@ -90,6 +90,7 @@
                     <Route path="/addAudio" element={<PostAudio/>}/>
                     <Route element = {<Account/>} path = "/account"/>
                 </Route>
+                <Route path='*' element={<Navigate to='/' />} />
               </Routes>
             </Router>
             <ToastContainer />

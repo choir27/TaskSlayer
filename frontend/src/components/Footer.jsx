@@ -1,4 +1,5 @@
-import {useState} from "react"
+import {useState,
+        useCallback} from "react"
 import axios from "axios"
 import {toast} from "react-toastify"
 
@@ -12,7 +13,7 @@ const Footer = () => {
     const [message, setMessage] = useState("");
 
     //grab values from input set to states and make message POST request
-    const handleSubmit = (e) => {
+    const handleSubmit = useCallback((e) => {
         try{
             e.preventDefault();
 
@@ -27,35 +28,33 @@ const Footer = () => {
             if(!checkEmail){
                 toast.error("Please Input Proper Email");
                 return;
-            }
+            };
 
             if(!checkName){
                 toast.error("Please Input Proper Name");
                 return;
-            }
+            };
 
             const formData = new URLSearchParams();
             formData.append("name", name);
             formData.append("email", email);
             formData.append("message", message);
 
-            axios.post("https://illya-site-backend-production.up.railway.app/sendMessage", 
-            formData, 
-            {}).then(res=>{
-                if(res){
-                    console.log(res);
-                    window.location.reload();
-                  }
-            })
-              .catch(err=>{
+            axios.post("https://illya-site-backend-production.up.railway.app/sendMessage", formData, {})
+                .then(res=>{
+                    if(res){
+                        console.log(res);
+                        window.location.reload();
+                    }
+                })
+                .catch(err=>{
                     console.log(err);
-                    return;
                 })
         }catch(err){
             console.error(err);
         }
         
-    }
+    },[email, message, name])
 
     return (
         <footer id="footer">

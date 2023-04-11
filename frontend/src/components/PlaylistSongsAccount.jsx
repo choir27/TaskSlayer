@@ -1,170 +1,136 @@
 import axios from "axios";
-import {Link} from "react-router-dom"
-import React, 
-      {useContext, 
-       useEffect, 
-       useState,
-       useCallback,
-       useMemo} from "react"
-import {MyContext} from "../middleware/Context"
-import Post from "./Post"
+import { Link} from "react-router-dom";
+import React, { useContext, useEffect, useState, useCallback, useMemo, useRef } from "react";
+import { MyContext } from "../middleware/Context";
+import Post from "./Post";
 
-const PlaylistSongs = () =>{
+const PlaylistSongs = () => {
   const userContext = useContext(MyContext);
   const [user, setUser] = useState({});
   const [playlist, setPlaylist] = useState([]);
   const [audio, setAudio] = useState([]);
-  const [choosePlaylist, setChoosePlaylist] = useState({});
-  const [playlistID, setPlaylistID] = useState("");
+  const [choosePlaylist, setChoosePlaylist] = useState("");
   const [list, setList] = useState([]);
   const [rows, setRows] = useState([]);
-
-  const [playlists, setPlaylists] = useState([]);
-  const [songs, setSongs] = useState([]);
-
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
+
+  const index = useRef({});
 
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
 
-  const source = useMemo(() => axios.CancelToken.source(), []);
+  const fetchData = useCallback(async () => {
+    try {
+      const { data: playlistData } = await axios.get("https://illya-site-backend-production.up.railway.app/playlist");
+      const { data: audioData } = await axios.get("https://illya-site-backend-production.up.railway.app/audio");
 
-  const handleSubmit = useCallback(e => {
-    e.preventDefault();
-  
-    axios
-      .put(`https://illya-site-backend-production.up.railway.app/choosePlaylist/${choosePlaylist}`)
-      .then(res=>console.log(res))
-      .catch(err=>{
-        console.error(err);
-        return;
-      });
+      const playlists = playlistData.filter((ele) => ele.user === localStorage.getItem("id"));
+      const songs = audioData.filter((ele) => ele.user === localStorage.getItem("id"));
 
-  }, [choosePlaylist]);
-  
-  const handleDelete = useCallback(e => {
-    e.preventDefault();
-    
-    axios
-      .delete(`https://illya-site-backend-production.up.railway.app/deletePlaylist/${playlistID}`)
-      .then(res=>console.log(res))
-      .catch(error=>{
-        console.error(error);
-        return;
-      });
-  
-    axios
-      .put("https://illya-site-backend-production.up.railway.app/deleteCurrentPlaylist")
-      .then(data=>console.log(data))
-      .catch(error=>{
-        console.error(error);
-        return;
-      })
-  }, [playlistID]);
+      setPlaylist(playlists);
+      setAudio(songs);
 
+      const currentUserData = await userContext;
+      setUser(currentUserData);
+    } catch (err) {
+      console.error(err);
+    }
+  }, [userContext]);
 
-  useEffect(()=>{
-
-    userContext.then(data=>{
-        setUser(data);
+  useEffect(() => {
+    userContext.then((data) => {
+      setUser(data);
     });
 
-    Promise.all([
-      fetch("https://illya-site-backend-production.up.railway.app/audio", {
-        cancelToken: source.token,
-      }),
-      fetch("https://illya-site-backend-production.up.railway.app/playlist", {
-        cancelToken: source.token,
-      })
-    ])
-    .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
-    .then(([data1, data2]) => {
-      try{
-        setAudio(data1);
-        setPlaylist(data2);
-      }catch(err){
+    fetchData();
+  }, [fetchData, userContext]);
+  
+  const getPlaylistID = useCallback(async()=>{
+    setChoosePlaylist(playlist.map(ele=>ele._id));
+  },[playlist]);
+
+  useMemo(getPlaylistID,[getPlaylistID]);
+
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+
+      try {
+        axios.put(`https://illya-site-backend-production.up.railway.app/choosePlaylist/${choosePlaylist[index.current.playlist]}`)
+          .then(res=>{
+            console.log(res);
+            window.location.reload();
+          })
+          .catch(err=>{
+            console.error(err)
+          });
+        
+      } catch (err) {
         console.error(err);
-        return;
       }
-    });
+    },
+    [choosePlaylist]
+  );
 
-   return () => {
-      source.cancel();
-    };
+  const handleDelete = useCallback(
+    async (e) => {
+      e.preventDefault();
 
-  },[]);
+      try {
+        await axios.put("https://illya-site-backend-production.up.railway.app/deleteCurrentPlaylist")
+          .then(res=>console.log(res))
+          .catch(err=>{
+            console.error(err);
+          })
 
-  // Load data for current user
-useEffect(() => {
-  const userId = localStorage.getItem("id");
-  const playlists = playlist.filter((ele) => ele.user === userId);
-  const songs = audio.filter((ele) => ele.user === userId);
-  setPlaylists(playlists);
-  setSongs(songs);
-}, [playlist, audio]);
+        await axios.delete(`https://illya-site-backend-production.up.railway.app/deletePlaylist/${choosePlaylist[index.current.playlist]}`)
+          .then(res=>{
+            console.log(res);
+            window.location.reload();
+          })
+          .catch(err=>{
+            console.error(err);
+          })
+      } catch (err) {
+        console.error(err);
+      }
+    }, [choosePlaylist]);
 
+  // Render playlist table
+  const playlistTable = useMemo(() =>{
+      const array = [];
 
- // Render playlist table
-const playlistTable = useMemo(() => {
-  return (
-      playlists.map((playlist) => (
+      playlist.forEach((playlist,i)=>{
+        array.push(
         <tr key={playlist._id}>
           <td>
             <form onSubmit={handleSubmit}>
-              <input
-                name="choosePlaylist"
-                value={playlist._id}
-                className="hidden"
-                readOnly={true}
-              />
-              <button
-                className="button"
-                onClick={() => {
-                  setChoosePlaylist(playlist._id);
-                }}
-              >
+              <button className="button" type="submit" onClick = {()=>index.current.playlist = i}>
                 {playlist.name}
               </button>
             </form>
           </td>
           <td>
-            <input
-              name="editPlaylist"
-              value={playlist._id}
-              className="hidden"
-              readOnly={true}
-            />
-            <Link
-              to={"/editPlaylist"}
-              onClick={() => localStorage.setItem("playlistID", playlist._id)}
-              className="fa-solid small fa-pen-to-square button"
-            ></Link>
+            <input name="editPlaylist" value={playlist._id} className="hidden" readOnly={true} />
+            <Link to={"/editPlaylist"} onClick={() => localStorage.setItem("playlistID", playlist._id)} className="fa-solid small fa-pen-to-square button"></Link>
           </td>
           <td>
             <form onSubmit={handleDelete}>
-              <button
-                onClick={() => {
-                  setPlaylistID(playlist._id);
-                }}
-                className="button small fa-solid fa-trash"
-                type="submit"
-              ></button>
+              <button onClick={() =>index.current.playlist = i} className="button small fa-solid fa-trash" type="submit"></button>
             </form>
           </td>
         </tr>
-      ))
-  );
-}, [playlists, 
-    handleSubmit, 
-    handleDelete, 
-    setChoosePlaylist, 
-    setPlaylistID]);
+      );
+    });
 
+    return array;
+
+  }, [playlist, handleSubmit, handleDelete])
 
 // Render song list
 const songList = useMemo(() => {
-  return songs
+  return audio
     .slice(startIndex, endIndex)
     .map((song) => (
       <Post
@@ -175,79 +141,81 @@ const songList = useMemo(() => {
         text={song.name}
       />
     ));
-}, [songs, startIndex, endIndex, user.userName]);
+}, [audio, startIndex, endIndex, user.userName]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
+
 // Update table and song list if data changes
 useEffect(() => {
-  if (playlists.length !== list.length) {
+  if (playlist && list && playlist.length !== list.length) {
     setList(playlistTable);
   }
-  if (songs.length !== rows.length) {
+  if (playlist && list && audio.length !== rows.length) {
     setRows(songList);
   }
-}, [playlists.length, songs.length, list.length, rows.length, playlistTable, songList]);
-  return(
-    <section className ="flex tables">
-      <div className = "table-wrapper">
+}, [ playlistTable, songList, audio.length, list, playlist, rows.length]);
 
-        <h2 className = "tableHeading">Songs</h2>
+return(
+  <section className ="flex tables">
+    <div className = "table-wrapper">
 
-        <table>
+    <h2 className = "tableHeading">Songs</h2>
 
-          <thead>
-            <tr>
-              <th>Song Name</th>
-              <th></th>
-              <th>Playlist</th>
-              <th>Delete</th>
-              <th>User</th>
-            </tr>
-          </thead>
+    <table>
 
-          <tbody>
-            {rows}
-          </tbody>
-        </table>
+      <thead>
+        <tr>
+          <th>Song Name</th>
+          <th></th>
+          <th>Playlist</th>
+          <th>Delete</th>
+          <th>User</th>
+        </tr>
+      </thead>
 
-        
-      <div className="pagination">
-          {Array.from({ length: Math.ceil(audio.length / rowsPerPage) }, (_, i) => (
-            <button 
-            key={i} 
-            onClick={() => {
-              handlePageChange(i + 1)
-            }}
-            className = "button small"
-            >
-              {i + 1}
-            </button>
-          ))}
-      </div>
-      </div>
+      <tbody>
+        {rows}
+      </tbody>
+    </table>
 
-      <div className = "table-wrapper">
-        <h2 className = "tableHeading">Playlists</h2>
+    
+    <div className="pagination">
+      {Array.from({ length: Math.ceil(audio.length / rowsPerPage) }, (_, i) => (
+        <button 
+          key={i} 
+          onClick={() => {
+            handlePageChange(i + 1)
+          }}
+          className = "button small"
+        >
+          {i + 1}
+        </button>
+      ))}
+    </div>
+    </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Playlist Name</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
+    <div className = "table-wrapper">
+      <h2 className = "tableHeading">Playlists</h2>
 
-          <tbody>
-            {list}  
-          </tbody>
+      <table>
+        <thead>
+          <tr>
+            <th>Playlist Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
 
-        </table>
-      </div>
-    </section>
+        <tbody>
+          {list}  
+        </tbody>
+
+      </table>
+    </div>
+  </section>
   )
 }
 

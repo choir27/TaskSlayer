@@ -23,7 +23,6 @@ const Account = () => {
     }
     catch(err){
       console.error(err);
-      return;
     }
     
     }, [userContext, 

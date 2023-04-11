@@ -8,7 +8,7 @@ module.exports = {
   sendMessage: async(req,res)=>{
     try{
       const message = await Message.create(req.body);
-      res.json(message);
+      res.status(200).json({message});
     }catch(err){
       console.error(err);
       res.status(500).send("Internal server error.");
@@ -34,7 +34,7 @@ module.exports = {
       );
 
       //Replaces song array that was spliced into current playlist song array
-      await CurrentPlaylist.findOneAndUpdate(
+      const updatedPlaylist = await CurrentPlaylist.findOneAndUpdate(
         {_id: "6413a94694c65b807a6ed151"},
         {playlist: playlist},
         {
@@ -42,6 +42,8 @@ module.exports = {
           runValidators: true,
         }
       );
+
+      res.status(200).json({updatedPlaylist});
 
     }catch(err){
       console.error(err);
@@ -56,7 +58,7 @@ module.exports = {
     await playlist.deleteOne({ _id: req.params.id });
 
     //replaces current playlist object with empty object
-    await CurrentPlaylist.findOneAndUpdate(
+    const updatedPlaylist = await CurrentPlaylist.findOneAndUpdate(
       {_id: "6413a94694c65b807a6ed151"},
       {playlist: {}},
       {
@@ -64,6 +66,8 @@ module.exports = {
         runValidators: true,
       }
       );
+
+    res.status(200).json({updatedPlaylist});
 
     }catch(err){
       console.error(err);
@@ -73,7 +77,7 @@ module.exports = {
   deleteCurrentPlaylist: async (req, res)=> {
     try{
       //replaces current playlist with empty object
-      await CurrentPlaylist.findOneAndUpdate(
+      const updatedPlaylist = await CurrentPlaylist.findOneAndUpdate(
         {_id: "6413a94694c65b807a6ed151"},
         {playlist: {}},
         {
@@ -81,6 +85,9 @@ module.exports = {
           runValidators: true,
         }
         );
+
+      res.status(200).json({updatedPlaylist});
+
     }catch(err){
       console.error(err);
       res.status(500).send("Internal server error.");
@@ -91,7 +98,6 @@ module.exports = {
 
       //finds playlist from req.params.id, and replaces itself into playlist object in current playlist model
       let playlist = await Playlist.findById(req.params.id);
-
       await CurrentPlaylist.findOneAndUpdate(
         {_id: "6413a94694c65b807a6ed151"},
         {playlist: playlist},
@@ -100,6 +106,9 @@ module.exports = {
           runValidators: true,
         }
         );
+
+        res.status(200).json({playlist});
+
     } catch (err) {
       console.error(err);
       res.status(500).send("Internal server error.");
@@ -107,11 +116,14 @@ module.exports = {
   },
   createPlaylist: async (req, res) => {
     try{
-        await Playlist.create({
+        const playlist = await Playlist.create({
             name: req.body.playlistName,
             user: req.body.user,
             songs: [],
         });
+
+        res.status(200).json({playlist});
+
     }catch(err){
         console.error(err);
         res.status(500).send("Internal server error.");
@@ -139,7 +151,7 @@ module.exports = {
           );
       }
           
-      await Playlist.findOneAndUpdate({_id: req.body.playlist},
+      const updatedPlaylist = await Playlist.findOneAndUpdate({_id: req.body.playlist},
         {
         songs : playlist.songs
         }
@@ -147,6 +159,9 @@ module.exports = {
         new: true,
         runValidators: true,
       })
+
+      res.status(200).json({updatedPlaylist});
+
             
     }catch(err){
       console.error(err);
@@ -180,7 +195,7 @@ module.exports = {
       await cloudinary.uploader.destroy(post.cloudinaryId);
       await Audio.deleteOne({ _id: req.params.id });
 
-      await CurrentPlaylist.findOneAndUpdate(
+      const updatedPlaylist = await CurrentPlaylist.findOneAndUpdate(
         {_id: "6413a94694c65b807a6ed151"},
         {playlist: {}},
         {
@@ -189,6 +204,8 @@ module.exports = {
         }
         );
       
+      res.status(200).json({updatedPlaylist});
+
     }catch(err){
       console.error(err);
       res.status(500).send("Internal server error.");

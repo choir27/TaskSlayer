@@ -3,16 +3,12 @@ import Assets from "../components/Assets"
 import UserHeader from "../components/UserHeader"
 import Header from "../components/Header"
 
-import {useContext} from "react"
-import {MyContext} from "../middleware/Context"
-
 const About = () => {
 
-  const UserContext = useContext(MyContext);
-
+  
   return (
     <div>
-      {UserContext ? <UserHeader/> : <Header/>}
+      {localStorage.getItem("id") ? <UserHeader/> : <Header/>}
       <div id="main">
         <article className="post">
           <section className="major">
