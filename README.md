@@ -1,26 +1,28 @@
 # Illya-Site-React
 
-Taking the foundations created by this repository, https://github.com/choir27/Illya-Site, this project strives to take the Illya website and not only improve the UI, but also apply React elements to various aspects of the web application.
+Taking the foundations created by this repository, https://github.com/choir27/Illya-Site, this project strives to take the Illya website and not only improve the UI, but also apply React elements to various aspects of the web application and change the web application intentions and content to better suit the music theme.
 
+<a href = "https://kpopwired.netlify.app/">
+<img width="946" alt="Screenshot 202<img width="941" alt="Screenshot 2023-04-13 154133" src="https://user-images.githubusercontent.com/66279068/231866114-5a8c6cf0-ac63-4ee6-8413-b4bab52aeb74.png">
+</a>
 
-![Illya](https://user-images.githubusercontent.com/66279068/220187754-5403c5b6-a1b6-4f43-ad72-c181e766bcda.png)
+<div align = "center"><a href = "https://kpopwired.netlify.app/">Check out the website!</a></div>
 
-- [X] Use the respective users' unique id in the database to tell the code which Header to show (one for logged in users, and one for guests only).
-- [X] Add user info when posting audio file relative to who is logged in
-- [X] Clean up Account page to look more like a website user account page
-- [X] Add component for uploading audio to use on verified pages
-- [X] Show audios that have been added by various users, showing which post belongs to which user
-- [X] Allow users to delete/add/edit(?) songs to application
-- [X] Add option for user account playlist, where the respective user can add, remove songs, and add, edit, and remove playlists
-- [X] Add option for user account to add songs from other users to their own respective playlist
-- [X] Enable sending message directly to the website creator
-- [X] Change certain aspects of the UI that is seen by the user by checking if the user is authenticated to enter
-- [X] Update old illya UI to more modern look
-- [X] Change code from express/ejs to express/react for frontend
-- [X] Allow user to create an account or log in, adding user data to the database
-- [X] Allow the user to logout of their account and go back to being a guest
-  - [?] Make sure when the user logs out, all data in the local storage is unavailable and the UI changes to guest viewer mode
-- [X] Allow user to post audio file from anywhere in their computer
+## How It's Made: Tech used: React, jsx, Node
+
+I retrieved all audio and playlist posts from a separate backend API and used state to dynamically render the fetched data so that the JSX elements could load the updated data. To register/sign in users, I sent the user data using fetch and headers, utilizing the same database. With the help of React Outlet, I created private routes to authenticate those users. Additionally, I implemented a feature that enables logged-in users not only to listen to music tracks but also to add songs from any user to their created playlists.  I also implemented a feature that ensures that when a user removes a song from a playlist, the song is not deleted but simply removed from the playlist.  Additionally, I made it so that when the user posts an audio file, there is a loading text before the POST request finishes.
+
+ ## Optimizations 
+ 
+Using useCallback and useMemo, I memoized many of the functions I needed to utilize to prevent unnecessary re-rendering, thus increasing the render speed of the overall application.  I also changed most of the logic to either O(n) or O(1) by using different data types, reducing the memory required to render the code and significantly increasing how fast the application loads.  Also, instead of placing the video files directly into the code, I used a link to redirect the user to the video link on YouTube to reduce the memory required to host multiple large video files.  I am thinking of adding a search function so that users and guests can look up song titles/playlist titles/users for easier access and a way for users to delete their accounts.  I also want to eventually change the code so that whenever the user deletes a song, it removes said music track from every playlist.
+
+## Lessons Learned: 
+
+I discovered the importance of rendering speed when building web applications. Although I couldn't optimize every aspect of my code to run at O(1), I'm grateful for the experience and the opportunity to learn new skills that I can apply to future projects. During this project, I gained knowledge about various elements of React, such as useEffect, useContext, useMemo, useNavigate, useHistory, and many others. I'm thrilled to continue experimenting with these features in upcoming projects.
+
+## Examples: 
+Take a look at these couple examples that I have in my own portfolio: The Real Estate Beast https://therealestatebeast.netlify.app/ For Everything Priconne: https://odd-blue-cuttlefish-coat.cyclic.app/
+
 
 
 
