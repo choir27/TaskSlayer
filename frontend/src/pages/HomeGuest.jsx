@@ -3,11 +3,13 @@ import Footer from "../components/Footer"
 import Assets from "../components/Assets"
 import Button from "../components/Button"
 import Header from "../components/Header"
+import NavPanel from "../components/NavPanel"
 
 const HomeGuest = () => {
   return (
-	<div id="wrapper" class="fade-in">
-		<Header/>
+	<div id="wrapper">
+		<NavPanel />
+		<Header idName = "nav"/>
 		<div id = "main">
 
 			<article className = "post featured">

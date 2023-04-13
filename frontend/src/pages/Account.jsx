@@ -8,6 +8,7 @@ import {useContext,
         useState} from "react"
 
 import {MyContext} from "../middleware/Context"
+import NavPanel from "../components/NavPanel"
 
 
 const Account = () => {
@@ -29,8 +30,9 @@ const Account = () => {
         user])
 
   return (
-    <div>  
-      <UserHeader />  
+    <div id = "wrapper">  
+      <NavPanel />
+      <UserHeader idName = "nav" />  
         <div id = "main">
           <article className = "post">
             <section className="major column flex">

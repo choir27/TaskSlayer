@@ -2,6 +2,7 @@ import Footer from "../components/Footer"
 import Header from "../components/Header"
 import Button from "../components/Button"
 import axios from "axios"
+import NavPanel from "../components/NavPanel"
 
 import {useState, 
         useEffect,
@@ -48,7 +49,7 @@ const Dashboard = () => {
     fetchData();
 
     localStorage.setItem("display", display);
-  },[]);
+  },[fetchData, display]);
 
 
   useMemo(() => {
@@ -125,8 +126,9 @@ const handlePageChange = (newPage) => {
 }
 
   return (
-    <div>
-      <Header/>
+    <div id = "wrapper">
+      <NavPanel/>
+      <Header idName = "nav"/>
       <div id = "main">
         <section className="major column flex">
           <h1 className = "flex justifyContent">Dashboard</h1>

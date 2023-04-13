@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom"
 
 import {MyContext} from "../middleware/Context"
 import axios from "axios"
+import NavPanel from "../components/NavPanel"
 
 const PlayMusic = () => {
   const userContext = useContext(MyContext);
@@ -154,8 +155,9 @@ const PlayMusic = () => {
   },[audio, navigate]);
 
   return (
-    <div>
-      {currentUser ? <UserHeader/> : <Header/>}
+    <div id = "wrapper">
+      <NavPanel/>
+      {currentUser ? <UserHeader idName = "nav"/> : <Header idName = "nav"/>}
       <div id="main">
         <article className="post">
           <section className="major">

@@ -7,6 +7,7 @@ import {MyContext} from "../middleware/Context"
 import {useContext, 
 		useEffect, 
 		useState} from "react"
+import NavPanel from "../components/NavPanel"
 
 const HomeAuth = () => {
 
@@ -22,8 +23,9 @@ const HomeAuth = () => {
 
 
   return (
-	<div>
-		<UserHeader/>
+	<div id = "wrapper">
+		<NavPanel />
+		<UserHeader idName = "nav"/>
 			<div id="main">
 				<article className = "post featured">
 					<section className = "major">

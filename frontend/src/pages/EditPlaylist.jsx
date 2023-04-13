@@ -3,6 +3,7 @@ import Footer from "../components/Footer"
 import PlaylistSong from "../components/PlaylistSong"
 import { useEffect, useState, useContext } from "react"
 import { MyContext } from "../middleware/Context"
+import NavPanel from "../components/NavPanel"
 
 const EditPlaylist = () => {
   const userContext = useContext(MyContext);
@@ -67,8 +68,9 @@ const EditPlaylist = () => {
 
 
   return (
-    <div>
-      <UserHeader />
+    <div id = "wrapper">
+      <NavPanel/>
+      <UserHeader idName = "nav" />
       <div id="main">
         <article className="post featured">
           <section className="major">

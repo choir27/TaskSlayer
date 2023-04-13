@@ -2,22 +2,32 @@ import {Link,
 		useNavigate} from "react-router-dom"
 import {useCallback} from "react"
 
-const UserHeader = () => {
+const UserHeader = ({idName, id, setToggleClose, toggleClose, setToggleNav}) => {
 
-	const navigate = useNavigate();
-
+	const navigate = useNavigate();	
 	const logout = useCallback((e) => {
 		e.preventDefault();
 		localStorage.removeItem("id");
-		navigate("/");
-
+		navigate("/");	
 		if(!localStorage.getItem("id")){
 			window.location.reload();
 		}
-	},[navigate]);
+	},[navigate]);	
 
-  return ( 
-	<header id = "navPanel">
+	return ( 
+	<header id = {idName}>
+
+		{toggleClose ?
+			<i 
+			className="fa-solid fa-x fa-2xl" 
+			id ="close"
+			onClick = {()=>{
+				setToggleClose(false);
+				setToggleNav(true);
+			}}></i>
+			:
+			""
+		}
 
 		<div id = "intro">
 			<Link to = "/">
@@ -25,7 +35,7 @@ const UserHeader = () => {
 			</Link>
 	  	</div> 
 
-        <nav id="nav">
+        <nav id="navPanel">
 
 			<ul className="links">
               	<li>

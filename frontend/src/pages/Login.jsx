@@ -5,6 +5,7 @@ import {useState,
         useEffect,
         useCallback} from "react"
 import {useNavigate} from "react-router-dom"
+import NavPanel from "../components/NavPanel"
 
 const Login = ({onAdd}) => {
 
@@ -52,8 +53,9 @@ const Login = ({onAdd}) => {
   },[email, password, navigate, onAdd]);
 
   return (
-   <div>
-      <Header/>
+   <div id = "wrapper">
+      <NavPanel/>
+      <Header idName = "nav"/>
       <div id = "main">
         <article className = "post" id = "account">
           <section className="major column flex">

@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../components/Header"
 import Footer from "../components/Footer";
 import Button from "../components/Button"
-
+import NavPanel from "../components/NavPanel"
 import {GetUser} from "../hooks/FetchHooks"
 
 const NAME_REGEX = /^[a-zA-Z]*$/;
@@ -106,8 +106,9 @@ const Register = ({onAdd}) => {
     }, [navigate, onAdd, name, email, password, userName, matchPassword, users])
 
   return (
-    <div>
-      <Header/>
+    <div id = "wrapper">
+      <NavPanel />
+      <Header idName = "nav"/>
       <div id = "main">
       <article 
         className = "post" 

@@ -2,13 +2,14 @@ import Footer from "../components/Footer"
 import Assets from "../components/Assets"
 import UserHeader from "../components/UserHeader"
 import Header from "../components/Header"
+import NavPanel from "../components/NavPanel"
 
 const About = () => {
 
-  
   return (
-    <div>
-      {localStorage.getItem("id") ? <UserHeader/> : <Header/>}
+    <div id = "wrapper">
+      <NavPanel />
+      {localStorage.getItem("id") ? <UserHeader idName = "nav"/> : <Header idName = "nav"/>}
       <div id="main">
         <article className="post">
           <section className="major">

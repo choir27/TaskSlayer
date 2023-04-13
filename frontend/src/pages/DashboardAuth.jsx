@@ -1,15 +1,14 @@
 import {useState, 
         useEffect,
         useMemo,
-        useCallback,
-        useContext} from "react"
-import {MyContext} from "../middleware/Context"
+        useCallback} from "react"
 import axios from "axios"
 import Footer from "../components/Footer"
 import UserHeader from "../components/UserHeader"
 import Post from "../components/Post"
 import Button from "../components/Button"
 import DashboardPlaylist from "../components/DashboardPlaylist"
+import NavPanel from "../components/NavPanel"
 
 const Dashboard = () => {
   
@@ -22,8 +21,6 @@ const Dashboard = () => {
 
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
-
-  const userContext = useContext(MyContext);
 
   const fetchData = useCallback(async () => {
     try {
@@ -46,7 +43,7 @@ const Dashboard = () => {
     fetchData();
 
     localStorage.setItem("display", display);
-  },[display]);
+  },[display, fetchData]);
 
   useMemo(()=>{
 
@@ -90,8 +87,9 @@ const Dashboard = () => {
     
 
   return (
-    <div>
-      <UserHeader/>
+    <div id = "wrapper">
+      <NavPanel/>
+      <UserHeader idName = "nav"/>
       <div id = "main">
 
         <section className="major column flex">

@@ -7,6 +7,7 @@ import {MyContext} from "../middleware/Context"
 import {toast} from "react-toastify"
 import PostPlaylist from "../components/PostPlaylist"
 import {useNavigate} from "react-router-dom"
+import NavPanel from "../components/NavPanel"
 
 class FilesUploadComponent extends Component {
   constructor(props) {
@@ -68,8 +69,9 @@ class FilesUploadComponent extends Component {
 
   render(){
     return (
-      <div>
-        <UserHeader />
+      <div id = "wrapper">
+        <NavPanel/>
+        <UserHeader idName = "nav"/>
         <div id="main">
           <article className="post featured">
 

@@ -1,14 +1,28 @@
 import {Link} from "react-router-dom"
 
-const Header = () => {
+const Header = ({idName, id, setToggleClose, toggleClose, setToggleNav}) => {
 
-  return ( 
-		<header>
+	return ( 
+		<header id = {id}>
+
+			{
+			toggleClose ?
+				<i 
+				className="fa-solid fa-x fa-2xl" 
+				id ="close"
+				onClick = {()=>{
+					setToggleClose(false);
+					setToggleNav(true);
+				}}></i>
+			:
+				""
+			}
+
 			<div id = "intro" >
 				<Link to = "/"><h1>Illya Fansite</h1></Link>
 		  	</div> 
 
-    	    <nav id="nav">
+    	    <nav id={idName}>
 				<ul className="links">
     	          	<li><Link to = "/">Home</Link></li>
     	          	<li><Link to = "/about">About</Link></li>
