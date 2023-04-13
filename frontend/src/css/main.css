@@ -2057,3 +2057,17 @@ table.alt tbody tr td {
 #nav.sticky {
 	top: -100px;
   }
+
+#playMusic select{
+	margin-left: 1rem;
+	margin-right: 2rem;
+}
+
+#playMusic select:hover{
+	cursor: pointer;
+	border: 2px solid #18bfef;
+}
+
+#playMusic form{
+	margin-right: 2rem;	
+}

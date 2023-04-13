@@ -1,34 +1,29 @@
-import Footer from "../components/Footer"
-import UserHeader from "../components/UserHeader"
-import Header from "../components/Header"
-import {useEffect, useState, useContext, useCallback, useMemo} from "react"
-import {toast} from "react-toastify"
-import {useNavigate} from "react-router-dom"
-
-import {MyContext} from "../middleware/Context"
-import axios from "axios"
-import NavPanel from "../components/NavPanel"
+import { useEffect, useState, useContext, useCallback, useMemo } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { MyContext } from "../middleware/Context";
+import axios from "axios";
+import NavPanel from "../components/NavPanel";
+import Header from "../components/Header";
+import UserHeader from "../components/UserHeader";
+import Footer from "../components/Footer";
 
 const PlayMusic = () => {
   const userContext = useContext(MyContext);
   const [audioSource, setAudioSource] = useState({});
-
   const [user, setUser] = useState({});
   const [currentUser, setCurrentUser] = useState({});
-
-  const [listOfPlaylists, setListOfPlaylists] = useState({});
+  const [listOfPlaylists, setListOfPlaylists] = useState([]);
   const [listOfAudio, setListOfAudio] = useState([]);
   const [listOfUsers, setListOfUsers] = useState([]);
-
-  const [playlist, setPlaylist] = useState('');
-
-  const audio = localStorage.getItem("song");
-  const navigate =useNavigate();
-
+  const [playlist, setPlaylist] = useState("");
   const [rows, setRows] = useState([]);
 
+  const audio = localStorage.getItem("song");
+  const navigate = useNavigate();
+
   const fetchData = useCallback(async () => {
-    try{
+    try {
       const { data: playlistData } = await axios.get(
         "https://illya-site-backend-production.up.railway.app/playlist"
       );
@@ -42,81 +37,90 @@ const PlayMusic = () => {
       setListOfUsers(userData);
       setListOfAudio(audioData);
       setListOfPlaylists(playlistData);
-    }catch(err){
+    } catch (err) {
       console.error(err);
     }
-  }, [])
+  }, []);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     fetchData();
-  },[fetchData]);
+  }, [fetchData]);
 
-  useMemo(()=>{
-
+  const memoizedOptions = useCallback(() => {
     const array = [];
 
-    if(listOfPlaylists.length){
-    listOfPlaylists.forEach((ele)=>{
-      if(ele.user === localStorage.getItem("id")){
-        array.push(<option value = {ele._id} key = {ele._id}>{ele.name}</option> )
-      };
-    });
-
-    setRows(array);
-  }
-  },[listOfPlaylists]);
-
-
-    userContext.then(data=>{
-        setCurrentUser(data);
-    });
-
-
-    useMemo(()=>{
-      if(audio){
-        // Create a dictionary that maps _id values to their corresponding ele objects
-        const songMap = {};
-        listOfAudio.forEach(ele=>{
-            songMap[ele._id] = ele;
-
-        // Look up the desired ele object in constant time
-        const selectedSong = songMap[audio];
-
-        if (selectedSong) {
-          setAudioSource(selectedSong);
-
-          setUser(listOfUsers.find(element=>element._id === selectedSong.user));
+    if (listOfPlaylists) {
+      listOfPlaylists.forEach((ele) => {
+        if (ele.user === localStorage.getItem("id")) {
+          array.push(
+            <option value={ele._id} key={ele._id}>
+              {ele.name}
+            </option>
+          );
         }
-        });
+      });
+    }
 
+    return array;
+  }, [listOfPlaylists]);
+
+  useMemo(() => setRows(memoizedOptions()), [memoizedOptions]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await userContext;
+        setCurrentUser(data);
+      } catch (err) {
+        console.error(err);
       }
-    },[audio, listOfAudio, listOfUsers])
+    }
+
+    fetchData();
+  }, [userContext]);
+
+  useMemo(() => {
+    if (audio && listOfAudio && listOfUsers) {
+      // Create a dictionary that maps _id values to their corresponding ele objects
+      const songMap = {};
+      listOfAudio.forEach((ele) => {
+        songMap[ele._id] = ele;
+      });
+      // Look up desired object
+      const selectedSong = songMap[audio];
+      if (selectedSong) {
+        setAudioSource(selectedSong);
+        setUser(
+          listOfUsers.find((element) => element._id === selectedSong.user)
+        );
+      }
+    }
+  }, [audio, listOfAudio, listOfUsers]);
 
   const handleAddToPlaylist = useCallback(async (e) => {
     e.preventDefault();
+    
+    if(playlist !== ""){
 
-    if(listOfPlaylists[0].songs){
-      for(let i = 0; i <listOfPlaylists[0].songs.length; i++){
-        if(listOfPlaylists[0].songs[i]._id === audio){
-          toast.error("Song already exists in playlist");
-          return;
+      if(listOfPlaylists.songs){
+        for(let i = 0; i <listOfPlaylists.songs.length; i++){
+          if(listOfPlaylists.songs[i]._id === audio){
+            toast.error("Song already exists in playlist");
+            return;
+          };
         };
       };
-    };
-
-    if(playlist !== ""){
 
       try{
         const formData = new URLSearchParams();
         formData.append("playlist", playlist);
 
-        axios
+        await axios
           .put(`https://illya-site-backend-production.up.railway.app/addToPlaylist/${audio}`, formData, {})
           .then(res=>res.json())
           .catch(err=>console.error(err));
 
-        axios
+        await axios
           .put(`https://illya-site-backend-production.up.railway.app/choosePlaylist/${playlist}`, formData, {})
           .then(res=>{
             console.log(res)
@@ -134,10 +138,10 @@ const PlayMusic = () => {
    
   },[audio, navigate, playlist, listOfPlaylists])
 
-  const handleDelete = useCallback((e) => {
+  const handleDelete = useCallback(async(e) => {
     e.preventDefault();
     try{
-      axios
+      await axios
       .delete(`https://illya-site-backend-production.up.railway.app/deletePost/${audio}`)
       .then(res=>{
         console.log(res);
@@ -172,20 +176,17 @@ const PlayMusic = () => {
                   src = {audioSource.audio}
                 />
 
+            <section className = "flex" id = "playMusic">
                 {currentUser ?
-                    <form onSubmit={handleAddToPlaylist}>
-                      <select name = "playlist"
-                        onChange = {(e)=>{
-                        setPlaylist(e.target.value)
-                        }}
-                      >
-                        <option value = ""></option>
-                        {rows}
-                      </select>
-
-                      <button 
-                        className="fa-solid fa-plus button small" 
-                        type = "submit"/>
+                      <form onSubmit={handleAddToPlaylist}>
+                        <select name = "playlist"
+                          onChange = {(e)=>{
+                          setPlaylist(e.target.value)}}
+                        >
+                          <option value = ''></option>
+                          {rows}
+                        </select>
+                        <button className="fa-solid fa-plus button small" type = "submit" onClick = {()=>localStorage.setItem("playlistID",playlist)}/>
                     </form>
                 : ""             
                 }
@@ -202,6 +203,8 @@ const PlayMusic = () => {
                   </form>
                : ""
               }
+          </section>
+
             </section>
         </section>
         </article>

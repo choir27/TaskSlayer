@@ -18,8 +18,6 @@ const Post = ({ text,
   const [table, setTable] = useState([]);
   const navigate = useNavigate();
 
-  
-
   const fetchData = useCallback(async () => {
     try{
       const { data: playlistData } = await axios.get(
@@ -40,9 +38,8 @@ const Post = ({ text,
   },[fetchData]);
 
   const handleDelete = useCallback((e) => {
+    e.preventDefault();
     try{
-      e.preventDefault();
-
       axios
         .delete(`https://illya-site-backend-production.up.railway.app/deletePost/${id}`)
         .then(res=>{
@@ -60,20 +57,19 @@ const Post = ({ text,
     }
   
   }, [id]);
+  
 
   const handleAddToPlaylist = useCallback(async (e) => {
+    e.preventDefault();
     try{
-      e.preventDefault();
+      if(songs) {
+        for(let index = 0; index < songs.length; index++){
+          if (songs[index].songs.some(song => song._id === id)) {
+            toast.error("Song already exists in playlist");
+            return;
+          }
+        }
 
-      const list = songs.find(ele=>ele._id === playlist);
-
-      for(let i = 0; i < list.length; i++){
-        if(list.songs[i]._id === id){
-          toast.error("Song already exists in playlist");
-          return;
-        };
-      };
-      
       if(playlist !== ""){
 
         const formData = new URLSearchParams();
@@ -98,7 +94,8 @@ const Post = ({ text,
         toast.error("Please Choose A Valid Option");
         return;
       };
-    
+      }
+
     }catch(err){
       console.error(err);
       return;
