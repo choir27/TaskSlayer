@@ -19,10 +19,10 @@ const Header = ({idName, id, setToggleClose, toggleClose, setToggleNav}) => {
 			}
 
 			<div id = "intro" >
-				<Link to = "/"><h1>Illya Fansite</h1></Link>
+				<Link to = "/"><h1>K-pop Wired</h1></Link>
 		  	</div> 
 
-    	    <nav id={idName}>
+    	    <nav id={idName} className = "className">
 				<ul className="links">
     	          	<li><Link to = "/">Home</Link></li>
     	          	<li><Link to = "/about">About</Link></li>

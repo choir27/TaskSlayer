@@ -24,13 +24,13 @@ const HomeAuth = () => {
 
   return (
 	<div id = "wrapper">
-		<NavPanel />
+				<NavPanel />
 		<UserHeader idName = "nav"/>
 			<div id="main">
 				<article className = "post featured">
 					<section className = "major">
 						<h1 className = "flex justifyContent">
-							<Link to = "/">Welcome {user.userName} to the Illya Site!</Link>
+							<Link to = "/">Welcome {user.userName} to K-pop Wired!</Link>
 						</h1>
 
 						<p>A wholesome site dedicated to the cutest student and sister servant Illyasviel Von Einzbern; with her cute design, voice, and outfits, this site introduces it all.  Add various content to your customized account!</p>
@@ -41,8 +41,8 @@ const HomeAuth = () => {
 					className="image main"
 					>
 						<img 
-						src= {Assets.Melusine} 
-						alt="Melusine fan art with moon in the background" 
+						src= {Assets.SNSD} 
+						alt="All members of the Korean Pop group Girls Generation wearing formal dresses posing" 
 						loading="lazy"
 						/>
 					</Link>
@@ -76,10 +76,11 @@ const HomeAuth = () => {
 								to="/dashboard" 
 								className="image main"
 							>
-								<img 
-								src= {Assets.Drawing} 
-								alt="Illya Prisma Movie Art Artoria Skin" 
-								loading="lazy"/>
+							<img 
+							src= {Assets.BTS} 
+							alt="All members of the Korean pop guy group Bangtan Boys (BTS) smiling" 
+							loading="lazy"
+							/>
 							</Link>
 		
 							<p>See what content users have posted using accounts they have registered through this website.</p>
@@ -112,10 +113,10 @@ const HomeAuth = () => {
 								to = "/about" 
 								className="image main">
 								<img 
-									src= {Assets.HeavenArt} 
-									alt="Illya fanart in the forest with a blue bird in all varying blue color pallettes" 
-									loading="lazy"
-								/>
+								src= {Assets.Ailee} 
+								alt="Korean Solo Artist Ailee smiling for her tenth anniversary" 
+								loading="lazy"
+							/>
 							</Link>
 									
 							<p>Find out more about the character Illya, as well as her many different variations that have been created over the years.</p>

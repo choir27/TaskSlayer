@@ -8,7 +8,7 @@ import NavPanel from "../components/NavPanel"
 const HomeGuest = () => {
   return (
 	<div id="wrapper">
-		<NavPanel />
+	<NavPanel />
 		<Header idName = "nav"/>
 		<div id = "main">
 
@@ -17,10 +17,10 @@ const HomeGuest = () => {
 				<section className = "major">
 
 					<h1 className = "flex justifyContent">
-						<Link to = "/">Welcome to the Illya Site!</Link>
+						<Link to = "/">Welcome to K-pop Wired!</Link>
 					</h1>
 
-					<p>A wholesome site dedicated to the cutest student and sister servant Illyasviel Von Einzbern; with her cute design, voice, and outfits, this site introduces it all.  Register/Login to see exclusive content made from our various users!</p>
+					<p>A site dedicated to introducing the culture of the Korean Pop industry, giving users the opportunity to share their own favorite tunes and create unique playlists with varying music tracks!</p>
 				</section>
 
 				<Link 
@@ -28,8 +28,8 @@ const HomeGuest = () => {
 				className="image main"
 				>
 					<img 
-					src= {Assets.Melusine} 
-					alt="Melusine fan art with moon in the background" 
+					src= {Assets.SNSD} 
+					alt="All members of the Korean Pop group Girls Generation wearing formal dresses posing" 
 					loading="lazy"
 					/>
 				</Link>
@@ -64,8 +64,8 @@ const HomeGuest = () => {
 							className="image main"
 						>
 							<img 
-							src= {Assets.Drawing} 
-							alt="Illya Prisma Movie Art Artoria Skin" 
+							src= {Assets.BTS} 
+							alt="All members of the Korean pop guy group Bangtan Boys (BTS) smiling" 
 							loading="lazy"
 							/>
 						</Link>
@@ -93,7 +93,7 @@ const HomeGuest = () => {
 						<h2>
 							<Link 
 								to = "/about">
-								Who is Illya?
+								What is K-pop?
 							</Link>
 						</h2>
 		
@@ -102,13 +102,13 @@ const HomeGuest = () => {
 							className="image main"
 						>
 							<img 
-								src= {Assets.HeavenArt} 
-								alt="Illya fanart in the forest with a blue bird in all varying blue color pallettes" 
+								src= {Assets.Ailee} 
+								alt="Korean Solo Artist Ailee smiling for her tenth anniversary" 
 								loading="lazy"
 							/>
 						</Link>
 								
-						<p>Find out more about the character Illya, as well as her many different variations that have been created over the years.</p>
+						<p>Find out more about the culture of K-pop, the industry's history, and the many groups within.</p>
 
 					</section>
 

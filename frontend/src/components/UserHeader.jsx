@@ -2,7 +2,7 @@ import {Link,
 		useNavigate} from "react-router-dom"
 import {useCallback} from "react"
 
-const UserHeader = ({idName, id, setToggleClose, toggleClose, setToggleNav}) => {
+const UserHeader = ({idName, id ,setToggleClose, toggleClose, setToggleNav}) => {
 
 	const navigate = useNavigate();	
 	const logout = useCallback((e) => {
@@ -15,7 +15,7 @@ const UserHeader = ({idName, id, setToggleClose, toggleClose, setToggleNav}) => 
 	},[navigate]);	
 
 	return ( 
-	<header id = {idName}>
+	<header id = {id}>
 
 		{toggleClose ?
 			<i 
@@ -31,11 +31,11 @@ const UserHeader = ({idName, id, setToggleClose, toggleClose, setToggleNav}) => 
 
 		<div id = "intro">
 			<Link to = "/">
-				<h1>Illya Fansite</h1>
+				<h1>K-pop Wired</h1>
 			</Link>
 	  	</div> 
 
-        <nav id="navPanel">
+        <nav id={idName}>
 
 			<ul className="links">
               	<li>
