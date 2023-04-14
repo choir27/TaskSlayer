@@ -37,7 +37,7 @@ const PostPlaylist = () => {
                     .post("https://illya-site-backend-production.up.railway.app/createPlaylist", formData, {})
                     .then(res=>{
                         console.log(res);
-                        navigate("/");
+                        navigate("/account");
                     })
                     .catch(err=>{
                         console.error(err)

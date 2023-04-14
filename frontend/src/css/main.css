@@ -1918,7 +1918,7 @@ table.alt tbody tr td {
 		z-index: 0;
 	}
 
-	#body #intro h1, #body #main, #body #footer{
+	#body #intro h1, #body #intro, #body #main, #body #footer{
 		z-index: 0;
 		position: relative;
 	}
