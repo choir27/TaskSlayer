@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const methodOverride = require("method-override");
 const logger = require("morgan");
 const passport = require("passport");
 const connectDB = require("./config/database");
@@ -30,9 +29,6 @@ app.use(express.json());
 
 //Logging
 app.use(logger("dev"));
-
-//Use forms for put / delete
-app.use(methodOverride("_method"));
 
 app.use(session({
   secret: "keyboard cat",
