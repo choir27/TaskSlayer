@@ -99,13 +99,16 @@ const Dashboard = () => {
           <tr key={song._id}>
             <td>{song.name}</td>
             <td>
-              <Link
+              <button
                 className="button small"
-                to="/playMusic"
-                onClick={() => localStorage.setItem("song", song._id)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  localStorage.setItem("song", song._id);
+                  window.location.reload();
+                }}
               >
                 Play
-              </Link>
+              </button>
             </td>
             <td></td>
             <td></td>
@@ -126,15 +129,7 @@ const handlePageChange = (newPage) => {
 }
 
   return (
-    <div id = "wrapper">
-      <NavPanel/>
-      <Header idName = "nav"/>
-      <div id = "main">
-        <section className="major column flex">
-          <h1 className = "flex justifyContent">Dashboard</h1>
-
-      {/*Toggle between displaying playlists/songs*/}
-
+    <div>
       <div className = "flex">
 
          <Button 
@@ -213,14 +208,7 @@ const handlePageChange = (newPage) => {
 
       }
 
-        </section>
-      </div>
-      <Footer />
 
-      <div id="copyright">
-        &copy; choir Design: HTML5 UP
-      </div>
-      
     </div>
   )
 }

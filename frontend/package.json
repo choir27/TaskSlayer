@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "proxy": "https://kpopwired.netlify.app",
+  "proxy": "https://illya-site-backend-production.up.railway.app",
   "description": "",
   "main": "index.js",
   "scripts": {
