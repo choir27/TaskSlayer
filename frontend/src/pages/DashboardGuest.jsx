@@ -1,15 +1,11 @@
-import Footer from "../components/Footer"
-import Header from "../components/Header"
 import Button from "../components/Button"
 import axios from "axios"
-import NavPanel from "../components/NavPanel"
-
+import {Link} from "react-router-dom"
 import {useState, 
         useEffect,
         useMemo,
         useCallback} from "react"
 
-import {Link} from "react-router-dom"
 const Dashboard = () => {
   
   const [rows, setRows] = useState([]);
@@ -68,7 +64,7 @@ const Dashboard = () => {
       if (user) {
         result.push(
           <tr key={playlistList._id}>
-            <td>{playlistList.name}</td>
+            <td><Link className = "button" to = "/editPlaylist" onClick = {()=>localStorage.setItem("playlistID", playlistList._id)}>{playlistList.name}</Link></td>
             <td></td>
             <td></td>
             <td>{user.userName}</td>

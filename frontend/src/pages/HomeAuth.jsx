@@ -5,6 +5,7 @@ import {useContext,
 		useEffect, 
 		useState} from "react"
 import {default as MusicPlayer} from "../components/MusicPlayer.tsx"
+import DashboardAuth from "./DashboardAuth"
 import NavPanel from "../components/NavPanel"
 
 const HomeAuth = () => {
@@ -26,12 +27,13 @@ const HomeAuth = () => {
 		<UserHeader idName = "nav"/>
 			<div id="main">
 				<MusicPlayer/>
+				<DashboardAuth/>
 			</div>
 
 		<Footer/>
 
 		<div id="copyright">
-			&copy; choir Design: HTML5 UP
+			K-pop Wired &copy; 2023. All rights are reserved
 		</div>
 
 	</div>

@@ -1,6 +1,7 @@
 {
   "name": "kpop-wired",
   "version": "2.6.0",
+  "proxy": "https://illya-site-backend-production.up.railway.app",
   "description": "audio sharing application",
   "main": "server.js",
   "dependencies": {

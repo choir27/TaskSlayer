@@ -1,12 +1,10 @@
 import UserHeader from "../components/UserHeader"
 import Footer from "../components/Footer"
 import PlaylistSong from "../components/PlaylistSong"
-import { useEffect, useState, useContext } from "react"
-import { MyContext } from "../middleware/Context"
+import { useEffect, useState} from "react"
 import NavPanel from "../components/NavPanel"
 
 const EditPlaylist = () => {
-  const userContext = useContext(MyContext);
   const [list, setList] = useState([]);
   const [playlist, setPlaylist] = useState({});
   const [table, setTable] = useState([]);
@@ -19,11 +17,10 @@ const EditPlaylist = () => {
 
         fetch("https://illya-site-backend-production.up.railway.app/playlist")
           .then(res=>res.json())
-          .then(data=>{
+          .then(data=>{            
 
             const currentPlaylist = data.find(ele => ele._id === playlistID);
             setPlaylist(currentPlaylist);
-
             if (currentPlaylist) {
 
               currentPlaylist.songs.forEach(song =>{
@@ -64,7 +61,7 @@ const EditPlaylist = () => {
         console.log(error);
       }
 
-  }, [userContext, list]);
+  }, [list]);
 
 
   return (
@@ -76,15 +73,14 @@ const EditPlaylist = () => {
           <section className="major">
             <h1>Edit Your {playlist.name} Playlist</h1>
 
-            {table}
-            
+
           </section>
         </article>
       </div>
 
       <Footer />
       <div id="copyright">
-        &copy; choir Design: HTML5 UP
+        K-pop Wired &copy; 2023. All rights are reserved
       </div>
       
     </div>

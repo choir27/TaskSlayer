@@ -25,8 +25,8 @@ const Header = ({idName, id, setToggleClose, toggleClose, setToggleNav}) => {
     	    <nav id={idName} className = "className">
 				<ul className="links">
     	          	<li><Link to = "/">Home</Link></li>
-    	          	<li><Link to = "/about">About</Link></li>
-					<li><Link to = "/dashboard">Dashboard</Link></li>
+					<li><Link to = "/about">About</Link></li>
+					<li><Link to = "/demo">Demo</Link></li>
 					<li><Link to = "/register">Register</Link></li>
 					<li><Link to = "/login">Login</Link></li>
 				</ul>

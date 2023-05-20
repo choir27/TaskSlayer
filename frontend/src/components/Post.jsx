@@ -2,8 +2,7 @@ import axios from "axios";
 import {useContext, useState, useEffect,useCallback,useMemo} from "react"
 import {MyContext} from "../middleware/Context"
 import {toast} from "react-toastify"
-import {Link, 
-        useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 
 const Post = ({ text, 
                 id, 
@@ -70,26 +69,21 @@ const Post = ({ text,
           }
         }
 
-      if(playlist !== ""){
+      if(playlist !== "" && id){
 
         const formData = new URLSearchParams();
         formData.append("playlist", playlist);
 
-        axios
-          .put(`https://illya-site-backend-production.up.railway.app/addToPlaylist/${id}`, formData, {})
-          .then(res=>console.log(res))   
+        await axios.put(`https://illya-site-backend-production.up.railway.app/addToPlaylist/${id}`, formData, {})
+          .then(res=>{
+            console.log(res)
+            navigate("/editPlaylist")
+          })   
           .catch(err=>{
             console.error(err);
             return;
           })
 
-        axios
-          .put(`https://illya-site-backend-production.up.railway.app/choosePlaylist/${playlist}`, formData, {})
-          .then(data=>{
-              console.log(data);
-          })
-
-        navigate("/editPlaylist")
       }else{
         toast.error("Please Choose A Valid Option");
         return;
@@ -136,13 +130,14 @@ const Post = ({ text,
   </td>
 
   <td>
-    <Link className = "button small"
-      to = "/playMusic"
-      onClick = {()=>{
-        localStorage.setItem("song", id)}
+    <button className = "button small"
+      onClick = {(e)=>{
+        e.preventDefault();
+        localStorage.setItem("song", id);
+        window.location.reload();}
       }>
         Play
-    </Link>
+    </button>
   </td>
 
   <td>

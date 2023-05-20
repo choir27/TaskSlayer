@@ -62,14 +62,13 @@
       },[])
 
       const Home = React.lazy(() => import("./pages/Home"));
-      const About = React.lazy(() => import("./pages/About"));
-      const Dashboard = React.lazy(() => import("./pages/Dashboard"));
       const Register = React.lazy(() => import("./pages/Register"));
       const Login = React.lazy(() => import("./pages/Login"));
       const Account = React.lazy(() => import("./pages/Account"));
       const EditPlaylist = React.lazy(()=> import("./pages/EditPlaylist"));
       const PostAudio = React.lazy(()=> import("./pages/PostAudio"));
-      const PlayMusic = React.lazy(()=> import("./pages/PlayMusic"));
+      const Demo = React.lazy(()=> import("./pages/Demo"));
+      const About = React.lazy(()=> import("./pages/About"));
 
       return (
         <QueryClientProvider client={queryClient}>
@@ -78,12 +77,11 @@
             <Router>
               <Routes>
                 <Route exact path="/" element={<Home/>} />
-                <Route path="/about" element={<About />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/playMusic" element={<PlayMusic/>} />
+                <Route path="/about" element={<About/>}/>
                 <Route element = {<PublicRoutes/>}>
                     <Route path="/register" element={<Register onAdd = {registerUser}/>} />
                     <Route path="/login" element={<Login onAdd = {loginUser} />} />
+                    <Route path="/demo" element={<Demo onAdd = {loginUser}/> }/>
                 </Route>
                 <Route element={<PrivateRoutes />}>
                     <Route path= "/editPlaylist" element = {<EditPlaylist/>}/>

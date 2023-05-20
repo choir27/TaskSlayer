@@ -38,39 +38,11 @@ const UserHeader = ({idName, id ,setToggleClose, toggleClose, setToggleNav}) => 
         <nav id={idName}>
 
 			<ul className="links">
-              	<li>
-					<Link to="/">
-						Home
-					</Link>
-				</li>
-              	<li>
-					<Link to = "/about">
-						About
-					</Link>
-				</li>
-				<li>
-					<Link to = "/dashboard">
-						Dashboard
-					</Link>
-				</li>
-				<li>
-					<Link to = "/account">
-						Account
-					</Link>
-				</li>
-				<li>
-					<Link to = "/addAudio">
-						Add Audio
-					</Link>
-				</li>
-				<li>
-					<Link 
-					to = "/" 
-					onClick = {
-						(e)=>logout(e)
-					}>Logout
-					</Link>
-				</li>
+              	<li><Link to="/">Home</Link></li>
+				<li><Link to = "/about">About</Link></li>
+				<li><Link to = "/account">Account</Link></li>
+				<li><Link to = "/addAudio">Add Audio</Link></li>
+				<li><Link to = "/" onClick = {(e)=>logout(e)}>Logout</Link></li>
 			</ul>
 
 			<ul className="icons alt">
