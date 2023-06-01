@@ -1,6 +1,5 @@
 import Button from "../components/Button"
 import axios from "axios"
-import {Link} from "react-router-dom"
 import {useState, 
         useEffect,
         useMemo,
@@ -9,9 +8,6 @@ import {useState,
 const Dashboard = () => {
   
   const [rows, setRows] = useState([]);
-  const [list, setList] = useState([]);
-  const [display, setDisplay] = useState(true);
-  const [playlist, setPlaylist] = useState([]);
   const [audio, setAudio] = useState([]);
   const [users, setUsers] = useState({});
 
@@ -29,12 +25,9 @@ const Dashboard = () => {
       const { data: audioData } = await axios.get(
         "https://illya-site-backend-production.up.railway.app/audio"
       );
-      const { data: playlistData } = await axios.get(
-        "https://illya-site-backend-production.up.railway.app/playlist"
-      );
+
       setUsers(userData);
       setAudio(audioData);
-      setPlaylist(playlistData);
     } catch (err) {
       console.error(err);
     }
@@ -43,39 +36,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchData();
+  },[fetchData]);
 
-    localStorage.setItem("display", display);
-  },[fetchData, display]);
-
-
-  useMemo(() => {
-    const listOfPlaylists = playlist;
-    const listOfUsers = users;
-    if(listOfUsers.length){
-    const userMap = new Map();
-    const result = [];
-    
-    for (const user of listOfUsers) {
-      userMap.set(user._id, user);
-    }
-  
-    for (const playlistList of listOfPlaylists) {
-      const user = userMap.get(playlistList.user);
-      if (user) {
-        result.push(
-          <tr key={playlistList._id}>
-            <td><Link className = "button" to = "/editPlaylist" onClick = {()=>localStorage.setItem("playlistID", playlistList._id)}>{playlistList.name}</Link></td>
-            <td></td>
-            <td></td>
-            <td>{user.userName}</td>
-          </tr>
-        );
-      }
-    }
-    
-    setList(result);
-  }
-  }, [playlist, users]);
 
   useMemo(() => {
     const songList = audio.slice(startIndex, endIndex);
@@ -125,39 +87,27 @@ const handlePageChange = (newPage) => {
 }
 
   return (
-    <div>
-      <div className = "flex">
+    <section id = "dashboard">
 
-         <Button 
-         cname = 'button'
-         size = 'large'
-         onClick = {()=>{setDisplay(false)
-         localStorage.setItem('display', display)
-         }} 
-         text = 'playlist'/>
+      <section className="pagination">
+        {Array.from({ length: Math.ceil(audio.length / rowsPerPage) }, (_, i) => (
+            <Button 
+            key={i} 
+            onClick={() => {
+              handlePageChange(i + 1)
+            }}
+            text = {i + 1}
+            cname = "button"
+            />
+))}
+      </section>
 
-         <Button
-         cname = 'button'
-         size = 'large'
-         onClick = {()=>{setDisplay(true)
-         localStorage.setItem('display',display)
-         }}
-         text = 'song'
-         />
+        <div id = "tableContainer">
 
-      </div>
-
-
-      {display ? 
-
-        <div className = "table-wrapper">
-
-          <h2 className = "tableHeading">Songs</h2>
           <table>
             <thead>
               <tr>
                 <th>Song Name</th>
-                <th>Playlist</th>
                 <th>Delete</th>
                 <th>User</th>
               </tr>
@@ -167,45 +117,10 @@ const handlePageChange = (newPage) => {
             </tbody>
           </table>
 
-          <div className="pagination">
-          {Array.from({ length: Math.ceil(audio.length / rowsPerPage) }, (_, i) => (
-            <button 
-            key={i} 
-            onClick={() => {
-              handlePageChange(i + 1)
-            }}
-            className = "page"
-            >
-              {i + 1}
-            </button>
-          ))}
-      </div>
+         
         </div>
 
-
-      :
-
-        <div className = "table-wrapper">
-          <h2 className = "tableHeading">Playlists</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Playlist Name</th>
-                <th>Edit</th>
-                <th>Delete</th>
-                <th>User</th>
-              </tr>
-            </thead>
-            <tbody>
-            {list}
-            </tbody>
-          </table>
-        </div>
-
-      }
-
-
-    </div>
+    </section>
   )
 }
 

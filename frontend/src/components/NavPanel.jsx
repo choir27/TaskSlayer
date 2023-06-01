@@ -17,12 +17,13 @@ const NavPanel = () => {
   return (
     toggleNav ?  
       <section id = "menu"
+      className = "hidden"
       onClick = {()=>{
         setToggleNav(false);
         setToggleClose(true);
       }}>
 
-        <div id = "menuBar" className = "flex justifyContent">
+        <div id = "menuBar">
           <i className="fa-solid fa-bars fa-2xl" ></i>
           <span>Menu</span>
         </div>

@@ -32,7 +32,8 @@ class PlayList extends Component<unknown, PlayListState> {
 
               if(data){
                 const playlist = data
-                  .filter((audio: {_id: any})=> audio._id === localStorage.getItem("song"))
+                  .filter((audio: {_id: any})=> audio._id === localStorage.getItem("song"));
+                
                 // .filter((item: {user: any})=> item.user === localStorage.getItem("id"))
                 // .map((ele: {name: any; audio: any}) => ({name: ele.name, src: ele.audio}));
                 
@@ -72,23 +73,23 @@ class PlayList extends Component<unknown, PlayListState> {
     const { currentMusicIndex, playlist } = this.state;
     
     return (
-      <div>
-        <section className = "flex" id = "playlist">
+      <section id = "player">
+        <section>
 
-          <section className = "flex column current">
-          <h4>Currently Playing Song</h4>
+          <section className = "playerInfo">
+            <h3>Currently Playing Song</h3>
 
-          <h2>
-            { playlist[currentMusicIndex] ? playlist[currentMusicIndex].name : "No music has been added" }
-          </h2>
+            <h2>
+              { playlist[currentMusicIndex] ? playlist[currentMusicIndex].name : "No music has been added" }
+            </h2>
           </section>
 
-          <section className = "flex column">
+          {/* <section>
             <h2>Playlist Name</h2>
             <h2>
             { this.state.playlistName ? this.state.playlistName : "N/A" }
             </h2>
-          </section>
+          </section> */}
         </section>
 
         {playlist.length > 0 && (
@@ -103,7 +104,7 @@ class PlayList extends Component<unknown, PlayListState> {
             onClickNext={this.handleClickNext}
           />
         )}
-      </div>
+      </section>
     );
   }
 }

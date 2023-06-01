@@ -1,19 +1,16 @@
   import {MyContext} from "./middleware/Context"
   import PrivateRoutes from "./middleware/PrivateRoutes"
   import PublicRoutes from "./middleware/PublicRoutes"
-  import { QueryClient, QueryClientProvider} from 'react-query'
   import React, {Suspense, useCallback} from 'react';
+  import {BrowserRouter} from "react-router-dom"
   import {ToastContainer} from "react-toastify"
   import "react-toastify/dist/ReactToastify.css"
-  import {BrowserRouter as Router, 
-                          Routes, 
-                          Route,
-                          Navigate} from 'react-router-dom'
+  import {Routes, 
+          Route,
+          Navigate} from 'react-router'
   import Spinner from "./components/Spinner"
 
   function App() {
-    const queryClient = new QueryClient();
-
     //Finds currently signed in account user
     const fetchUser = fetch("https://illya-site-backend-production.up.railway.app/api")
       .then(res=>res.json())
@@ -71,10 +68,9 @@
       const About = React.lazy(()=> import("./pages/About"));
 
       return (
-        <QueryClientProvider client={queryClient}>
         <MyContext.Provider value={fetchUser}>
           <Suspense fallback={<Spinner />}>
-            <Router>
+            <BrowserRouter>
               <Routes>
                 <Route exact path="/" element={<Home/>} />
                 <Route path="/about" element={<About/>}/>
@@ -90,11 +86,10 @@
                 </Route>
                 <Route path='*' element={<Navigate to='/' />} />
               </Routes>
-            </Router>
+            </BrowserRouter>
             <ToastContainer />
           </Suspense>
         </MyContext.Provider>
-        </QueryClientProvider>
       );
   }
 

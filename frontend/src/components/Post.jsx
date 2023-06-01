@@ -58,44 +58,41 @@ const Post = ({ text,
   }, [id]);
   
 
-  const handleAddToPlaylist = useCallback(async (e) => {
-    e.preventDefault();
-    try{
-      if(songs) {
-        for(let index = 0; index < songs.length; index++){
-          if (songs[index].songs.some(song => song._id === id)) {
-            toast.error("Song already exists in playlist");
-            return;
-          }
-        }
+  // const handleAddToPlaylist = useCallback(async (e) => {
+  //   e.preventDefault();
+  //   try{
+  //     if(songs) {
+  //       for(let index = 0; index < songs.length; index++){
+  //         if (songs[index].songs.some(song => song._id === id)) {
+  //           toast.error("Song already exists in playlist");
+  //           return;
+  //         }
+  //       }
 
-      if(playlist !== "" && id){
+  //     if(playlist !== "" && id){
 
-        const formData = new URLSearchParams();
-        formData.append("playlist", playlist);
+  //       axios.put(`https://illya-site-backend-production.up.railway.app/addToPlaylist/${id}/${playlist}`)
+  //         .then(res=>{
+  //           console.log(res)
+  //           navigate("/editPlaylist")
+  //         })   
+  //         .catch(err=>{
+  //           console.error(err);
+  //           return;
+  //         })
 
-        await axios.put(`https://illya-site-backend-production.up.railway.app/addToPlaylist/${id}`, formData, {})
-          .then(res=>{
-            console.log(res)
-            navigate("/editPlaylist")
-          })   
-          .catch(err=>{
-            console.error(err);
-            return;
-          })
+  //     }else{
+  //       toast.error("Please Choose A Valid Option");
+  //       return;
+  //     };
+  //     }
 
-      }else{
-        toast.error("Please Choose A Valid Option");
-        return;
-      };
-      }
-
-    }catch(err){
-      console.error(err);
-      return;
-    }
+  //   }catch(err){
+  //     console.error(err);
+  //     return;
+  //   }
     
-  }, [playlist, songs, id, navigate]);
+  // }, [playlist, songs, id, navigate]);
 
   const memoizedOptions = useCallback(()=>{
     const array = [];
@@ -140,7 +137,7 @@ const Post = ({ text,
     </button>
   </td>
 
-  <td>
+  {/* <td>
     <form onSubmit={handleAddToPlaylist}>
       <select name = "playlist"
         onChange = {(e)=>{
@@ -152,15 +149,15 @@ const Post = ({ text,
       <button className="fa-solid fa-plus button small" type = "submit" onClick = {()=>localStorage.setItem("playlistID",playlist)}/>
     </form>
 
-  </td>
+  </td> */}
 
   <td>
     <form onSubmit={handleDelete}>
       {user._id === userID ?
         <button
-        className="button small fa-solid fa-trash" 
+        className="button fa-trash fa-solid"
         type="submit"
-        />
+        ></button>
       : ""
       }
     </form>
@@ -178,7 +175,6 @@ const Post = ({ text,
   user._id,
   userID,
   playlist,
-  handleAddToPlaylist,
   handleDelete])
 
   return table

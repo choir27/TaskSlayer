@@ -106,22 +106,17 @@ const Register = ({onAdd}) => {
     }, [navigate, onAdd, name, email, password, userName, matchPassword, users])
 
   return (
-    <div id = "wrapper">
+    <main>
       <NavPanel />
-      <Header idName = "nav"/>
-      <div id = "main">
-      <article 
-        className = "post" 
-        id = "account"
-      >
-        <section className="major column flex">
-          <h1 className = "flex justifyContent">Register Account</h1>
+        <Header/>
+      <article>
+        <section>
+          <h1>Register Account</h1>
 
-          <form className = "flex column justifyContent alignItems" onSubmit = {handleSubmit} >
+          <form onSubmit = {handleSubmit} >
 
-            <div className="fields">
              
-              <div className="field">
+              <div>
                   <label>
                     Name
                   {
@@ -142,7 +137,7 @@ const Register = ({onAdd}) => {
                   />
               </div>
 
-              <div className="field">
+              <div>
 
                   <label>User Name
                   {
@@ -165,7 +160,7 @@ const Register = ({onAdd}) => {
 
               </div>
 
-              <div className="field">
+              <div>
 
                   <label>Email
                   {
@@ -190,7 +185,7 @@ const Register = ({onAdd}) => {
 
               </div>
 
-              <div className="field">
+              <div>
 
                   <label>Password
                     {
@@ -210,7 +205,7 @@ const Register = ({onAdd}) => {
 
               </div>
 
-              <div className="field">
+              <div>
 
                 <label>Confirm Password
                   {
@@ -231,10 +226,7 @@ const Register = ({onAdd}) => {
                 />
               </div>
 
-            </div>
-
             <input
-              className = "button" 
               type="submit" 
               value="Register Here" 
               disabled = {
@@ -249,13 +241,13 @@ const Register = ({onAdd}) => {
           </form>
 
 
-          <ul className = "special flex column">
+          <ul>
 
-            <li className = "flex justifyContent">
+            <li>
               Already have an account?  Login below:
             </li>
 
-            <li className = "flex justifyContent">
+            <li>
               <Button 
                 domain = "/login"
                 size = "large"
@@ -268,14 +260,13 @@ const Register = ({onAdd}) => {
         </section>
 
       </article>
-      </div>
       <Footer/>
 
-      <div id="copyright">
+      <div>
         K-pop Wired &copy; 2023. All rights are reserved
       </div>
 
-    </div>  
+    </main>  
   )
 }
 

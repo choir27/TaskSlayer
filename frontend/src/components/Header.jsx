@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 const Header = ({idName, id, setToggleClose, toggleClose, setToggleNav}) => {
 
 	return ( 
-		<header id = {id}>
+		<header id = {id} className = "flex column">
 
 			{
 			toggleClose ?
@@ -18,28 +18,23 @@ const Header = ({idName, id, setToggleClose, toggleClose, setToggleNav}) => {
 				""
 			}
 
-			<div id = "intro" >
-				<Link to = "/"><h1>K-pop Wired</h1></Link>
+			<div>
+				<Link to = "/"><h1>EchoVerse</h1></Link>
 		  	</div> 
 
-    	    <nav id={idName} className = "className">
-				<ul className="links">
-    	          	<li><Link to = "/">Home</Link></li>
-					<li><Link to = "/about">About</Link></li>
-					<li><Link to = "/demo">Demo</Link></li>
-					<li><Link to = "/register">Register</Link></li>
-					<li><Link to = "/login">Login</Link></li>
-				</ul>
-				
-				<ul className="icons alt">
+    	    <nav id={idName} className = "flex column">
+
+			{/* Social Media Links */}
+
+			{/* <ul className = "flex social">
 					<li>
 						<a 
 						rel="noreferrer" 
 						target = "_blank" 
 						href="https://twitter.com/choir241"
-						 className="icon fa-twitter"
+						 className="fa-brands fa-twitter"
 						>
-							<p className = "hidden">Twitter</p>
+							<span className = "hidden">Twitter</span>
 						</a>
 					</li>
 
@@ -48,9 +43,9 @@ const Header = ({idName, id, setToggleClose, toggleClose, setToggleNav}) => {
 						rel="noreferrer" 
 						target = "_blank" 
 						href="https://www.linkedin.com/in/richard-choir/" 
-						className="icon fa-linkedin"
+						className="fa-brands fa-linkedin"
 						>
-							<p className = "hidden">LinkedIn</p>
+							<span className = "hidden">LinkedIn</span>
 						</a>
 					</li>
 
@@ -59,9 +54,9 @@ const Header = ({idName, id, setToggleClose, toggleClose, setToggleNav}) => {
 						rel="noreferrer" 
 						target = "_blank" 
 						href="https://www.instagram.com/225kh_drw/?hl=en" 
-						className="icon fa-instagram"
+						className="fa-brands fa-instagram"
 						>
-							<p className = "hidden">Instagram</p>
+							<span className = "hidden">Instagram</span>
 						</a>
 					</li>
 
@@ -70,13 +65,25 @@ const Header = ({idName, id, setToggleClose, toggleClose, setToggleNav}) => {
 						rel="noreferrer" 
 						target = "_blank" 
 						href="https://github.com/choir27" 
-						className="icon fa-github"
+						className="fa-brands fa-github"
 						>
-							<p className = "hidden">Github</p>
+							<span className = "hidden">Github</span>
 						</a>
 					</li>
-				</ul>
+			</ul> */}
+
+			<ul className = "flex navBar">
+    	      	<li><Link to = "/">Home</Link></li>
+				<li><Link to = "/about">About</Link></li>
+				<li><Link to = "/demo">Demo</Link></li>
+				<li><Link to = "/register">Register</Link></li>
+				<li><Link to = "/login">Login</Link></li>
+			</ul>
+			
 			</nav>
+
+
+	
 		</header>
 	)
 }

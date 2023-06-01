@@ -1,9 +1,9 @@
 import Footer from "../components/Footer"
-import UserHeader from "../components/UserHeader"
 import {MyContext} from "../middleware/Context"
 import {useContext, 
 		useEffect, 
 		useState} from "react"
+import UserHeader from "../components/UserHeader"
 import {default as MusicPlayer} from "../components/MusicPlayer.tsx"
 import DashboardAuth from "./DashboardAuth"
 import NavPanel from "../components/NavPanel"
@@ -22,21 +22,24 @@ const HomeAuth = () => {
 
 
   return (
-	<div id = "wrapper">
+	<main className = "column flex">
 		<NavPanel />
-		<UserHeader idName = "nav"/>
-			<div id="main">
+		<UserHeader/>
+
+		<section id = "home" className = "main">
+
+			<section>
 				<MusicPlayer/>
 				<DashboardAuth/>
-			</div>
+			</section>
+		</section>
 
-		<Footer/>
-
-		<div id="copyright">
+		
+		<small>
 			K-pop Wired &copy; 2023. All rights are reserved
-		</div>
+		</small>
 
-	</div>
+	</main>
   )
 }
 

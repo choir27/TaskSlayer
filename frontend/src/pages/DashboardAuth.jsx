@@ -5,13 +5,11 @@ import {useState,
 import axios from "axios"
 import Post from "../components/Post"
 import Button from "../components/Button"
-import DashboardPlaylist from "../components/DashboardPlaylist"
 
 const Dashboard = () => {
   
   const [audio, setAudio] = useState([]);
   const [rows, setRows] = useState([]);
-  const [display, setDisplay] = useState(true);
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
@@ -38,9 +36,7 @@ const Dashboard = () => {
 
   useEffect(()=>{
     fetchData();
-
-    localStorage.setItem("display", display);
-  },[display, fetchData]);
+  },[fetchData]);
 
   useMemo(()=>{
 
@@ -70,13 +66,11 @@ const Dashboard = () => {
 
       setRows(result);
 
-    localStorage.setItem("display", display);
     }
   },[audio, 
     endIndex,
     startIndex,
-    users,
-    display])
+    users])
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -84,43 +78,28 @@ const Dashboard = () => {
     
 
   return (
-    <div>
-        {/*toggle between show playlist/songs*/}
-          <div className = "flex">
-
+    <section id = "dashboard">   
+      <section className="pagination">
+          {Array.from({ length: Math.ceil(audio.length / rowsPerPage) }, (_, i) => (
             <Button 
+            key={i} 
+            onClick={() => {
+              handlePageChange(i + 1)
+            }}
+            text = {i + 1}
             cname = "button"
-            size = "large"
-            onClick = {()=>{
-              setDisplay(false)
-              localStorage.setItem("display", display)
-            }} 
-            text = "playlist"/>
-
-            <Button
-            cname = "button"
-            size = "large"
-            onClick = {()=>{
-              setDisplay(true)
-              localStorage.setItem("display",display)
-            }
-          }
-            text = "song"
             />
+          ))}
+      </section>
 
-          </div>
 
-        {display ? 
+        <div id = "tableContainer">
 
-        <div className = "table-wrapper">
-
-          <h2 className = "tableHeading">Songs</h2>
             <table>
               <thead>
                 <tr>
                   <th>Song Name</th>
                   <th></th>
-                  <th>Playlist</th>
                   <th>Delete</th>
                   <th>User</th>
                 </tr>
@@ -130,27 +109,9 @@ const Dashboard = () => {
               </tbody>
             </table>
 
-            <div className="pagination">
-          {Array.from({ length: Math.ceil(audio.length / rowsPerPage) }, (_, i) => (
-            <button 
-            key={i} 
-            onClick={() => {
-              handlePageChange(i + 1)
-            }}
-            className = "button small"
-            >
-              {i + 1}
-            </button>
-          ))}
-          </div>
-
         </div>
-        :
 
-        <DashboardPlaylist/>
-        }
-
-    </div>
+    </section>
 
   )
 }

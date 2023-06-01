@@ -1,7 +1,5 @@
 import Footer from "../components/Footer"
 import UserHeader from "../components/UserHeader"
-import PlaylistSongsAccount from "../components/PlaylistSongsAccount"
-import {default as MusicPlayer} from "../components/MusicPlayer.tsx"
 
 import {useContext, 
         useEffect, 
@@ -30,30 +28,16 @@ const Account = () => {
         user])
 
   return (
-    <div id = "wrapper">  
+    <main className = "column flex">
       <NavPanel />
-      <UserHeader idName = "nav" />  
-        <div id = "main">
-          <article className = "post">
-            <section className="major column flex">
-              <h1 className = "flex justifyContent">{user.userName}</h1>
+      <UserHeader/>  
 
-              <MusicPlayer/>
+        <section id = "account" className = "main">    
+        </section>
 
-              <PlaylistSongsAccount/>
-              
-            </section>
+        <Footer/>
 
-          </article>
-        </div>
-
-      <Footer />
-        
-      <div id="copyright">
-        K-pop Wired &copy; 2023. All rights are reserved
-      </div>
-    
-    </div>
+    </main>
   )
 }
 

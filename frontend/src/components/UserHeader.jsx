@@ -15,7 +15,7 @@ const UserHeader = ({idName, id ,setToggleClose, toggleClose, setToggleNav}) => 
 	},[navigate]);	
 
 	return ( 
-	<header id = {id}>
+	<header id = {id} className = "flex column">
 
 		{toggleClose ?
 			<i 
@@ -29,15 +29,13 @@ const UserHeader = ({idName, id ,setToggleClose, toggleClose, setToggleNav}) => 
 			""
 		}
 
-		<div id = "intro">
-			<Link to = "/">
-				<h1>K-pop Wired</h1>
-			</Link>
+		<div>
+			<Link to = "/"><h1>EchoVerse</h1></Link>
 	  	</div> 
 
-        <nav id={idName}>
+        <nav id={idName} className = "flex column">
 
-			<ul className="links">
+			<ul className="flex navBar">
               	<li><Link to="/">Home</Link></li>
 				<li><Link to = "/about">About</Link></li>
 				<li><Link to = "/account">Account</Link></li>
@@ -45,48 +43,7 @@ const UserHeader = ({idName, id ,setToggleClose, toggleClose, setToggleNav}) => 
 				<li><Link to = "/" onClick = {(e)=>logout(e)}>Logout</Link></li>
 			</ul>
 
-			<ul className="icons alt">
-				<li>
-					<a 
-					rel="noreferrer" 
-					target = "_blank"
-					href="https://twitter.com/choir241" 
-					className="icon fa-twitter">
-						<p className = "hidden">Twitter</p>
-					</a>
-				</li>
-
-				<li>
-					<a 
-					rel="noreferrer" 
-					target = '_blank' 
-					href="https://www.linkedin.com/in/richard-choir/" 
-					className="icon fa-linkedin">
-						<p className = 'hidden'>LinkedIn</p>
-					</a>
-				</li>
-
-				<li>
-					<a 
-					rel="noreferrer" 
-					target = "_blank"
-					href="https://www.instagram.com/225kh_drw/?hl=en" 
-					className="icon fa-instagram">
-						<p className = "hidden">Instagram</p>
-					</a>
-				</li>
-
-				<li>
-					<a 
-					rel="noreferrer" 
-					target = "_blank"
-					href="https://github.com/choir27" 
-					className="icon fa-github">
-						<p className = "hidden">Github</p>
-					</a>
-				</li>
-
-			</ul>
+		
 		</nav>
 		
 	</header>
