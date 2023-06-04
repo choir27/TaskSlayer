@@ -20,6 +20,14 @@ body, #root{
     min-height: 100vh;
 }
 
+.image{
+    width: 50%;
+    margin-top: 2rem;
+}
+
+img{
+    width: 100%;
+}
 /* Layout
    ========================================================================== */
 .hidden{
@@ -39,13 +47,20 @@ body, #root{
     flex-direction: column;
 }
 
+.justifyContent{
+    justify-content: center;
+}
 
+.alignItems{
+    align-items: center;
+}
 
 main{
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0rem 5rem; 
+    min-height: 80vh;    
 }
 
 .main{
@@ -64,6 +79,34 @@ main{
 small{
     align-self: flex-start;
     padding: 2rem 0;
+}
+
+
+footer nav, footer .icons{
+    justify-content: space-between;
+}
+
+footer .icons{
+    padding-top: .5rem;
+    width: 20%;
+    height: 100%;
+    align-items: center;
+}
+
+footer nav, footer{
+    width: 100%;
+}
+
+footer{
+    padding: 1rem 0rem 2rem 0rem;
+}
+
+footer small, footer .icons li a{
+    color: white;
+}
+
+footer .icons li a:hover{
+    color:rgba(255, 255, 255, 0.5);
 }
 
 /* Header
@@ -174,7 +217,7 @@ a:hover{
     white-space: nowrap;
 }
 
-#dashboard .pagination .button:hover{
+.button:hover{
     box-shadow: inset 0 0 0 2px #9b9fa4;
     color: white;
     background: black;
@@ -236,20 +279,41 @@ table tbody tr{
     line-height: 3.5rem;
 }
 
-/* Footer
+/* Add
+   ========================================================================= */
+#add form div label, #add form div span{
+    margin-bottom: 1rem;
+}
+
+#add form{
+    padding: 2rem;
+}
+
+#add .button{
+    width: 60%; 
+}
+
+
+/* Auth
    ========================================================================= */
 
-footer nav, footer .icons{
-    justify-content: space-between;
-}
+   #auth form div{
+    width: 60%;
+    margin-bottom: 2rem;
+   }
 
-footer .icons{
-    padding-top: .5rem;
-    width: 20%;
-    height: 100%;
-    align-items: center;
-}
+   #auth form div label{
+    font-size: 2rem;
+    margin-bottom: .5rem;
+    justify-content: flex-start;
+   }
 
-footer nav, footer{
+   #auth div input{
+    font-size: 1rem;
     width: 100%;
-}
+    padding: .8rem 2rem;
+   }
+
+   #auth form{
+    padding-top: 1rem;
+   }

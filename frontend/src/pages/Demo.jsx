@@ -26,22 +26,15 @@ const Login = ({onAdd}) => {
   },[navigate, onAdd]);
 
   return (
-   <div id = "wrapper">
+   <main className = "column flex">
       <NavPanel/>
-      <Header idName = "nav"/>
-      <div id = "main">
-        <article className = "post" id = "account">
-          <section className="major column flex">
-            <h1 className = "flex justifyContent">Login</h1>
+      <Header/>
+        <section id = "auth" className = "main">
 
-            <form 
-              onSubmit = {handleSubmit} 
-              className = "flex column justifyContent alignItems" 
-              method="POST" 
-              action="#"
-            >
-              <div className="fields">  
-                <div className="field">
+            <h1>Login Demo</h1>
+
+            <form onSubmit = {handleSubmit} className = "flex column justifyContent alignItems"  method="POST" action="#">
+                <div className="flex column">
                   <label>Email</label>
                   <input
                    type="text" 
@@ -50,7 +43,8 @@ const Login = ({onAdd}) => {
                    disabled
                   />
                 </div>
-                <div className="field">
+
+                <div className="flex column">
                     <label>Password</label>
                     <input 
                     type="password" 
@@ -59,7 +53,6 @@ const Login = ({onAdd}) => {
                     disabled 
                     />
                 </div>
-              </div>
 
               <input 
               className = "button" 
@@ -68,17 +61,11 @@ const Login = ({onAdd}) => {
               />
             </form>
 
-          </section>
-        </article>
-      </div>
+        </section>
 
       <Footer/>
 
-      <div id="copyright">
-        K-pop Wired &copy; 2023. All rights are reserved
-      </div>
-
-    </div>  
+    </main>  
   )
 }
 

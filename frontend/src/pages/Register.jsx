@@ -106,11 +106,10 @@ const Register = ({onAdd}) => {
     }, [navigate, onAdd, name, email, password, userName, matchPassword, users])
 
   return (
-    <main>
+    <main className = "column flex">
       <NavPanel />
         <Header/>
-      <article>
-        <section>
+        <section id = "auth" className = "main">
           <h1>Register Account</h1>
 
           <form onSubmit = {handleSubmit} >
@@ -227,6 +226,7 @@ const Register = ({onAdd}) => {
               </div>
 
             <input
+              className = "button"
               type="submit" 
               value="Register Here" 
               disabled = {
@@ -258,13 +258,8 @@ const Register = ({onAdd}) => {
           </ul>
 
         </section>
-
-      </article>
       <Footer/>
 
-      <div>
-        K-pop Wired &copy; 2023. All rights are reserved
-      </div>
 
     </main>  
   )

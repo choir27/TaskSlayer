@@ -69,11 +69,10 @@ class FilesUploadComponent extends Component {
 
   render(){
     return (
-      <div id = "wrapper">
+      <main className = "column flex">
         <NavPanel/>
-        <UserHeader idName = "nav"/>
-        <div id="main">
-          <article className="post featured">
+        <UserHeader/>
+          <section id = "add" className="main">
 
             {this.state.loading ? 
               (
@@ -81,12 +80,12 @@ class FilesUploadComponent extends Component {
                     <h1>Loading...</h1> 
                 </section>
               ):
-                <section className="major">
+                <section>
 
                   <form onSubmit={this.onSubmit} 
                 encttype="multipart/form-data"
               >
-                <div className="field flex column">
+                <div className="flex column alignItems">
                   <label htmlFor="file" 
                   className="button large"
                 >
@@ -121,29 +120,28 @@ class FilesUploadComponent extends Component {
                 }</span>
                 </div>
 
-                <div>
+                <div className = "flex justifyContent">
 
                   <button
                     type="submit"
                     className="button large"
                   >
-                  Upload
+                  Upload Audio
                 </button>
                 </div>
                   </form>
 
-                  <PostPlaylist/>
+                  {/* <PostPlaylist/> */}
 
                 </section>
 
             }
-          </article>
-        </div>
+          </section>
         <Footer />
         <div id="copyright">
           K-pop Wired &copy; 2023. All rights are reserved
         </div>
-      </div>
+      </main>
     );
   };
 }

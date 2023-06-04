@@ -2,6 +2,7 @@ import Header from "../components/Header"
 import NavPanel from "../components/NavPanel"
 import {default as MusicPlayer} from "../components/MusicPlayer.tsx"
 import DashboardGuest from "./DashboardGuest"
+import Footer from "../components/Footer"
 
 const HomeGuest = () => {
   return (
@@ -17,9 +18,7 @@ const HomeGuest = () => {
 			</section>
 		</section>
 
-		<small>
-			K-pop Wired &copy; 2023. All rights are reserved
-		</small>
+		<Footer/>
 	</main>
   )
 }
