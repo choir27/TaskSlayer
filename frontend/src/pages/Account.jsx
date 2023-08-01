@@ -8,6 +8,7 @@ import {useContext,
 import {MyContext} from "../middleware/Context"
 import NavPanel from "../components/NavPanel"
 
+import MusicPlayer from "../components/MusicPlayer.tsx"
 
 const Account = () => {
 
@@ -32,7 +33,9 @@ const Account = () => {
       <NavPanel />
       <UserHeader/>  
 
-        <section id = "account" className = "main">    
+        <section id = "account" className = "main">
+        <MusicPlayer/>
+ 
         </section>
 
         <Footer/>

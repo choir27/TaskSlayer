@@ -240,23 +240,16 @@ const Register = ({onAdd}) => {
               }/>
           </form>
 
-
-          <ul>
-
-            <li>
-              Already have an account?  Login below:
-            </li>
-
-            <li>
+          <section className = "existingAccount">
+              <h2>Already have an account?  Login below:</h2>
               <Button 
                 domain = "/login"
                 size = "large"
                 cname = "button"
                 text = "Login Here"
               />
-            </li>
-          </ul>
-
+          </section>
+  
         </section>
       <Footer/>
 

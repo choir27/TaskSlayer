@@ -62,7 +62,6 @@
       const Register = React.lazy(() => import("./pages/Register"));
       const Login = React.lazy(() => import("./pages/Login"));
       const Account = React.lazy(() => import("./pages/Account"));
-      const EditPlaylist = React.lazy(()=> import("./pages/EditPlaylist"));
       const PostAudio = React.lazy(()=> import("./pages/PostAudio"));
       const Demo = React.lazy(()=> import("./pages/Demo"));
       const About = React.lazy(()=> import("./pages/About"));
@@ -80,7 +79,6 @@
                     <Route path="/demo" element={<Demo onAdd = {loginUser}/> }/>
                 </Route>
                 <Route element={<PrivateRoutes />}>
-                    <Route path= "/editPlaylist" element = {<EditPlaylist/>}/>
                     <Route path="/addAudio" element={<PostAudio/>}/>
                     <Route element = {<Account/>} path = "/account"/>
                 </Route>

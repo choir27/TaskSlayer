@@ -53,13 +53,12 @@ const Login = ({onAdd}) => {
   },[email, password, navigate, onAdd]);
 
   return (
-   <div id = "wrapper">
-      <NavPanel/>
+    <main className = "column flex">
+    <NavPanel/>
       <Header idName = "nav"/>
-      <div id = "main">
-        <article className = "post" id = "account">
-          <section className="major column flex">
-            <h1 className = "flex justifyContent">Login</h1>
+      <section id = "auth" className = "main">
+
+      <h1>Login Demo</h1>
 
             <form 
               onSubmit = {handleSubmit} 
@@ -67,8 +66,8 @@ const Login = ({onAdd}) => {
               method="POST" 
               action="#"
             >
-              <div className="fields">  
-                <div className="field">
+                <div className="flex column">
+
                   <label>Email</label>
                   <input
                    placeholder = "Put your email here" 
@@ -78,7 +77,7 @@ const Login = ({onAdd}) => {
                    onChange = {(e)=>setEmail(e.target.value)}
                   />
                 </div>
-                <div className="field">
+                <div className="flex column">
                     <label>Password</label>
                     <input 
                     placeholder = "Put your password here" 
@@ -88,7 +87,6 @@ const Login = ({onAdd}) => {
                     onChange = {(e)=>setPassword(e.target.value)}
                     />
                 </div>
-              </div>
 
               <input 
               className = "button" 
@@ -102,16 +100,11 @@ const Login = ({onAdd}) => {
             </form>
 
           </section>
-        </article>
-      </div>
+
 
       <Footer/>
 
-      <div id="copyright">
-        K-pop Wired &copy; 2023. All rights are reserved
-      </div>
-
-    </div>  
+    </main>  
   )
 }
 

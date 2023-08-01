@@ -317,3 +317,13 @@ table tbody tr{
    #auth form{
     padding-top: 1rem;
    }
+
+   #auth .existingAccount h2{
+    font-size: 2rem;
+    padding-bottom: 1rem;
+   }
+
+
+   #auth, #auth form, #auth div{
+    width: 100%;
+   }

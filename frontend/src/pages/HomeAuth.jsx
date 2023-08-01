@@ -35,10 +35,7 @@ const HomeAuth = () => {
 		</section>
 
 		
-		<small>
-			K-pop Wired &copy; 2023. All rights are reserved
-		</small>
-
+		<Footer/>
 	</main>
   )
 }
