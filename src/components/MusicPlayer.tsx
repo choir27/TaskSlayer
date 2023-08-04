@@ -1,0 +1,75 @@
+import React, { useState, useEffect } from "react";
+import AudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
+
+interface PlayListItem {
+  name: string;
+  src: string;
+}
+
+export default function PlayList(){
+  const [autoplay, setAutoplay] = useState(false);
+  const [currentMusicIndex, setCurrentMusicIndex] = useState(0);
+  const [playlist, setPlaylist] = useState<PlayListItem[]>([]);
+
+  // useEffect(() => {
+  //   try {
+  //     fetch("https://illya-site-backend-production.up.railway.app/audio")
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         if (data) {
+  //           const filteredPlaylist = data.filter(
+  //             (audio: { _id: any }) =>
+  //               audio._id === localStorage.getItem("song")
+  //           );
+  //           setPlaylist(filteredPlaylist);
+  //         }
+  //       });
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }, []);
+
+  const handleClickPrevious = (): void => {
+    setCurrentMusicIndex((prevIndex) =>
+      prevIndex === 0 ? playlist.length - 1 : prevIndex - 1
+    );
+    setAutoplay(true);
+  };
+
+  const handleClickNext = (): void => {
+    setCurrentMusicIndex((prevIndex) =>
+      prevIndex < playlist.length - 1 ? prevIndex + 1 : 0
+    );
+    setAutoplay(true);
+  };
+
+  return (
+    <section id="player">
+      <section>
+        <section className="playerInfo">
+          <h3>Currently Playing Song</h3>
+          <h2>
+            {playlist[currentMusicIndex]
+              ? playlist[currentMusicIndex].name
+              : "No music has been added"}
+          </h2>
+        </section>
+      </section>
+
+      {playlist.length > 0 && (
+        <AudioPlayer
+          autoPlay={autoplay}
+          key={currentMusicIndex}
+          onEnded={handleClickNext}
+          showSkipControls={true}
+          showJumpControls={false}
+          src={playlist[currentMusicIndex].src}
+          onClickPrevious={handleClickPrevious}
+          onClickNext={handleClickNext}
+        />
+      )}
+    </section>
+  );
+};
+
