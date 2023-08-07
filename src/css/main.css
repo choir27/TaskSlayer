@@ -297,6 +297,10 @@ table tbody tr{
 /* Auth
    ========================================================================= */
 
+    #auth h1{
+        text-align: left;
+    }
+
    #auth form div{
     width: 60%;
     margin-bottom: 2rem;
@@ -315,6 +319,7 @@ table tbody tr{
    }
 
    #auth form{
+    width: 50%;
     padding-top: 1rem;
    }
 
@@ -324,6 +329,14 @@ table tbody tr{
    }
 
 
-   #auth, #auth form, #auth div{
+   #auth, #auth div{
     width: 100%;
    }
+
+   #auth .authContainer{
+    justify-content: space-evenly;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
