@@ -2,6 +2,7 @@ import {BrowserRouter} from "react-router-dom"
 import {Route, Routes} from "react-router"
 import React, {Suspense} from "react"
 import "react-toastify/dist/ReactToastify.css"
+import {PrivateRoutes, PublicRoutes} from "./middleware/Routes"
 
 export default function App(){
 
@@ -16,8 +17,10 @@ export default function App(){
             <Routes>
                 <Route path = "/" exact element = {<Home/>}/>
                 <Route path = "/about" exact element = {<About/>}/>
-                <Route path = "/demo" element = {<Demo/>}/>
-                <Route path = "/auth" element = {<Auth/>}/>
+                    <Route element = {<PublicRoutes/>}>
+                        <Route path = "/demo" element = {<Demo/>}/>
+                        <Route path = "/auth" element = {<Auth/>}/>
+                    </Route>
             </Routes>
         </BrowserRouter>
     </Suspense>

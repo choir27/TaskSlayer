@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import NavPanel from "../components/NavPanel"
 import {Button} from "../components/Button"
 import {Client, Account, ID} from "appwrite"
+import api from "../api/api"
 
 const NAME_REGEX = /^[a-zA-Z]*$/;
 const USERNAME_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -73,6 +74,7 @@ export default function Register(){
       console.log(createAccount);
 
       if(createAccount){
+        localStorage.setItem("auth",email);
         window.location.reload();
       }
     }catch(err){
@@ -80,6 +82,19 @@ export default function Register(){
     }
   }
 
+  async function handleLogin(){
+    try{
+      await api.createSession(email, password);
+      const response = await api.getAccount();
+      if(response){
+        console.log(response);
+        localStorage.setItem("auth",email);
+        window.location.reload()
+      }
+    }catch(err){
+      console.error(err);
+    }
+  }
   return (
     <>
         {authDisplay ?
@@ -121,10 +136,11 @@ export default function Register(){
                         className = "button" 
                         type="submit" 
                         value="Login Here" 
-                        disabled ={
-                          !validEmail || 
-                          !validPassword ? 
-                          true: false} 
+
+                        onClick = {(e:React.MouseEvent<HTMLInputElement, MouseEvent>)=>{
+                          e.preventDefault()
+                          handleLogin()
+                        }}
                         />
 
                         

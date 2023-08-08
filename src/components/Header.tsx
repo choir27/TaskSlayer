@@ -30,7 +30,7 @@ export default function Header(props: header){
 	return ( 
         <>
 
-        {props.toggleNav ?
+        {localStorage.getItem("auth") ?
         
         <header id = {props.id} className = "flex column">
 
