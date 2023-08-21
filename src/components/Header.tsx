@@ -16,15 +16,15 @@ export default function Header(props: header){
     const navigate = useNavigate();	
 	const logout = useCallback((e:any) => {
 	    e.preventDefault();
-		localStorage.removeItem("id");
+		localStorage.removeItem("auth");
 		navigate("/");	
-		if(!localStorage.getItem("id")){
+		if(!localStorage.getItem("auth")){
 			window.location.reload();
 		}
 	},[navigate]);	
 
     useMemo(()=>{
-        localStorage.getItem("id") ? props.setToggleNav(true) : props.setToggleNav(false)
+        localStorage.getItem("auth") ? props.setToggleNav(true) : props.setToggleNav(false)
       },[props])
 
 	return ( 

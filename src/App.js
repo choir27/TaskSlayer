@@ -9,7 +9,8 @@ export default function App(){
     const Home = React.lazy(()=>import("./pages/Home.tsx"));
     const About = React.lazy(()=>import("./pages/About.tsx"));
     const Demo = React.lazy(()=>import("./pages/Demo.tsx"));
-    const Auth = React.lazy(()=>import(("./pages/Auth.tsx")));
+    const Auth = React.lazy(()=>import("./pages/Auth.tsx"));
+    const AddAudio = React.lazy(()=>import("./pages/Audio/AddAudio.tsx"));
 
  return(
     <Suspense fallback ={<h1>Loading...</h1>}>
@@ -20,6 +21,9 @@ export default function App(){
                     <Route element = {<PublicRoutes/>}>
                         <Route path = "/demo" element = {<Demo/>}/>
                         <Route path = "/auth" element = {<Auth/>}/>
+                    </Route>
+                    <Route element = {<PrivateRoutes/>}>
+                        <Route path = "/addAudio" element = {<AddAudio/>}/>
                     </Route>
             </Routes>
         </BrowserRouter>

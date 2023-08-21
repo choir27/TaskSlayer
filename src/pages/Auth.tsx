@@ -1,32 +1,15 @@
-import React, { useState, useEffect} from "react";
+import React, { useState} from "react";
 import Header from "../components/Header"
 import Footer from "../components/Footer";
 import NavPanel from "../components/NavPanel"
 import {Button} from "../components/Button"
-import {Client, Account, ID} from "appwrite"
-import api from "../api/api"
+import {handleSignUp, handleLogin} from "../hooks/AuthHooks"
 
 const NAME_REGEX = /^[a-zA-Z]*$/;
 const USERNAME_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[\w!#$%&'*+/=?`{|}~^-]+(?:\.[\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$/;
 
-declare global {
-  namespace NodeJS {
-    export interface ProcessEnv {
-      REACT_APP_COLLECTION_ID: string;
-      REACT_APP_DATABASE_ID: string;
-      REACT_APP_SERVICE_COLLECTION_ID: string;
-      REACT_APP_PROJECT: string;
-      REACT_APP_CAR_API_KEY: string;
-      REACT_APP_ENDPOINT: string;
-      REACT_APP_INVENTORY_COLLECTION_ID: string;
-      NODE_ENV: "development" | "production";
-      PORT?: string;
-      PWD: string;
-    }
-  }
-}
 
 export default function Register(){
 
@@ -47,54 +30,9 @@ export default function Register(){
 
   const [authDisplay, setAuthDisplay] = useState(false);
 
-  useEffect(()=>{
-  },[])
-
   const check = <i className = "fa-solid fa-check"></i>
   const cross = <i className = "fa-solid fa-xmark"></i>
 
-  async function handleSignUp(){
-    try{
-
-      const client = new Client()
-      .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
-      .setProject(process.env.REACT_APP_PROJECT) // Your project ID
-    
-  
-      const account = new Account(client);
-  
-      // Register User
-      const createAccount = await account.create(
-          ID.unique(),
-          email,
-          password,
-          name
-      )
-
-      console.log(createAccount);
-
-      if(createAccount){
-        localStorage.setItem("auth",email);
-        window.location.reload();
-      }
-    }catch(err){
-      console.error(err);
-    }
-  }
-
-  async function handleLogin(){
-    try{
-      await api.createSession(email, password);
-      const response = await api.getAccount();
-      if(response){
-        console.log(response);
-        localStorage.setItem("auth",email);
-        window.location.reload()
-      }
-    }catch(err){
-      console.error(err);
-    }
-  }
   return (
     <>
         {authDisplay ?
@@ -139,7 +77,7 @@ export default function Register(){
 
                         onClick = {(e:React.MouseEvent<HTMLInputElement, MouseEvent>)=>{
                           e.preventDefault()
-                          handleLogin()
+                          handleLogin(email, password)
                         }}
                         />
 
@@ -245,7 +183,6 @@ export default function Register(){
                         setMatchPassword(e.target.value);
                         setValidMatch(password === e.target.value);
                     }}
-                    onClick = {(e)=>handleSignUp()}
                     />
                   </div>                  
 
@@ -255,7 +192,7 @@ export default function Register(){
                   value="Register Here" 
                   onClick = {(e:React.MouseEvent<HTMLInputElement, MouseEvent>)=>{
                     e.preventDefault()
-                    handleSignUp()
+                    handleSignUp(email, password, name)
                   }}
                   disabled = {!validEmail || !validName || !validUserName || !validPassword || !validMatch ? true : false
                   }/>

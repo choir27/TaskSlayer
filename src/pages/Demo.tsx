@@ -1,28 +1,10 @@
 import Header from "../components/Header"
 import Footer from "../components/Footer"
-import React, {useCallback} from "react"
-import {useNavigate} from "react-router-dom"
+import React from "react"
 import NavPanel from "../components/NavPanel"
+import {handleLogin} from "../hooks/AuthHooks"
 
 const Login = () => {
-
-  const navigate = useNavigate();
-
-  const handleSubmit = useCallback(() => {
-    try{
-      // if button enabled with JS hack   
-   
-      const password = "bobTheBuilder@123456"
-      const email = "bobTheBuilder@gmail.com"
-    //  onAdd({email, password});
-   
-     navigate("/");
-    }catch(err){
-      console.error(err);
-      return;
-    }
-   
-  },[navigate]);
 
   return (
    <main className = "column flex">
@@ -32,7 +14,7 @@ const Login = () => {
 
             <h1>Login Demo</h1>
 
-            <form onSubmit = {handleSubmit} className = "flex column justifyContent alignItems"  method="POST" action="#">
+            <form className = "flex column justifyContent alignItems"  method="POST" action="#">
                 <div className="flex column">
                   <label>Email</label>
                   <input
@@ -57,6 +39,10 @@ const Login = () => {
               className = "button" 
               type="submit" 
               value="Login Here" 
+              onClick={(e:React.MouseEvent<HTMLInputElement, MouseEvent>)=>{
+                e.preventDefault();
+                handleLogin("bobTheBuilder@gmail.com", "bobTheBuilder@123456")
+              }}
               />
             </form>
 
