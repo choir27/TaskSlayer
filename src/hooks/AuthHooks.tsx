@@ -25,7 +25,7 @@ export async function handleSignUp(email:string, password:string, name:string){
       console.log(createAccount);
 
       if(createAccount){
-        localStorage.setItem("auth",email);
+        sessionStorage.setItem("auth",email);
         window.location.reload();
       }
     }catch(err){
@@ -39,7 +39,7 @@ export async function handleSignUp(email:string, password:string, name:string){
       const response = await api.getAccount();
       if(response){
         console.log(response);
-        localStorage.setItem("auth",email);
+        sessionStorage.setItem("auth",email);
         window.location.reload()
       }
     }catch(err){

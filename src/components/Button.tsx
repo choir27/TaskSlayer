@@ -10,7 +10,8 @@ interface ButtonLinkProps{
 interface ButtonProps{
     className: string,
     onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>void
-    text: string
+    text: string,
+    key?:string
 }
 
 export function ButtonLink(props: ButtonLinkProps){
@@ -28,6 +29,7 @@ export function ButtonLink(props: ButtonLinkProps){
 export function Button(props: ButtonProps){
     return (
         <button
+            key = {props.key}
             className={props.className} 
             onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>props.onClick(e)}
         >

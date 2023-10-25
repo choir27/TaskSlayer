@@ -1,4 +1,4 @@
-import { Client as Appwrite, Databases, Account, Client} from "appwrite";
+import { Client as Appwrite, Databases, Account, Client, Storage} from "appwrite";
 
 let api = {
   sdk: null,
@@ -11,8 +11,9 @@ let api = {
     appwrite.setEndpoint(process.env.REACT_APP_ENDPOINT).setProject(process.env.REACT_APP_PROJECT);
     const account = new Account(appwrite);
     const database = new Databases(appwrite);
-    const client = new Client(appwrite)
-    api.sdk = { database, account, client};
+    const client = new Client(appwrite);
+    const storage = new Storage(appwrite);
+    api.sdk = { database, account, client, storage};
     return api.sdk;
   },
   
@@ -45,6 +46,10 @@ let api = {
     return api.provider().account.deleteSession("current");
   },
 
+  deleteSessions: ()=> {
+    return api.provider().account.deleteSessions();
+  },
+
   createDocument: (databaseId, collectionId, data, permissions) => {
     return api
       .provider()
@@ -62,6 +67,14 @@ let api = {
   deleteDocument: (databaseId, collectionId, documentId) => {
     return api.provider().database.deleteDocument(databaseId, collectionId, documentId);
   },
+
+  uploadFile: (ID, file) => {
+    return api.provider().storage.createFile(process.env.REACT_APP_SONGS, ID, file)
+  },
+
+  listFiles: () =>{
+    return api.provider().storage.listFiles(process.env.REACT_APP_SONGS)
+  }
 };
 
 export default api;

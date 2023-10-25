@@ -1,6 +1,7 @@
 import React, {useMemo, useCallback} from "react"
 import {Link} from "react-router-dom"
 import {useNavigate} from "react-router-dom"
+import api from "../api/api"
 
 interface header{
     idName?: string,
@@ -14,23 +15,24 @@ interface header{
 export default function Header(props: header){
 
     const navigate = useNavigate();	
-	const logout = useCallback((e:any) => {
+	const logout = useCallback(async(e:any) => {
 	    e.preventDefault();
-		localStorage.removeItem("auth");
+		sessionStorage.removeItem("auth");
+        const data = await api.deleteCurrentSession();
 		navigate("/");	
-		if(!localStorage.getItem("auth")){
+		if(data){
 			window.location.reload();
 		}
 	},[navigate]);	
 
     useMemo(()=>{
-        localStorage.getItem("auth") ? props.setToggleNav(true) : props.setToggleNav(false)
+        sessionStorage.getItem("auth") ? props.setToggleNav(true) : props.setToggleNav(false)
       },[props])
 
 	return ( 
         <>
 
-        {localStorage.getItem("auth") ?
+        {sessionStorage.getItem("auth") ?
         
         <header id = {props.id} className = "flex column">
 
@@ -47,7 +49,7 @@ export default function Header(props: header){
 		}
 
 		<div>
-			<Link to = "/"><h1>EchoVerse</h1></Link>
+			<Link to = "/"><h1>EchoStream</h1></Link>
 	  	</div> 
 
         <nav id={props.idName} className = "flex column">

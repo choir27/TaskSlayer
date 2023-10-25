@@ -1,34 +1,25 @@
 import React, { useState, useEffect } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
-
-interface PlayListItem {
-  name: string;
-  src: string;
-}
+import {useStore, Audio} from "../middleware/Zustand"
 
 export default function PlayList(){
   const [autoplay, setAutoplay] = useState(false);
   const [currentMusicIndex, setCurrentMusicIndex] = useState(0);
-  const [playlist, setPlaylist] = useState<PlayListItem[]>([]);
+  const [playlist, setPlaylist] = useState<Audio[]>([]);
 
-  // useEffect(() => {
-  //   try {
-  //     fetch("https://illya-site-backend-production.up.railway.app/audio")
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         if (data) {
-  //           const filteredPlaylist = data.filter(
-  //             (audio: { _id: any }) =>
-  //               audio._id === localStorage.getItem("song")
-  //           );
-  //           setPlaylist(filteredPlaylist);
-  //         }
-  //       });
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }, []);
+  const songs = useStore((state)=>state.song);
+
+  useEffect(() => {
+    try {
+          if (songs.length) {
+            const filteredPlaylist = songs.filter((audio: Audio) =>audio.$id === localStorage.getItem("song"));
+            setPlaylist(filteredPlaylist);
+          }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [songs]);
 
   const handleClickPrevious = (): void => {
     setCurrentMusicIndex((prevIndex) =>
@@ -64,7 +55,7 @@ export default function PlayList(){
           onEnded={handleClickNext}
           showSkipControls={true}
           showJumpControls={false}
-          src={playlist[currentMusicIndex].src}
+          src={playlist[currentMusicIndex].audio}
           onClickPrevious={handleClickPrevious}
           onClickNext={handleClickNext}
         />
