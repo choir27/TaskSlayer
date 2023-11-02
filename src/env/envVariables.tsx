@@ -5,6 +5,8 @@ declare global {
       export interface ProcessEnv {
         REACT_APP_COLLECTION_ID: string;
         REACT_APP_DATABASE_ID: string;
+        REACT_APP_PLAYLIST_DATABASE_ID: string;
+        REACT_APP_PLAYLIST_COLLECTION_ID: string;
         REACT_APP_SERVICE_COLLECTION_ID: string;
         REACT_APP_PROJECT: string;
         REACT_APP_ECHOVERSE_API_KEY: string;

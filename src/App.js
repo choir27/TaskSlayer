@@ -7,11 +7,13 @@ import api from "./api/api"
 import {UserContext} from "./middleware/Context"
 import {GetMusic} from "./hooks/HomeHooks"
 import {useStore} from "./middleware/Zustand"
+import {GetPlaylist} from "./hooks/MusicHooks"
 
 export default function App(){
 
     const [user, setUser] = useState();
     const setSong = useStore((state)=>state.setSong);
+    const setListOfSongs = useStore((state)=>state.setListOfSongs);
 
     useEffect(()=>{
         if(sessionStorage.getItem("auth")){
@@ -22,15 +24,16 @@ export default function App(){
             getAccount();
         }
         GetMusic((e)=>setSong(e));
+        GetPlaylist((e)=>setListOfSongs(e))
     },[])
 
 
-    const Account = React.lazy(()=>import("./pages/Account.tsx"));
-    const Home = React.lazy(()=>import("./pages/Home.tsx"));
-    const About = React.lazy(()=>import("./pages/About.tsx"));
-    const Demo = React.lazy(()=>import("./pages/Demo.tsx"));
-    const Auth = React.lazy(()=>import("./pages/Auth.tsx"));
-    const AddAudio = React.lazy(()=>import("./pages/Audio/AddAudio"));
+    const Account = React.lazy(()=>import("./pages/Account"));
+    const Home = React.lazy(()=>import("./pages/Home"));
+    const About = React.lazy(()=>import("./pages/About"));
+    const Demo = React.lazy(()=>import("./pages/Demo"));
+    const Auth = React.lazy(()=>import("./pages/Auth"));
+    const AddAudio = React.lazy(()=>import("./pages/AddAudio"));
 
  return(
     <UserContext.Provider value ={user}>

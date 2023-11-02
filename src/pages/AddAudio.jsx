@@ -1,25 +1,39 @@
 import React, {Component, useContext} from "react"
 import {useNavigate} from "react-router"
-import NavPanel from "../../components/NavPanel"
-import Header from "../../components/Header"
-import Footer from "../../components/Footer"
+import NavPanel from "../components/NavPanel"
+import Header from "../components/Header"
+import Footer from "../components/Footer"
 import {toast} from "react-toastify"
 import axios from "axios"
-import {UserContext} from "../../middleware/Context"
+import {UserContext} from "../middleware/Context"
+import GenreSelect from "../components/GenreSelect"
 
 class AddAudio extends Component{
     constructor(props) {
         super(props);
         this.onFileChange = this.onFileChange.bind(this);
+        this.onArtistChange = this.onArtistChange.bind(this);
+        this.onGenreChange = this.onGenreChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
             audioFile: "",
+            artist: "",
+            genre: "",
             loading: false
         };
     };
 
     onFileChange(e) {
         this.setState({ audioFile: e.target.files[0]});
+    };
+
+    onArtistChange(e){
+        this.setState({ artist: e.target.value})
+        console.log(this.state.genre)
+    };
+
+    onGenreChange(e){
+        this.setState({ genre: e.target.value})
     };
 
     async onSubmit(e) {
@@ -37,6 +51,8 @@ class AddAudio extends Component{
               formData.append("file", this.state.audioFile);
               formData.append("user", this.props?.userContext?.email);
               formData.append("userID", this.props?.userContext?.$id);
+              formData.append("genre", this.state.genre);
+              formData.append("artist", this.state.artist)
 
               axios.post("https://echoverse-backend.onrender.com/addAudio", formData, {})
                 .then(res=>{
@@ -80,6 +96,9 @@ class AddAudio extends Component{
                             <section>
                                 <form onSubmit={this.onSubmit}>
                                     <div className="flex column alignItems">
+
+                                        <h1>Add Audio</h1>
+
                                         <label htmlFor="file" className = "button large">Add Audio</label>
 
                                         <input 
@@ -96,7 +115,24 @@ class AddAudio extends Component{
                                             "No File Chosen"
                                         }</span>
 
+                                        <section className="flex justifyBetween inputs">
+                                            {this.GenreSelect}
+
+                                            <input
+                                            type = "text"
+                                            name = "artistName"
+                                            onChange={this.onArtistChange}
+                                            placeholder = "Add Artist of Song"
+                                            />
+
+                                            <GenreSelect onGenreChange = {(e)=>this.onGenreChange(e)}/>
+
+                                        </section>
+    
+                                  
+
                                     </div>
+
 
                                     <div className="flex justifyContent">
                                         <button type = "submit" className = "button large">Upload Audio</button>
@@ -105,7 +141,6 @@ class AddAudio extends Component{
                             </section>
                         }
 
-                        <h1>Add Audio</h1>
                     </section>
 
               <Footer/>

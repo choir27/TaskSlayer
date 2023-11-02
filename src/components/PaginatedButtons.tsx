@@ -18,7 +18,12 @@ const handlePageChange = (newPage:number) => {
 return(
   <div className = {props.className} key = "buttons">
         {Math.ceil(props.arrayLength/props.rowsPerPage) < props.currentPage + 1  ? Array.from({ length: Math.ceil(props.arrayLength / props.rowsPerPage) }, (_, i) => (
-        <button key = {`button-${i}`} className = {`clearButton ${props.currentPage === i+1 ? "selectedPage" : ""}`}  onClick = {()=>handlePageChange(i+1)}>{i+1}</button> 
+         Button({
+          onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{handlePageChange(i+1)},
+          text: `${i+1}`,
+          key: `button-${i}`,
+          className: "button" 
+        })
       )):
       Array.from({ length: Math.ceil(props.arrayLength / props.rowsPerPage) }, (_, i) => 
       {

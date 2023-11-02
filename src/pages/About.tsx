@@ -1,10 +1,10 @@
-import React from "react"
 import Header from "../components/Header"
 import NavPanel from "../components/NavPanel"
 import Footer from "../components/Footer"
 import MusicPlayer from "../components/MusicPlayer"
 
 const About = () => {
+
   return (
     <main className = "column flex">
         <NavPanel/>

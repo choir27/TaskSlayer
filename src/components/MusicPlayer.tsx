@@ -58,6 +58,7 @@ export default function PlayList(){
           src={playlist[currentMusicIndex].audio}
           onClickPrevious={handleClickPrevious}
           onClickNext={handleClickNext}
+          timeFormat = "auto"
         />
       )}
     </section>

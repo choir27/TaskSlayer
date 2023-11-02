@@ -1,5 +1,6 @@
 import {create} from "zustand"
 import {produce} from "immer"
+import {ListOfSongs} from "../hooks/MusicHooks"
 
 export interface Audio{
     $id: string,
@@ -12,11 +13,13 @@ export interface Audio{
 }
 
 type State= {
-    song: Audio[]  
+    song: Audio[],
+    listOfSongs: ListOfSongs[]
 }
 
 type Action = {
-    setSong: (e:Audio) => void
+    setSong: (e:Audio) => void,
+    setListOfSongs: (e:ListOfSongs[])=>void
 }
 
 export const useStore = create<State & Action>(
@@ -27,6 +30,16 @@ export const useStore = create<State & Action>(
                 produce(
                     (state)=>{
                         state.song = song
+                    }
+                )
+            )
+        },
+        listOfSongs: [],
+        setListOfSongs: (listOfSongs: ListOfSongs[])=>{
+            set(
+                produce(
+                    (state)=>{
+                        state.listOfSongs = listOfSongs
                     }
                 )
             )

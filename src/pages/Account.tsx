@@ -6,6 +6,7 @@ import Footer from "../components/Footer"
 import {UserContext} from "../middleware/Context"
 import {useStore} from "../middleware/Zustand"
 import {RenderMusicList} from "../hooks/HomeHooks"
+import EmployeeSettings from "../components/EmployeeSettings"
 
 export default function Account(){
 
@@ -25,9 +26,12 @@ export default function Account(){
 
             <h1>Welcome {user?.name}</h1>
 
-            <section>
             <MusicPlayer/>
+
+            <section className = "flex alignItems spaceEvenly">
             {RenderMusicList({songs: songs, check: true, startIndex: startIndex, endIndex: endIndex, currentPage: currentPage, setCurrentPage: (e:number)=>setCurrentPage(e), rowsPerPage: rowsPerPage})}
+            <EmployeeSettings/>
+
             </section>  
 
    
