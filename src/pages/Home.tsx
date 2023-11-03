@@ -30,4 +30,3 @@ const rowsPerPage = 5;
 	</main>
   )
 }
-

@@ -50,7 +50,7 @@ async function handleDeleteSong(docID: string, cloudinaryID: string){
 
 export function RenderMusicList(props: Render){
 
-    const songList = props.songs.slice(props.startIndex, props.endIndex).map((song:Audio)=>{
+    const songList = props.songs.slice(props.startIndex, props.endIndex).map((song:Audio, i:number)=>{
       if(!props.check){
         return(
           <tr key={song.$id}>
@@ -69,7 +69,7 @@ export function RenderMusicList(props: Render){
           </td>
           <td></td>
           <td>{song.user}</td>
-          <td><MusicHooks/></td>
+          <td><MusicHooks index = {i}/></td>
           <td>{sessionStorage.getItem("auth")?.toLowerCase() === song.user ? Button({text: "", className: "fa-solid fa-trash button small", onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>handleDeleteSong(song.$id, song.cloudinaryId)}) : ""}</td>
         </tr>
       )
@@ -91,7 +91,7 @@ export function RenderMusicList(props: Render){
             </td>
             <td></td>
             <td></td>
-            <td><MusicHooks/></td>
+            <td><MusicHooks index = {i}/></td>
             <td>{Button({text: "", className: "fa-solid fa-trash button small", onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>handleDeleteSong(song.$id, song.cloudinaryId)})}</td>
           </tr>
         )

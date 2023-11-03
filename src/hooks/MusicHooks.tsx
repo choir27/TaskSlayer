@@ -23,13 +23,13 @@ export async function GetPlaylist(setPlaylist: (e: ListOfSongs[])=>void){
     }
 }
 
-function NewPlaylist(playlist: string, setPlaylist: (e:string)=>void, userID: string, userEmail: string){
+function NewPlaylist(playlist: string, setPlaylist: (e:string)=>void, userID: string, userEmail: string, index: number){
 
     async function handleCreatePlaylist(){
         try{
             const data = {
                 playlistName: playlist,
-                playlistSongs: [JSON.stringify({name: "", userID: "", user: "", audio: "", genre: "", artist: ""})],
+                playlistSongs: [],
                 userID: userID,
                 user: userEmail 
             }
@@ -46,21 +46,28 @@ function NewPlaylist(playlist: string, setPlaylist: (e:string)=>void, userID: st
 
     return(
         <form className = "flex column alignStart">
-            <input type = "text" onChange = {(e)=>setPlaylist(e.target.value)} placeholder = "New Playlist Name"/>
-
-            <Playlist setPlaylist = {(e:string)=>setPlaylist(e)}/>
-            {Button({text: "Create Playlist", className: "button", onClick: (e)=>{
-                e.preventDefault();
-                handleCreatePlaylist()
-            }})}
+            <div className = "flex alignItems justifyCenter">
+                <input type = "text" onChange = {(e)=>setPlaylist(e.target.value)} placeholder = "New Playlist Name"/>
+                {Button({text: "Create Playlist", className: "", onClick: (e)=>{
+                    e.preventDefault();
+                    handleCreatePlaylist()
+                }})}
+            </div>
+          
+            <Playlist index = {index}/>
+         
         </form>
 
     )
 
 }
 
+export interface Music{
+    index: number
+}
 
-export default function MusicHooks(){
+
+export default function MusicHooks(props: Music){
 
     const [playlistDisplay, setPlaylistDisplay] = useState<boolean>(false);
     const [playlist, setPlaylist] = useState<string>("");
@@ -74,7 +81,7 @@ export default function MusicHooks(){
                 setPlaylistDisplay(!playlistDisplay);
             }}></button>
 
-            {playlistDisplay ? NewPlaylist(playlist, (e:string)=>setPlaylist(e), user?.$id, user?.email) : ""}
+            {playlistDisplay ? NewPlaylist(playlist, (e:string)=>setPlaylist(e), user?.$id, user?.email, props.index) : ""}
         </section>
     )
 }
