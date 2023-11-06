@@ -1,20 +1,15 @@
-import React,{useState} from "react"
+import React from "react"
 import Header from "../components/Header"
 import NavPanel from "../components/NavPanel"
 import MusicPlayer from "../components/MusicPlayer"
 import Footer from "../components/Footer"
-import {useStore} from "../middleware/Zustand"
-import { RenderMusicList } from "../hooks/HomeHooks"
+import {GetMusic} from "../hooks/HomeHooks"
 
 export default function HomeGuest(){
-const songs = useStore((state)=>state.song);
-const [currentPage, setCurrentPage] = useState(1);
-const rowsPerPage = 5;
+	GetMusic()
 
-	
   return (
 	<main className = "column flex">
-
 		<NavPanel/>
 		<Header setToggleNav = {(e:boolean)=>""} setToggleClose = {(e:boolean)=>""}/>
 
@@ -22,7 +17,7 @@ const rowsPerPage = 5;
 
 			<section>
 				 <MusicPlayer/>
-				 {RenderMusicList({currentPage: currentPage, setCurrentPage: (e:number)=>setCurrentPage(e), rowsPerPage: rowsPerPage, endIndex: currentPage * rowsPerPage, startIndex: (currentPage - 1) * rowsPerPage, songs: songs, check: false})}
+				{/*<DashboardGuest/> */}
 			</section>
 		</section>
 
@@ -30,3 +25,4 @@ const rowsPerPage = 5;
 	</main>
   )
 }
+

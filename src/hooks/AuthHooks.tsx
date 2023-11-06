@@ -3,14 +3,17 @@ import api from "../api/api"
 
 export async function handleSignUp(email:string, password:string, name:string){
     try{
+        console.log(email)
+        
+
+
       const client = new Client()
-
-      const account = new Account(client);
-
-      client
-        .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
-        .setProject(process.env.REACT_APP_PROJECT) // Your project ID
+      .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
+      .setProject(process.env.REACT_APP_PROJECT) // Your project ID
     
+  
+      const account = new Account(client);
+  
       // Register User
       const createAccount = await account.create(
           ID.unique(),
@@ -19,10 +22,10 @@ export async function handleSignUp(email:string, password:string, name:string){
           name
       )
 
-      await api.createSession(email, password);
+      console.log(createAccount);
 
       if(createAccount){
-        sessionStorage.setItem("auth",email);
+        localStorage.setItem("auth",email);
         window.location.reload();
       }
     }catch(err){
@@ -36,7 +39,7 @@ export async function handleSignUp(email:string, password:string, name:string){
       const response = await api.getAccount();
       if(response){
         console.log(response);
-        sessionStorage.setItem("auth",email);
+        localStorage.setItem("auth",email);
         window.location.reload()
       }
     }catch(err){

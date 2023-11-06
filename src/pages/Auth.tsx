@@ -6,6 +6,7 @@ import {Button} from "../components/Button"
 import {handleSignUp, handleLogin} from "../hooks/AuthHooks"
 
 const NAME_REGEX = /^[a-zA-Z]*$/;
+const USERNAME_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[\w!#$%&'*+/=?`{|}~^-]+(?:\.[\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$/;
 
@@ -15,11 +16,17 @@ export default function Register(){
   const [name, setName] = useState("");
   const [validName, setValidName] = useState(false);
 
+  const [userName, setUserName] = useState("");
+  const [validUserName, setValidUserName] = useState(false);
+
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
 
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState(false);
+
+  const [matchPassword, setMatchPassword] = useState("");
+  const [validMatch, setValidMatch] = useState(false);
 
   const [authDisplay, setAuthDisplay] = useState(false);
 
@@ -32,17 +39,16 @@ export default function Register(){
               <main className = "column flex">
               <NavPanel/>
               <Header setToggleNav = {(e:boolean)=>""} setToggleClose = {(e:boolean)=>""}/>
-              <section id = "auth" className = "main">
+                <section id = "auth" className = "main">
           
                 <h1>Login</h1>
-                        <form 
-                        className = "flex column alignStart" 
+          
+                      <form 
+                        className = "flex column justifyContent alignItems" 
                         method="POST" 
                         action="#"
-                        id = "login"
                       >
-
-                      <div className="flex column">
+                          <div className="flex column">
           
                             <label>Email</label>
                             <input
@@ -52,9 +58,8 @@ export default function Register(){
                              value = {email} 
                              onChange = {(e)=>setEmail(e.target.value)}
                             />
-                      </div>
-
-                      <div className="flex column">
+                          </div>
+                          <div className="flex column">
                               <label>Password</label>
                               <input 
                               placeholder = "Put your password here" 
@@ -63,21 +68,21 @@ export default function Register(){
                               value = {password} 
                               onChange = {(e)=>setPassword(e.target.value)}
                               />
-                      </div>
+                          </div>
           
-                      <input 
-                      className = "button" 
+                        <input 
+                        className = "button" 
                         type="submit" 
                         value="Login Here" 
 
                         onClick = {(e:React.MouseEvent<HTMLInputElement, MouseEvent>)=>{
                           e.preventDefault()
                           handleLogin(email, password)
-                      }}
-                      />
+                        }}
+                        />
 
                         
-                      <section className = "existingAccount flex column alignStart">
+            <section className = "existingAccount flex column alignItems">
                 <h2>Don't have an account?  Register below:</h2>
              
                 <Button
@@ -85,11 +90,12 @@ export default function Register(){
                   text = "Register Here"
                   onClick = {(e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>setAuthDisplay(!authDisplay)}
                 />
-                      </section>
-                        </form>
+            </section>
+                      </form>
 
+                      
           
-                </section>
+                    </section>
           
           
                 <Footer/>
@@ -99,7 +105,7 @@ export default function Register(){
         <main className = "column flex">
         <NavPanel />
         <Header setToggleNav = {(e:boolean)=>""} setToggleClose = {(e:boolean)=>""}/>
-        <section id = "auth" className = "main">
+          <section id = "auth" className = "main flex column">
             <h1>Register Account</h1>
   
               <section className="authContainer">
@@ -118,6 +124,21 @@ export default function Register(){
                           }}
                         />
                     </div>
+                        
+                    <div>
+                        <label>User Name {validUserName && userName? check: cross}</label>
+                        
+                        <input 
+                        type="text" 
+                        name  ="userName" 
+                        value = {userName} 
+                        placeholder ="Enter your username" 
+                        onChange = {(e)=>{setUserName(e.target.value)
+                          setValidUserName(USERNAME_REGEX.test(e.target.value));
+                      }}
+                        />
+                    </div>
+  
               
                   <div>
                       <label>Email{validEmail && email? check : cross}</label>
@@ -148,7 +169,22 @@ export default function Register(){
                       />
   
                   </div>
-                   
+               
+                  <div>
+
+                    <label>Confirm Password{validMatch && matchPassword? check: cross}</label>                  
+
+                    <input
+                     placeholder = "Confirm password here" 
+                     name="confirmPassword" 
+                     type = "password" 
+                     value = {matchPassword} 
+                     onChange = {(e)=>{
+                        setMatchPassword(e.target.value);
+                        setValidMatch(password === e.target.value);
+                    }}
+                    />
+                  </div>                  
 
                   <input
                   className = "button"
@@ -158,7 +194,7 @@ export default function Register(){
                     e.preventDefault()
                     handleSignUp(email, password, name)
                   }}
-                  disabled = {!validEmail || !validName || !validPassword ? true : false
+                  disabled = {!validEmail || !validName || !validUserName || !validPassword || !validMatch ? true : false
                   }/>
   
               
@@ -185,3 +221,4 @@ export default function Register(){
    
   )
 }
+

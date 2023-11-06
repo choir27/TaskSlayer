@@ -55,22 +55,6 @@ img{
     align-items: center;
 }
 
-.justifyBetween{
-    justify-content: space-between;
-}
-
-.spaceEvenly{
-    justify-content: space-evenly;
-}
-
-.spaceAround{
-    justify-content: space-around;
-}
-
-.alignStart{
-    align-items: flex-start;
-}
-
 main{
     display: flex;
     align-items: center;
@@ -251,12 +235,7 @@ a:hover{
     overflow-x: auto;
 }
 
-#tableContainer h2{
-    font-size: 3rem;
-}
-
 table{
-    width: 100%;
     margin-bottom: 2rem;
     border-collapse: collapse;
     border-spacing: 0;
@@ -306,10 +285,6 @@ table tbody tr{
     margin-bottom: 1rem;
 }
 
-#add form div span{
-    font-size: 2rem;
-}
-
 #add form{
     padding: 2rem;
 }
@@ -318,17 +293,7 @@ table tbody tr{
     width: 60%; 
 }
 
-#add input, #add select{
-    font-family: "Merriweather", Georgia, serif;
-    font-weight: 300;
-    font-size: 1rem;
-    line-height: 2.375;
-}
 
-#add .inputs{
-    width: 50%;
-    margin-bottom: 2rem;
-}
 /* Auth
    ========================================================================= */
 
@@ -339,10 +304,6 @@ table tbody tr{
    #auth form div{
     width: 60%;
     margin-bottom: 2rem;
-   }
-
-   #login div{
-    width: 100%;
    }
 
    #auth form div label{
@@ -357,17 +318,9 @@ table tbody tr{
     padding: .8rem 2rem;
    }
 
-   #login div input{
-    width: auto;
-   }
-
    #auth form{
     width: 50%;
     padding-top: 1rem;
-   }
-
-   #auth #login form{
-    width:100%;
    }
 
    #auth .existingAccount h2{
@@ -381,33 +334,9 @@ table tbody tr{
    }
 
    #auth .authContainer{
-    justify-content: space-between;
+    justify-content: space-evenly;
     display: flex;
     align-items: center;
     width: 100%;
 }
 
-/* Account
-   ========================================================================= */
-#playlist .fa-plus, #playlist .fa-xmark{
-    font-size: 1rem;
-}
-
-#playlist{
-    position: relative;
-}
-
-#playlist form{
-    background: black;
-    padding: 2rem;
-    z-index: 1;
-    position: absolute;
-}
-
-#playlist form .button{
-    color: white;
-}
-
-#playlist form .button{
-    border: 2px solid white;
-}

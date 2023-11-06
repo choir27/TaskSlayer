@@ -14,13 +14,13 @@ const Login = () => {
 
             <h1>Login Demo</h1>
 
-            <form className = "flex column alignStart"  method="POST" action="#" id = "login">
+            <form className = "flex column justifyContent alignItems"  method="POST" action="#">
                 <div className="flex column">
                   <label>Email</label>
                   <input
                    type="text" 
                    name="email" 
-                   value = "bobThebuilder@gmail.com" 
+                   value = "bobTheBuilder@gmail.com" 
                    disabled
                   />
                 </div>
@@ -41,7 +41,7 @@ const Login = () => {
               value="Login Here" 
               onClick={(e:React.MouseEvent<HTMLInputElement, MouseEvent>)=>{
                 e.preventDefault();
-                handleLogin("bobThebuilder@gmail.com", "bobTheBuilder@123456")
+                handleLogin("bobTheBuilder@gmail.com", "bobTheBuilder@123456")
               }}
               />
             </form>
