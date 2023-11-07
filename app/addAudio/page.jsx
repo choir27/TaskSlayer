@@ -47,14 +47,32 @@ class AddAudio extends Component{
               || this.state.audioFile.name.includes("ogg"))
               ){
       
-              this.setState({loading: true});
+            //   this.setState({loading: true});
 
-              const formData = new FormData();
+            //  const formData = {
+            //     "file" : this.state.audioFile,
+            //     "user" : this.props.userContext.email,
+            //     "userId": this.props.userContext.$id,
+            //     "genre": this.state.genre,
+            //     "artist": this.state.artist
+            //  }
+
+            const formData = new FormData();
               formData.append("file", this.state.audioFile);
               formData.append("user", this.props?.userContext?.email);
               formData.append("userID", this.props?.userContext?.$id);
               formData.append("genre", this.state.genre);
-              formData.append("artist", this.state.artist)
+              formData.append("artist", this.state.artist);
+
+            console.log(formData)
+
+            await axios("http://localhost:3000/api/addAudio", formData, {})
+
+            //   await fetch("http://localhost:3000/api/addAudio", {
+            //     method: 'POST',
+            //     headers: {'Content-Type': 'application/json'},
+            //     body: formData, // Send the nested object structure
+            // })
 
             //   axios.post("https://echoverse-backend.onrender.com/addAudio", formData, {})
             //     .then(res=>{
@@ -94,7 +112,7 @@ class AddAudio extends Component{
                             </section>
                         ):
                             <section>
-                                <form onSubmit={this.onSubmit}>
+                                <form onSubmit={this.onSubmit} action = "/api/addAudio" method = "POST" encttype="multipart/form-data">
                                     <div className="flex column alignItems">
 
                                         <h1>Add Audio</h1>
