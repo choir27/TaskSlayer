@@ -4,7 +4,7 @@ import {redirect} from "next/navigation"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import {toast} from "react-toastify"
-// import axios from "axios"
+import axios from "axios"
 import {UserContext} from "../../middleware/Context"
 import GenreSelect from "../../components/GenreSelect"
 import "../../css/global.css"
@@ -66,7 +66,7 @@ class AddAudio extends Component{
 
             console.log(formData)
 
-            await axios("http://localhost:3000/api/addAudio", formData, {})
+            await axios("https://echostream.netlify.app/api/addAudio", formData, {})
 
             //   await fetch("http://localhost:3000/api/addAudio", {
             //     method: 'POST',
