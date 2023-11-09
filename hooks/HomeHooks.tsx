@@ -5,6 +5,7 @@ import React from "react"
 import PaginatedButtons from "../components/PaginatedButtons"
 import {Button} from "../components/Button"
 import MusicHooks from "./MusicHooks"
+import axios from "axios"
 import Session from "../middleware/Session"
 
 export async function GetMusic(setSong: (e:Audio)=>void){
@@ -30,20 +31,14 @@ interface Render{
 
 export async function handleDeleteSong(docID: string, cloudinaryID: string){
   try{
-    // const deleteAxios = await axios.delete(`https://echoverse-backend.onrender.com/deleteAudio/${cloudinaryID}`);
     console.log(cloudinaryID)
-    // const deleteAxios = await axios.delete(`https://echoverse-backend.onrender.com/deleteAudio/${cloudinaryID}`);
-    // if(deleteAxios){
-    //   console.log(deleteAxios)
-    //   // window.location.reload();
+    const deleteAxios = await axios.delete(`https://echoverse-backend.onrender.com/deleteAudio/${cloudinaryID}`);
 
-    //   const data = await api.deleteDocument(process.env.NEXT_PUBLIC_DATABASE_ID, process.env.NEXT_PUBLIC_COLLECTION_ID, docID);
+      const data = await api.deleteDocument(process.env.NEXT_PUBLIC_DATABASE_ID, process.env.NEXT_PUBLIC_COLLECTION_ID, docID);
 
-    //   if(data && deleteAxios){
-    //     window.location.reload();
-
-    //   }
-    // }
+      if(data && deleteAxios){
+        window.location.reload();
+    }
   }catch(err){
     console.error(err);
   } 

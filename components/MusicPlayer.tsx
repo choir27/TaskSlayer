@@ -13,9 +13,16 @@ export default function PlayList(){
 
   useEffect(() => {
     try {
-          if (songs.length) {
+          if (songs.length && !localStorage.getItem("playlist")) {
             const filteredPlaylist = songs.filter((audio: Audio) =>audio.$id === localStorage.getItem("song"));
+            
             setPlaylist(filteredPlaylist);
+          }else{
+            const playlist:Audio[] = [];
+
+            songs.forEach((audio:Audio)=>localStorage.getItem("playlist")?.includes(audio.$id) ? playlist.push(audio) : "");
+            console.log(playlist)
+            setPlaylist(playlist)
           }
     } catch (err) {
       console.error(err);

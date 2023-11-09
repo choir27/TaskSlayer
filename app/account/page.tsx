@@ -9,6 +9,7 @@ import {RenderMusicList} from "../../hooks/HomeHooks"
 import EmployeeSettings from "../../components/EmployeeSettings"
 import "../../css/global.css"
 import withAuth from "../../middleware/Private"
+import RenderPlaylist from "../../hooks/PlaylistHooks"
 
 const Account = () =>{
 
@@ -34,6 +35,9 @@ const Account = () =>{
             <EmployeeSettings/>
 
             </section>  
+
+            <RenderPlaylist/>
+
 
    
           </section>

@@ -2,6 +2,7 @@
 import React, {useEffect} from "react"
 import {useStore, Action} from "../middleware/Zustand"
 import Script from "next/script"
+import Link from "next/link"
 import {GetMusic} from "../hooks/HomeHooks"
 import {GetPlaylist} from "../hooks/MusicHooks"
 import Context from "../middleware/Context"
@@ -24,7 +25,7 @@ export default function RootLayout({
     return (
       <html lang="en">
         <title>EchoStream</title>
-        <Script src="https://kit.fontawesome.com/d0e0071c1c.js" crossOrigin="anonymous"/>
+        <Script rel = "preload" src="https://kit.fontawesome.com/d0e0071c1c.js" crossOrigin="anonymous"/>
         <Context>
         <body>{children}</body>
         </Context>

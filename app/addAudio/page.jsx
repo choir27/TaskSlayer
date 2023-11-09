@@ -1,6 +1,5 @@
 "use client"
 import React, {Component, useContext} from "react"
-import {redirect} from "next/navigation"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import {toast} from "react-toastify"
@@ -8,7 +7,9 @@ import axios from "axios"
 import {UserContext} from "../../middleware/Context"
 import GenreSelect from "../../components/GenreSelect"
 import "../../css/global.css"
+import {useRouter} from "next/navigation"
 import withAuth from "../../middleware/Private"
+import {join} from "path"
 
 class AddAudio extends Component{
     constructor(props) {
@@ -41,57 +42,58 @@ class AddAudio extends Component{
     async onSubmit(e) {
         try{
             e.preventDefault();
+
+            this.setState({loading: true});
+
   
             if(this.state.audioFile && 
               (this.state.audioFile.name.includes("mp3") 
               || this.state.audioFile.name.includes("ogg"))
               ){
-      
-            //   this.setState({loading: true});
 
-            //  const formData = {
-            //     "file" : this.state.audioFile,
-            //     "user" : this.props.userContext.email,
-            //     "userId": this.props.userContext.$id,
-            //     "genre": this.state.genre,
-            //     "artist": this.state.artist
-            //  }
+                // const formData = {
+                //     "file" : this.state.audioFile,
+                //     "user" : this.props.userContext.email,
+                //     "userId": this.props.userContext.$id,
+                //     "genre": this.state.genre,
+                //     "artist": this.state.artist
+                //  }
+            //      console.log(formData   )
+
 
             const formData = new FormData();
+
               formData.append("file", this.state.audioFile);
               formData.append("user", this.props?.userContext?.email);
               formData.append("userID", this.props?.userContext?.$id);
               formData.append("genre", this.state.genre);
               formData.append("artist", this.state.artist);
 
-            console.log(formData)
+              console.log(this.props?.userContext?.email)
+                console.log(this.props?.userContext?.$id)
+            //   fetch("/items ", {
+            //     method: "POST",
+            //     body: formData
+            //   })
 
-            await axios("https://echostream.netlify.app/api/addAudio", formData, {})
-
-            //   await fetch("http://localhost:3000/api/addAudio", {
-            //     method: 'POST',
-            //     headers: {'Content-Type': 'application/json'},
-            //     body: formData, // Send the nested object structure
-            // })
-
-            //   axios.post("https://echoverse-backend.onrender.com/addAudio", formData, {})
-            //     .then(res=>{
-            //         console.log(res);
-            //         if(res){
-            //             this.setState({loading: false});
-            //             redirect("/");
-            //         }
-            //     }).catch(err=>{
-            //         console.error(err);
-            //         this.setState({loading: false});
-            //     })
+              axios.post("https://echoverse-backend.onrender.com/addAudio", formData, {})
+                .then(res=>{
+                    console.log(res);
+                    if(res){
+                        this.setState({loading: false});
+                        this.props.push("/");
+                    }
+                }).catch(err=>{
+                    console.error(err);
+                    this.setState({loading: false});
+                })
     
-            //     }else if(!this.state.audioFile){
-            //       toast.error("Please Upload a File");
-            //       return;
-            //     }else{
-            //       toast.error("Incorrect File Uploaded. Please Upload An Audio File");
-            //       return;
+                }else if(!this.state.audioFile){
+                  toast.error("Please Upload a File");
+                  return;
+                }else{
+                  toast.error("Incorrect File Uploaded. Please Upload An Audio File");
+                  return;
           }
         }catch(err){
             console.error(err);
@@ -169,8 +171,9 @@ class AddAudio extends Component{
 
 const PostAudio = () =>{
     const userContext = useContext(UserContext);
+    const {push} = useRouter();
 
-    return <AddAudio userContext = {userContext}/>
+    return <AddAudio userContext = {userContext} push = {push}/>
 }
 
 export default PostAudio
