@@ -98,7 +98,8 @@ export function RenderMusicList(props: Render){
     })
 
     return (
-        <div id = "tableContainer">
+        <section>
+              <div id = "tableContainer">
         
         <h2>Song List</h2>
 
@@ -121,6 +122,8 @@ export function RenderMusicList(props: Render){
 
        
       </div>
+        </section>
+    
     
     )
 }

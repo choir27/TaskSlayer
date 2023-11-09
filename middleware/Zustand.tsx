@@ -16,14 +16,16 @@ export type State= {
     song: Audio[],
     listOfSongs: ListOfSongs[],
     searchValue: string,
-    searchResults: Array<Audio | ListOfSongs>
+    searchResults: Array<Audio | ListOfSongs>,
+    songDisplay: boolean
 }
 
 export type Action = {
     setSong: (e:Audio) => void,
     setListOfSongs: (e:ListOfSongs[])=>void,
     setSearchValue: (e:string)=> void,
-    setSearchResults: (e: Array<Audio | ListOfSongs>)=> void
+    setSearchResults: (e: Array<Audio | ListOfSongs>)=> void,
+    setSongDisplay: (e:boolean)=>void
 }
 
 export const useStore = create(
@@ -65,6 +67,15 @@ export const useStore = create(
                     (state: State)=>{
                         state.searchResults = searchResults
                     }
+                )
+            )
+        },
+        songDisplay: false,
+        setSongDisplay: (songDisplay: boolean)=>{
+            set(
+                produce((state: State)=>{
+                    state.songDisplay = songDisplay
+                }
                 )
             )
         }

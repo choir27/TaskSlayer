@@ -1,12 +1,26 @@
-import {useStore, State} from "../middleware/Zustand"
+import {useStore, State, Action, Audio} from "../middleware/Zustand"
 import {ListOfSongs} from "../hooks/MusicHooks"
+import { RenderMusicList } from "./HomeHooks";
+import {Button} from "../components/Button"
 
-export default function RenderPlaylist(){
-    const playlist = useStore((state:State)=>state.listOfSongs);
 
-    console.log(playlist)
+interface Playlist{
+    currentPage: number,
+    setCurrentPage: (e:number)=>void,
+    songs: Audio[],
+    songDisplay: boolean,
+    setSongDisplay: (e:boolean)=>void,
+    playlist: ListOfSongs[]
+}
 
-    const playlistTable = playlist.map((listOfSongs: ListOfSongs)=>{
+export default function RenderPlaylist(props: Playlist){
+
+
+    const rowsPerPage = 4;
+    const startIndex = (props.currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+
+    const playlistTable = props.playlist.map((listOfSongs: ListOfSongs)=>{
 
         const playlistSongs = listOfSongs.playlistSongs.map((element:string)=>{
             const song = JSON.parse(element);
@@ -33,20 +47,35 @@ export default function RenderPlaylist(){
     })
 
     return(
-        <div id = "tableContainer">
-            <h2>Playlists</h2>
-        <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Play</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {playlistTable}
-            </tbody>
-      </table>
-      </div>
+        <section>
+            {Button({className: "button", text: "Song", onClick: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+                e.preventDefault()
+                props.setSongDisplay(false)
+            }})}
+            {Button({className: "button", text: "Playlist", onClick: (e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+                e.preventDefault()
+                props.setSongDisplay(true)
+            }})}
+            {props.songDisplay? 
+            <div id = "tableContainer">
+                <h2>Playlists</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Play</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {playlistTable}
+                    </tbody>
+                </table>
+            </div>
+            :
+            RenderMusicList({songs: props.songs, check: true, startIndex: startIndex, endIndex: endIndex, currentPage: props.currentPage, setCurrentPage: (e:number)=>props.setCurrentPage(e), rowsPerPage: rowsPerPage})
+            }
+        </section>
+  
     )
 }
