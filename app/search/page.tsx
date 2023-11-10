@@ -7,7 +7,7 @@ import Session from "../../middleware/Session"
 import {Button} from "../../components/Button"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
-import MusicHooks from "../../components/PlaylistHub"
+import PlaylistHub from "../../components/PlaylistHub"
 import {handleDeleteSong} from "../../hooks/RenderMusicList"
 
 
@@ -38,7 +38,7 @@ export default function SearchResultsDisplay(){
             </td>
             <td></td>
             <td>{element.user}</td>
-            <td>{element.audio ? <MusicHooks index = {i}/> : "  "}</td>
+            <td>{element.audio ? <PlaylistHub index = {i}/> : "  "}</td>
             <td>{auth?.toLowerCase() === element.user && element.audio ? Button({text: "", className: "fa-solid fa-trash button small", onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>handleDeleteSong(element.$id, element.cloudinaryId)}) : ""}</td>
           </tr>
         )
