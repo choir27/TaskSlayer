@@ -4,7 +4,7 @@ import {useStore, Action} from "../middleware/Zustand"
 import Script from "next/script"
 import Link from "next/link"
 import {GetMusic} from "../hooks/HomeHooks"
-import {GetPlaylist} from "../hooks/MusicHooks"
+import {GetPlaylist} from "../components/PlaylistHub"
 import Context from "../middleware/Context"
 
 export default function RootLayout({

@@ -1,17 +1,7 @@
-import {useStore, State, Action, Audio} from "../middleware/Zustand"
-import {ListOfSongs} from "../hooks/MusicHooks"
-import { RenderMusicList } from "./HomeHooks";
+import {Playlist, ListOfSongs} from "../middleware/Interface"
+import RenderMusicList from "./HomeHooks";
 import {Button} from "../components/Button"
 
-
-interface Playlist{
-    currentPage: number,
-    setCurrentPage: (e:number)=>void,
-    songs: Audio[],
-    songDisplay: boolean,
-    setSongDisplay: (e:boolean)=>void,
-    playlist: ListOfSongs[]
-}
 
 export default function RenderPlaylist(props: Playlist){
 

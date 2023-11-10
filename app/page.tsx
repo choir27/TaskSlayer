@@ -4,8 +4,9 @@ import Header from "../components/Header"
 import "../css/global.css"
 import MusicPlayer from "../components/MusicPlayer"
 import Footer from "../components/Footer"
-import {useStore, State} from "../middleware/Zustand"
-import { RenderMusicList } from "../hooks/HomeHooks"
+import {useStore} from "../middleware/Zustand"
+import {State} from "../middleware/Type"
+import RenderMusicList from "../hooks/HomeHooks"
 
 export default function Home(){
     const songs = useStore((state: State)=>state.song);

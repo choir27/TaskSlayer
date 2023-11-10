@@ -1,32 +1,7 @@
 import {create} from "zustand"
 import {produce} from "immer"
-import {ListOfSongs} from "../hooks/MusicHooks"
-
-export interface Audio{
-    $id: string,
-    $updatedAt: string,
-    audio: string,
-    cloudinaryId: string,
-    name: string,
-    user: string,
-    userID: string
-}
-
-export type State= {
-    song: Audio[],
-    listOfSongs: ListOfSongs[],
-    searchValue: string,
-    searchResults: Array<Audio | ListOfSongs>,
-    songDisplay: boolean
-}
-
-export type Action = {
-    setSong: (e:Audio) => void,
-    setListOfSongs: (e:ListOfSongs[])=>void,
-    setSearchValue: (e:string)=> void,
-    setSearchResults: (e: Array<Audio | ListOfSongs>)=> void,
-    setSongDisplay: (e:boolean)=>void
-}
+import {State} from "./Type"
+import {ListOfSongs, Audio} from "./Interface"
 
 export const useStore = create(
     (set)=>({

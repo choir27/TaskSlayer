@@ -1,15 +1,8 @@
 import React from "react"
 import {Button} from "./Button"
+import {Buttons} from "../middleware/Interface"
 
-interface buttons{
-    arrayLength: number,
-    setCurrentPage: (e:number) => void,
-    currentPage: number,
-    rowsPerPage: number,
-    className?: string
-}
-
-export default function PaginatedButtons(props: buttons){
+export default function PaginatedButtons(props: Buttons){
 
 const handlePageChange = (newPage:number) => {
         props.setCurrentPage(newPage);

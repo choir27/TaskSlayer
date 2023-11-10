@@ -1,11 +1,11 @@
 "use client"
+import React from "react"
+import "../../css/global.css"
+import {useRouter} from "next/navigation"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
-import React from "react"
 import {handleLogin} from "../../hooks/AuthHooks"
-import "../../css/global.css"
 import withNoAuth from "../../middleware/Public"
-import {useRouter} from "next/navigation"
 
 const Login = () => {
 

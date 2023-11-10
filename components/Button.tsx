@@ -1,18 +1,6 @@
 import Link from "next/link"
 import React from "react"
-
-interface ButtonLinkProps{
-    domain: string,
-    className: string,
-    text: string
-}
-
-interface ButtonProps{
-    className: string,
-    onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>void
-    text: string,
-    key?:string
-}
+import {ButtonLinkProps, ButtonProps} from "../middleware/Interface"
 
 export function ButtonLink(props: ButtonLinkProps){
     return (

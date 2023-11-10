@@ -1,13 +1,15 @@
 "use client"
-import {useStore, State, Audio} from "../../middleware/Zustand"
 import "../../css/global.css"
-import {ListOfSongs} from "../../hooks/MusicHooks"
+import {useStore} from "../../middleware/Zustand"
+import {State} from "../../middleware/Type"
+import {ListOfSongs, Audio} from "../../middleware/Interface"
 import Session from "../../middleware/Session"
 import {Button} from "../../components/Button"
-import MusicHooks from "../../hooks/MusicHooks"
-import {handleDeleteSong} from "../../hooks/HomeHooks"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
+import MusicHooks from "../../components/PlaylistHub"
+import {handleDeleteSong} from "../../hooks/HomeHooks"
+
 
 export default function SearchResultsDisplay(){
 

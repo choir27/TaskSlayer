@@ -1,14 +1,13 @@
 "use client"
 import React, {useContext, useState} from "react"
+import "../../css/global.css"
 import Header from "../../components/Header"
 import MusicPlayer from "../../components/MusicPlayer"
 import Footer from "../../components/Footer"
-import {UserContext} from "../../middleware/Context"
-import {useStore, State, Action} from "../../middleware/Zustand"
-import {RenderMusicList} from "../../hooks/HomeHooks"
 import EmployeeSettings from "../../components/EmployeeSettings"
-import "../../css/global.css"
-import withAuth from "../../middleware/Private"
+import {UserContext} from "../../middleware/Context"
+import {State, Action} from "../../middleware/Type"
+import {useStore} from "../../middleware/Zustand"
 import RenderPlaylist from "../../hooks/PlaylistHooks"
 
 const Account = () =>{

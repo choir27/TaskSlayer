@@ -1,13 +1,14 @@
-import {Button} from "./Button"
-import {useStore, State, Audio, Action} from "../middleware/Zustand"
-import { ListOfSongs } from "../hooks/MusicHooks";
 import {useRouter} from "next/navigation"
+import {Button} from "./Button"
+import {State, Action} from "../middleware/Type"
+import {Audio, ListOfSongs} from "../middleware/Interface"
+import {useStore} from "../middleware/Zustand"
 
 export default function Search(){
 
-    const searchValue = useStore((state: State)=>state.searchValue)
-    const setSearchValue = useStore((state:Action)=>state.setSearchValue)
-    const setSearchResults = useStore((state: Action)=> state.setSearchResults)
+    const searchValue = useStore((state: State)=>state.searchValue);
+    const setSearchValue = useStore((state:Action)=>state.setSearchValue);
+    const setSearchResults = useStore((state: Action)=> state.setSearchResults);
     const songs = useStore((state:State)=>state.song);
     const playlists = useStore((state:State)=>state.listOfSongs);
     const {push} = useRouter();

@@ -1,8 +1,9 @@
 import Link from "next/link"
-import {redirect} from "next/navigation"
-import Session from "../middleware/Session"
 import api from "../api/api"
 import Search from "./Search"
+import {redirect} from "next/navigation"
+import Session from "../middleware/Session"
+
 
 export default function Header(){
 	async function handleLogout(e){

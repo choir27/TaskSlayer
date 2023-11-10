@@ -2,7 +2,9 @@
 import React, { useState, useEffect } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
-import {useStore, Audio, State} from "../middleware/Zustand"
+import {useStore} from "../middleware/Zustand"
+import {Audio} from "../middleware/Interface"
+import {State} from "../middleware/Type"
 
 export default function PlayList(){
   const [autoplay, setAutoplay] = useState(false);

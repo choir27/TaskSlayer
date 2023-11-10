@@ -1,17 +1,10 @@
 import {useState, useContext} from "react"
-import {Button} from "../components/Button"
-import api from "../api/api"
 import {Permission, Role} from "appwrite"
+import api from "../api/api"
+import {Button} from "./Button"
+import Playlist from "./Playlist"
 import {UserContext} from "../middleware/Context"
-import Playlist from "../components/Playlist"
-
-export interface ListOfSongs{
-    $id?: string,
-    playlistName: string,
-    playlistSongs: string[],
-    userID: string,
-    user: string
-}
+import {ListOfSongs, Music} from "../middleware/Interface"
 
 export async function GetPlaylist(setPlaylist: (e: ListOfSongs[])=>void){
     try{
@@ -62,12 +55,7 @@ function NewPlaylist(playlist: string, setPlaylist: (e:string)=>void, userID: st
 
 }
 
-export interface Music{
-    index: number
-}
-
-
-export default function MusicHooks(props: Music){
+export default function PlaylistHub(props: Music){
 
     const [playlistDisplay, setPlaylistDisplay] = useState<boolean>(false);
     const [playlist, setPlaylist] = useState<string>("");

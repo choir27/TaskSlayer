@@ -9,7 +9,6 @@ export async function handleSignUp(email:string, password:string, name:string, p
       const account = new Account(client);
 
       const project:string = process.env.NEXT_PUBLIC_PROJECT as string
-      console.log(process.env.NEXT_PUBLIC_PROJECT)
 
       client
         .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint

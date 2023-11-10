@@ -1,7 +1,8 @@
 "use client"
 import {useState} from "react"
-import {useStore, Audio, State} from "../middleware/Zustand"
-import {ListOfSongs, Music} from "../hooks/MusicHooks"
+import {useStore} from "../middleware/Zustand"
+import {ListOfSongs, Audio, Music} from "../middleware/Interface"
+import {State} from "../middleware/Type"
 import api from "../api/api"
 
 async function handleAddToPlaylist(playlistData: ListOfSongs, song: Audio){

@@ -1,12 +1,12 @@
 "use client"
-import api from "../api/api"
-import {Audio} from "../middleware/Zustand"
 import React from "react"
+import axios from "axios"
+import api from "../api/api"
 import PaginatedButtons from "../components/PaginatedButtons"
 import {Button} from "../components/Button"
-import MusicHooks from "./MusicHooks"
-import axios from "axios"
+import PlaylistHub from "../components/PlaylistHub"
 import Session from "../middleware/Session"
+import {Audio, Render} from "../middleware/Interface"
 
 export async function GetMusic(setSong: (e:Audio)=>void){
     try{
@@ -19,19 +19,8 @@ export async function GetMusic(setSong: (e:Audio)=>void){
     }
 }
 
-interface Render{
-  songs: Audio[], 
-  check: boolean, 
-  startIndex:number, 
-  endIndex:number,
-  currentPage: number,
-  setCurrentPage: (e:number)=>void,
-  rowsPerPage: number
-}
-
 export async function handleDeleteSong(docID: string, cloudinaryID: string){
   try{
-    console.log(cloudinaryID)
     const deleteAxios = await axios.delete(`https://echoverse-backend.onrender.com/deleteAudio/${cloudinaryID}`);
 
       const data = await api.deleteDocument(process.env.NEXT_PUBLIC_DATABASE_ID, process.env.NEXT_PUBLIC_COLLECTION_ID, docID);
@@ -44,7 +33,7 @@ export async function handleDeleteSong(docID: string, cloudinaryID: string){
   } 
 }
 
-export function RenderMusicList(props: Render){
+export default function RenderMusicList(props: Render){
 
     const auth = Session("auth");
 
@@ -67,7 +56,7 @@ export function RenderMusicList(props: Render){
           </td>
           <td></td>
           <td>{song.user}</td>
-          <td><MusicHooks index = {i}/></td>
+          <td><PlaylistHub index = {i}/></td>
           <td>{auth?.toLowerCase() === song.user ? Button({text: "", className: "fa-solid fa-trash button small", onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>handleDeleteSong(song.$id, song.cloudinaryId)}) : ""}</td>
         </tr>
       )
@@ -89,7 +78,7 @@ export function RenderMusicList(props: Render){
             </td>
             <td></td>
             <td></td>
-            <td><MusicHooks index = {i}/></td>
+            <td><PlaylistHub index = {i}/></td>
             <td>{Button({text: "", className: "fa-solid fa-trash button small", onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>handleDeleteSong(song.$id, song.cloudinaryId)})}</td>
           </tr>
         )

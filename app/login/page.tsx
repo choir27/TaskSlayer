@@ -1,12 +1,12 @@
 "use client"
 import React, { useState} from "react";
+import {useRouter} from "next/navigation"
+import "../../css/global.css"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer";
 import {Button} from "../../components/Button"
 import {handleSignUp, handleLogin} from "../../hooks/AuthHooks"
-import "../../css/global.css"
 import withNoAuth from "../../middleware/Public"
-import {useRouter} from "next/navigation"
 
 const NAME_REGEX = /^[a-zA-Z]*$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;

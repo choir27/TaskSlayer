@@ -2,14 +2,13 @@
 import React, {Component, useContext} from "react"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
+import GenreSelect from "../../components/GenreSelect"
 import {toast} from "react-toastify"
 import axios from "axios"
 import {UserContext} from "../../middleware/Context"
-import GenreSelect from "../../components/GenreSelect"
 import "../../css/global.css"
 import {useRouter} from "next/navigation"
-import withAuth from "../../middleware/Private"
-import {join} from "path"
+
 
 class AddAudio extends Component{
     constructor(props) {
