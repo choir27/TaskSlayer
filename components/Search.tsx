@@ -12,7 +12,7 @@ export default function Search(){
     const setSearchResults = useStore((state: Action)=> state.setSearchResults);
     const songs = useStore((state:State)=>state.song);
     const playlists = useStore((state:State)=>state.listOfSongs);
-    const {push} = useRouter();
+    // const {push} = useRouter();
 
     function handleSearch(){
 
@@ -48,10 +48,14 @@ export default function Search(){
     return(
         <form>
             <input type = "search" onChange = {(e)=>setSearchValue(e.target.value)}/>
-            <Button text="" className="fa-solid fa-magnifying-glass button" onClick={(e)=>{
+            {/* <Button text="" className="fa-solid fa-magnifying-glass button" onClick={(e)=>{
                 e.preventDefault();
                 handleSearch()
-                }}/>
+                }}/> */}
+
+                <Link href = "/search" className = "fa-solid fa-magnifying-glass" onClick = {()=>{
+                    handleSearch()
+                }}></Link>
         </form>        
     )
 }
