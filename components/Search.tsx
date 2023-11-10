@@ -42,20 +42,16 @@ export default function Search(){
 
         setSearchResults(searchResults);
 
-        push("/search")  
+        // push("/search")  
     }
 
     return(
         <form>
             <input type = "search" onChange = {(e)=>setSearchValue(e.target.value)}/>
-            {/* <Button text="" className="fa-solid fa-magnifying-glass button" onClick={(e)=>{
+            <Button text="" className="fa-solid fa-magnifying-glass button" onClick={(e)=>{
                 e.preventDefault();
                 handleSearch()
-                }}/> */}
-
-                <Link href = "/search" className = "fa-solid fa-magnifying-glass" onClick = {()=>{
-                    handleSearch()
-                }}></Link>
+                }}/>
         </form>        
     )
 }
