@@ -3,6 +3,7 @@ import {Button} from "./Button"
 import {State, Action} from "../middleware/Type"
 import {Audio, ListOfSongs} from "../middleware/Interface"
 import {useStore} from "../middleware/Zustand"
+import Link from "next/link"
 
 export default function Search(){
 
@@ -41,18 +42,20 @@ export default function Search(){
 
         setSearchResults(searchResults);
 
-        console.log(searchResults)
-
-        push("/search")            
+        push("/search")  
     }
 
     return(
         <form>
             <input type = "search" onChange = {(e)=>setSearchValue(e.target.value)}/>
-            <Button text="" className="fa-solid fa-magnifying-glass button" onClick={(e)=>{
+            {/* <Button text="" className="fa-solid fa-magnifying-glass button" onClick={(e)=>{
                 e.preventDefault();
                 handleSearch()
-                }}/>
+                }}/> */}
+
+                <Link href = "/search" className = "fa-solid fa-magnifying-glass" onClick = {()=>{
+                    handleSearch()
+                }}></Link>
         </form>        
     )
 }
