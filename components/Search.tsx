@@ -3,7 +3,6 @@ import {Button} from "./Button"
 import {State, Action} from "../middleware/Type"
 import {Audio, ListOfSongs} from "../middleware/Interface"
 import {useStore} from "../middleware/Zustand"
-import Link from "next/link"
 
 export default function Search(){
 
@@ -12,7 +11,7 @@ export default function Search(){
     const setSearchResults = useStore((state: Action)=> state.setSearchResults);
     const songs = useStore((state:State)=>state.song);
     const playlists = useStore((state:State)=>state.listOfSongs);
-    // const {push} = useRouter();
+    const {push} = useRouter();
 
     function handleSearch(){
 
@@ -42,20 +41,16 @@ export default function Search(){
 
         setSearchResults(searchResults);
 
-        // push("/search")  
+        push("/search")  
     }
 
     return(
         <form>
             <input type = "search" onChange = {(e)=>setSearchValue(e.target.value)}/>
-            {/* <Button text="" className="fa-solid fa-magnifying-glass button" onClick={(e)=>{
+            <Button text="" className="fa-solid fa-magnifying-glass button" onClick={(e)=>{
                 e.preventDefault();
                 handleSearch()
-                }}/> */}
-
-                <Link href = "/search" className = "fa-solid fa-magnifying-glass" onClick = {()=>{
-                    handleSearch()
-                }}></Link>
+                }}/>
         </form>        
     )
 }
