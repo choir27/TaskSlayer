@@ -10,6 +10,7 @@ export interface Audio{
 
 export interface ListOfSongs{
     $id?: string,
+    $updatedAt?: string,
     playlistName: string,
     playlistSongs: string[],
     userID: string,
@@ -62,4 +63,9 @@ export interface ButtonProps{
     onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>void
     text: string,
     key?:string
+}
+
+export interface User{
+    email: string,
+    $id: string
 }

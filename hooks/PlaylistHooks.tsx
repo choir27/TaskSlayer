@@ -1,6 +1,7 @@
 import {Playlist, ListOfSongs} from "../middleware/Interface"
 import RenderMusicList from "./HomeHooks";
-import {Button} from "../components/Button"
+import {Button, ButtonLink} from "../components/Button"
+import { usePathname } from "next/navigation";
 
 
 export default function RenderPlaylist(props: Playlist){
@@ -29,8 +30,7 @@ export default function RenderPlaylist(props: Playlist){
                         Play
                     </button>
                 </td>
-                <td></td>
-                <td></td>
+                <td>{ButtonLink({text: "Edit", className: "button", domain: `/editPlaylist/${listOfSongs.$id}`})}</td>
             </tr>
         )
     })
@@ -53,7 +53,7 @@ export default function RenderPlaylist(props: Playlist){
                         <tr>
                             <th>Name</th>
                             <th>Play</th>
-                            <th></th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>

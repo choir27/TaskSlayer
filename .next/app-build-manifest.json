@@ -43,6 +43,17 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/addAudio/layout.js"
+    ],
+    "/editPlaylist/[id]/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/editPlaylist/[id]/layout.js"
+    ],
+    "/editPlaylist/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/editPlaylist/[id]/page.css",
+      "static/chunks/app/editPlaylist/[id]/page.js"
     ]
   }
 }

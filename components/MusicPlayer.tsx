@@ -29,19 +29,20 @@ export default function PlayList(){
             setPlaylist(playlistSongs);
 
           }else if(localStorage.getItem("playlist")){
-            const playlist:Audio[] = [];
-
+            const playlist: Audio[] = [];
             const playlistStorage = localStorage.getItem("playlist") as string;
             const playlistSongs = JSON.parse(playlistStorage);
-
-              playlistSongs.song.forEach((element:string)=>{
-                songs.forEach((audio:Audio)=>{
-
-                if(element === audio.audio){
-                  playlist.push(audio)  
-                }
-              })
-            })
+            
+            // Convert songs array to a map for faster lookups
+            const songsMap = new Map(songs.map(audio => [audio.audio, audio]));
+            
+            playlistSongs.song.forEach((element: string) => {
+              const audio = songsMap.get(element);
+              if (audio) {
+                playlist.push(audio);
+              }
+            });
+            
                         
             setSong(playlist);
             setPlaylist(playlistSongs.song);
