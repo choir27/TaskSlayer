@@ -38,7 +38,7 @@ export default function RenderMusicList(props: Render){
     const auth = Session("auth");
 
     const songList = props.songs.slice(props.startIndex, props.endIndex).map((song:Audio, i:number)=>{
-      if(!props.check){
+      if(song.user !== auth?.toLowerCase()){
         return(
           <tr key={song.$id}>
           <td>{song.name}</td>
@@ -47,7 +47,8 @@ export default function RenderMusicList(props: Render){
               className="button small"
               onClick={(e) => {
                 e.preventDefault();
-                localStorage.setItem("song", song.$id);
+                localStorage.setItem("song", JSON.stringify([song.audio]));
+                localStorage.setItem("playlist", "");
                 window.location.reload();
               }}
             >
@@ -69,7 +70,8 @@ export default function RenderMusicList(props: Render){
                 className="button small"
                 onClick={(e) => {
                   e.preventDefault();
-                  localStorage.setItem("song", song.$id);
+                  localStorage.setItem("song", JSON.stringify([song.audio]));
+                  localStorage.setItem("playlist", "");
                   window.location.reload();
                 }}
               >

@@ -5,26 +5,46 @@ import "react-h5-audio-player/lib/styles.css";
 import {useStore} from "../middleware/Zustand"
 import {Audio} from "../middleware/Interface"
 import {State} from "../middleware/Type"
+import ShufflePlaylist from "../components/ShufflePlaylist"
+import Shuffle from "../components/ShufflePlaylist"
 
 export default function PlayList(){
   const [autoplay, setAutoplay] = useState(false);
   const [currentMusicIndex, setCurrentMusicIndex] = useState(0);
-  const [playlist, setPlaylist] = useState<Audio[]>([]);
+  const [song, setSong] = useState<Audio[]>([]);
+  const [playlist, setPlaylist] = useState<string>("");
 
   const songs = useStore((state:State)=>state.song);
 
   useEffect(() => {
     try {
           if (songs.length && !localStorage.getItem("playlist")) {
-            const filteredPlaylist = songs.filter((audio: Audio) =>audio.$id === localStorage.getItem("song"));
-            
-            setPlaylist(filteredPlaylist);
-          }else{
+            const songStorage = localStorage.getItem("song") as string;
+            const playlistSongs = JSON.parse(songStorage)
+
+            const filteredPlaylist = songs.filter((audio: Audio) =>audio.audio === playlistSongs[0]);
+          
+
+            setSong(filteredPlaylist);
+            setPlaylist(playlistSongs);
+
+          }else if(localStorage.getItem("playlist")){
             const playlist:Audio[] = [];
 
-            songs.forEach((audio:Audio)=>localStorage.getItem("playlist")?.includes(audio.$id) ? playlist.push(audio) : "");
-            console.log(playlist)
-            setPlaylist(playlist)
+            const playlistStorage = localStorage.getItem("playlist") as string;
+            const playlistSongs = JSON.parse(playlistStorage);
+
+              playlistSongs.song.forEach((element:string)=>{
+                songs.forEach((audio:Audio)=>{
+
+                if(element === audio.audio){
+                  playlist.push(audio)  
+                }
+              })
+            })
+                        
+            setSong(playlist);
+            setPlaylist(playlistSongs.song);
           }
     } catch (err) {
       console.error(err);
@@ -51,10 +71,11 @@ export default function PlayList(){
         <section className="playerInfo">
           <h3>Currently Playing Song</h3>
           <h2>
-            {playlist[currentMusicIndex]
-              ? playlist[currentMusicIndex].name
+            {song[currentMusicIndex]
+              ? song[currentMusicIndex].name
               : "No music has been added"}
           </h2>
+          <ShufflePlaylist/>
         </section>
       </section>
 
@@ -65,7 +86,7 @@ export default function PlayList(){
           onEnded={handleClickNext}
           showSkipControls={true}
           showJumpControls={false}
-          src={playlist[currentMusicIndex].audio}
+          src={playlist[currentMusicIndex]}
           onClickPrevious={handleClickPrevious}
           onClickNext={handleClickNext}
           timeFormat = "auto"

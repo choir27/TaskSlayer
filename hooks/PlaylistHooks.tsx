@@ -4,8 +4,6 @@ import {Button} from "../components/Button"
 
 
 export default function RenderPlaylist(props: Playlist){
-
-
     const rowsPerPage = 4;
     const startIndex = (props.currentPage - 1) * rowsPerPage;
     const endIndex = startIndex + rowsPerPage;
@@ -14,7 +12,7 @@ export default function RenderPlaylist(props: Playlist){
 
         const playlistSongs = listOfSongs.playlistSongs.map((element:string)=>{
             const song = JSON.parse(element);
-            return song.$id
+            return song.audio
         })
 
         return(
@@ -24,7 +22,8 @@ export default function RenderPlaylist(props: Playlist){
                     <button className = "button small"
                     onClick = {(e)=>{
                         e.preventDefault();
-                        localStorage.setItem("playlist", JSON.stringify(playlistSongs))
+                        localStorage.setItem("playlist", JSON.stringify({"id": listOfSongs.$id, "song": playlistSongs}))
+                        window.location.reload();
                     }}
                     >
                         Play
@@ -63,7 +62,7 @@ export default function RenderPlaylist(props: Playlist){
                 </table>
             </div>
             :
-            RenderMusicList({songs: props.songs, check: true, startIndex: startIndex, endIndex: endIndex, currentPage: props.currentPage, setCurrentPage: (e:number)=>props.setCurrentPage(e), rowsPerPage: rowsPerPage})
+            <RenderMusicList songs = {props.songs} check = {true} startIndex = {startIndex} endIndex = {endIndex} currentPage = {props.currentPage} setCurrentPage = {(e:number)=>props.setCurrentPage(e)} rowsPerPage = {rowsPerPage} />
             }
         </section>
   

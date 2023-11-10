@@ -7,7 +7,15 @@ import api from "../api/api"
 
 async function handleAddToPlaylist(playlistData: ListOfSongs, song: Audio){
     try{
-      
+        const storage = localStorage.getItem("playlist") as string;
+
+        const playlistSongs = JSON.parse(storage)
+        
+        if(playlistData.$id === playlistSongs.id){
+            playlistSongs.song.push(song.$id)
+            localStorage.setItem("playlist", JSON.stringify({id: playlistData.$id, song: playlistSongs.song}))
+        }
+
         const playlistArray = playlistData.playlistSongs.map(ele=>ele);
 
         playlistArray.push(JSON.stringify(song))

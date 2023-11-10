@@ -5,13 +5,15 @@ import "../css/global.css"
 import MusicPlayer from "../components/MusicPlayer"
 import Footer from "../components/Footer"
 import {useStore} from "../middleware/Zustand"
-import {State} from "../middleware/Type"
-import RenderMusicList from "../hooks/HomeHooks"
+import {State, Action} from "../middleware/Type"
+import RenderPlaylist from "../hooks/PlaylistHooks"
 
 export default function Home(){
-    const songs = useStore((state: State)=>state.song);
     const [currentPage, setCurrentPage] = useState(1);
-    const rowsPerPage = 5;
+    const playlist = useStore((state:State)=>state.listOfSongs);
+    const songDisplay = useStore((state:State)=>state.songDisplay);
+    const setSongDisplay = useStore((state:Action)=>state.setSongDisplay);
+    const songs = useStore((state:State)=>state.song);
 
     return(
         <main className = "column flex">
@@ -22,7 +24,7 @@ export default function Home(){
 				
 				<section>
 					<MusicPlayer/>
-					{RenderMusicList({currentPage: currentPage, setCurrentPage: (e:number)=>setCurrentPage(e), rowsPerPage: rowsPerPage, endIndex: currentPage * rowsPerPage, startIndex: (currentPage - 1) * rowsPerPage, songs: songs, check: false})}
+					<RenderPlaylist playlist = {playlist} setSongDisplay = {(e)=>setSongDisplay(e)} songDisplay = {songDisplay} songs = {songs} currentPage={currentPage} setCurrentPage={(e)=>setCurrentPage(e)}/>
 		   		</section>
 		
 		    </section>
