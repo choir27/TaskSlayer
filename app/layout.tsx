@@ -1,9 +1,9 @@
 "use client"
 import React, {useEffect} from "react"
-import {useStore, Action} from "../middleware/Zustand"
+import {useStore} from "../middleware/Zustand"
 import Script from "next/script"
-import Link from "next/link"
-import {GetMusic} from "../hooks/HomeHooks"
+import {Action} from "../middleware/Type"
+import {GetMusic} from "../hooks/RenderMusicList"
 import {GetPlaylist} from "../components/PlaylistHub"
 import Context from "../middleware/Context"
 

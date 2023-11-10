@@ -67,5 +67,10 @@ export interface ButtonProps{
 
 export interface User{
     email: string,
-    $id: string
+    $id: string,
+    name: string
+}
+
+export interface Edit{
+id: string
 }

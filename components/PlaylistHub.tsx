@@ -2,9 +2,9 @@ import {useState, useContext} from "react"
 import {Permission, Role} from "appwrite"
 import api from "../api/api"
 import {Button} from "./Button"
-import Playlist from "./Playlist"
+import Playlist from "./AddToPlaylist"
 import {UserContext} from "../middleware/Context"
-import {ListOfSongs, Music} from "../middleware/Interface"
+import {ListOfSongs, Music, User} from "../middleware/Interface"
 
 export async function GetPlaylist(setPlaylist: (e: ListOfSongs[])=>void){
     try{
@@ -60,7 +60,7 @@ export default function PlaylistHub(props: Music){
     const [playlistDisplay, setPlaylistDisplay] = useState<boolean>(false);
     const [playlist, setPlaylist] = useState<string>("");
 
-    const user = useContext(UserContext);
+    const user = useContext(UserContext) as User;
 
     return(
         <section id = "playlist">

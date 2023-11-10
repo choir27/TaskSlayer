@@ -2,17 +2,12 @@
 import {useContext, useState} from "react"
 import {useStore} from "../middleware/Zustand"
 import {State} from "../middleware/Type"
-import {ListOfSongs, User} from "../middleware/Interface"
+import {ListOfSongs, User, Edit} from "../middleware/Interface"
 import {UserContext} from "../middleware/Context"
 import {Button} from "../components/Button"
 import api from "../api/api"
 import {useRouter} from "next/navigation"
 
-
-
-interface Edit{
-id: string
-}
 
 async function handleChangePlaylistName(name: string, playlist: ListOfSongs, user:User){
     try{

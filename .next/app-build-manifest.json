@@ -11,10 +11,16 @@
       "static/chunks/main-app.js",
       "static/chunks/app/layout.js"
     ],
-    "/demo/layout": [
+    "/search/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/demo/layout.js"
+      "static/css/app/search/page.css",
+      "static/chunks/app/search/page.js"
+    ],
+    "/search/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/search/layout.js"
     ],
     "/demo/page": [
       "static/chunks/webpack.js",
@@ -22,38 +28,10 @@
       "static/css/app/demo/page.css",
       "static/chunks/app/demo/page.js"
     ],
-    "/account/layout": [
+    "/demo/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/account/layout.js"
-    ],
-    "/account/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/account/page.css",
-      "static/chunks/app/account/page.js"
-    ],
-    "/addAudio/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/addAudio/page.css",
-      "static/chunks/app/addAudio/page.js"
-    ],
-    "/addAudio/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/addAudio/layout.js"
-    ],
-    "/editPlaylist/[id]/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/editPlaylist/[id]/layout.js"
-    ],
-    "/editPlaylist/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/editPlaylist/[id]/page.css",
-      "static/chunks/app/editPlaylist/[id]/page.js"
+      "static/chunks/app/demo/layout.js"
     ]
   }
 }

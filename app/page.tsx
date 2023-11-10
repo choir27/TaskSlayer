@@ -6,7 +6,7 @@ import MusicPlayer from "../components/MusicPlayer"
 import Footer from "../components/Footer"
 import {useStore} from "../middleware/Zustand"
 import {State, Action} from "../middleware/Type"
-import RenderPlaylist from "../hooks/PlaylistHooks"
+import RenderPlaylist from "../hooks/RenderPlaylist"
 
 export default function Home(){
     const [currentPage, setCurrentPage] = useState(1);
