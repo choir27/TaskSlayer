@@ -18,7 +18,7 @@ export default function SearchResultsDisplay(){
 
     const listOfResults = searchResults.map((element: Audio & ListOfSongs, i: number)=>{
         return(
-            <tr key={`${element.$id}-${i}`}>
+            <tr key={`${element.$id}-${element.name}`}>
             <td>{element.name ? element.name : element.playlistName}</td>
             <td>
                 {element.audio ?
