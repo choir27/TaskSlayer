@@ -2,11 +2,11 @@
 
 Taking the foundations created by this repository, https://github.com/choir27/Illya-Site, this project strives to take the Illya website and not only improve the UI, but also apply React elements to various aspects of the web application and change the web application intentions and content to better suit the music theme.
 
-<a href = "https://kpopwired.netlify.app/">
+<a href = "https://echostream.netlify.app/">
 <img width="946" alt="Screenshot 202<img width="941" alt="Screenshot 2023-04-13 154133" src="https://user-images.githubusercontent.com/66279068/231866114-5a8c6cf0-ac63-4ee6-8413-b4bab52aeb74.png">
 </a>
 
-<div align = "center"><a href = "https://kpopwired.netlify.app/">Check out the website!</a></div>
+<div align = "center"><a href = "https://echostream.netlify.app/">Check out the website!</a></div>
 
 ## How It's Made: Tech used: React, jsx, Node
 
