@@ -18,6 +18,7 @@ export function Button(props: ButtonProps){
     return (
         <button
             key = {props.key}
+            id = {props.id}
             className={props.className} 
             onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>props.onClick(e)}
         >

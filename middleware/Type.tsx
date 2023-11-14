@@ -6,7 +6,8 @@ export type State= {
     searchValue: string,
     searchResults: Array<Audio | ListOfSongs>,
     songDisplay: boolean,
-    searchDisplay: boolean
+    searchDisplay: boolean,
+    headerDisplay: string
 }
 
 export type Action = {
@@ -15,5 +16,6 @@ export type Action = {
     setSearchValue: (e:string)=> void,
     setSearchResults: (e: Array<Audio | ListOfSongs>)=> void,
     setSongDisplay: (e:boolean)=>void,
-    setSearchDisplay: (e:boolean)=>void
+    setSearchDisplay: (e:boolean)=>void,
+    setHeaderDisplay: (e:string)=>void
 }

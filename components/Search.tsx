@@ -18,20 +18,20 @@ export default function Search(){
         const searchResults:Array<Audio | ListOfSongs> = [];
     
         songs.forEach((audio: Audio)=>{
-            if(audio.audio.toLowerCase().includes(searchValue.toLowerCase()) || audio.name.toLowerCase().includes(searchValue.toLowerCase()) || audio.user.toLowerCase().includes(searchValue.toLowerCase())){
+            if(audio?.audio?.toLowerCase().includes(searchValue.toLowerCase()) || audio?.name?.toLowerCase().includes(searchValue.toLowerCase()) || audio?.user?.toLowerCase().includes(searchValue.toLowerCase())){
                 searchResults.push(audio);
             }
         })  
      
         playlists.forEach((playlist: ListOfSongs)=>{
-            if(playlist.playlistName.toLowerCase().includes(searchValue.toLowerCase()) || playlist.user.toLowerCase().includes(searchValue.toLowerCase())){
+            if(playlist?.playlistName?.toLowerCase().includes(searchValue.toLowerCase()) || playlist?.user?.toLowerCase().includes(searchValue.toLowerCase())){
                 searchResults.push(playlist)
             }
 
             playlist.playlistSongs.forEach((element: string)=>{
                 const song = JSON.parse(element);
                 
-                if(song.audio.toLowerCase().includes(searchValue.toLowerCase()) || song.name.toLowerCase().includes(searchValue.toLowerCase()) || song.user.toLowerCase().includes(searchValue.toLowerCase())){
+                if(song?.audio?.toLowerCase().includes(searchValue.toLowerCase()) || song?.name?.toLowerCase().includes(searchValue.toLowerCase()) || song?.user?.toLowerCase().includes(searchValue.toLowerCase())){
                     searchResults.push(playlist);
                 }
                 

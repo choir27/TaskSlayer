@@ -64,7 +64,7 @@ export default function PlaylistHub(props: Music){
 
     return(
         <section id = "playlist">
-            <button className = {`${playlistDisplay ? "fa-solid fa-xmark" : "fa-solid fa-plus"} button`} onClick = {(e)=>{
+            <button className = {`${playlistDisplay ? "fa-solid fa-xmark black" : "fa-solid fa-plus"} button`} onClick = {(e)=>{
                 e.preventDefault();
                 setPlaylistDisplay(!playlistDisplay);
             }}></button>

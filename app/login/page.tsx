@@ -2,6 +2,7 @@
 import React, { useState, useEffect} from "react";
 import {useRouter} from "next/navigation"
 import "../../css/global.css"
+import "../../css/mediaQuery.css"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer";
 import {Button} from "../../components/Button"
@@ -48,7 +49,7 @@ const Register = () =>{
     <SearchResultsDisplay/>
       :
         authDisplay ?
-              <main className = "column flex">
+              <>
               <Header/>
               <section id = "auth" className = "main">
           
@@ -112,9 +113,9 @@ const Register = () =>{
           
                 <Footer/>
           
-              </main>  
+              </>  
         :
-        <main className = "column flex">
+        <>
         <Header/>
         <section id = "auth" className = "main">
             <h1>Register Account</h1>
@@ -196,7 +197,7 @@ const Register = () =>{
         <Footer/>
   
   
-         </main>  
+         </>  
         }
     
     </>

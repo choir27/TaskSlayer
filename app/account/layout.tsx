@@ -1,11 +1,11 @@
 export default function RootLayout({
-    children,
-  }: {
-    children: React.ReactNode
-  }) {
-    return (
-      <main lang="en">
-        {children}
-      </main>
-    )
-  }
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <main className = "column flex">
+    {children}
+    </main>
+  )
+}

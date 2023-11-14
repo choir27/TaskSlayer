@@ -1,5 +1,6 @@
 "use client"
 import "../../css/global.css"
+import "../../css/mediaQuery.css"
 import {useStore} from "../../middleware/Zustand"
 import {State} from "../../middleware/Type"
 import {ListOfSongs, Audio} from "../../middleware/Interface"
@@ -9,7 +10,6 @@ import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import PlaylistHub from "../../components/PlaylistHub"
 import {handleDeleteSong} from "../../hooks/RenderMusicList"
-import "react-toastify/dist/ReactToastify.css"
 
 export default function SearchResultsDisplay(){
 
@@ -45,7 +45,7 @@ export default function SearchResultsDisplay(){
     })
 
     return(
-        <main className = "column flex">
+        <>
             <Header/>
             <section id = "home" className = "main">
 
@@ -78,6 +78,6 @@ export default function SearchResultsDisplay(){
             </div>
             </section>
            <Footer/>
-        </main>
+        </>
     )
 }

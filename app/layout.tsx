@@ -6,8 +6,6 @@ import {Action} from "../middleware/Type"
 import {GetMusic} from "../hooks/RenderMusicList"
 import {GetPlaylist} from "../components/PlaylistHub"
 import Context from "../middleware/Context"
-import "react-toastify/dist/ReactToastify.css"
-import {ToastContainer} from "react-toastify"
 
 export default function RootLayout({
     children,

@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next"
 import {useEffect} from "react"
 import EditPlaylist from "../../../hooks/EditPlaylist"
 import "../../../css/global.css"
+import "../../../css/mediaQuery.css"
 import Header from "../../../components/Header"
 import Footer from "../../../components/Footer"
 import SearchResultsDisplay from "../../search/page"
@@ -25,7 +26,7 @@ export default function GetServerSideProps(ctx){
         searchDisplay?
         <SearchResultsDisplay/>
         :
-        <main className = "column flex">
+        <>
             <Header/>
             <section className = "main" id = "home">
 
@@ -38,7 +39,7 @@ export default function GetServerSideProps(ctx){
 
             <Footer/>
 
-        </main>
+        </>
         }
         </>
     )

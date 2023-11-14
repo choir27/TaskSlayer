@@ -3,6 +3,7 @@ import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import MusicPlayer from "../../components/MusicPlayer"
 import "../../css/global.css"
+import "../../css/mediaQuery.css"
 import {useStore} from "../../middleware/Zustand"
 import {State, Action} from "../../middleware/Type"
 import SearchResultsDisplay from "../search/page"
@@ -23,8 +24,8 @@ const About = () => {
       searchDisplay ?
       <SearchResultsDisplay/>
       :
-    <main className = "column flex">
-		<Header/>
+    <>
+		  <Header/>
 
         <section id = "about" className = "main">
             <h1>About</h1>
@@ -38,7 +39,7 @@ const About = () => {
         </section>
 
         <Footer/>
-    </main>
+    </>
     }
     </>
   )

@@ -1,6 +1,7 @@
 "use client"
 import React, {useEffect} from "react"
 import "../../css/global.css"
+import "../../css/mediaQuery.css"
 import {useRouter} from "next/navigation"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
@@ -25,7 +26,7 @@ const Login = () => {
     {searchDisplay?
     <SearchResultsDisplay/>
     :
-   <main className = "column flex">
+   <>
       <Header/>
         <section id = "auth" className = "main">
 
@@ -67,7 +68,7 @@ const Login = () => {
 
       <Footer/>
 
-    </main>
+    </>
     }
     </>
   )

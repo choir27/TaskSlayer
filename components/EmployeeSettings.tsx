@@ -4,7 +4,6 @@ import api from "../api/api"
 import {useState, useContext} from "react"
 import {UserContext} from "../middleware/Context"
 import {User} from "../middleware/Interface"
-
 // import axios from "axios"
 
 export default function EmployeeSettings(){
@@ -42,8 +41,7 @@ export default function EmployeeSettings(){
 
     // async function handleDeleteAccount(){
     //     try{
-    //         const response = await axios.delete(`https://echoverse-backend.onrender.com/deleteAccount/${user?.$id}`);
-
+    //         const response = await axios.delete(`https://echoverse-backend.onrender.com/deleteAccount/${user.$id}`);
     //         const data = await api.deleteCurrentSession();
 
     //         sessionStorage.setItem("auth", "");

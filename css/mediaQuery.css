@@ -1,0 +1,94 @@
+@media(max-width: 1300px){
+
+   .nav{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    background: black;
+    padding: 2rem;
+    align-self: flex-end;
+    margin-right: 5rem;
+   }
+
+   .nav button{
+      color: white;
+      border: 1px solid white;
+   }
+
+   #menu{
+   right: 2rem;
+    display: block;
+    position: fixed;
+    padding: .5rem 1rem;
+    color: white;
+    background: black;
+    font-size: 2rem;
+    align-self: flex-end;
+    z-index: 1;
+   }
+
+   .display{
+    display: block;
+   }
+
+   .navBar{
+      flex-direction: column;
+      align-items: flex-end;
+   }
+   
+   #add .inputs{
+      justify-content: center;
+   }
+
+   #account section{
+      flex-direction: column;
+   }
+}
+
+@media(max-width: 1200px){
+   #tableContainer{
+      overflow: auto;
+   }
+
+   #account section.flex.alignItems.spaceEvenly{
+      display: block;
+   }
+
+   #account #tableContainer{
+      margin-bottom: 2rem;
+   }
+
+
+   #playlist .button{
+      position: static;
+   }
+
+   #playlist form{
+      right: 9rem;
+   }
+
+   #login div input, #auth form{
+      width: 100%;
+   }
+
+
+}
+
+@media(max-width: 800px){
+   #header div{
+      width: 100%;
+      margin: 0rem;
+      padding: 0rem;
+   }
+   
+   #auth form div{
+      width:70%;
+   }
+
+   .authContainer{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+   }
+}

@@ -57,7 +57,7 @@ export default function RenderMusicList(props: Render){
           </td>
           <td></td>
           <td>{song.user}</td>
-          <td><PlaylistHub index = {i}/></td>
+          <td className = "playlist"><PlaylistHub index = {i}/></td>
           <td>{auth?.toLowerCase() === song.user ? Button({text: "", className: "fa-solid fa-trash button small", onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>handleDeleteSong(song.$id, song.cloudinaryId)}) : ""}</td>
         </tr>
       )
@@ -80,7 +80,7 @@ export default function RenderMusicList(props: Render){
             </td>
             <td></td>
             <td></td>
-            <td><PlaylistHub index = {i}/></td>
+            <td className = "playlist"><PlaylistHub index = {i}/></td>
             <td>{Button({text: "", className: "fa-solid fa-trash button small", onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>handleDeleteSong(song.$id, song.cloudinaryId)})}</td>
           </tr>
         )

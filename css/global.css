@@ -83,8 +83,7 @@ img{
 }
 
 #menu{
-    padding: 1rem 0rem 0rem .3rem;
-    position: fixed;
+    display: none;
 }
 
 .flex{
@@ -129,6 +128,7 @@ main{
 
 .main{
     min-width: 80vw;
+    max-width: 80vw;
     min-height: 30vh;
     padding: 2.5rem;
     border-radius: 5px;
@@ -449,6 +449,16 @@ input, #add select{
     padding: 2rem;
     z-index: 1;
     position: absolute;
+}
+
+#playlist .black{
+    background: black;
+    color: white;
+}
+
+#playlist .button{
+    z-index: 0;
+    position: relative;
 }
 
 #playlist form .button{

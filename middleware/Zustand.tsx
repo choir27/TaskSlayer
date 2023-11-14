@@ -63,6 +63,16 @@ export const useStore = create(
                 }
                 )
             )
+        },
+        headerDisplay: "",
+        setHeaderDisplay: (headerDisplay: string)=>{
+            set(
+                produce(
+                    (state:State)=>{
+                    state.headerDisplay = headerDisplay
+                }
+                )
+            )
         }
     })
 );

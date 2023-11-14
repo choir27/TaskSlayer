@@ -62,7 +62,8 @@ export interface ButtonProps{
     className: string,
     onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>void
     text: string,
-    key?:string
+    key?:string,
+    id?:string
 }
 
 export interface User{

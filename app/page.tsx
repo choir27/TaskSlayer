@@ -2,12 +2,14 @@
 import React, {useState, useEffect} from "react"
 import Header from "../components/Header"
 import "../css/global.css"
+import "../css/mediaQuery.css"
 import MusicPlayer from "../components/MusicPlayer"
 import Footer from "../components/Footer"
 import {useStore} from "../middleware/Zustand"
 import {State, Action} from "../middleware/Type"
 import RenderPlaylist from "../hooks/RenderPlaylist"
 import SearchResultsDisplay from "./search/page"
+
 
 export default function Home(){
     const [currentPage, setCurrentPage] = useState(1);
@@ -22,18 +24,18 @@ export default function Home(){
 		setSearchDisplay(false);
 	},[])
 
+
     return(
 		<>
 		{searchDisplay ?
-			
-			<SearchResultsDisplay/>
-			:
+		<SearchResultsDisplay/>
+		:
         <main className = "column flex">
-	
+
 		    <Header/>
 
-		    <section id = "home" className = "main">
-				
+		    <section className = "main">
+
 			<MusicPlayer/>
 
 				<section>

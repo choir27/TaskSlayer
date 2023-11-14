@@ -4,8 +4,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <main lang="en">
-      {children}
+    <main className = "column flex">
+    {children}
     </main>
   )
 }

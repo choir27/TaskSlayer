@@ -1,6 +1,7 @@
 "use client"
 import React, {useContext, useState, useEffect} from "react"
 import "../../css/global.css"
+import "../../css/mediaQuery.css"
 import Header from "../../components/Header"
 import MusicPlayer from "../../components/MusicPlayer"
 import Footer from "../../components/Footer"
@@ -32,7 +33,7 @@ const Account = () =>{
       ?
       <SearchResultDisplay/>
       :
-        <main className = "column flex">
+        <>
 		<Header/>
   
           <section id = "account" className = "main">
@@ -41,18 +42,20 @@ const Account = () =>{
 
             <MusicPlayer/>
 
-            <section className = "flex alignItems spaceEvenly">
-            <EmployeeSettings/>
+          <section className = "flex alignItems spaceEvenly">
+            <section>
             <RenderPlaylist playlist = {playlist} setSongDisplay = {(e)=>setSongDisplay(e)} songDisplay = {songDisplay} songs = {songs} currentPage={currentPage} setCurrentPage={(e)=>setCurrentPage(e)}/>
 
             </section>  
+            <EmployeeSettings/>
 
+            </section>
    
           </section>
   
           <Footer/>
   
-        </main>
+        </>
       }
       </>
     )
