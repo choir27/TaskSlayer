@@ -1,5 +1,5 @@
 "use client"
-import React, {useContext, useState} from "react"
+import React, {useContext, useState, useEffect} from "react"
 import "../../css/global.css"
 import Header from "../../components/Header"
 import MusicPlayer from "../../components/MusicPlayer"
@@ -10,6 +10,7 @@ import {State, Action} from "../../middleware/Type"
 import {User} from "../../middleware/Interface"
 import {useStore} from "../../middleware/Zustand"
 import RenderPlaylist from "../../hooks/RenderPlaylist"
+import SearchResultDisplay from "../search/page"
 
 const Account = () =>{
 
@@ -19,8 +20,18 @@ const Account = () =>{
     const songDisplay = useStore((state:State)=>state.songDisplay);
     const setSongDisplay = useStore((state:Action)=>state.setSongDisplay);
     const songs = useStore((state:State)=>state.song);
-
+    const searchDisplay = useStore((state:State)=>state.searchDisplay)
+    const setSearchDisplay = useStore((state:Action)=>state.setSearchDisplay);
+  
+    useEffect(()=>{
+      setSearchDisplay(false);
+    },[])
     return(
+      <>
+      { searchDisplay
+      ?
+      <SearchResultDisplay/>
+      :
         <main className = "column flex">
 		<Header/>
   
@@ -41,7 +52,9 @@ const Account = () =>{
   
           <Footer/>
   
-      </main>
+        </main>
+      }
+      </>
     )
 }
 

@@ -9,7 +9,7 @@ import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import PlaylistHub from "../../components/PlaylistHub"
 import {handleDeleteSong} from "../../hooks/RenderMusicList"
-
+import "react-toastify/dist/ReactToastify.css"
 
 export default function SearchResultsDisplay(){
 
@@ -53,6 +53,7 @@ export default function SearchResultsDisplay(){
         
         <h2>Search Results</h2>
 
+        {searchResults.length?
         <table>
           <thead>
             <tr>
@@ -68,12 +69,15 @@ export default function SearchResultsDisplay(){
             {listOfResults}
           </tbody>
         </table>
+        :
+        <h2>No Results Match Your Search</h2>
+        }
         {/* <PaginatedButtons currentPage = {props.currentPage} setCurrentPage = {(e:number)=>props.setCurrentPage(e)} rowsPerPage={props.rowsPerPage} arrayLength={props.songs.length}/> */}
 
        
             </div>
             </section>
-            <Footer/>
+           <Footer/>
         </main>
     )
 }

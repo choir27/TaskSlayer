@@ -1,5 +1,5 @@
 "use client"
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import {useRouter} from "next/navigation"
 import "../../css/global.css"
 import Header from "../../components/Header"
@@ -7,6 +7,10 @@ import Footer from "../../components/Footer";
 import {Button} from "../../components/Button"
 import {handleSignUp, handleLogin} from "../../hooks/AuthHooks"
 import withNoAuth from "../../middleware/Public"
+import SearchResultsDisplay from "../search/page"
+import {State, Action} from "../../middleware/Type"
+import {useStore} from "../../middleware/Zustand"
+
 
 const NAME_REGEX = /^[a-zA-Z]*$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -25,6 +29,12 @@ const Register = () =>{
   const [validPassword, setValidPassword] = useState(false);
 
   const [authDisplay, setAuthDisplay] = useState(false);
+	const searchDisplay = useStore((state:State)=>state.searchDisplay)
+	const setSearchDisplay = useStore((state:Action)=>state.setSearchDisplay);
+
+	useEffect(()=>{
+		setSearchDisplay(false);
+	},[])
 
   const check = <i className = "fa-solid fa-check"></i>
   const cross = <i className = "fa-solid fa-xmark"></i>
@@ -34,7 +44,10 @@ const Register = () =>{
 
   return (
     <>
-        {authDisplay ?
+    {searchDisplay ?
+    <SearchResultsDisplay/>
+      :
+        authDisplay ?
               <main className = "column flex">
               <Header/>
               <section id = "auth" className = "main">
@@ -185,6 +198,7 @@ const Register = () =>{
   
          </main>  
         }
+    
     </>
    
   )

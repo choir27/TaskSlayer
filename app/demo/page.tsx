@@ -1,17 +1,30 @@
 "use client"
-import React from "react"
+import React, {useEffect} from "react"
 import "../../css/global.css"
 import {useRouter} from "next/navigation"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import {handleLogin} from "../../hooks/AuthHooks"
 import withNoAuth from "../../middleware/Public"
+import {State, Action} from "../../middleware/Type"
+import {useStore} from "../../middleware/Zustand"
+import SearchResultsDisplay from "../search/page"
 
 const Login = () => {
 
   const {push} = useRouter();
+	const searchDisplay = useStore((state:State)=>state.searchDisplay)
+	const setSearchDisplay = useStore((state:Action)=>state.setSearchDisplay);
+
+	useEffect(()=>{
+		setSearchDisplay(false);
+	},[])
 
   return (
+    <>
+    {searchDisplay?
+    <SearchResultsDisplay/>
+    :
    <main className = "column flex">
       <Header/>
         <section id = "auth" className = "main">
@@ -54,7 +67,9 @@ const Login = () => {
 
       <Footer/>
 
-    </main>  
+    </main>
+    }
+    </>
   )
 }
 

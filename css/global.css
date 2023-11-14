@@ -298,11 +298,6 @@ a:hover{
 /* Dashboard Table
    ========================================================================== */
 
-
-#tableContainer{
-    overflow-x: auto;
-}
-
 #tableContainer h2{
     font-size: 3rem;
 }

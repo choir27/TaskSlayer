@@ -1,5 +1,5 @@
 "use client"
-import React, {Component, useContext} from "react"
+import React, {Component, useContext, useEffect} from "react"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import GenreSelect from "../../components/GenreSelect"
@@ -8,7 +8,8 @@ import axios from "axios"
 import {UserContext} from "../../middleware/Context"
 import "../../css/global.css"
 import {useRouter} from "next/navigation"
-
+import {useStore} from "../../middleware/Zustand"
+import SearchResultsDisplay from "../search/page"
 
 class AddAudio extends Component{
     constructor(props) {
@@ -102,6 +103,11 @@ class AddAudio extends Component{
     render(){
 
         return(
+        <>
+        {this.props.searchDisplay
+        ?
+        <SearchResultsDisplay/>
+        :
         <main className = "column flex">
               <Header/>
 
@@ -164,6 +170,8 @@ class AddAudio extends Component{
 
               <Footer/>
         </main>
+        }
+        </>
         )
     }
 }
@@ -172,7 +180,14 @@ const PostAudio = () =>{
     const userContext = useContext(UserContext);
     const {push} = useRouter();
 
-    return <AddAudio userContext = {userContext} push = {push}/>
+    const searchDisplay = useStore((state)=>state.searchDisplay)
+	const setSearchDisplay = useStore((state)=>state.setSearchDisplay);
+
+	useEffect(()=>{
+		setSearchDisplay(false);
+	},[])
+
+    return <AddAudio searchDisplay = {searchDisplay} userContext = {userContext} push = {push}/>
 }
 
 export default PostAudio

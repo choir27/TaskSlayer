@@ -1,8 +1,8 @@
-import {useRouter} from "next/navigation"
 import {Button} from "./Button"
 import {State, Action} from "../middleware/Type"
 import {Audio, ListOfSongs} from "../middleware/Interface"
 import {useStore} from "../middleware/Zustand"
+import {toast} from "react-toastify"
 
 export default function Search(){
 
@@ -11,7 +11,7 @@ export default function Search(){
     const setSearchResults = useStore((state: Action)=> state.setSearchResults);
     const songs = useStore((state:State)=>state.song);
     const playlists = useStore((state:State)=>state.listOfSongs);
-    const {push} = useRouter();
+    const setSearchDisplay = useStore((state:Action)=>state.setSearchDisplay);
 
     function handleSearch(){
 
@@ -39,9 +39,13 @@ export default function Search(){
             
         })
 
-        setSearchResults(searchResults);
+        if(!searchResults.length){
+            console.log("No Results Match Your Search");
+            toast.error("No Results Match Your Search");        
+        }
 
-        push("/search")  
+        setSearchResults(searchResults);
+        setSearchDisplay(true);
     }
 
     return(

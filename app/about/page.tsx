@@ -3,10 +3,26 @@ import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import MusicPlayer from "../../components/MusicPlayer"
 import "../../css/global.css"
+import {useStore} from "../../middleware/Zustand"
+import {State, Action} from "../../middleware/Type"
+import SearchResultsDisplay from "../search/page"
+import {useEffect} from "react"
 
 const About = () => {
 
+	const searchDisplay = useStore((state:State)=>state.searchDisplay)
+	const setSearchDisplay = useStore((state:Action)=>state.setSearchDisplay);
+
+	useEffect(()=>{
+		setSearchDisplay(false);
+	},[])
+
   return (
+    <>
+    {
+      searchDisplay ?
+      <SearchResultsDisplay/>
+      :
     <main className = "column flex">
 		<Header/>
 
@@ -23,6 +39,8 @@ const About = () => {
 
         <Footer/>
     </main>
+    }
+    </>
   )
 }
 

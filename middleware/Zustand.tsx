@@ -45,6 +45,16 @@ export const useStore = create(
                 )
             )
         },
+        searchDisplay: false,
+        setSearchDisplay: (searchDisplay: boolean)=>{
+            set(
+                produce(
+                    (state: State)=>{
+                        state.searchDisplay = searchDisplay
+                    }
+                )
+            )
+        },
         songDisplay: false,
         setSongDisplay: (songDisplay: boolean)=>{
             set(
