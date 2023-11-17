@@ -1,16 +1,26 @@
-# EchoVerse
+# EchoStream
 
-Taking the foundations created by this repository, https://github.com/choir27/Illya-Site, this project strives to take the Illya website and not only improve the UI, but also apply React elements to various aspects of the web application and change the web application intentions and content to better suit the music theme.
+Taking the foundations started by the Illya Site and the improvements made by Kpop Wired, EchoStream strives to take everything I have learned so far and apply my current knowledge to implement the functionalities and components of the application.
 
 <a href = "https://echostream.netlify.app/">
-<img width="946" alt="Screenshot 202<img width="941" alt="Screenshot 2023-04-13 154133" src="https://user-images.githubusercontent.com/66279068/231866114-5a8c6cf0-ac63-4ee6-8413-b4bab52aeb74.png">
+ 
+ ![echostream](https://github.com/choir27/EchoStream/assets/66279068/c98a1dd1-e1e8-4470-a1f3-84744de91da2)
+ 
 </a>
 
 <div align = "center"><a href = "https://echostream.netlify.app/">Check out the website!</a></div>
 
-## How It's Made: Tech used: React, jsx, Node
+Kpop Wired Home Screen UI:
 
-I retrieved all audio and playlist posts from a separate backend API and used state to dynamically render the fetched data so that the JSX elements could load the updated data. To register/sign in users, I sent the user data using fetch and headers, utilizing the same database. With the help of React Outlet, I created private routes to authenticate those users. Additionally, I implemented a feature that enables logged-in users not only to listen to music tracks but also to add songs from any user to their created playlists.  I also implemented a feature that ensures that when a user removes a song from a playlist, the song is not deleted but simply removed from the playlist.  Additionally, I made it so that when the user posts an audio file, there is a loading text before the POST request finishes.
+<img width="941" alt="kpopwired" src="https://github.com/choir27/EchoStream/assets/66279068/12a746b3-a3a2-458b-8684-ae230e454d4c">
+
+Illya Site Home Screen UI:
+
+![illya](https://github.com/choir27/EchoStream/assets/66279068/a62001f2-c47e-471e-959a-f67ecd93fcf7)
+
+## How It's Made: Tech used: Next, TypeScript, Appwrite
+
+I retrieved all audio and playlist posts from a separate backend API that I created (https://github.com/choir27/echoverse-backend) and used Zustand state to dynamically render the fetched data so that the JSX elements could load the updated data. To register/sign in users, I sent the user data using the AppWrite function methods.  Additionally, I implemented a feature that enables logged-in users not only to edit the music tracks, but also to add songs from any user to their created playlists.  I also implemented a feature that ensures that when a user removes a song from a playlist, the song is not deleted but simply removed from the playlist.  Additionally, I made it so that when the user posts an audio file, there is a loading text before the POST request finishes.
 
  ## Optimizations 
  
