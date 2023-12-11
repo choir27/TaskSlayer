@@ -2,469 +2,561 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 /* General
    ========================================================================== */
-   *, *:before, *:after{
-    box-sizing: inherit;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
 }
 
-li{
-    list-style: none;
+li {
+  list-style: none;
 }
 
-svg, a{
-    color: black;
-}   
-
-body, #root{
-    min-height: 100vh;
+svg,
+a {
+  color: black;
 }
 
-.image{
-    width: 50%;
-    margin-top: 2rem;
+body,
+#root {
+  min-height: 100vh;
 }
 
-img{
-    width: 100%;
+.image {
+  width: 50%;
+  margin-top: 2rem;
+}
+
+img {
+  width: 100%;
 }
 /* Layout
    ========================================================================== */
-.hidden{
-    display: none;
+.hidden {
+  display: none;
 }
 
-#menu{
-    display: none;
+#menu {
+  display: none;
 }
 
-.flex{
-    display: flex;
+.flex {
+  display: flex;
 }
 
-.column{
-    flex-direction: column;
+.column {
+  flex-direction: column;
 }
 
-.justifyContent{
-    justify-content: center;
+.justifyContent {
+  justify-content: center;
 }
 
-.alignItems{
-    align-items: center;
+.alignItems {
+  align-items: center;
 }
 
-.justifyBetween{
-    justify-content: space-between;
+.justifyBetween {
+  justify-content: space-between;
 }
 
-.spaceEvenly{
-    justify-content: space-evenly;
+.spaceEvenly {
+  justify-content: space-evenly;
 }
 
-.spaceAround{
-    justify-content: space-around;
+.spaceAround {
+  justify-content: space-around;
 }
 
-.alignStart{
-    align-items: flex-start;
+.alignStart {
+  align-items: flex-start;
 }
 
-main{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0rem 5rem; 
-    min-height: 80vh;    
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0rem 5rem;
+  min-height: 80vh;
 }
 
-.main{
-    min-width: 80vw;
-    max-width: 80vw;
-    min-height: 30vh;
-    padding: 2.5rem;
-    border-radius: 5px;
-    margin-top: 4rem;
-    background: white;
+.main {
+  min-width: 80vw;
+  max-width: 80vw;
+  min-height: 30vh;
+  padding: 2.5rem;
+  border-radius: 5px;
+  margin-top: 4rem;
+  background: white;
 }
-
 
 /* Footer
    ========================================================================== */
 
-small{
-    align-self: flex-start;
-    padding: 2rem 0;
+small {
+  align-self: flex-start;
+  padding: 2rem 0;
 }
 
-
-footer nav, footer .icons{
-    justify-content: space-between;
+footer nav,
+footer .icons {
+  justify-content: space-between;
 }
 
-footer .icons{
-    padding-top: .5rem;
-    width: 20%;
-    height: 100%;
-    align-items: center;
+footer .icons {
+  padding-top: 0.5rem;
+  width: 20%;
+  height: 100%;
+  align-items: center;
 }
 
-footer nav, footer{
-    width: 100%;
+footer nav,
+footer {
+  width: 100%;
 }
 
-footer{
-    padding: 1rem 0rem 2rem 0rem;
+footer {
+  padding: 1rem 0rem 2rem 0rem;
 }
 
-footer small, footer .icons li a{
-    color: white;
+footer small,
+footer .icons li a {
+  color: white;
 }
 
-footer .icons li a:hover{
-    color:rgba(255, 255, 255, 0.5);
+footer .icons li a:hover {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* Header
    ========================================================================== */
 
-h1{
-    text-align: center;
-    font-size: 4rem;
-    padding-bottom: 1.5rem;
+h1 {
+  text-align: center;
+  font-size: 4rem;
+  padding-bottom: 1.5rem;
 }
 
-h3{
-    font-size: 2.5rem;
+h3 {
+  font-size: 2.5rem;
 }
 
-header{
-    width: 100%;
-    margin-top: 2rem;
-    padding: 1rem 0 0 1rem;
-    border-radius: 5px;
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5);
+header {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 1rem 0 0 1rem;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5);
 }
 
-body{
-    background: no-repeat url("background.png") center/cover;
+body {
+  background: no-repeat url("background.png") center/cover;
 }
 
-header i, header a, header small{
-    color: white;
-} 
-
-nav ul li, .social, nav ul{
-    padding-bottom: 1rem;
+header i,
+header a,
+header small {
+  color: white;
 }
 
-nav ul li a{
-    font-size: 2rem;
+nav ul li,
+.social,
+nav ul {
+  padding-bottom: 1rem;
 }
 
-header nav{
-    align-items: center;
+nav ul li a {
+  font-size: 2rem;
 }
 
-.navBar{
-    justify-content: space-around;
-    width: 100%;
+header nav {
+  align-items: center;
 }
 
-.social{
-    display: flex;
-    justify-content: space-between;
-    width: 40%;
+.navBar {
+  justify-content: space-around;
+  width: 100%;
 }
 
-a:hover{
-    color: #9b9fa4;
+.social {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
 }
 
+a:hover {
+  color: #9b9fa4;
+}
 
 /* Home
    ========================================================================== */
 
-
 /* Player
    ========================================================================== */
 
-#player .playerInfo h3{
-    font-size: 2rem;
-    padding-bottom: .5rem;
+#player .playerInfo h3 {
+  font-size: 2rem;
+  padding-bottom: 0.5rem;
 }
 
-#player .playerInfo h2{
-    font-size: 2.5rem;
-    padding-bottom: 1rem;   
+#player .playerInfo h2 {
+  font-size: 2.5rem;
+  padding-bottom: 1rem;
 }
 
-#player .playerInfo{
-    padding-bottom: 1rem;
+#player .playerInfo {
+  padding-bottom: 1rem;
 }
 
-#player .rhap_container{
-    box-shadow: 2px 2px 2px 2px rgb(193, 183, 183, .65);
+#player .rhap_container {
+  box-shadow: 2px 2px 2px 2px rgb(193, 183, 183, 0.65);
 }
 
-#player{
-    padding-bottom: 2rem;
-    margin-bottom: 1rem;
-    border-bottom:2px solid #eeeeee;
+#player {
+  padding-bottom: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #eeeeee;
 }
-
 
 /* Dashboard
    ========================================================================== */
 
-.button{
-    background-color: transparent;
-    box-shadow: inset 0 0 0 2px #212931;
-    transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
-    border: 0;
-    border-radius: 0;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Source Sans Pro", Helvetica, sans-serif;
-    font-size: 0.8rem;
-    font-weight: 900;
-    letter-spacing: 0.075em;
-    height: 3rem;
-    line-height: 3rem;
-    padding: 0 1.5rem;
-    text-align: center;
-    text-transform: uppercase;
-    white-space: nowrap;
+.button {
+  background-color: transparent;
+  box-shadow: inset 0 0 0 2px #212931;
+  transition:
+    background-color 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out,
+    color 0.2s ease-in-out;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.075em;
+  height: 3rem;
+  line-height: 3rem;
+  padding: 0 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.button:hover{
-    box-shadow: inset 0 0 0 2px #9b9fa4;
-    color: white;
-    background: black;
+.button:hover {
+  box-shadow: inset 0 0 0 2px #9b9fa4;
+  color: white;
+  background: black;
 }
 
-#dashboard .pagination{
-    padding-bottom: 2rem;
+#dashboard .pagination {
+  padding-bottom: 2rem;
 }
 
 /* Dashboard Table
    ========================================================================== */
 
-#tableContainer h2{
-    font-size: 3rem;
+#tableContainer h2 {
+  font-size: 3rem;
 }
 
-table{
-    width: 100%;
-    margin-bottom: 2rem;
-    border-collapse: collapse;
-    border-spacing: 0;
+table {
+  width: 100%;
+  margin-bottom: 2rem;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
-table thead{
-    border-bottom: 2px solid #eeeeee;
+table thead {
+  border-bottom: 2px solid #eeeeee;
 }
 
-table thead tr th{
-    font-size: 1.5rem;
-    font-family: "Source Sans Pro", Helvetica, sans-serif;
-    font-weight: 900;
-    letter-spacing: 0,075em;
-    line-height: 1.5;
-    padding: 0 0.75rem 0.75rem 0.75rem;
-    text-align: left;
-    text-transform: uppercase;
+table thead tr th {
+  font-size: 1.5rem;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-weight: 900;
+  letter-spacing: 0, 075em;
+  line-height: 1.5;
+  padding: 0 0.75rem 0.75rem 0.75rem;
+  text-align: left;
+  text-transform: uppercase;
 }
 
-table tbody tr:nth-child(2n + 1){
-    background-color: rgba(220, 220, 220, 0.25);
+table tbody tr:nth-child(2n + 1) {
+  background-color: rgba(220, 220, 220, 0.25);
 }
 
-table td{
-    padding: 0.75rem;
+table td {
+  padding: 0.75rem;
 }
 
-table tbody tr{
-    border: 1px solid #eeeeee;
-    border-left: 0;
-    border-right: 0;
+table tbody tr {
+  border: 1px solid #eeeeee;
+  border-left: 0;
+  border-right: 0;
 }
-
 
 /* About
    ========================================================================= */
 
-#about p{
-    font-size: 2rem;
-    line-height: 3.5rem;
+#about p {
+  font-size: 2rem;
+  line-height: 3.5rem;
 }
 
 /* Add
    ========================================================================= */
-#add form div label, #add form div span{
-    margin-bottom: 1rem;
+#add form div label,
+#add form div span {
+  margin-bottom: 1rem;
 }
 
-#add form div span{
-    font-size: 2rem;
+#add form div span {
+  font-size: 2rem;
 }
 
-#add form{
-    padding: 2rem;
+#add form {
+  padding: 2rem;
 }
 
-#add .button{
-    width: 60%; 
+#add .button {
+  width: 60%;
 }
 
-input, #add select{
-    font-family: "Merriweather", Georgia, serif;
-    font-weight: 300;
-    font-size: 1rem;
-    line-height: 2.375;
+input,
+#add select {
+  font-family: "Merriweather", Georgia, serif;
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 2.375;
 }
 
-#add .inputs{
-    width: 50%;
-    margin-bottom: 2rem;
+#add .inputs {
+  width: 50%;
+  margin-bottom: 2rem;
 }
 /* Auth
    ========================================================================= */
 
-    #auth h1{
-        text-align: left;
-    }
+#auth h1 {
+  text-align: left;
+}
 
-   #auth form div{
-    width: 60%;
-    margin-bottom: 2rem;
-   }
+#auth form div {
+  width: 60%;
+  margin-bottom: 2rem;
+}
 
-   #login div{
-    width: 100%;
-   }
+#login div {
+  width: 100%;
+}
 
-   #auth form div label{
-    font-size: 2rem;
-    margin-bottom: .5rem;
-    justify-content: flex-start;
-   }
+#auth form div label {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  justify-content: flex-start;
+}
 
-   #auth div input{
-    font-size: 1rem;
-    width: 100%;
-    padding: .8rem 2rem;
-   }
+#auth div input {
+  font-size: 1rem;
+  width: 100%;
+  padding: 0.8rem 2rem;
+}
 
-   #login div input{
-    width: auto;
-   }
+#login div input {
+  width: auto;
+}
 
-   #auth form{
-    width: 50%;
-    padding-top: 1rem;
-   }
+#auth form {
+  width: 50%;
+  padding-top: 1rem;
+}
 
-   #auth #login form{
-    width:100%;
-   }
+#auth #login form {
+  width: 100%;
+}
 
-   #auth .existingAccount h2{
-    font-size: 2rem;
-    padding-bottom: 1rem;
-   }
+#auth .existingAccount h2 {
+  font-size: 2rem;
+  padding-bottom: 1rem;
+}
 
+#auth,
+#auth div {
+  width: 100%;
+}
 
-   #auth, #auth div{
-    width: 100%;
-   }
-
-   #auth .authContainer{
-    justify-content: space-between;
-    display: flex;
-    align-items: center;
-    width: 100%;
+#auth .authContainer {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 /* Account
    ========================================================================= */
-#playlist .fa-plus, #playlist .fa-xmark{
-    font-size: 1rem;
+#playlist .fa-plus,
+#playlist .fa-xmark {
+  font-size: 1rem;
 }
 
-#playlist{
-    position: relative;
+#playlist {
+  position: relative;
 }
 
-#playlist form{
-    background: black;
-    padding: 2rem;
-    z-index: 1;
-    position: absolute;
+#playlist form {
+  background: black;
+  padding: 2rem;
+  z-index: 1;
+  position: absolute;
 }
 
-#playlist .black{
-    background: black;
-    color: white;
+#playlist .black {
+  background: black;
+  color: white;
 }
 
-#playlist .button{
-    z-index: 0;
-    position: relative;
+#playlist .button {
+  z-index: 0;
+  position: relative;
 }
 
-#playlist form .button{
-    color: white;
+#playlist form .button {
+  color: white;
 }
 
-#playlist form .button{
-    border: 2px solid white;
+#playlist form .button {
+  border: 2px solid white;
 }

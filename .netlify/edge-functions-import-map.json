@@ -1,1 +1,7 @@
-{"imports":{"@netlify/edge-functions":"https://edge.netlify.com/v1/index.ts","netlify:edge":"https://edge.netlify.com/v1/index.ts?v=legacy"},"scopes":{}}
+{
+  "imports": {
+    "@netlify/edge-functions": "https://edge.netlify.com/v1/index.ts",
+    "netlify:edge": "https://edge.netlify.com/v1/index.ts?v=legacy"
+  },
+  "scopes": {}
+}

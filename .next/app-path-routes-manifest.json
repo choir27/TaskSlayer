@@ -1,1 +1,11 @@
-{"/_not-found":"/_not-found","/page":"/","/account/page":"/account","/demo/page":"/demo","/about/page":"/about","/editPlaylist/[id]/page":"/editPlaylist/[id]","/addAudio/page":"/addAudio","/login/page":"/login","/search/page":"/search"}
+{
+  "/_not-found": "/_not-found",
+  "/page": "/",
+  "/account/page": "/account",
+  "/demo/page": "/demo",
+  "/about/page": "/about",
+  "/editPlaylist/[id]/page": "/editPlaylist/[id]",
+  "/addAudio/page": "/addAudio",
+  "/login/page": "/login",
+  "/search/page": "/search"
+}
