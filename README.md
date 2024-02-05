@@ -32,7 +32,7 @@ EchoStream Home Screen UI:
 
 ![echostream](https://github.com/choir27/EchoStream/assets/66279068/c98a1dd1-e1e8-4470-a1f3-84744de91da2)
 
-## How It's Made: Tech used: Next, TypeScript, Appwrite
+## How It's Made: Tech used: Next, TypeScript, React, Appwrite, Cloudinary
 
 I retrieved all audio and playlist posts from a separate backend API that I created (https://github.com/choir27/echoverse-backend) and used Zustand state to dynamically render the fetched data so that the JSX elements could load the updated data. To register/sign in users, I sent the user data using the AppWrite function methods. Additionally, I implemented a feature that enables logged-in users not only to edit the music tracks, but also to add songs from any user to their created playlists. I also implemented a feature that ensures that when a user removes a song from a playlist, the song is not deleted but simply removed from the playlist. Additionally, I made it so that when the user posts an audio file, there is a loading text before the POST request finishes.
 
@@ -46,4 +46,4 @@ I discovered the importance of constantly improving, and looking back at how I u
 
 ## Examples:
 
-Take a look at these couple examples that I have in my own portfolio: The Real Estate Beast https://therealestatebeast.netlify.app/ Auto Aligners https://autoaligners.netlify.app/
+Take a look at these couple examples that I have in my own portfolio:  Priconnect https://priconnect.netlify.app/ Auto Aligners https://autoaligners.netlify.app/
