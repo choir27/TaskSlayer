@@ -12,7 +12,7 @@ export default function RootLayout({
       <title>EchoStream</title>
     </head>
     <body>
-      
+      {children}
     </body>
   </html>
   );
