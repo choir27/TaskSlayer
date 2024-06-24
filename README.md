@@ -46,4 +46,4 @@ I discovered the importance of constantly improving, and looking back at how I u
 
 ## Examples:
 
-Take a look at these couple examples that I have in my own portfolio: Priconnect https://priconnect.netlify.app/ Auto Aligners https://autoaligners.netlify.app/
+Take a look at these couple examples that I have in my own portfolio:  Priconnect https://priconnect.netlify.app/ Auto Aligners https://autoaligners.netlify.app/
