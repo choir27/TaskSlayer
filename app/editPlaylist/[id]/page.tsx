@@ -10,7 +10,7 @@ import SearchResultsDisplay from "../../search/page";
 import { State, Action } from "../../../middleware/Type";
 import { useStore } from "../../../middleware/Zustand";
 
-export default function GetServerSideProps(ctx) {
+export default function GetPlaylist(ctx) {
   const userId = ctx.params;
   const searchDisplay = useStore((state: State) => state.searchDisplay);
   const setSearchDisplay = useStore((state: Action) => state.setSearchDisplay);
