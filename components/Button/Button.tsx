@@ -1,9 +1,30 @@
 import React from 'react';
 import './button.css';
+import { cn } from "../../utils/utils"
+import { cva } from "class-variance-authority"
 
-const variants = {
-  'primary': 'color-white'
-}
+const buttonVariants = cva(["font-semibold", "border", "rounded"], {
+  variants: {
+    variant: {
+      primary: [
+        "bg-blue-500",
+        "text-white",
+        "border-transparent",
+        "hover:bg-blue-600",
+      ],
+      secondary: [
+        "bg-white",
+        "text-gray-800",
+        "border-gray-400",
+        "hover:bg-gray-100",
+      ],
+    },
+    size: {
+      small: ["text-sm", "py-1", "px-2"],
+      medium: ["text-base", "py-2", "px-4"],
+    },
+  },
+});
 
 interface ButtonProps {
   variant?: string;
@@ -23,15 +44,10 @@ export const Button = ({
   return (
     <button
       type="button"
-      className={''}
+      className={cn(buttonVariants)}
       {...props}
     >
       {label}
-      <style jsx>{`
-        button {
-          background-color: ${backgroundColor};
-        }
-      `}</style>
     </button>
   );
 };
